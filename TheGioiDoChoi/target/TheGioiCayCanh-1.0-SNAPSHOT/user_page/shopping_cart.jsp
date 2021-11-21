@@ -61,8 +61,8 @@
                             <c:set var="p" value="${ci.price}"></c:set>
                             <c:set var="total" value="${ci.totalPrice}"></c:set>
                             <td class="shoping__cart__item">
-                                <img src="${ci.img}" alt="">
-                                <h5>${ci.name}</h5>
+                                <a  href="shop-detail?id=${ci.id}"><img src="${ci.img}" alt=""></a>
+                                <a  href="shop-detail?id=${ci.id}"><h5>${ci.name}</h5></a>
                             </td>
                             <td class="shoping__cart__price">
 
@@ -141,7 +141,50 @@
         </div>
     </div>
 </section>
+<!-- Related Product Section Begin -->
+<section class="related-product">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title related__product__title">
+                    <h2>Bạn có thể thích</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <c:forEach items="${loveableproducts}" var="rl">
+                <c:set var="price" value="${rl.price}"></c:set>
+                <c:set var="pricesale" value="${rl.price_sale}"></c:set>
+                <%--                <%= Util.formatCurrency((double)pageContext.getAttribute("pricesale")) %>--%>
+                <%--                <%= Util.formatCurrency((double)pageContext.getAttribute("price")) %>--%>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="${rl.img}">
+                            <ul class="product__item__pic__hover">
+                                    <%--                            <li><a href="#"><i class="fa fa-money"></i></a></li>--%>
+                                    <%--                            <c:if test="${sessionScope.user_id!=null}">--%>
+                                    <%--                            <li><a href="#"><i class="fa fa-heart"></i></a></li>--%>
+                                    <%--                            </c:if>--%>
+                                    <%--                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>--%>
 
+                                <li class="fast-checkout cursor-pointer" data-pro_id="${rl.id}"><a ><i class="fa fa-money"></i></a></li>
+                                <c:if test="${sessionScope.user_id!=null}">
+                                    <li class="addFa cursor-pointer" data-current_page="shop-detail" data-pro_id="${rl.id}"><a><i class="fa fa-heart"></i></a></li>
+                                </c:if>
+                                <li class="addCart cursor-pointer" data-current_page="shop-detail" data-pro_id="${rl.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6><a href="shop-detail?id=${rl.id}">${rl.name}</a></h6>
+                            <h5><%= Util.formatCurrency((double)pageContext.getAttribute("pricesale")) %> <span> <%= Util.formatCurrency((double)pageContext.getAttribute("pricesale")) %> </span></h5>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+</section>
+<!-- Related Product Section End -->
 <jsp:include page="footer.jsp"></jsp:include>
 <!-- Js Plugins -->
 <script src="user_page/js/jquery-3.3.1.min.js"></script>
