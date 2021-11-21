@@ -16,8 +16,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>${title}</title>
     <link href="${applicationScope.header.shortcut}" rel="shortcut icon">
-    <!-- Css Styles -->
-    <!-- Css Styles -->
     <link rel="stylesheet" href="user_page/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/elegant-icons.css" type="text/css">
@@ -37,192 +35,243 @@
 >
 <jsp:include page="Menu.jsp"></jsp:include>
 <jsp:include page="search_bar.jsp"></jsp:include>
+
+<%-- Product details begin--%>
+<%-- Details begin --%>
+<section class="product-details" style="margin-top: 40px">
+    <div class="container">
+        <div class="row  mb--60">
+            <div class="col-lg-5 mb--30">
+                <div class="product-imgs">
+                    <div class="img-display">
+                        <div class="img-showcase">
+                            <img class="zoom" src="${product.img}">
+                            <img src="${product.img}">
+                            <img src="${product.img}">
+                            <img src="${product.img}">
+                        </div>
+                    </div>
+                    <div class="img-select">
+                        <div class="img-item">
+                            <a href="#" data-id="1">
+                                <img  src="${product.img}">
+                            </a>
+                        </div>
+                        <div class="img-item">
+                            <a href="#" data-id="1">
+                                <img src="${product.img}">
+                            </a>
+                        </div>
+                        <div class="img-item">
+                            <a href="#" data-id="1">
+                                <img src="${product.img}">
+                            </a>
+                        </div>
+                        <div class="img-item">
+                            <a href="#" data-id="1">
+                                <img src="${product.img}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="product-content">
+                    <h2 class="product-title ">${product.name}</h2>
+                    <div class="product-detail">
+                        <div>Thương hiệu<span>Make it real</span></div>
+                        <div>Mã sản phẩm<span>SKU 2506MIR</span></div>
+                        <div>Tình trạng<span><c:if test="${product.active}">Còn hàng</c:if><c:if test="${!product.active}">Hết hàng</c:if></span></div>
+                    </div>
+                    <div class="product-price">
+                        <c:set var="price" value="${product.price}"></c:set>
+                        <c:set var="pricesale" value="${product.price_sale}"></c:set>
+                        <p class="last-price "><%= Util.formatCurrency((double)pageContext.getAttribute("pricesale")) %>
+                            <span class="sale-price"><%= Util.formatCurrency((double)pageContext.getAttribute("price")) %></span></p>
+                    </div>
+                    <div class="product-rating">
+                        <c:if test="${proavgstar.avgstar==5}">
+                            <div class="product__details__rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <span>(${procountcomment.contcomment} bình luận)</span>
+                            </div>
+                        </c:if>
+                        <c:if test="${proavgstar.avgstar==4}">
+                            <div class="product__details__rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <span>(${procountcomment.contcomment} bình luận)</span>
+                            </div>
+                        </c:if>
+                        <c:if test="${proavgstar.avgstar==3}">
+                            <div class="product__details__rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <span>(${procountcomment.contcomment} bình luận)</span>
+                            </div>
+                        </c:if>
+                        <c:if test="${proavgstar.avgstar==2}">
+                            <div class="product__details__rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <span>(${procountcomment.contcomment} bình luận)</span>
+                            </div>
+                        </c:if>
+                        <c:if test="${proavgstar.avgstar==1}">
+                            <div class="product__details__rating">
+                                <i class="fa fa-star"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <span>(${procountcomment.contcomment} bình luận)</span>
+                            </div>
+                        </c:if>
+                        <c:if test="${proavgstar.avgstar>1&&proavgstar.avgstar<2}">
+                            <div class="product__details__rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-half-o"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <span>(${procountcomment.contcomment} bình luận)</span>
+                            </div>
+                        </c:if>
+                        <c:if test="${proavgstar.avgstar>2&&proavgstar.avgstar<3}">
+                            <div class="product__details__rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-half-o"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <span>(${procountcomment.contcomment} bình luận)</span>
+                            </div>
+                        </c:if>
+                        <c:if test="${proavgstar.avgstar>3&&proavgstar.avgstar<4}">
+                            <div class="product__details__rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-half-o"></i>
+                                <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                <span>(${procountcomment.contcomment} bình luận)</span>
+                            </div>
+                        </c:if>
+                        <c:if test="${proavgstar.avgstar>4&&proavgstar.avgstar<5}">
+                            <div class="product__details__rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-half-o"></i>
+                                <span>(${procountcomment.contcomment} bình luận)</span>
+                            </div>
+                        </c:if>
+                    </div>
+                    <div class="product-detail-short">
+                        <p>Hàng chính hãng, chứng nhận an toàn.
+                            Miễn phí giao hàng toàn quốc cho đơn trên 400.000 VNĐ</p>
+                    </div>
+                    <div class="product-type">
+                        <div class="type-title">Loại</div>
+                        <div class="type-button product-variation">
+                            <button type="button" class="btn btn-outline-primary">Màu vàng</button>
+                        </div>
+                        <div class="type-button product-variation">
+                            <button type="button" class="btn btn-outline-primary">Màu vàng</button>
+                        </div>
+                    </div>
+                    <div class="product-purchase">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-5 col-sm-4">
+                                <div class="product-quantity">
+                                    <span class="decrease quantity-btn">-</span>
+                                    <input type="number" value="1">
+                                    <span class="increase quantity-btn">+</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-sm-8">
+                                <div class="product-cart">
+                                    <button type="button" class="btn-cart" data-current_page="shop-detail" data-pro_id="${id}">
+                                        Thêm vào giỏ hàng
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb--60">
+            <div class="col-lg-12">
+                <div class="supplier-summary">
+                    <div class="supplier-avatar">
+                        <img src="https://wx3.sinaimg.cn/mw2000/007e4nGQly1gwlrpxonjbj328e334kju.jpg">
+                    </div>
+                    <div class="supplier-detail">
+                        <div class="supplier-infor">
+                            <div class="supplier-name">Rainbow4399</div>
+                            <div class="supplier-product">Sản phẩm: <span>304</span></div>
+                        </div>
+                        <button class="btn btn-outline-primary btn-supplier"><i class="fas fa-store-alt"></i>Nhà cung cấp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<%-- Details end --%>
+<%-- Product details end--%>
 <!-- Product Details Section Begin -->
-<section class="product-details spad">
+<section class="product-details">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-md-6">
-                <div class="product__details__pic">
-                    <div class="product__details__pic__item">
-                        <img class="product__details__pic__item--large"
-                             src="${product.img}" alt="">
-                    </div>
-                    <div class="product__details__pic__slider owl-carousel">
-                        <img data-imgbigurl="img/product/details/product-details-1_1.jpg"
-                             src="img/product/details/thumb-1_1.jpg" alt="">
-                        <img data-imgbigurl="img/product/details/product-details-1_2.jpg"
-                             src="img/product/details/thumb-1_2.jpg" alt="">
-                        <img data-imgbigurl="img/product/details/product-details-1_3.jpg"
-                             src="img/product/details/thumb-1_3.jpg" alt="">
-                        <img data-imgbigurl="img/product/details/product-details-1_4.jpg"
-                             src="img/product/details/thumb-1_4.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="product__details__text">
-                    <c:set var="price" value="${product.price}"></c:set>
-                    <c:set var="pricesale" value="${product.price_sale}"></c:set>
-                    <h3>${product.name}</h3>
-<%--                    <div class="product__details__rating">--%>
-<%--                        <i class="fa fa-star"></i>--%>
-<%--                        <i class="fa fa-star"></i>--%>
-<%--                        <i class="fa fa-star"></i>--%>
-<%--                        <i class="fa fa-star"></i>--%>
-<%--                        <i class="fa fa-star-half-o"></i>--%>
-
-<%--                        <span>(${procountcomment.contcomment} bình luận)</span>--%>
-<%--                    </div>--%>
-                    <c:if test="${proavgstar.avgstar==5}">
-                        <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <span>(${procountcomment.contcomment} bình luận)</span>
-                        </div>
-                    </c:if>
-                    <c:if test="${proavgstar.avgstar==4}">
-                        <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <span>(${procountcomment.contcomment} bình luận)</span>
-                        </div>
-                    </c:if>
-                    <c:if test="${proavgstar.avgstar==3}">
-                        <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <span>(${procountcomment.contcomment} bình luận)</span>
-                        </div>
-                    </c:if>
-                    <c:if test="${proavgstar.avgstar==2}">
-                        <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <span>(${procountcomment.contcomment} bình luận)</span>
-                        </div>
-                    </c:if>
-                    <c:if test="${proavgstar.avgstar==1}">
-                        <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <span>(${procountcomment.contcomment} bình luận)</span>
-                        </div>
-                    </c:if>
-                    <c:if test="${proavgstar.avgstar>1&&proavgstar.avgstar<2}">
-                        <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <span>(${procountcomment.contcomment} bình luận)</span>
-                        </div>
-                    </c:if>
-                    <c:if test="${proavgstar.avgstar>2&&proavgstar.avgstar<3}">
-                        <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <span>(${procountcomment.contcomment} bình luận)</span>
-                        </div>
-                    </c:if>
-                    <c:if test="${proavgstar.avgstar>3&&proavgstar.avgstar<4}">
-                        <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
-                            <span>(${procountcomment.contcomment} bình luận)</span>
-                        </div>
-                    </c:if>
-                    <c:if test="${proavgstar.avgstar>4&&proavgstar.avgstar<5}">
-                        <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <span>(${procountcomment.contcomment} bình luận)</span>
-                        </div>
-                    </c:if>
-
-                    <div class="product__details__price"><%= Util.formatCurrency((double)pageContext.getAttribute("pricesale")) %><span><%= Util.formatCurrency((double)pageContext.getAttribute("price")) %></span> </div>
-                    <!-- <div class="product__item__price">110.000 VNĐ <span>130.000 VNĐ</span></div>(-15%) -->
-                    <!-- <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
-                        vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
-                        quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p> -->
-
-                    <a  class="addCart cursor-pointer primary-btn" data-current_page="shop-detail" data-pro_id="${id}" style="background-color: #7fad3926;color: #7fad39;border: 1px solid  #7fad39;"><i style="color: #7fad39 ;font-size: 15px;" class="fa fa-cart-plus"></i>THÊM VÀO GIỎ HÀNG</a>
-                    <a  class="fast-checkout cursor-pointer primary-btn" data-pro_id="${id}">MUA NGAY</a>
-                    <c:if test="${sessionScope.user_id!=null}">
-                    <a class="addFa cursor-pointer heart-icon" data-current_page="shop-detail" data-pro_id="${id}"><span class="icon_heart_alt"></span></a>
-                    </c:if>
-                        <ul>
-                        <li><b>Trình trạng hàng</b> <span><c:if test="${product.active}">Còn hàng</c:if><c:if test="${!product.active}">Hết hàng</c:if></span></li>
-<%--                        <li><b>Giao hàng</b> <span>Giao hàng trong ngày. <samp>Miễn phí vận chuyển</samp></span></li>--%>
-                        <li><b>Thông tin sản phẩm</b> <span>${product.description}
-<%--                        <li><b>Cân nặng</b> <span>0.5 kg</span></li>--%>
-<%--                        <li><b>Chia sẻ</b>--%>
-<%--                            <div class="share">--%>
-<%--                                <a href="${applicationScope.social_media.fb}"><i class="fa fa-facebook"></i></a>--%>
-<%--                                <a href="${applicationScope.social_media.in}"><i class="fa fa-instagram"></i></a>--%>
-<%--                                <a href="${applicationScope.social_media.tw}"><i class="fa fa-twitter"></i></a>--%>
-<%--                                <a href="${applicationScope.social_media.pi}"><i class="fa fa-pinterest-p"></i></a>--%>
-<%--                            </div>--%>
-<%--                        </li>--%>
-                    </ul>
-                </div>
-            </div>
             <div class="col-lg-12">
                 <div class="product__details__tab">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
-                               aria-selected="true">Mô tả sản phẩm</a>
+                               aria-selected="true">Mô tả</a>
                         </li>
-                        <!-- <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-                                aria-selected="false">Information</a>
-                        </li> -->
+                               aria-selected="false">Đánh giá<span>(3)</span></a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                               aria-selected="false">Đánh giá sản phẩm <span>(3)</span></a>
+                                aria-selected="false">Nhà cung cấp</a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
                             <div class="product__details__tab__desc">
-                                <h6>Mô tả sản phẩm</h6>
+                                <h6>Mô tả sản phẩm</h6>
                                 <p>${product.content}</p>
                             </div>
                         </div>
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
                             <div class="product__details__tab__desc">
-                                <h6>Mô tả sản phẩm</h6>
+                                <h6>Đánh giá sản phẩm</h6>
                                 <p>${product.description}</p>
                             </div>
                         </div>
                         <div class="tab-pane" id="tabs-3" role="tabpanel">
                             <div class="product__details__tab__desc">
-                                <h6>Mô tả sản phẩm </h6>
+                                <h6>Nhà cung cấp</h6>
                                 <p>${product.description}</p>
                             </div>
                         </div>
@@ -496,7 +545,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title related__product__title">
-                    <h2>Sản phẩm liên quan</h2>
+                    <h2>Sản phẩm tương tự</h2>
                 </div>
             </div>
         </div>

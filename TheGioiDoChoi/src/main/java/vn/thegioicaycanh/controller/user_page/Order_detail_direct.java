@@ -34,7 +34,7 @@ public class Order_detail_direct extends HttpServlet {
         request.setAttribute("sum",sum);
         request.setAttribute("ship",ship);
         request.setAttribute("total_money",total_money);
-        request.setAttribute("p_list", productList);
+        request.setAttribute("plist", productList);
         request.getRequestDispatcher("user_page/order-detail.jsp").forward(request,response);
     }
 }

@@ -30,34 +30,153 @@
 <!-- Follow Section Begin -->
 <section class="follow spad">
 <%--    <c:set var="or" value="${order}"></c:set>--%>
+<%--    <div class="container">--%>
+<%--        <div class="row">--%>
+<%--            <div class="col-lg">--%>
+<%--                <div class="Account__Style">--%>
+<%--                    <div class="heading">--%>
+<%--                        <span>Chi tiết đơn hàng #${order.id}</span>--%>
+<%--                        <span class="split">-</span>--%>
+<%--                        <span class="status">Giao hàng thành công</span>--%>
+<%--                    </div>--%>
+<%--                    <div class="created-date">Ngày đặt hàng: ${order.date_created}</div>--%>
+<%--                    <div class="styles_section-2">--%>
+<%--                        <div class="styles_group_1">--%>
+<%--                            <div class="title">Địa chỉ người nhận</div>--%>
+<%--                            <div class="content">--%>
+<%--                                <p class="name">${order.user_name}</p>--%>
+<%--                                <p class="address">--%>
+<%--                                    <span>Địa chỉ: </span>--%>
+<%--                                    ${order.address}--%>
+<%--                                </p>--%>
+<%--                                <p class="phone">--%>
+<%--                                    <span>Điện thoại: </span>0${order.phone}--%>
+<%--                                </p>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                        <div class="styles_group_1">--%>
+<%--                            <div class="title">Hình thức giao hàng</div>--%>
+<%--                            <div class="content">--%>
+<%--                                <p>Vận chuyển</p>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                        <div class="styles_group_1">--%>
+<%--                            <div class="title">Hình thức thanh toán</div>--%>
+<%--                            <div class="content">--%>
+<%--                                <c:if test="${order.payment==true}"><p class="">Thanh toán tiền mặt khi nhận hàng</p></c:if>--%>
+<%--                                <c:if test="${order.payment==false}"><p class="">Thanh toán qua ví Momo</p></c:if>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <table class="styles_section-3">--%>
+<%--                        <thead>--%>
+<%--                        <tr>--%>
+<%--                            <th>Sản phẩm</th>--%>
+<%--                            <th>Giá</th>--%>
+<%--                            <th>Số lượng</th>--%>
+<%--                            <th>Giảm giá</th>--%>
+<%--                            <th>Tạm tính</th>--%>
+<%--                        </tr>--%>
+<%--                        </thead>--%>
+<%--                        <tbody>--%>
+<%--                        <c:forEach items="${p_list}" var="pl">--%>
+<%--                        <c:set var="price" value="${pl.price}"></c:set>--%>
+<%--                        <c:set var="sale" value="${pl.sale}"></c:set>--%>
+<%--                        <c:set var="total" value="${pl.total}"></c:set>--%>
+<%--                        <tr>--%>
+<%--                            <td>--%>
+<%--                                <div class="product-item">--%>
+<%--                                    <img src="${pl.img}" alt="${pl.pro_name}">--%>
+<%--                                    <div class="product-info">--%>
+<%--                                        <a class="product-name" href="shop-detail?id=${pl.id}">${pl.pro_name}</a>--%>
+<%--                                        <p class="product-seller">Cung cấp bởi Thế Giới Cây Cảnh</p>--%>
+<%--                                        <div class="product-review">--%>
+<%--                                            <a id="btn-comment" href="#" data-toggle="modal"--%>
+<%--                                               data-target="#exampleModalCenter">Viết nhận xét</a>--%>
+<%--                                            <a href="warranty?order_id=${order.id}&pro_id=${pl.pro_id}&user_id=${sessionScope.user_id}" target="_blank">Bảo hành</a>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+
+<%--                            </td>--%>
+<%--                            <td class="price"><%= Util.formatCurrency((double) pageContext.getAttribute("price"))%></td>--%>
+<%--                            <td class="quantity">${pl.quantity}</td>--%>
+<%--                            <td class="discount-amount"><%= Util.formatCurrency((double) pageContext.getAttribute("sale"))%></td>--%>
+<%--                            <td class="raw-total"><%= Util.formatCurrency((double) pageContext.getAttribute("total"))%></td>--%>
+<%--                        </tr>--%>
+<%--                        </c:forEach>--%>
+<%--                        </tbody>--%>
+<%--                        <tfoot>--%>
+<%--                        <c:set var="sum" value="${sum}"></c:set>--%>
+<%--                        <c:set var="ship" value="${ship}"></c:set>--%>
+<%--                        <c:set var="total_money" value="${total_money}"></c:set>--%>
+<%--                        <tr>--%>
+<%--                            <td colspan="4">--%>
+<%--                                <span>Tạm tính</span>--%>
+<%--                            </td>--%>
+<%--                            <td><%= Util.formatCurrency((double) pageContext.getAttribute("sum"))%></td>--%>
+<%--                        </tr>--%>
+<%--                        <tr>--%>
+<%--                            <td colspan="4">--%>
+<%--                                <span>Phí vận chuyển</span>--%>
+<%--                            </td>--%>
+<%--                            <td><%= Util.formatCurrency((double) pageContext.getAttribute("ship"))%></td>--%>
+<%--                        </tr>--%>
+<%--                        <tr>--%>
+<%--                            <td colspan="4">--%>
+<%--                                <span>Tổng cộng</span>--%>
+<%--                            </td>--%>
+<%--                            <td>--%>
+<%--                                <span class="sum"><%= Util.formatCurrency((double) pageContext.getAttribute("total_money"))%></span>--%>
+<%--                            </td>--%>
+<%--                        </tr>--%>
+<%--                        </tfoot>--%>
+<%--                    </table>--%>
+<%--                    <a class="view-list-order" href="user">Quay lại đơn hàng của tôi</a>--%>
+<%--                    <button class="cancel-order" disabled="">Hủy Đơn Hàng</button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
     <div class="container">
         <div class="row">
             <div class="col-lg">
                 <div class="Account__Style">
                     <div class="heading">
-                        <span>Chi tiết đơn hàng #${order.id}</span>
+                        <span>Chi tiết đơn hàng # ${order.id}</span>
                         <span class="split">-</span>
                         <span class="status">Giao hàng thành công</span>
                     </div>
                     <div class="created-date">Ngày đặt hàng: ${order.date_created}</div>
+
+<%--                    <div class="styles_section-1">--%>
+<%--                        <div class="title">Thông báo</div>--%>
+<%--                        <div class="content">--%>
+<%--                            <div class="notifications">--%>
+<%--                                <div class="notifications__item">--%>
+<%--                                    <div class="date">05:44 31/10/2020</div>--%>
+<%--                                    <div class="comment">Chúng tôi vừa bàn giao đơn hàng của quý khách đến đối tác vận chuyển. Đơn hàng của quý khách sẽ được giao trong ngày hôm nay 31/10/2020</div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
                     <div class="styles_section-2">
                         <div class="styles_group_1">
-                            <div class="title">Địa chỉ người nhận</div>
-                            <div class="content">
-                                <p class="name">${order.user_name}</p>
-                                <p class="address">
-                                    <span>Địa chỉ: </span>
-                                    ${order.address}
-                                </p>
-                                <p class="phone">
-                                    <span>Điện thoại: </span>0${order.phone}
-                                </p>
-                            </div>
+                            <div class="title">Địa chỉ người nhận</div><div class="content">
+                            <p class="name">${order.user_name}</p>
+                            <p class="address">
+                            <span>Địa chỉ: </span> ${order.address}
+                            </p>
+                            <p class="phone">
+                                <span>Điện thoại: </span>0${order.phone}
+                            </p>
+                        </div>
                         </div>
                         <div class="styles_group_1">
                             <div class="title">Hình thức giao hàng</div>
                             <div class="content">
                                 <p>Vận chuyển</p>
+<%--                                <p>Phí vận chuyển: 12.000đ</p>--%>
                             </div>
                         </div>
                         <div class="styles_group_1">
@@ -79,25 +198,24 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${p_list}" var="pl">
-                        <c:set var="price" value="${pl.price}"></c:set>
-                        <c:set var="sale" value="${pl.sale}"></c:set>
-                        <c:set var="total" value="${pl.total}"></c:set>
+                        <c:forEach items="${plist}" var="pl">
+                            <c:set var="price" value="${pl.price}"></c:set>
+                            <c:set var="sale" value="${pl.sale}"></c:set>
+                            <c:set var="total" value="${pl.total}"></c:set>
                         <tr>
                             <td>
                                 <div class="product-item">
-                                    <img src="${pl.img}" alt="${pl.pro_name}">
+                                    <img src="${pl.img}" alt="Cây Cẩm Nhung chống bức xạ điện thoại">
                                     <div class="product-info">
-                                        <a class="product-name" href="shop-detail?id=${pl.id}">${pl.pro_name}</a>
+                                        <a class="product-name" href="#">${pl.pro_name}</a>
                                         <p class="product-seller">Cung cấp bởi Thế Giới Cây Cảnh</p>
                                         <div class="product-review">
-                                            <a id="btn-comment" href="#" data-toggle="modal"
-                                               data-target="#exampleModalCenter">Viết nhận xét</a>
-                                            <a href="warranty?order_id=${order.id}&pro_id=${pl.pro_id}&user_id=${sessionScope.user_id}" target="_blank">Bảo hành</a>
+                                            <a id="btn-comment"  href="#" data-toggle="modal" data-target="#exampleModalCenter">Viết nhận xét</a>
+<%--                                            <a href="warranty.html" target="_blank">Bảo hành</a>--%>
+<%--                                            <button disabled>Hủy Đơn Hàng</button>--%>
                                         </div>
                                     </div>
                                 </div>
-
                             </td>
                             <td class="price"><%= Util.formatCurrency((double) pageContext.getAttribute("price"))%></td>
                             <td class="quantity">${pl.quantity}</td>
@@ -121,19 +239,17 @@
                                 <span>Phí vận chuyển</span>
                             </td>
                             <td><%= Util.formatCurrency((double) pageContext.getAttribute("ship"))%></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <span>Tổng cộng</span>
-                            </td>
+                        </tr><tr><td colspan="4">
+                            <span>Tổng cộng</span>
+                        </td>
                             <td>
                                 <span class="sum"><%= Util.formatCurrency((double) pageContext.getAttribute("total_money"))%></span>
                             </td>
                         </tr>
                         </tfoot>
                     </table>
-                    <a class="view-list-order" href="user">Quay lại đơn hàng của tôi</a>
-                    <button class="cancel-order" disabled="">Hủy Đơn Hàng</button>
+                    <a class="view-list-order" href="my-order.html">Quay lại đơn hàng của tôi</a>
+                    <button class="cancel-order btn" disabled="">Hủy Đơn Hàng</button>
                 </div>
             </div>
         </div>
@@ -167,7 +283,7 @@
                 <input class="message" type="text" name="message"
                        placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này nhé!"
                        style="background-color: white"><br>
-                <label for="">Thêm hình sản phẩm nếu có (tối đa 5 hình): </label>
+                <label>Thêm hình sản phẩm nếu có (tối đa 5 hình): </label>
                 <button style="color: #ffffff;background-color:#5e6158;border-radius: 5px;" class="chonhinh">Chọn Hình
                 </button>
                 <br>
