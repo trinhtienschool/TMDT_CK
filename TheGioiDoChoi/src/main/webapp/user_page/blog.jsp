@@ -145,15 +145,15 @@
 <!-- Blog Section End -->
 
 <jsp:include page="footer.jsp"></jsp:include>
-<!-- Js Plugins -->
-<script src="user_page/js/jquery-3.3.1.min.js"></script>
-<script src="user_page/js/bootstrap.min.js"></script>
-<script src="user_page/js/jquery.nice-select.min.js"></script>
-<script src="user_page/js/jquery-ui.min.js"></script>
-<script src="user_page/js/jquery.slicknav.js"></script>
-<script src="user_page/js/mixitup.min.js"></script>
-<script src="user_page/js/owl.carousel.min.js"></script>
-<script src="user_page/js/main.js"></script>
+    <!-- Js Plugins -->
+    <script src="user_page/js/jquery-3.3.1.min.js"></script>
+    <script src="user_page/js/bootstrap.min.js"></script>
+    <script src="user_page/js/jquery.nice-select.min.js"></script>
+    <script src="user_page/js/jquery-ui.min.js"></script>
+    <script src="user_page/js/jquery.slicknav.js"></script>
+    <script src="user_page/js/mixitup.min.js"></script>
+    <script src="user_page/js/owl.carousel.min.js"></script>
+    <script src="user_page/js/main.js"></script>
 
 </body>
 </html>
