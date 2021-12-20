@@ -1,2 +1,2 @@
-# TheGioiCayCanh
-The final project for Web programming subject
+# TheGioiDoChoi
+The final project for E-commerce subject
