@@ -76,7 +76,7 @@ public class Coupon_code_direct extends HttpServlet {
             cat_id = Byte.parseByte(request.getParameter("cat_id"));
             url += "&cat_id=" + cat_id;
             if (cat_id == 1) {
-                response.sendRedirect("http://localhost:8080/thegioicaycanh.vn/blog.html");
+                response.sendRedirect("http://localhost:8080/thegioidochoi.vn/blog.html");
             }
 
         }

@@ -79,7 +79,7 @@
             <form action="handle-login" method="post">
                 <div class="modal-body forget-body">
                     <h5 class="forget-h5">Vui lòng nhập Email bạn đã đăng kí để lấy lại mật khẩu</h5>
-                    <input type="email" name="email_forget_pass" id="mail" class="forget-mail" placeholder="thegioicaycanhNLU@gmail.com">
+                    <input type="email" name="email_forget_pass" id="mail" class="forget-mail" placeholder="thegioidochoiNLU@gmail.com">
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary forget-send" data-toggle="modal" data-target="#notify-forget">GỬI</button>

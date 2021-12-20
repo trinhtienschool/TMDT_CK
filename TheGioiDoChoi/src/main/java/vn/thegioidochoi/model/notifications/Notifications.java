@@ -15,9 +15,7 @@ public class Notifications {
     }
 
 
-    public String getListEmail(){
-        return Notification_Con_DB.getStringsNotifications();
-    }
+
 
 
 

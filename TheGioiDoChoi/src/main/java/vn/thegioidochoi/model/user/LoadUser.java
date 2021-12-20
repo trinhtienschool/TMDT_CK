@@ -217,7 +217,7 @@ public class LoadUser {
                     User user = new User();
                     user.setAvatar(resultSet.getString(1));
                     user.setName(resultSet.getString(2));
-                    user.setDate_created_commnent(resultSet.getDate(3));
+                    user.setDate_created_comment(resultSet.getDate(3));
                     user.setRating_type_id(resultSet.getInt(4));
                     user.setComment(resultSet.getString(5));
                     userList.add(user);

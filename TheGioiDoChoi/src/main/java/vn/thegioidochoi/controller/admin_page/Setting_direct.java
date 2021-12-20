@@ -51,9 +51,9 @@ public class Setting_direct extends HttpServlet {
                         if (ext == null) {
                             continue;
                         }
-                        File folder = new File("..\\webapps\\thegioicaycanh.vn/imgs/header");
+                        File folder = new File("..\\webapps\\thegioidochoi.vn/imgs/header");
                         if (!folder.exists()) folder.mkdirs();
-                        File file = new File("..\\webapps\\thegioicaycanh.vn/imgs/header/" + fieldName + ext);
+                        File file = new File("..\\webapps\\thegioidochoi.vn/imgs/header/" + fieldName + ext);
                         try {
                             fi.write(file);
                         } catch (Exception e) {

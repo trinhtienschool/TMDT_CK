@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html lang="vi-VN">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>${title}</title>
     <link href="assets/img/icon/icon-logo.png" rel="shortcut icon">

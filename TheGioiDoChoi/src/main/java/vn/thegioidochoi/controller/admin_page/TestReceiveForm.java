@@ -85,9 +85,9 @@ public class TestReceiveForm extends HttpServlet {
                     System.out.println("sizeInByte: "+sizeInBytes);
                     // Write the file
                     if( fileName.lastIndexOf("\\") >= 0 ) {
-                        file = new File( "..\\webapps\\thegioicaycanh.vn\\imgs\\temp_imgs\\" + fileName.substring( fileName.lastIndexOf("\\"))) ;
+                        file = new File( "..\\webapps\\thegioidochoi.vn\\imgs\\temp_imgs\\" + fileName.substring( fileName.lastIndexOf("\\"))) ;
                     } else {
-                        file = new File( "..\\webapps\\thegioicaycanh.vn\\imgs\\temp_imgs\\" + fileName.substring(fileName.lastIndexOf("\\")+1)) ;
+                        file = new File( "..\\webapps\\thegioidochoi.vn\\imgs\\temp_imgs\\" + fileName.substring(fileName.lastIndexOf("\\")+1)) ;
                     }
                     System.out.println(file.getCanonicalFile());
                     fi.write( file ) ;

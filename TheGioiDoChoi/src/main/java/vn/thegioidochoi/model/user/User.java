@@ -16,33 +16,35 @@ public class User {
     private String about;
     private int role_id;
     private Date date_created;
-
+    private Date date_created_comment;
+    private int rating_type_id;
+    private String comment;
 
     public User() {
     }
-//    public Date getDate_created_commnent() {
-//        return date_created_commnent;
-//    }
-//
-//    public void setDate_created_commnent(Date date_created_commnent) {
-//        this.date_created_commnent = date_created_commnent;
-//    }
-//
-//    public int getRating_type_id() {
-//        return rating_type_id;
-//    }
-//
-//    public void setRating_type_id(int rating_type_id) {
-//        this.rating_type_id = rating_type_id;
-//    }
-//
-//    public String getComment() {
-//        return comment;
-//    }
-//
-//    public void setComment(String comment) {
-//        this.comment = comment;
-//    }
+    public Date getDate_created_comment() {
+        return date_created_comment;
+    }
+
+    public void setDate_created_comment(Date date_created_comment) {
+        this.date_created_comment = date_created_comment;
+    }
+
+    public int getRating_type_id() {
+        return rating_type_id;
+    }
+
+    public void setRating_type_id(int rating_type_id) {
+        this.rating_type_id = rating_type_id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
     public int getId() {
         return id;
     }

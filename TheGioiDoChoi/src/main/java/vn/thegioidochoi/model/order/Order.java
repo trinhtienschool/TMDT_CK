@@ -11,7 +11,7 @@ public class Order {
     private int id;
     private int user_id;
     private String user_name;
-    private int sale_id;
+//    private int sale_id;
     private int ship_id;
     private boolean payment;
     private String note;
@@ -57,13 +57,13 @@ public class Order {
         this.user_id = user_id;
     }
 
-    public int getSale_id() {
-        return sale_id;
-    }
-
-    public void setSale_id(int sale_id) {
-        this.sale_id = sale_id;
-    }
+//    public int getSale_id() {
+//        return sale_id;
+//    }
+//
+//    public void setSale_id(int sale_id) {
+//        this.sale_id = sale_id;
+//    }
 
     public int getShip_id() {
         return ship_id;
@@ -195,7 +195,7 @@ public class Order {
                 "id=" + id +
                 ", user_id=" + user_id +
                 ", user_name='" + user_name + '\'' +
-                ", sale_id=" + sale_id +
+//                ", sale_id=" + sale_id +
                 ", ship_id=" + ship_id +
                 ", payment=" + payment +
                 ", note='" + note + '\'' +

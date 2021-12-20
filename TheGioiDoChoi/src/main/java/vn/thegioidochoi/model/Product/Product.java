@@ -23,6 +23,10 @@ public class Product {
     private Date date_end_sale;
     private String slug;
     private Date date_created;
+    private int sold;
+    private String product_code;
+    private int age;
+    private int gender;
     private int percent_sale_past;
     private int dayRest;
     private int countstar;
@@ -253,6 +257,38 @@ public class Product {
         this.date_created = date_created;
     }
 
+    public int getSold() {
+        return sold;
+    }
+
+    public void setSold(int sold) {
+        this.sold = sold;
+    }
+
+    public String getProduct_code() {
+        return product_code;
+    }
+
+    public void setProduct_code(String product_code) {
+        this.product_code = product_code;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -267,12 +303,22 @@ public class Product {
                 ", active=" + active +
                 ", percent_sale=" + percent_sale +
                 ", price_sale=" + price_sale +
-                ", category='" + category_id + '\'' +
+                ", category_id=" + category_id +
                 ", quantity=" + quantity +
                 ", is_sale=" + is_sale +
+                ", date_start_sale=" + date_start_sale +
                 ", date_end_sale=" + date_end_sale +
                 ", slug='" + slug + '\'' +
                 ", date_created=" + date_created +
+                ", sold=" + sold +
+                ", product_code='" + product_code + '\'' +
+                ", age=" + age +
+                ", gender=" + gender +
+                ", percent_sale_past=" + percent_sale_past +
+                ", dayRest=" + dayRest +
+                ", countstar=" + countstar +
+                ", contcomment=" + contcomment +
+                ", avgstar=" + avgstar +
                 '}';
     }
 }

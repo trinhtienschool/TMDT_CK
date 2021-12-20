@@ -34,7 +34,7 @@ public class Mail {
 
             MimeMessage message = new MimeMessage(session);
             try {
-                message.setFrom(new InternetAddress("trinhtien6236@gmail.com","TheGioiCayCanh"));
+                message.setFrom(new InternetAddress("trinhtien6236@gmail.com","thegioidochoi"));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -45,7 +45,7 @@ public class Mail {
             message.setSubject(subject,"UTF-8");
 //            message.setText("Chào Tiến!,"
 //                    + "\n Đây là link lấy lại mật khẩu! Link có thời hạn 3 ngày kể từ ngày nhận. Bấm vào để xác nhận"
-//                    +"\n http://localhost:8080/thegioicaycanh.vn");
+//                    +"\n http://localhost:8080/thegioidochoi.vn");
             message.setText(context,"UTF-8");
             Transport.send(message);
             return true;
@@ -56,7 +56,7 @@ public class Mail {
     }
 
     public static void main(String[] args) {
-        System.out.println(sendMail("toi ten tien","day la subject", new Notifications().getListEmail()));
+//        System.out.println(sendMail("toi ten tien","day la subject", new Notifications().getListEmail()));
 
     }
 }

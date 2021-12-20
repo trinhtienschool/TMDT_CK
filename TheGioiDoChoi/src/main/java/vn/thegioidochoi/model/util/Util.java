@@ -101,9 +101,9 @@ public class Util {
         }
 
         fileNameSave += ext;
-        File folder= new File("..\\webapps\\thegioicaycanh.vn/" + url);
+        File folder= new File("..\\webapps\\thegioidochoi.vn/" + url);
         if(!folder.exists()) folder.mkdirs();
-        file = new File("..\\webapps\\thegioicaycanh.vn/" + url + "/" + fileNameSave);
+        file = new File("..\\webapps\\thegioidochoi.vn/" + url + "/" + fileNameSave);
 //                    System.out.println(file.getCanonicalFile());
         try {
             fi.write(file);

@@ -14,9 +14,8 @@ public class CouponCode {
     private String code;
     private Date date_start;
     private Date date_end;
-    private int amount_used;
     private int date_number; // so ngay giam gia con lai
-
+    private int amount_used; // so nguoi su dung ma giam gia
 
 
     private int tongsongay;
@@ -117,6 +116,15 @@ public class CouponCode {
     public void setDate_number(int date_number) {
         this.date_number = date_number;
     }
+
+    public int getAmount_used() {
+        return amount_used;
+    }
+
+    public void setAmount_used(int amount_used) {
+        this.amount_used = amount_used;
+    }
+
     //con lai
     public int daysBetween(){
         Date d3=new java.util.Date();

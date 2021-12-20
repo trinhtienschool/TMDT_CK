@@ -240,7 +240,7 @@
 <%--                    <ul>--%>
 <%--                        <li>Địa chỉ: Đại học Nông Lâm TP.HCM</li>--%>
 <%--                        <li>Điện thoại: +84353535355</li>--%>
-<%--                        <li>Email: thegioicaycanhNLU@gmail.com</li>--%>
+<%--                        <li>Email: thegioidochoiNLU@gmail.com</li>--%>
 <%--                    </ul>--%>
 <%--                </div>--%>
 <%--            </div>--%>
@@ -250,7 +250,7 @@
 <%--                    <ul>--%>
 <%--                        <li>Địa chỉ: KIOT 35, đường số 6, Đại học Nông Lâm</li>--%>
 <%--                        <li>Điện thoại: +84353535355</li>--%>
-<%--                        <li>Email: thegioicaycanhNLU@gmail.com</li>--%>
+<%--                        <li>Email: thegioidochoiNLU@gmail.com</li>--%>
 <%--                    </ul>--%>
 
 <%--                </div>--%>

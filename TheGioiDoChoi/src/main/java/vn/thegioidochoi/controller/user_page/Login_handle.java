@@ -74,7 +74,7 @@ public class Login_handle extends HttpServlet {
                 ForgetPass fp= new ForgetPass(user.getId(),user.getEmail(),user.getPassword());
                 boolean succSave=Load_ForgetPass.saveForgetPass(fp);
                 if(succSave){
-                    String link = "http://localhost:8080/thegioicaycanh.vn/handle-login?conform-fp=true&key="+ fp.getKey_forget();
+                    String link = "http://localhost:8080/thegioidochoi.vn/handle-login?conform-fp=true&key="+ fp.getKey_forget();
                     String subject="Lấy lại mật khẩu";
                     String content= "Chào "+user.getName()+"!,"
                     + "\n Đây là link lấy lại mật khẩu! Link có thời hạn 3 ngày kể từ ngày nhận. Bấm vào để xác nhận\n"
