@@ -57,14 +57,14 @@ public class Load_Order {
         try{
             order.setId(resultSet.getInt(1));
             order.setUser_id(resultSet.getInt(2));
-            order.setSale_id(resultSet.getInt(3));
-            order.setShip_id(resultSet.getInt(4));
-            order.setPayment(resultSet.getInt(5) == 1 ? true : false);
-            order.setNote(resultSet.getString(6));
-            order.setPhone(resultSet.getInt(7));
-            order.setAddress(resultSet.getString(8));
-            order.setStatus(resultSet.getInt(9));
-            order.setDate_created(resultSet.getDate(10));
+//            order.setSale_id(resultSet.getInt(3));
+            order.setShip_id(resultSet.getInt(3));
+            order.setPayment(resultSet.getInt(4) == 1 ? true : false);
+            order.setNote(resultSet.getString(5));
+            order.setPhone(resultSet.getInt(6));
+            order.setAddress(resultSet.getString(7));
+            order.setStatus(resultSet.getInt(8));
+            order.setDate_created(resultSet.getDate(9));
         } catch (SQLException throwables){
             throwables.printStackTrace();
         }
