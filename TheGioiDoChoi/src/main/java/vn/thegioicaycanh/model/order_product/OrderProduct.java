@@ -12,6 +12,8 @@ public class OrderProduct {
     private String img;
     private int quantity;
     private double price;
+    private boolean status;
+    private double total_price;
     private int percent;
     private double sale;
     private double total;
@@ -78,6 +80,22 @@ public class OrderProduct {
         this.img = img;
     }
 
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public double getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(double total_price) {
+        this.total_price = total_price;
+    }
+
     // Giảm giá
     public void setSale(double price, int percent, int quantity) {
         this.sale = price * percent * quantity/100;
@@ -104,6 +122,8 @@ public class OrderProduct {
                 ", img='" + img + '\'' +
                 ", quantity=" + quantity +
                 ", price=" + price +
+                ", status=" + status +
+                ", total_price=" + total_price +
                 ", percent=" + percent +
                 ", sale=" + sale +
                 ", total=" + total +
