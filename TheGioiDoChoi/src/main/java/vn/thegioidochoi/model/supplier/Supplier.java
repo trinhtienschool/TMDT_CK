@@ -14,10 +14,19 @@ public class Supplier {
     private String company_name;
     private String website;
     private Date date;
+    private double revenue;
 
 
 
     public Supplier() {
+    }
+
+    public double getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(double revenue) {
+        this.revenue = revenue;
     }
 
     public int getId() {
@@ -123,6 +132,7 @@ public class Supplier {
                 ", company_name='" + company_name + '\'' +
                 ", website='" + website + '\'' +
                 ", date=" + date +
+                ", revenue=" + revenue +
                 '}';
     }
 }

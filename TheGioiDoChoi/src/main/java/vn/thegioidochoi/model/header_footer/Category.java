@@ -1,12 +1,36 @@
 package vn.thegioidochoi.model.header_footer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Category {
     private int id;
     private String name;
     private boolean active;
     private String slug;
     private int master_id;
+    private int parent; //0: là nhánh lớn bình thường; 1: là nhánh lớn và là cha; 2 là nhánh con của nhánh 1
+    private List<Category> subcategories;
     public Category() {
+       parent = 0;
+       subcategories = new ArrayList<Category>();
+
+    }
+
+    public List<Category> getSubcategories() {
+        return subcategories;
+    }
+
+    public void setSubcategories(List<Category> subcategories) {
+        this.subcategories = subcategories;
+    }
+
+    public int getParent() {
+        return parent;
+    }
+
+    public void setParent(int parent) {
+        this.parent = parent;
     }
 
     public int getMaster_id() {
@@ -51,12 +75,14 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", active=" + active +
-                ", slug='" + slug + '\'' +
-                ", master_id=" + master_id +
-                '}';
+        System.out.println(id+"; "+name+" ; "+master_id);
+       if(!subcategories.isEmpty()){
+           System.out.println("s");
+           for(Category c: subcategories){
+               System.out.println(c);
+           }
+           System.out.println("e");
+       }
+        return "";
     }
 }

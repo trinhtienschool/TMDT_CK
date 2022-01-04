@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoadHeaderFooter {
-    public static List<Category> loadCategories() {
+    public static List<Category>  loadCategories() {
         List<Category> categories = new ArrayList<>();
         try {
             Statement statement = DBCPDataSource.getStatement();
@@ -19,11 +19,32 @@ public class LoadHeaderFooter {
                     c.setName(rs.getString(2));
                     c.setActive(rs.getByte(3) == 1);
                     c.setSlug(rs.getString(4));
+                    c.setMaster_id(rs.getInt(5));
                     categories.add(c);
                 }
                 rs.close();
             }
             statement.close();
+
+            List<Category> removeCategories = new ArrayList<Category>();
+            for(Category cate: categories){
+                if(cate.getId() == cate.getMaster_id()){
+                    for(int i=0;i<categories.size();i++){
+                        Category sub_cate = categories.get(i);
+                        if(sub_cate.getMaster_id() == cate.getId() && sub_cate.getMaster_id() !=sub_cate.getId()){
+                            sub_cate.setParent(2);
+                            cate.getSubcategories().add(sub_cate);
+                            removeCategories.add(sub_cate);
+                        }
+                    }
+                    if(cate.getSubcategories().isEmpty()) cate.setParent(0);
+                    else cate.setParent(1);
+                }
+            }
+            for(Category category: removeCategories){
+                categories.remove(category);
+            }
+            System.out.println("Da ra categoriessssssssssssssssssssss");
             return categories;
 
         } catch (SQLException throwables) {

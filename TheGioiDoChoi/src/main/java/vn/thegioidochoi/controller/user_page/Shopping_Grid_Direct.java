@@ -22,7 +22,7 @@ public class Shopping_Grid_Direct extends HttpServlet {
             pages = Integer.parseInt(request.getParameter("pages"));
         request.setAttribute("pages",pages);
         request.setAttribute("type_page","shopping-grid");
-        request.setAttribute("numOfItemLoad",18);
+        request.setAttribute("numOfItemLoad",12);
         request.setAttribute("direct_to","user_page/shopping-grid.jsp");
         request.setAttribute("sql","select * from product limit ");
         request.setAttribute("countsql","select count(*) from product");

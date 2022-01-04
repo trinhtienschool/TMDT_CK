@@ -2,8 +2,11 @@
 package vn.thegioidochoi.model.Product;
 
 import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.header_footer.Category;
 import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
 
+
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +14,17 @@ import java.sql.Statement;
 import java.util.*;
 
 public class ProductEntity {
+    public static List<Product> loadBestSellerProducts(){
+        String sql = "select *\n" +
+                "from product p join (\n" +
+                "select op.pro_id as rpid\n" +
+                "from order_product op join `order` o on op.order_id=o.id \n" +
+                "where MONTH(o.date_created)=11 and year(o.date_created)=2021\n" +
+                "group by op.pro_id\n" +
+                "order by sum(op.quantity) desc\n" +
+                "limit 10) as rp on p.id = rp.rpid";
+        return loadProductFormSql(sql);
+    }
     public static List<Product> loadDiscountProducts(int num) {
         String sql = "select *" +
                 "from product p " +
@@ -44,9 +58,29 @@ public class ProductEntity {
         return loadProductFormSql(sql);
     }
 
-    public static List<Product> loadHightLightProducts() {
-        String sql = "select p.* from product  p join " +
-                " (select pro_id  from order_product GROUP BY pro_id ORDER BY count(pro_id) desc limit 15 ) as most_pro on most_pro.pro_id=p.id";
+    public static List<Product> loadHighLightProducts() {
+        String sql = "SELECT * from product\n" +
+                "where highlight=1\n" +
+                "order by date_created desc\n" +
+                "limit 10";
+        return loadProductFormSql(sql);
+    }
+    public static List<Product> loadSmartToys() {
+        String sql = "select *\n" +
+                "from product where category_id in (1,2,3,4) and percent_sale=0\n" +
+                "limit 6";
+        return loadProductFormSql(sql);
+    }
+    public static List<Product> loadCharacterToys() {
+        String sql = "select *\n" +
+                "from product where category_id in (11,12) and percent_sale=0\n" +
+                "limit 6";
+        return loadProductFormSql(sql);
+    }
+    public static List<Product> loadTransportationToys() {
+        String sql = "select *\n" +
+                "from product where category_id in (8,9,10) and percent_sale=0\n" +
+                "limit 6";
         return loadProductFormSql(sql);
     }
 
@@ -315,6 +349,7 @@ public static void vidu(String s){
         }
     }
 
+
     public static boolean updateProduct(int id, String name, double price, String img, String description, String content, int supplier_id, int type_weight, int active, int percent_sale, double price_sale, int category_id, int quantity, int is_sale, String date_start_sale, String date_end_sale, String slug) {
         String sql = "update product set name = ?, price=?, discription=?,content=?,supplier_id=?,type_weight=?,active=?,percent_sale=?,price_sale=?,category_id=?,quantity=?,is_sale=?,date_start_sale=?,date_end_sale=?,slug=? ";
         if (img == null) {
@@ -331,6 +366,37 @@ public static void vidu(String s){
                 pe.setString(16, img);
                 pe.setInt(17, id);
             }
+            System.out.println("Day la query update: " + pe.toString());
+            synchronized (pe) {
+                update = pe.executeUpdate();
+            }
+            pe.close();
+            return update == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean updateProducts(int id,String name, String slug) {
+        String sql = "update product set highlight=? where id="+id;
+//        if (img == null) {
+//            sql += " where id = ? ";
+//        } else sql += ", img=? where id = ? ";
+        int update = 0;
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
+
+            Random random  =new Random();
+
+//            String s = 2022+"-03"+"-"+ (random.nextInt(10)+10);
+            int i = random.nextInt(100);
+            int h = i>=50?0:1;
+            pe.setInt(1, h);
+//            pe.setString(2,name );
+//            pe.setString(3,slug );
+
+
+
             System.out.println("Day la query update: " + pe.toString());
             synchronized (pe) {
                 update = pe.executeUpdate();

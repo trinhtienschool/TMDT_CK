@@ -1,10 +1,13 @@
 package vn.thegioidochoi.controller.user_page;
 
+import com.sun.xml.internal.ws.api.policy.PolicyResolver;
+import vn.thegioidochoi.model.Product.Product;
 import vn.thegioidochoi.model.Product.ProductEntity;
 
 import vn.thegioidochoi.model.header_footer.LoadHeaderFooter;
 import vn.thegioidochoi.model.header_footer.Social_media;
 import vn.thegioidochoi.model.home_page.Home_page;
+import vn.thegioidochoi.model.supplier.Load_Supplier;
 import vn.thegioidochoi.model.user.Cart;
 
 import javax.servlet.ServletContext;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/home")
 public class Home_direct extends HttpServlet {
@@ -23,7 +27,7 @@ public class Home_direct extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        initAttr();
+        initAttr();
         System.out.println("Day la trong home, da vo trang home");
         HttpSession session = request.getSession(false);
         if(session==null)
@@ -36,11 +40,19 @@ public class Home_direct extends HttpServlet {
         }
         request.setAttribute("page_menu","home");
         request.setAttribute("title","Trang chủ");
+        request.setAttribute("best_supplier", Load_Supplier.loadBestSupplier(10));
 //        request.setAttribute("home_page_data",new Home_page());
-//        request.setAttribute("discount_pros",ProductEntity.loadDiscountProducts(8));
-//        request.setAttribute("hight_light_pros",ProductEntity.loadHightLightProducts());
+        request.setAttribute("dps",ProductEntity.loadDiscountProducts(10));
+        request.setAttribute("bps",ProductEntity.loadBestSellerProducts());
+        request.setAttribute("hlps",ProductEntity.loadHighLightProducts());
+        request.setAttribute("sps",ProductEntity.loadSmartToys());
+        request.setAttribute("cps",ProductEntity.loadCharacterToys());
+        request.setAttribute("tps",ProductEntity.loadTransportationToys());
 //        request.setAttribute("most_rating",ProductEntity.loadMostRating(9));
-//        request.setAttribute("new_pros",ProductEntity.loadNewProducts(9));
+        List<Product> nps = ProductEntity.loadNewProducts(10);
+        request.setAttribute("nps",nps);
+        ServletContext context = getServletContext();
+        context.setAttribute("nps",nps);
 //        request.setAttribute("for_you",ProductEntity.loadFirstPros(9));
         request.getRequestDispatcher("user_page/home.jsp").forward(request,response);
     }

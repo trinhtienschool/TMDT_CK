@@ -7,6 +7,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -28,12 +30,21 @@ public class Util {
         return sdf.format(date);
     }
 
-    public static String generateSlug(String input) {
+    public static String generateSlug(String input) throws UnsupportedEncodingException {
+        input = input.replaceAll("đ","d");
         String convertedString =
                 Normalizer
                         .normalize(input, Normalizer.Form.NFD)
                         .replaceAll("[^\\p{ASCII}]", "").replaceAll(" ", "-");
-        return convertedString;
+
+//        String s1 = Normalizer.normalize(input, Normalizer.Form.NFKD);
+//        String regex = "[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+";
+//
+//        String s2 = new String(s1.replaceAll(regex, "").getBytes("ascii"), "ascii");
+//        return s2.replaceAll(" ","-");
+
+
+        return convertedString.toLowerCase();
     }
     public static String revertDate(String date){
         String day = date.substring(0,date.indexOf("-"));

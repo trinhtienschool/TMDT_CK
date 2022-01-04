@@ -108,6 +108,36 @@ public class Load_Supplier {
         }
         return false;
     }
+    public static List<Supplier> loadBestSupplier(int nos){
+        List<Supplier>suppliers = new ArrayList<Supplier>();
+        String sql = "select r.supplier_id, s.logo, s.company_name, sum(r.real_revenue) as total\n" +
+                "from revenue_by_products r JOIN supplier s on r.supplier_id = s.id\n" +
+                "where MONTH(r.date)=11 and YEAR(r.date)=2021\n" +
+                "GROUP BY r.supplier_id, s.logo, s.company_name\n" +
+                "ORDER BY total DESC\n" +
+                "LIMIT "+nos;
+        try{
+            Statement statement = DBCPDataSource.getStatement();
+            synchronized (statement){
+                ResultSet resultSet = statement.executeQuery(sql);
+                while (resultSet.next()){
+                    Supplier supplier = new Supplier();
+                    supplier.setId(resultSet.getInt(1));
+                    supplier.setLogo(resultSet.getString(2));
+                    supplier.setCompany_name(resultSet.getString(3));
+                    supplier.setRevenue(resultSet.getDouble(4));
+
+                    suppliers.add(supplier);
+                }
+                resultSet.close();
+            }
+            statement.close();
+            return suppliers;
+        } catch(SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return null;
+    }
     public static Supplier loadSupplier(int id){
         try {
             PreparedStatement pe = DBCPDataSource.preparedStatement("select * from supplier where id=?");

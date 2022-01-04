@@ -175,7 +175,7 @@ public class Shopping_direct extends HttpServlet {
             //neu trang hien thi la 1: thi se hien thi trang shop-grid
             //phai load 18 product trong 1 trang
             //direct_to: la duong dan den trang shopping-grid.jsp
-            request.setAttribute("numOfItemLoad",18);
+            request.setAttribute("numOfItemLoad",12);
             request.setAttribute("direct_to","user_page/shopping-grid.jsp");
         }else if(type_view == 2){
             request.setAttribute("numOfItemLoad",10);
