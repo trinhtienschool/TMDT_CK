@@ -86,7 +86,7 @@
                                 </div>
                             </div>
                         </div>
-<%--                        <div class="sidebar__item">--%>
+                        <div class="sidebar__item">
 <%--                            <div class="latest-product__text">--%>
 <%--                                <h4>Có thể bạn thích</h4>--%>
 <%--                                <div class="latest-product__slider owl-carousel">--%>
@@ -109,7 +109,7 @@
 <%--                                    </c:forEach>--%>
 <%--                                </div>--%>
 <%--                            </div>--%>
-<%--                        </div>--%>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-7 order-md-1 order-1">

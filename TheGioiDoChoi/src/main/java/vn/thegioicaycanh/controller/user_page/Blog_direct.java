@@ -40,7 +40,7 @@ public class Blog_direct extends HttpServlet {
         request.setAttribute("newBlog",Blog_Con_DB.loadNewBlogs(12));
         request.setAttribute("mostReadBlogs",Blog_Con_DB.mostReadBlogs(12));
 //        request.setAttribute("data", Blog_Con_DB.loadLimitBlog(1,10));
-        request.setAttribute("newBlog",Blog_Con_DB.loadNewBlogs(12));
+//        request.setAttribute("newBlog",Blog_Con_DB.loadNewBlogs(12));
         request.getRequestDispatcher("handlePagination").forward(request,response);
 
     }
