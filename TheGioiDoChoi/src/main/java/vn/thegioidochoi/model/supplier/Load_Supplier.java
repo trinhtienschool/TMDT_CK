@@ -180,13 +180,38 @@ public class Load_Supplier {
         return  null;
 
     }
+    public static Supplier loadSupplierById(int id){
+        Supplier supplier = new Supplier();
+        String sql = "SELECT s.id, s.company_name, s.logo, s.description, COUNT(p.supplier_id) AS total_product\n" +
+                "FROM supplier s JOIN product p ON s.id = p.supplier_id\n" +
+                "WHERE supplier_id = " + id;
+        try {
+            Statement statement = DBCPDataSource.getStatement();
+            synchronized (statement) {
+                ResultSet resultSet = statement.executeQuery(sql);
+                while (resultSet.next()) {
+                    supplier.setCompany_name(resultSet.getString(2));
+                    supplier.setLogo(resultSet.getString(3));
+                    supplier.setDescription(resultSet.getString(4));
+                    supplier.setTotal_product(resultSet.getInt(5));
+                }
+                resultSet.close();
+            }
+            statement.close();
+            return supplier;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
     public static void main(String[] args) {
 //        for(Supplier s: loadSupplier_view()){
 //            System.out.println(s.getName());
 //        }
 //        System.out.println(sumOfSupplier("select count(id) from supplier"));
-        System.out.println(insertSupplier("Trần Thị Lan","152/63 Lý Chính Thắng P.7 Q.3",87979,"yuknp22@gmail.com"));
+//        System.out.println(insertSupplier("Trần Thị Lan","152/63 Lý Chính Thắng P.7 Q.3",87979,"yuknp22@gmail.com"));
 //        System.out.println(updateSupplier(302,"Trần Thị Lan","152/63 Lý Chính Thắng P.7 Q.3",8797955,"yuknp22@gmail.com"));
 //        System.out.println(loadSupplier(302).getAddress());
+        System.out.println(loadSupplierById(1));
     }
 }

@@ -589,6 +589,12 @@ $(document).ready(function () {
 
 function load(position){
     $(window).scrollTop(position);
-
+}
+// SHOP DETAIL
+function changeImage(id){
+    let imagePath = document.getElementById(id).getAttribute('src');
+    document.getElementById('img-main').setAttribute('src', imagePath);
+    console.log('Image Path: '+imagePath);
+    console.log('image path change: ' + document.getElementById('img-main'));
 }
 

@@ -6,6 +6,8 @@ import vn.thegioidochoi.model.header_footer.Category;
 import vn.thegioidochoi.model.header_footer.LoadHeaderFooter;
 import vn.thegioidochoi.model.header_footer.Load_Category;
 import vn.thegioidochoi.model.supplier.Load_Supplier;
+import vn.thegioidochoi.model.user.LoadUser;
+import vn.thegioidochoi.model.user.User;
 import vn.thegioidochoi.model.util.Util;
 
 import java.io.UnsupportedEncodingException;
@@ -65,7 +67,11 @@ public class TestPass {
 //        System.out.println(letter);
 //        System.out.println(Util.generateSlug(str));
 
-        System.out.println(Load_Supplier.loadBestSupplier(6));
+//        System.out.println(Load_Supplier.loadBestSupplier(6));
+        List<User> users  = LoadUser.loadOrderCommentByIdUser(1);
+        for(User u: users){
+            System.out.println(u);
+        }
     }
 
 }

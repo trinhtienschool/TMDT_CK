@@ -19,125 +19,18 @@
     <link rel="stylesheet" href="user_page/css/elegant-icons.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/nice-select.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="user_page/css/owl.theme.default.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/style.css" type="text/css">
+    <link rel="stylesheet" href="user_page/css/style_home.css" type="text/css">
 </head>
 
 <body>
 <jsp:include page="Menu.jsp"></jsp:include>
-<jsp:include page="search_bar.jsp"></jsp:include>
+<%--<jsp:include page="search_bar.jsp"></jsp:include>--%>
 <!-- Follow Section Begin -->
 <section class="follow spad">
-<%--    <c:set var="or" value="${order}"></c:set>--%>
-<%--    <div class="container">--%>
-<%--        <div class="row">--%>
-<%--            <div class="col-lg">--%>
-<%--                <div class="Account__Style">--%>
-<%--                    <div class="heading">--%>
-<%--                        <span>Chi tiết đơn hàng #${order.id}</span>--%>
-<%--                        <span class="split">-</span>--%>
-<%--                        <span class="status">Giao hàng thành công</span>--%>
-<%--                    </div>--%>
-<%--                    <div class="created-date">Ngày đặt hàng: ${order.date_created}</div>--%>
-<%--                    <div class="styles_section-2">--%>
-<%--                        <div class="styles_group_1">--%>
-<%--                            <div class="title">Địa chỉ người nhận</div>--%>
-<%--                            <div class="content">--%>
-<%--                                <p class="name">${order.user_name}</p>--%>
-<%--                                <p class="address">--%>
-<%--                                    <span>Địa chỉ: </span>--%>
-<%--                                    ${order.address}--%>
-<%--                                </p>--%>
-<%--                                <p class="phone">--%>
-<%--                                    <span>Điện thoại: </span>0${order.phone}--%>
-<%--                                </p>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                        <div class="styles_group_1">--%>
-<%--                            <div class="title">Hình thức giao hàng</div>--%>
-<%--                            <div class="content">--%>
-<%--                                <p>Vận chuyển</p>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                        <div class="styles_group_1">--%>
-<%--                            <div class="title">Hình thức thanh toán</div>--%>
-<%--                            <div class="content">--%>
-<%--                                <c:if test="${order.payment==true}"><p class="">Thanh toán tiền mặt khi nhận hàng</p></c:if>--%>
-<%--                                <c:if test="${order.payment==false}"><p class="">Thanh toán qua ví Momo</p></c:if>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <table class="styles_section-3">--%>
-<%--                        <thead>--%>
-<%--                        <tr>--%>
-<%--                            <th>Sản phẩm</th>--%>
-<%--                            <th>Giá</th>--%>
-<%--                            <th>Số lượng</th>--%>
-<%--                            <th>Giảm giá</th>--%>
-<%--                            <th>Tạm tính</th>--%>
-<%--                        </tr>--%>
-<%--                        </thead>--%>
-<%--                        <tbody>--%>
-<%--                        <c:forEach items="${p_list}" var="pl">--%>
-<%--                        <c:set var="price" value="${pl.price}"></c:set>--%>
-<%--                        <c:set var="sale" value="${pl.sale}"></c:set>--%>
-<%--                        <c:set var="total" value="${pl.total}"></c:set>--%>
-<%--                        <tr>--%>
-<%--                            <td>--%>
-<%--                                <div class="product-item">--%>
-<%--                                    <img src="${pl.img}" alt="${pl.pro_name}">--%>
-<%--                                    <div class="product-info">--%>
-<%--                                        <a class="product-name" href="shop-detail?id=${pl.id}">${pl.pro_name}</a>--%>
-<%--                                        <p class="product-seller">Cung cấp bởi Thế Giới Cây Cảnh</p>--%>
-<%--                                        <div class="product-review">--%>
-<%--                                            <a id="btn-comment" href="#" data-toggle="modal"--%>
-<%--                                               data-target="#exampleModalCenter">Viết nhận xét</a>--%>
-<%--                                            <a href="warranty?order_id=${order.id}&pro_id=${pl.pro_id}&user_id=${sessionScope.user_id}" target="_blank">Bảo hành</a>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-
-<%--                            </td>--%>
-<%--                            <td class="price"><%= Util.formatCurrency((double) pageContext.getAttribute("price"))%></td>--%>
-<%--                            <td class="quantity">${pl.quantity}</td>--%>
-<%--                            <td class="discount-amount"><%= Util.formatCurrency((double) pageContext.getAttribute("sale"))%></td>--%>
-<%--                            <td class="raw-total"><%= Util.formatCurrency((double) pageContext.getAttribute("total"))%></td>--%>
-<%--                        </tr>--%>
-<%--                        </c:forEach>--%>
-<%--                        </tbody>--%>
-<%--                        <tfoot>--%>
-<%--                        <c:set var="sum" value="${sum}"></c:set>--%>
-<%--                        <c:set var="ship" value="${ship}"></c:set>--%>
-<%--                        <c:set var="total_money" value="${total_money}"></c:set>--%>
-<%--                        <tr>--%>
-<%--                            <td colspan="4">--%>
-<%--                                <span>Tạm tính</span>--%>
-<%--                            </td>--%>
-<%--                            <td><%= Util.formatCurrency((double) pageContext.getAttribute("sum"))%></td>--%>
-<%--                        </tr>--%>
-<%--                        <tr>--%>
-<%--                            <td colspan="4">--%>
-<%--                                <span>Phí vận chuyển</span>--%>
-<%--                            </td>--%>
-<%--                            <td><%= Util.formatCurrency((double) pageContext.getAttribute("ship"))%></td>--%>
-<%--                        </tr>--%>
-<%--                        <tr>--%>
-<%--                            <td colspan="4">--%>
-<%--                                <span>Tổng cộng</span>--%>
-<%--                            </td>--%>
-<%--                            <td>--%>
-<%--                                <span class="sum"><%= Util.formatCurrency((double) pageContext.getAttribute("total_money"))%></span>--%>
-<%--                            </td>--%>
-<%--                        </tr>--%>
-<%--                        </tfoot>--%>
-<%--                    </table>--%>
-<%--                    <a class="view-list-order" href="user">Quay lại đơn hàng của tôi</a>--%>
-<%--                    <button class="cancel-order" disabled="">Hủy Đơn Hàng</button>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
     <div class="container">
         <div class="row">
             <div class="col-lg">
@@ -211,8 +104,6 @@
                                         <p class="product-seller">Cung cấp bởi Thế Giới Cây Cảnh</p>
                                         <div class="product-review">
                                             <a id="btn-comment"  href="#" data-toggle="modal" data-target="#exampleModalCenter">Viết nhận xét</a>
-<%--                                            <a href="warranty.html" target="_blank">Bảo hành</a>--%>
-<%--                                            <button disabled>Hủy Đơn Hàng</button>--%>
                                         </div>
                                     </div>
                                 </div>
@@ -306,6 +197,7 @@
 <script src="user_page/js/mixitup.min.js"></script>
 <script src="user_page/js/owl.carousel.min.js"></script>
 <script src="user_page/js/main.js"></script>
+<script src="user_page/js/main_home.js"></script>
 
 
 </body>
