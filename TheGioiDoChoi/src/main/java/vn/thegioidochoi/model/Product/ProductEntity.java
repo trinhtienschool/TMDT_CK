@@ -4,6 +4,7 @@ package vn.thegioidochoi.model.Product;
 import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
 import vn.thegioidochoi.model.header_footer.Category;
 import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
+import vn.thegioidochoi.model.supplier.Supplier;
 
 
 import java.sql.Date;
@@ -547,10 +548,9 @@ public static void vidu(String s){
 //        System.out.println(loadCountStarByIdProAndIdStar(3,5).getCountstar());
 //        System.out.println(loadCountCommentByIdPro(3).getContcomment());
 //        System.out.println(loadCountAvgstarByIdPro(3).getAvgstar());
-        for(Product p:loadRelativeProduct(3,3)){
-            System.out.println(p.getId());
-
-        }
+//        for(Product p:loadRelativeProduct(3,3)){
+//            System.out.println(p.getId());
+//        }
     }
     public static void deleteProductById(int id){
         try {
@@ -565,8 +565,12 @@ public static void vidu(String s){
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
+
+
+
+
+
 
 }
 
