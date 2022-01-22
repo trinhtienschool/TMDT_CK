@@ -16,14 +16,16 @@
     <link rel="stylesheet" href="user_page/css/elegant-icons.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/nice-select.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="user_page/css/owl.theme.default.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/style.css" type="text/css">
+    <link rel="stylesheet" href="user_page/css/style_home.css" type="text/css">
 </head>
 <body>
 <jsp:include page="Menu.jsp"></jsp:include>
 
-<jsp:include page="search_bar.jsp"></jsp:include>
+<%--<jsp:include page="search_bar.jsp"></jsp:include>--%>
 
 <!-- Bao hanh -->
 <!-- Sign In Section Begin -->
@@ -85,6 +87,7 @@
 <script src="user_page/js/jquery.slicknav.js"></script>
 <script src="user_page/js/mixitup.min.js"></script>
 <script src="user_page/js/owl.carousel.min.js"></script>
+<script src="user_page/js/main_home.js"></script>
 <script src="user_page/js/main.js"></script>
 
 </body>
