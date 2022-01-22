@@ -11,9 +11,9 @@
 <!DOCTYPE html>
 <html lang="vi-VN">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>${title}</title>
     <link href="${applicationScope.header.shortcut}" rel="shortcut icon">
     <link rel="stylesheet" href="user_page/css/bootstrap.min.css" type="text/css">
@@ -53,7 +53,7 @@
                     <div class="img-select">
                         <div class="img-item">
                             <a href="#" data-id="1" data-toggle="modal" data-target=".bd-example-modal-lg">
-                                <img  src="${product.img}" onclick="changeImage('img-one')">
+                                <img src="${product.img}" onclick="changeImage('img-one')">
                             </a>
                         </div>
                         <div class="img-item">
@@ -80,13 +80,15 @@
                     <div class="product-detail">
                         <div>Thương hiệu<span>${supplier.company_name}</span></div>
                         <div>Mã sản phẩm<span>${product.product_code}</span></div>
-                        <div>Tình trạng<span><c:if test="${product.active}">Còn hàng</c:if><c:if test="${!product.active}">Hết hàng</c:if></span></div>
+                        <div>Tình trạng<span><c:if test="${product.active}">Còn hàng</c:if><c:if
+                                test="${!product.active}">Hết hàng</c:if></span></div>
                     </div>
                     <div class="product-price">
                         <c:set var="price" value="${product.price}"></c:set>
                         <c:set var="pricesale" value="${product.price_sale}"></c:set>
-                        <p class="last-price "><%= Util.formatCurrency((double)pageContext.getAttribute("pricesale")) %>
-                            <span class="sale-price"><%= Util.formatCurrency((double)pageContext.getAttribute("price")) %></span></p>
+                        <p class="last-price "><%= Util.formatCurrency((double) pageContext.getAttribute("pricesale")) %>
+                            <span class="sale-price"><%= Util.formatCurrency((double) pageContext.getAttribute("price")) %></span>
+                        </p>
                     </div>
                     <div class="product-rating">
                         <c:if test="${proavgstar.avgstar==5}">
@@ -195,9 +197,10 @@
                             </div>
                             <div class="col-lg-8 col-sm-8">
                                 <div class="product-cart">
-                                    <button type="button" class="btn-cart" data-current_page="shop-detail" data-pro_id="${id}">
+                                    <button type="button" class="btn-cart" data-current_page="shop-detail"
+                                            data-pro_id="${id}">
                                         Thêm vào giỏ hàng
-                                        <i class="fas fa-shopping-cart"></i>
+                                        <i class="fa fa-shopping-cart"></i>
                                     </button>
                                 </div>
                             </div>
@@ -217,7 +220,9 @@
                             <div class="supplier-name">${supplier.company_name}</div>
                             <div class="supplier-product">Sản phẩm: <span>${supplier.total_product}</span></div>
                         </div>
-                        <button class="btn btn-outline-primary btn-supplier"><i class="fas fa-store-alt"></i>Nhà cung cấp</button>
+                        <button class="btn btn-outline-primary btn-supplier"><i class="fas fa-store-alt"></i>Nhà cung
+                            cấp
+                        </button>
                     </div>
                 </div>
             </div>
@@ -243,7 +248,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                aria-selected="false">Nhà cung cấp</a>
+                               aria-selected="false">Nhà cung cấp</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -347,26 +352,44 @@
 
                                             </div>
                                         </div>
-                                        <div class="product-rating-overview__filters"><div class="product-rating-overview__filter product-rating-overview__filter--active product-rating-overview__filter--all">tất cả (${totalratestar})</div>
-                                            <div class="product-rating-overview__filter">5 Sao (${prostar5.countstar})</div>
-                                            <div class="product-rating-overview__filter">4 Sao (${prostar4.countstar})</div>
-                                            <div class="product-rating-overview__filter">3 Sao (${prostar3.countstar})</div>
-                                            <div class="product-rating-overview__filter">2 Sao (${prostar2.countstar})</div>
-                                            <div class="product-rating-overview__filter">1 Sao (${prostar1.countstar})</div>
-                                            <div class="product-rating-overview__filter product-rating-overview__filter--with-comment">Có Bình luận (${procountcomment.contcomment})</div>
+                                        <div class="product-rating-overview__filters">
+                                            <div class="product-rating-overview__filter product-rating-overview__filter--active product-rating-overview__filter--all">
+                                                tất cả (${totalratestar})
+                                            </div>
+                                            <div class="product-rating-overview__filter">5 Sao (${prostar5.countstar})
+                                            </div>
+                                            <div class="product-rating-overview__filter">4 Sao (${prostar4.countstar})
+                                            </div>
+                                            <div class="product-rating-overview__filter">3 Sao (${prostar3.countstar})
+                                            </div>
+                                            <div class="product-rating-overview__filter">2 Sao (${prostar2.countstar})
+                                            </div>
+                                            <div class="product-rating-overview__filter">1 Sao (${prostar1.countstar})
+                                            </div>
+                                            <div class="product-rating-overview__filter product-rating-overview__filter--with-comment">
+                                                Có Bình luận (${procountcomment.contcomment})
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- comment section begin -->
                                 <c:forEach items="${usercomment}" var="cv">
                                     <div class="comment-reviews">
-                                        <a class="shopee-product-rating__avatar" ></a>
-                                        <div class="shopee-avatar" >
-                                            <img style="border-radius: 50% ;display: block;height: 30px;width: 30px" class="shopee-avatar__img" src="${cv.avatar}">
+                                        <a class="shopee-product-rating__avatar"></a>
+                                        <div class="shopee-avatar">
+                                            <img style="border-radius: 50% ;display: block;height: 30px;width: 30px"
+                                                 class="shopee-avatar__img" src="${cv.avatar}">
                                         </div>
-                                        <b>${cv.name}</b><i class="fa fa-check-circle" style="color: #3078a6;font-size: 20px;margin-left: 5px; margin-right: 5px;"></i><i style="color: #3078a6 ;">Đã mua hàng ở thế giới đồ chơi</i><br>
+                                        <b>${cv.name}</b><i class="fa fa-check-circle"
+                                                            style="color: #3078a6;font-size: 20px;margin-left: 5px; margin-right: 5px;"></i><i
+                                            style="color: #3078a6 ;">Đã mua hàng ở thế giới đồ chơi</i><br>
                                         <i class="size-time">${cv.date_created_comment}</i><br>
-                                        <i>Đánh giá: </i><b class="sao"><c:if test="${cv.rating_type_id==1}">5/5</c:if><c:if test="${cv.rating_type_id==2}">4/5</c:if><c:if test="${cv.rating_type_id==3}">3/5</c:if><c:if test="${cv.rating_type_id==4}">2/5</c:if><c:if test="${cv.rating_type_id==5}">1/5</c:if></b>
+                                        <i>Đánh giá: </i><b class="sao"><c:if
+                                            test="${cv.rating_type_id==1}">5/5</c:if><c:if
+                                            test="${cv.rating_type_id==2}">4/5</c:if><c:if
+                                            test="${cv.rating_type_id==3}">3/5</c:if><c:if
+                                            test="${cv.rating_type_id==4}">2/5</c:if><c:if
+                                            test="${cv.rating_type_id==5}">1/5</c:if></b>
                                         <c:if test="${cv.rating_type_id==1}">
                                             <div class="starrating">
                                                 <i class="fa fa-star"></i>
@@ -413,7 +436,7 @@
                                             </div>
                                         </c:if>
                                         <i>Nhận xét : </i>${cv.comment}<br>
-                                        <div class="containhuuich" >
+                                        <div class="containhuuich">
                                         </div>
                                         </a>
                                     </div>
@@ -437,7 +460,8 @@
 <!-- Product Details Section End -->
 
 <%-- Modal Image begin --%>
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="row">
@@ -478,23 +502,28 @@
             <c:forEach items="${relaproducts}" var="rl">
                 <c:set var="price" value="${rl.price}"></c:set>
                 <c:set var="pricesale" value="${rl.price_sale}"></c:set>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="${rl.img}">
-                        <ul class="product__item__pic__hover">
-                            <li class="fast-checkout cursor-pointer" data-pro_id="${rl.id}"><a ><i class="fa fa-money"></i></a></li>
-                            <c:if test="${sessionScope.user_id!=null}">
-                                <li class="addFa cursor-pointer" data-current_page="shop-detail" data-pro_id="${rl.id}"><a><i class="fa fa-heart"></i></a></li>
-                            </c:if>
-                            <li class="addCart cursor-pointer" data-current_page="shop-detail" data-pro_id="${rl.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="shop-detail?id=${rl.id}">${rl.name}</a></h6>
-                        <h5><%= Util.formatCurrency((double)pageContext.getAttribute("pricesale")) %> <span> <%= Util.formatCurrency((double)pageContext.getAttribute("pricesale")) %> </span></h5>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="${rl.img}">
+                            <ul class="product__item__pic__hover">
+                                <li class="fast-checkout cursor-pointer" data-pro_id="${rl.id}"><a><i
+                                        class="fa fa-money"></i></a></li>
+                                <c:if test="${sessionScope.user_id!=null}">
+                                    <li class="addFa cursor-pointer" data-current_page="shop-detail"
+                                        data-pro_id="${rl.id}"><a><i class="fa fa-heart"></i></a></li>
+                                </c:if>
+                                <li class="addCart cursor-pointer" data-current_page="shop-detail"
+                                    data-pro_id="${rl.id}"><a><i class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6><a href="shop-detail?id=${rl.id}">${rl.name}</a></h6>
+                            <h5><%= Util.formatCurrency((double) pageContext.getAttribute("pricesale")) %>
+                                <span> <%= Util.formatCurrency((double) pageContext.getAttribute("pricesale")) %> </span>
+                            </h5>
+                        </div>
                     </div>
                 </div>
-            </div>
             </c:forEach>
         </div>
     </div>
@@ -512,8 +541,8 @@
 <script src="user_page/js/main.js"></script>
 <script src="user_page/js/main_home.js"></script>
 <script>
-    $( document ).ready(function() {
-        $( "#supplier-description" ).children().css( "color", "black" );
+    $(document).ready(function () {
+        $("#supplier-description").children().css("color", "black");
     });
 </script>
 </body>
