@@ -85,7 +85,8 @@ public class Coupon_code_direct extends HttpServlet {
         //Load discount thoa dieu kien
         System.out.println(sql + sqlCondition);
         List<CouponCode> dataCouponCode = Coupon_Con_DB.loadCouponCodeFormSql(sql + sqlCondition);
-        request.setAttribute("coupon_code_data", dataCouponCode);
+        System.out.println(dataCouponCode.get(0));
+        request.setAttribute("couponList", dataCouponCode);
         request.setAttribute("url", url);
         System.out.println(url);
         request.setAttribute("sort_id", sortedprice_id);
