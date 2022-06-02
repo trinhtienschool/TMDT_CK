@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="user_page/css/slicknav.min.css" type="text/css">
     <%--    <link rel="stylesheet" href="user_page/css/blog_style.css" type="text/css">--%>
     <link rel="stylesheet" href="user_page/css/style.css" type="text/css">
+    <link rel="stylesheet" href="user_page/css/owl.theme.default.min.css" type="text/css">
+    <link rel="stylesheet" href="user_page/css/style_home.css" type="text/css">
 </head>
 
 <body
@@ -34,7 +36,7 @@
         </c:if>
 >
 <jsp:include page="Menu.jsp"></jsp:include>
-<jsp:include page="search_bar.jsp"></jsp:include>
+<%--<jsp:include page="search_bar.jsp"></jsp:include>--%>
 
 <%-- Product details begin--%>
 <%-- Details begin --%>
@@ -456,8 +458,10 @@
             </div>
         </div>
     </div>
+
     <!-- comment section begin -->
 <c:forEach items="${usercomment}" var="cv">
+
     <div class="comment-reviews">
         <a class="shopee-product-rating__avatar" ></a>
         <div class="shopee-avatar" >
@@ -475,8 +479,8 @@
                 <img style="border-radius: 50% ;display: block;height: 30px;width: 30px" class="shopee-avatar__img" src="${cv.avatar}">
 <%--            </div>--%>
         </div>
-        <b>${cv.name}</b><i class="fa fa-check-circle" style="color:  #7fad39;font-size: 20px;margin-left: 5px; margin-right: 5px;"></i><i style="color: #7fad39 ;">Đã mua hàng ở thế giới cây cảnh</i><br>
-        <i class="size-time">${cv.date_created_commnent}</i><br>
+        <b>${cv.name}</b><i class="fa fa-check-circle" style="color:  #3078a6;font-size: 20px;margin-left: 5px; margin-right: 5px;"></i><i style="color: #3078a6 ;">Đã mua hàng ở thế giới đồ chơi</i><br>
+        <i class="size-time">${cv.date_created_comment}</i><br>
         <i>Đánh giá: </i><b class="sao"><c:if test="${cv.rating_type_id==1}">5/5</c:if><c:if test="${cv.rating_type_id==2}">4/5</c:if><c:if test="${cv.rating_type_id==3}">3/5</c:if><c:if test="${cv.rating_type_id==4}">2/5</c:if><c:if test="${cv.rating_type_id==5}">1/5</c:if></b>
         <c:if test="${cv.rating_type_id==1}">
         <div class="starrating">
@@ -593,5 +597,6 @@
 <script src="user_page/js/mixitup.min.js"></script>
 <script src="user_page/js/owl.carousel.min.js"></script>
 <script src="user_page/js/main.js"></script>
+<script src="user_page/js/main_home.js"></script>
 </body>
 </html>

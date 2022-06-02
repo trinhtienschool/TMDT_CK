@@ -46,7 +46,7 @@ public class Order_handle extends HttpServlet {
         if (session.getAttribute("user_id") != null) {
             user_id = (int) session.getAttribute("user_id");
         } else {
-            boolean createNewUser = LoadUser.insertUser(name, email, password, phone, 1, "20000101", address, 1, 1, Util.dateFormat(new Date()));
+            boolean createNewUser = LoadUser.insertUser(name, email, password, phone, 1, "20000101", address, 1, 1,Util.dateFormat(new Date()));
             if (!createNewUser) {
                 request.setAttribute("type", "err");
                 request.getRequestDispatcher("user_page/checkout.jsp").forward(request, response);

@@ -1,5 +1,7 @@
 package vn.thegioidochoi.model.user;
 
+import vn.thegioidochoi.model.util.Util;
+
 import java.util.Date;
 
 public class User {
@@ -154,4 +156,5 @@ public class User {
         }
         return false;
     }
+
 }

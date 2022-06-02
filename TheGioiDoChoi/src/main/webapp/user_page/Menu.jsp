@@ -28,17 +28,18 @@
                     <div class="menu__toggle"><i class="icon-menu"></i><span>Danh mục</span></div>
                     <div class="menu__content">
                         <ul class="menu--dropdown">
-<%--                            currentParent: -1: là khởi đầu không là nhánh nào cả--%>
-<%--                            currentParent: 0: là nhánh lớn nhưng không là cha--%>
-<%--                            currentParent: 1: là nhánh lớn nhưng là cha--%>
-<%--                            currentParent: 2: là nhánh nhỏ là con của nhánh 1--%>
-<%--                            <c:set var = "isCurrentParrent" scope = "page" value = "-1"/>--%>
-<%--                                <c:out value="${applicationScope.category}"></c:out>--%>
+                            <%--                            currentParent: -1: là khởi đầu không là nhánh nào cả--%>
+                            <%--                            currentParent: 0: là nhánh lớn nhưng không là cha--%>
+                            <%--                            currentParent: 1: là nhánh lớn nhưng là cha--%>
+                            <%--                            currentParent: 2: là nhánh nhỏ là con của nhánh 1--%>
+                            <%--                            <c:set var = "isCurrentParrent" scope = "page" value = "-1"/>--%>
+                            <%--                                <c:out value="${applicationScope.category}"></c:out>--%>
                             <c:forEach var="cate" items="${applicationScope.category}">
-                                <c:if test = "${cate.master_id == cate.id && cate.parent==0 }">
+                                <%--                                <c:out value="out: ${cate}"></c:out>--%>
+                                <c:if test="${cate.master_id == cate.id && cate.parent==0 }">
                                     <li><a href="#.html">${cate.name}</a>
                                 </c:if>
-                                <c:if test = "${cate.master_id == cate.id && cate.parent==1 }">
+                                <c:if test="${cate.master_id == cate.id && cate.parent==1 }">
                                     <li class="menu-item-has-children has-mega-menu">
                                         <a href="#">${cate.name}</a>
                                         <div class="mega-menu">
@@ -58,151 +59,192 @@
                                 </c:if>
 
                             </c:forEach>
-<%--                            <li><a href="#.html">Hot Promotions</a>--%>
-<%--                            </li>--%>
-<%--                            <li class="menu-item-has-children has-mega-menu">--%>
-<%--                                <a href="#">Consumer Electronic</a>--%>
-<%--                                <span class="sub-toggle"></span>--%>
-<%--                                <div class="mega-menu">--%>
-<%--                                    <div class="mega-menu__column">--%>
-<%--                                        <h4>Electronic<span class="sub-toggle"></span></h4>--%>
-<%--                                        <ul class="mega-menu__list">--%>
-<%--                                            <li><a href="#.html">Home Audio &amp; Theathers</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">TV &amp; Videos</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Camera, Photos &amp; Videos</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Cellphones &amp; Accessories</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Headphones</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Videosgames</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Wireless Speakers</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Office Electronic</a>--%>
-<%--                                            </li>--%>
-<%--                                        </ul>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="mega-menu__column">--%>
-<%--                                        <h4>Accessories &amp; Parts<span class="sub-toggle"></span></h4>--%>
-<%--                                        <ul class="mega-menu__list">--%>
-<%--                                            <li><a href="#.html">Digital Cables</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Audio &amp; Video Cables</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Batteries</a>--%>
-<%--                                            </li>--%>
-<%--                                        </ul>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#.html">Clothing &amp; Apparel</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#.html">Home, Garden &amp; Kitchen</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#.html">Health &amp; Beauty</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#.html">Yewelry &amp; Watches</a>--%>
-<%--                            </li>--%>
-<%--                            <li class="menu-item-has-children has-mega-menu"><a href="#">Computer &amp;--%>
-<%--                                Technology</a><span class="sub-toggle"></span>--%>
-<%--                                <div class="mega-menu">--%>
-<%--                                    <div class="mega-menu__column">--%>
-<%--                                        <h4>Computer &amp; Technologies<span class="sub-toggle"></span></h4>--%>
-<%--                                        <ul class="mega-menu__list">--%>
-<%--                                            <li><a href="#.html">Computer &amp; Tablets</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Laptop</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Monitors</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Networking</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Drive &amp; Storages</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Computer Components</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Security &amp; Protection</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Gaming Laptop</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#.html">Accessories</a>--%>
-<%--                                            </li>--%>
-<%--                                        </ul>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#.html">Babies &amp; Moms</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#.html">Sport &amp; Outdoor</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#.html">Phones &amp; Accessories</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#.html">Books &amp; Office</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#.html">Cars &amp; Motocycles</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#.html">Home Improments</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#.html">Vouchers &amp; Services</a>--%>
-<%--                            </li>--%>
+                            <%--                            <li><a href="#.html">Hot Promotions</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li class="menu-item-has-children has-mega-menu">--%>
+                            <%--                                <a href="#">Consumer Electronic</a>--%>
+                            <%--                                <span class="sub-toggle"></span>--%>
+                            <%--                                <div class="mega-menu">--%>
+                            <%--                                    <div class="mega-menu__column">--%>
+                            <%--                                        <h4>Electronic<span class="sub-toggle"></span></h4>--%>
+                            <%--                                        <ul class="mega-menu__list">--%>
+                            <%--                                            <li><a href="#.html">Home Audio &amp; Theathers</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">TV &amp; Videos</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Camera, Photos &amp; Videos</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Cellphones &amp; Accessories</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Headphones</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Videosgames</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Wireless Speakers</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Office Electronic</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                        </ul>--%>
+                            <%--                                    </div>--%>
+                            <%--                                    <div class="mega-menu__column">--%>
+                            <%--                                        <h4>Accessories &amp; Parts<span class="sub-toggle"></span></h4>--%>
+                            <%--                                        <ul class="mega-menu__list">--%>
+                            <%--                                            <li><a href="#.html">Digital Cables</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Audio &amp; Video Cables</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Batteries</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                        </ul>--%>
+                            <%--                                    </div>--%>
+                            <%--                                </div>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#.html">Clothing &amp; Apparel</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#.html">Home, Garden &amp; Kitchen</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#.html">Health &amp; Beauty</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#.html">Yewelry &amp; Watches</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li class="menu-item-has-children has-mega-menu"><a href="#">Computer &amp;--%>
+                            <%--                                Technology</a><span class="sub-toggle"></span>--%>
+                            <%--                                <div class="mega-menu">--%>
+                            <%--                                    <div class="mega-menu__column">--%>
+                            <%--                                        <h4>Computer &amp; Technologies<span class="sub-toggle"></span></h4>--%>
+                            <%--                                        <ul class="mega-menu__list">--%>
+                            <%--                                            <li><a href="#.html">Computer &amp; Tablets</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Laptop</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Monitors</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Networking</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Drive &amp; Storages</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Computer Components</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Security &amp; Protection</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Gaming Laptop</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#.html">Accessories</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                        </ul>--%>
+                            <%--                                    </div>--%>
+                            <%--                                </div>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#.html">Babies &amp; Moms</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#.html">Sport &amp; Outdoor</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#.html">Phones &amp; Accessories</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#.html">Books &amp; Office</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#.html">Cars &amp; Motocycles</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#.html">Home Improments</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#.html">Vouchers &amp; Services</a>--%>
+                            <%--                            </li>--%>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="header__center">
-                <form class="ps-form--quick-search" action="index.html" method="get">
-                    <div class="form-group--icon"><i class="icon-chevron-down"></i>
-                        <select class="form-control">
-                            <option value="0">Tất cả</option>
-                            <c:forEach var="cate" items="${applicationScope.category}">
-                                <option value="${cate.id}">${cate.name}</option>
-                            </c:forEach>
+                <form class="ps-form--quick-search" action="shopping" method="get">
+                    <%--                    <div class="form-group--icon"><i class="icon-chevron-down"></i>--%>
+                    <%--                        <select class="form-control">--%>
+                    <%--                            <option value="0">Tất cả</option>--%>
+                    <%--                            <c:forEach var="cate" items="${applicationScope.category}">--%>
+                    <%--                                <option value="${cate.id}">${cate.name}</option>--%>
+                    <%--                            </c:forEach>--%>
 
-                        </select>
-                    </div>
-                    <input class="form-control" type="text" placeholder="Tìm đồ chơi...">
+                    <%--                        </select>--%>
+                    <%--                    </div>--%>
+                    <input class="form-control" type="text" name="keyword" placeholder="Tìm đồ chơi...">
                     <button><i class="fa fa-search"></i></button>
                 </form>
             </div>
             <div class="header__right">
                 <div class="header__actions"><a class="header__extra" href="#"><i class="icon-heart"></i><span><i>0</i></span></a>
-                    <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i>0</i></span></a>
+                    <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i>${sessionScope.cart.size}</i></span></a>
                         <div class="ps-cart__content">
                             <div class="ps-cart__items">
+
+                                <c:forEach var="ci" items="${sessionScope.cart.getProducts().values()}">
                                 <div class="ps-product--cart-mobile">
                                     <div class="ps-product__thumbnail"><a href="#"><img
-                                            src="img/products/clothing/7.jpg" alt=""></a></div>
+                                            src="${ci.img}" alt=""></a></div>
                                     <div class="ps-product__content"><a class="ps-product__remove" href="#"><i
-                                            class="icon-cross"></i></a><a href="product-default.html">MVMTH Classical
-                                        Leather Watch In Black</a>
-                                        <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
+                                            class="icon-cross"></i></a><a href="product-default.html">${ci.name}</a>
+<%--                                        <p><strong>Sold by:</strong> YOUNG SHOP</p>--%>
+                                        <c:set var="ps" value="${ci.price_sale}"></c:set>
+                                        <c:set var="p" value="${ci.price}"></c:set>
+                                        <c:set var="total" value="${ci.totalPrice}"></c:set>
+<%--                                        <small>1 x $59.99</small>--%>
+                                        <p>
+                                        <small>
+                                            ${ci.quantity} x
+                                            <c:if test="${ci.sale==true}">
+                                                <%=Util.formatCurrency((double) pageContext.getAttribute("ps"))%>
+                                                <span style="text-decoration: line-through;margin-left: 5px;color: gray;font-size: 13px">
+                                <%=Util.formatCurrency((double) pageContext.getAttribute("p"))%>
+                                </span>
+                                            </c:if>
+                                            <c:if test="${ci.sale==false}">
+                                                <%=Util.formatCurrency((double) pageContext.getAttribute("p"))%>
+                                            </c:if>
+                                        </small>
+                                        </p>
                                     </div>
                                 </div>
-                                <div class="ps-product--cart-mobile">
-                                    <div class="ps-product__thumbnail"><a href="#"><img
-                                            src="img/products/clothing/5.jpg" alt=""></a></div>
-                                    <div class="ps-product__content"><a class="ps-product__remove" href="#"><i
-                                            class="icon-cross"></i></a><a href="product-default.html">Sleeve Linen Blend
-                                        Caro Pane Shirt</a>
-                                        <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
-                                    </div>
-                                </div>
+                                </c:forEach>
+
+
+
+
                             </div>
                             <div class="ps-cart__footer">
-                                <h3>Sub Total:<strong>$59.99</strong></h3>
-                                <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn"
-                                                                                                    href="checkout.html">Checkout</a>
+                                <c:set var="tc" value="${sessionScope.cart.totalPrice}"></c:set>
+                                <h3>Tổng: <strong><%=Util.formatCurrency((double) pageContext.getAttribute("tc"))%></strong></h3>
+
+                                    <figure><a class="ps-btn" href="shopping-cart.html">Giỏ hàng</a><a class="ps-btn"
+                                                                                                    href="checkout.html">Thanh toán</a>
                                 </figure>
                             </div>
                         </div>
                     </div>
                     <div class="ps-block--user-header">
-                        <div class="ps-block__left"><i class="icon-user"></i></div>
-                        <div class="ps-block__right"><a href="my-account.html">Đăng nhập</a><a href="my-account.html">Đăng
-                            kí</a></div>
+
+                        <c:if test="${sessionScope.user_name !=null}">
+                            <div class="ps-block__left">
+                                <img class="user_avatar" src="imgs/user/default_avatar.png" alt="avatar">
+                            </div>
+                            <div class="ps-block__right">
+                                <div class="filter__sort">
+
+                                    <select id="login-web">
+                                        <option selected disabled>${sessionScope.user_name}</option>
+                                        <option value="user">Quản lí tài khoản</option>
+                                        <c:if test="${isAdmin !=null}">
+                                            <option value="handle-login?login=admin">Vào trang Admin</option>
+                                        </c:if>
+                                        <option value="handle-login?logout=true">Đăng xuất</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </c:if>
+                        <c:if test="${sessionScope.user_name ==null}">
+                            <div class="ps-block__left"><i class="icon-user"></i></div>
+                            <div class="ps-block__right">
+                                <a style="margin-top: 5px" href="handle-login?login=user">Đăng nhập</a><a
+                                    href="handle-sign-up">Đăng
+                                kí</a>
+                            </div>
+                        </c:if>
                     </div>
                 </div>
             </div>
@@ -216,10 +258,10 @@
                     <div class="menu__content">
                         <ul class="menu--dropdown">
                             <c:forEach var="cate" items="${applicationScope.category}">
-                                <c:if test = "${cate.master_id == cate.id && cate.parent==0 }">
+                                <c:if test="${cate.master_id == cate.id && cate.parent==0 }">
                                     <li><a href="#.html">${cate.name}</a>
                                 </c:if>
-                                <c:if test = "${cate.master_id == cate.id && cate.parent==1 }">
+                                <c:if test="${cate.master_id == cate.id && cate.parent==1 }">
                                     <li class="menu-item-has-children has-mega-menu">
                                         <a href="#">${cate.name}</a>
                                         <div class="mega-menu">
@@ -239,95 +281,95 @@
                                 </c:if>
 
                             </c:forEach>
-<%--                            <li><a href="#"><i class="fa fa-rocket"></i> Hot Promotions</a>--%>
-<%--                            </li>--%>
-<%--                            <li class="menu-item-has-children has-mega-menu"><a href="#"><i class="icon-laundry"></i>--%>
-<%--                                Consumer Electronic</a>--%>
-<%--                                <div class="mega-menu">--%>
-<%--                                    <div class="mega-menu__column">--%>
-<%--                                        <h4>Electronic<span class="sub-toggle"></span></h4>--%>
-<%--                                        <ul class="mega-menu__list">--%>
-<%--                                            <li><a href="#">Home Audio &amp; Theathers</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">TV &amp; Videos</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Camera, Photos &amp; Videos</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Cellphones &amp; Accessories</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Headphones</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Videosgames</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Wireless Speakers</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Office Electronic</a>--%>
-<%--                                            </li>--%>
-<%--                                        </ul>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="mega-menu__column">--%>
-<%--                                        <h4>Accessories &amp; Parts<span class="sub-toggle"></span></h4>--%>
-<%--                                        <ul class="mega-menu__list">--%>
-<%--                                            <li><a href="#">Digital Cables</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Audio &amp; Video Cables</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Batteries</a>--%>
-<%--                                            </li>--%>
-<%--                                        </ul>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#"><i class="icon-shirt"></i> Clothing &amp; Apparel</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#"><i class="icon-lampshade"></i> Home, Garden &amp; Kitchen</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#"><i class="icon-heart-pulse"></i> Health &amp; Beauty</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#"><i class="icon-diamond2"></i> Yewelry &amp; Watches</a>--%>
-<%--                            </li>--%>
-<%--                            <li class="menu-item-has-children has-mega-menu"><a href="#"><i class="icon-desktop"></i>--%>
-<%--                                Computer &amp; Technology</a>--%>
-<%--                                <div class="mega-menu">--%>
-<%--                                    <div class="mega-menu__column">--%>
-<%--                                        <h4>Computer &amp; Technologies<span class="sub-toggle"></span></h4>--%>
-<%--                                        <ul class="mega-menu__list">--%>
-<%--                                            <li><a href="#">Computer &amp; Tablets</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Laptop</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Monitors</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Networking</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Drive &amp; Storages</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Computer Components</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Security &amp; Protection</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Gaming Laptop</a>--%>
-<%--                                            </li>--%>
-<%--                                            <li><a href="#">Accessories</a>--%>
-<%--                                            </li>--%>
-<%--                                        </ul>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#"><i class="icon-baby-bottle"></i> Babies &amp; Moms</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#"><i class="icon-baseball"></i> Sport &amp; Outdoor</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#"><i class="icon-smartphone"></i> Phones &amp; Accessories</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#"><i class="icon-book2"></i> Books &amp; Office</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#"><i class="icon-car-siren"></i> Cars &amp; Motocycles</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#"><i class="icon-wrench"></i> Home Improments</a>--%>
-<%--                            </li>--%>
-<%--                            <li><a href="#"><i class="icon-tag"></i> Vouchers &amp; Services</a>--%>
-<%--                            </li>--%>
+                            <%--                            <li><a href="#"><i class="fa fa-rocket"></i> Hot Promotions</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li class="menu-item-has-children has-mega-menu"><a href="#"><i class="icon-laundry"></i>--%>
+                            <%--                                Consumer Electronic</a>--%>
+                            <%--                                <div class="mega-menu">--%>
+                            <%--                                    <div class="mega-menu__column">--%>
+                            <%--                                        <h4>Electronic<span class="sub-toggle"></span></h4>--%>
+                            <%--                                        <ul class="mega-menu__list">--%>
+                            <%--                                            <li><a href="#">Home Audio &amp; Theathers</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">TV &amp; Videos</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Camera, Photos &amp; Videos</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Cellphones &amp; Accessories</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Headphones</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Videosgames</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Wireless Speakers</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Office Electronic</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                        </ul>--%>
+                            <%--                                    </div>--%>
+                            <%--                                    <div class="mega-menu__column">--%>
+                            <%--                                        <h4>Accessories &amp; Parts<span class="sub-toggle"></span></h4>--%>
+                            <%--                                        <ul class="mega-menu__list">--%>
+                            <%--                                            <li><a href="#">Digital Cables</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Audio &amp; Video Cables</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Batteries</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                        </ul>--%>
+                            <%--                                    </div>--%>
+                            <%--                                </div>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#"><i class="icon-shirt"></i> Clothing &amp; Apparel</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#"><i class="icon-lampshade"></i> Home, Garden &amp; Kitchen</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#"><i class="icon-heart-pulse"></i> Health &amp; Beauty</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#"><i class="icon-diamond2"></i> Yewelry &amp; Watches</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li class="menu-item-has-children has-mega-menu"><a href="#"><i class="icon-desktop"></i>--%>
+                            <%--                                Computer &amp; Technology</a>--%>
+                            <%--                                <div class="mega-menu">--%>
+                            <%--                                    <div class="mega-menu__column">--%>
+                            <%--                                        <h4>Computer &amp; Technologies<span class="sub-toggle"></span></h4>--%>
+                            <%--                                        <ul class="mega-menu__list">--%>
+                            <%--                                            <li><a href="#">Computer &amp; Tablets</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Laptop</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Monitors</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Networking</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Drive &amp; Storages</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Computer Components</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Security &amp; Protection</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Gaming Laptop</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                            <li><a href="#">Accessories</a>--%>
+                            <%--                                            </li>--%>
+                            <%--                                        </ul>--%>
+                            <%--                                    </div>--%>
+                            <%--                                </div>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#"><i class="icon-baby-bottle"></i> Babies &amp; Moms</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#"><i class="icon-baseball"></i> Sport &amp; Outdoor</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#"><i class="icon-smartphone"></i> Phones &amp; Accessories</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#"><i class="icon-book2"></i> Books &amp; Office</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#"><i class="icon-car-siren"></i> Cars &amp; Motocycles</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#"><i class="icon-wrench"></i> Home Improments</a>--%>
+                            <%--                            </li>--%>
+                            <%--                            <li><a href="#"><i class="icon-tag"></i> Vouchers &amp; Services</a>--%>
+                            <%--                            </li>--%>
                         </ul>
                     </div>
                 </div>
@@ -339,14 +381,11 @@
                             <div class="ps-carousel--nav owl-slider" data-owl-auto="true" data-owl-loop="true"
                                  data-owl-speed="5000" data-owl-gap="30" data-owl-nav="true" data-owl-dots="false"
                                  data-owl-item="8" data-owl-item-xs="3" data-owl-item-sm="4" data-owl-item-md="5"
-                                 data-owl-item-lg="6" data-owl-duration="1000" data-owl-mousedrag="on"><a href="#"><img
-                                    src="img/products/home-kids/recent-view/1.jpg" alt=""></a><a href="#"><img
-                                    src="img/products/home-kids/recent-view/2.jpg" alt=""></a><a href="#"><img
-                                    src="img/products/home-kids/recent-view/3.jpg" alt=""></a><a href="#"><img
-                                    src="img/products/home-kids/recent-view/4.jpg" alt=""></a><a href="#"><img
-                                    src="img/products/home-kids/recent-view/5.jpg" alt=""></a><a href="#"><img
-                                    src="img/products/home-kids/recent-view/6.jpg" alt=""></a><a href="#"><img
-                                    src="img/products/home-kids/recent-view/7.jpg" alt=""></a>
+                                 data-owl-item-lg="6" data-owl-duration="1000" data-owl-mousedrag="on">
+                                <c:forEach var="rp" items="${sessionScope.vp}">
+                                <a href="shop-detail?product=${rp.slug}"><img
+                                    src="${rp.img}" alt=""></a>
+                                </c:forEach>
                             </div>
                             <p><a href="shop-default.html">Xem tất cả</a></p>
                         </div>
@@ -412,40 +451,115 @@
         <div class="navigation__right">
             <div class="header__actions">
                 <div class="ps-cart--mini"><a class="header__extra" href="#"><i
-                        class="icon-bag2"></i><span><i>0</i></span></a>
+                        class="icon-bag2"></i><span><i>${sessionScope.cart.size}</i></span></a>
+<%--                    <div class="ps-cart__content">--%>
+<%--                        <div class="ps-cart__items">--%>
+<%--                            <div class="ps-product--cart-mobile">--%>
+<%--                                <div class="ps-product__thumbnail"><a href="#"><img src="img/products/clothing/7.jpg"--%>
+<%--                                                                                    alt=""/></a></div>--%>
+<%--                                <div class="ps-product__content"><a class="ps-product__remove" href="#"><i--%>
+<%--                                        class="icon-cross"></i></a><a href="product-default.html">MVMTH Classical--%>
+<%--                                    Leather Watch In Black</a>--%>
+<%--                                    <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                            <div class="ps-product--cart-mobile">--%>
+<%--                                <div class="ps-product__thumbnail"><a href="#"><img src="img/products/clothing/5.jpg"--%>
+<%--                                                                                    alt=""/></a></div>--%>
+<%--                                <div class="ps-product__content"><a class="ps-product__remove" href="#"><i--%>
+<%--                                        class="icon-cross"></i></a><a href="product-default.html">Sleeve Linen Blend--%>
+<%--                                    Caro Pane Shirt</a>--%>
+<%--                                    <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                        <div class="ps-cart__footer">--%>
+<%--                            <h3>Sub Total:<strong>$59.99</strong></h3>--%>
+<%--                            <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn"--%>
+<%--                                                                                                href="checkout.html">Checkout</a>--%>
+<%--                            </figure>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
                     <div class="ps-cart__content">
                         <div class="ps-cart__items">
-                            <div class="ps-product--cart-mobile">
-                                <div class="ps-product__thumbnail"><a href="#"><img src="img/products/clothing/7.jpg"
-                                                                                    alt=""/></a></div>
-                                <div class="ps-product__content"><a class="ps-product__remove" href="#"><i
-                                        class="icon-cross"></i></a><a href="product-default.html">MVMTH Classical
-                                    Leather Watch In Black</a>
-                                    <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
+
+                            <c:forEach var="ci" items="${sessionScope.cart.getProducts().values()}">
+                                <div class="ps-product--cart-mobile">
+                                    <div class="ps-product__thumbnail"><a href="#"><img
+                                            src="${ci.img}" alt=""></a></div>
+                                    <div class="ps-product__content"><a class="ps-product__remove" href="#"><i
+                                            class="icon-cross"></i></a><a href="product-default.html">${ci.name}</a>
+                                            <%--                                        <p><strong>Sold by:</strong> YOUNG SHOP</p>--%>
+                                        <c:set var="ps" value="${ci.price_sale}"></c:set>
+                                        <c:set var="p" value="${ci.price}"></c:set>
+                                        <c:set var="total" value="${ci.totalPrice}"></c:set>
+                                            <%--                                        <small>1 x $59.99</small>--%>
+                                        <p>
+                                            <small>
+                                                    ${ci.quantity} x
+                                                <c:if test="${ci.sale==true}">
+                                                    <%=Util.formatCurrency((double) pageContext.getAttribute("ps"))%>
+                                                    <span style="text-decoration: line-through;margin-left: 5px;color: gray;font-size: 13px">
+                                <%=Util.formatCurrency((double) pageContext.getAttribute("p"))%>
+                                </span>
+                                                </c:if>
+                                                <c:if test="${ci.sale==false}">
+                                                    <%=Util.formatCurrency((double) pageContext.getAttribute("p"))%>
+                                                </c:if>
+                                            </small>
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="ps-product--cart-mobile">
-                                <div class="ps-product__thumbnail"><a href="#"><img src="img/products/clothing/5.jpg"
-                                                                                    alt=""/></a></div>
-                                <div class="ps-product__content"><a class="ps-product__remove" href="#"><i
-                                        class="icon-cross"></i></a><a href="product-default.html">Sleeve Linen Blend
-                                    Caro Pane Shirt</a>
-                                    <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
-                                </div>
-                            </div>
+                            </c:forEach>
+
+
+
+
                         </div>
                         <div class="ps-cart__footer">
-                            <h3>Sub Total:<strong>$59.99</strong></h3>
-                            <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn"
-                                                                                                href="checkout.html">Checkout</a>
+                            <c:set var="tc" value="${sessionScope.cart.totalPrice}"></c:set>
+                            <h3>Tổng: <strong><%=Util.formatCurrency((double) pageContext.getAttribute("tc"))%></strong></h3>
+
+                            <figure><a class="ps-btn" href="shopping-cart.html">Giỏ hàng</a><a class="ps-btn"
+                                                                                               href="checkout.html">Thanh toán</a>
                             </figure>
                         </div>
                     </div>
                 </div>
                 <div class="ps-block--user-header">
-                    <div class="ps-block__left"><a href="my-account.html"><i class="icon-user"></i></a></div>
-                    <div class="ps-block__right"><a href="my-account.html">Đăng nhập</a><a href="my-account.html">Đăng
-                        kí</a></div>
+<%--                    <div class="ps-block__left"><a href=""><i class="icon-user"></i></a></div>--%>
+<%--                    <div class="ps-block__right"><a href="handle-login?login=user">Đăng nhập</a><a--%>
+<%--                            href="my-account.html">Đăng--%>
+<%--                        kí</a></div>--%>
+
+    <c:if test="${sessionScope.user_name !=null}">
+        <div class="ps-block__left">
+            <img class="user_avatar" src="imgs/user/default_avatar.png" alt="avatar">
+        </div>
+        <div class="ps-block__right">
+            <div class="filter__sort">
+
+                <select id="login-mobile">
+                    <option selected disabled>${sessionScope.user_name}</option>
+                    <option value="user">Quản lí tài khoản</option>
+                    <c:if test="${isAdmin !=null}">
+                        <option value="handle-login?login=admin">Vào trang Admin</option>
+                    </c:if>
+                    <option value="handle-login?logout=true">Đăng xuất</option>
+                </select>
+            </div>
+        </div>
+    </c:if>
+    <c:if test="${sessionScope.user_name ==null}">
+        <div class="ps-block__left"><i class="icon-user"></i></div>
+        <div class="ps-block__right">
+            <a style="margin-top: 5px" href="handle-login?login=user">Đăng nhập</a><a
+                href="handle-sign-up">Đăng
+            kí</a>
+        </div>
+    </c:if>
+
+
                 </div>
             </div>
         </div>
@@ -461,7 +575,6 @@
 </header>
 
 
-
 <div id="back2top"><i style="color: #f6f6f6" class="fa fa-arrow-up"></i></div>
 <div class="ps-site-overlay"></div>
 <div class="ps-panel--sidebar" id="cart-mobile">
@@ -471,19 +584,41 @@
     <div class="navigation__content">
         <div class="ps-cart--mobile">
             <div class="ps-cart__content">
-                <div class="ps-product--cart-mobile">
-                    <div class="ps-product__thumbnail"><a href="#"><img src="img/products/clothing/7.jpg" alt=""></a>
+                <c:forEach var="ci" items="${sessionScope.cart.getProducts().values()}">
+                    <div class="ps-product--cart-mobile">
+                        <div class="ps-product__thumbnail"><a href="#"><img
+                                src="${ci.img}" alt=""></a></div>
+                        <div class="ps-product__content"><a class="ps-product__remove" href="#"><i
+                                class="icon-cross"></i></a><a href="product-default.html">${ci.name}</a>
+                                <%--                                        <p><strong>Sold by:</strong> YOUNG SHOP</p>--%>
+                            <c:set var="ps" value="${ci.price_sale}"></c:set>
+                            <c:set var="p" value="${ci.price}"></c:set>
+                            <c:set var="total" value="${ci.totalPrice}"></c:set>
+                                <%--                                        <small>1 x $59.99</small>--%>
+                            <p>
+                                <small>
+                                        ${ci.quantity} x
+                                    <c:if test="${ci.sale==true}">
+                                        <%=Util.formatCurrency((double) pageContext.getAttribute("ps"))%>
+                                        <span style="text-decoration: line-through;margin-left: 5px;color: gray;font-size: 13px">
+                                <%=Util.formatCurrency((double) pageContext.getAttribute("p"))%>
+                                </span>
+                                    </c:if>
+                                    <c:if test="${ci.sale==false}">
+                                        <%=Util.formatCurrency((double) pageContext.getAttribute("p"))%>
+                                    </c:if>
+                                </small>
+                            </p>
+                        </div>
                     </div>
-                    <div class="ps-product__content"><a class="ps-product__remove" href="#"><i
-                            class="icon-cross"></i></a><a href="product-default.html">MVMTH Classical Leather Watch In
-                        Black</a>
-                        <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
             <div class="ps-cart__footer">
-                <h3>Sub Total:<strong>$59.99</strong></h3>
-                <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a>
+                <c:set var="tc" value="${sessionScope.cart.totalPrice}"></c:set>
+                <h3>Tổng: <strong><%=Util.formatCurrency((double) pageContext.getAttribute("tc"))%></strong></h3>
+
+                <figure><a class="ps-btn" href="shopping-cart.html">Giỏ hàng</a><a class="ps-btn"
+                                                                                   href="checkout.html">Thanh toán</a>
                 </figure>
             </div>
         </div>
@@ -500,10 +635,10 @@
             <div class="menu__content">
                 <ul class="menu--dropdown">
                     <c:forEach var="cate" items="${applicationScope.category}">
-                        <c:if test = "${cate.master_id == cate.id && cate.parent==0 }">
+                        <c:if test="${cate.master_id == cate.id && cate.parent==0 }">
                             <li><a href="#.html">${cate.name}</a>
                         </c:if>
-                        <c:if test = "${cate.master_id == cate.id && cate.parent==1 }">
+                        <c:if test="${cate.master_id == cate.id && cate.parent==1 }">
                             <li class="menu-item-has-children has-mega-menu">
                                 <a href="#">${cate.name}</a>
                                 <div class="mega-menu">
@@ -534,7 +669,8 @@
             class="icon-menu"></i><span> Menu</span></a><a class="navigation__item ps-toggle--sidebar"
                                                            href="#navigation-mobile"><i class="icon-list4"></i><span> Danh mục</span></a><a
             class="navigation__item ps-toggle--sidebar" href="#search-sidebar"><i class="icon-magnifier"></i><span> Tìm kiếm</span></a><a
-            class="navigation__item ps-toggle--sidebar" href="#cart-mobile"><i class="icon-bag2"></i><span> Giỏ hàng</span></a>
+            class="navigation__item ps-toggle--sidebar" href="#cart-mobile"><i
+            class="icon-bag2"></i><span> Giỏ hàng</span></a>
     </div>
 </div>
 <div class="ps-panel--sidebar" id="search-sidebar">
@@ -748,18 +884,18 @@
 </div>
 
 <c:if test="${title !='Trang chủ'}">
-<nav aria-label="breadcrumb" >
-    <div class="container" style="padding: 25px 0px;">
-    <ol class="breadcrumb" style="
+    <nav aria-label="breadcrumb">
+        <div class="container" style="padding: 25px 0px;">
+            <ol class="breadcrumb" style="
     padding: 20px;
     border-radius: 10px;
 ">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Library</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Data</li>
-    </ol>
-    </div>
-</nav>
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Data</li>
+            </ol>
+        </div>
+    </nav>
 </c:if>
 
 <%--End--%>

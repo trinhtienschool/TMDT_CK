@@ -4,6 +4,7 @@ import com.sun.xml.internal.ws.api.policy.PolicyResolver;
 import vn.thegioidochoi.model.Product.Product;
 import vn.thegioidochoi.model.Product.ProductEntity;
 
+import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
 import vn.thegioidochoi.model.header_footer.LoadHeaderFooter;
 import vn.thegioidochoi.model.header_footer.Social_media;
 import vn.thegioidochoi.model.home_page.Home_page;
@@ -28,7 +29,7 @@ public class Home_direct extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         initAttr();
-        System.out.println("Day la trong home, da vo trang home");
+//        System.out.println("Day la trong home, da vo trang home");
         HttpSession session = request.getSession(false);
         if(session==null)
         {
@@ -54,6 +55,7 @@ public class Home_direct extends HttpServlet {
         ServletContext context = getServletContext();
         context.setAttribute("nps",nps);
 //        request.setAttribute("for_you",ProductEntity.loadFirstPros(9));
+        System.out.println("Ac;tive:::::::::::::::::::::::::::::::::::::::::"+DBCPDataSource.getNumActive());
         request.getRequestDispatcher("user_page/home.jsp").forward(request,response);
     }
     protected void initAttr(){

@@ -1628,7 +1628,8 @@ ol {
 }
 
 .filter__sort {
-  margin-bottom: 15px;
+  padding-top: 15px;
+
 }
 
 .filter__sort span {
@@ -1654,12 +1655,12 @@ ol {
 }
 
 .filter__sort .nice-select span {
-  color: #1c1c1c;
+  color: #f7fdff;
 }
 
 .filter__sort .nice-select:after {
-  border-bottom: 1.5px solid #1c1c1c;
-  border-right: 1.5px solid #1c1c1c;
+  border-bottom: 1.5px solid #f7fdff;
+  border-right: 1.5px solid #f7fdff;
   height: 8px;
   margin-top: 0;
   right: 16px;
@@ -1668,6 +1669,7 @@ ol {
 }
 
 .filter__sort .nice-select.open .list {
+  z-index: 200;
   opacity: 1;
   pointer-events: auto;
   -webkit-transform: scale(1) translateY(0);
@@ -1864,10 +1866,7 @@ ol {
 .blog__pagination a:last-child {
   margin-right: 0;
 }
-.set_choose{
-  background: #3078a6 !important;
-  color: #ffffff !important;
-}
+
 /* Thy sửa phần shop list */
 .col-custom {
   padding-right: 15px;
@@ -4168,7 +4167,7 @@ td.shoping__cart__quantity
   margin-bottom: 5px;
 }
 .sign__in__form #submit:hover{
-  background-color: #aadd5c;
+  background-color: #fcb800;
 }
 .sign__in__form .forget-pass{
   width: 598px;
@@ -5319,10 +5318,10 @@ body {
 .notice{
   color: red;
 }
-.user_avatar{
-  height: 30px;
-  border-radius: 45px;
-}
+/*.user_avatar{*/
+/*  height: 30px;*/
+/*  border-radius: 45px;*/
+/*}*/
 
 /*Cho google login*/
 #customBtn {
@@ -5339,6 +5338,9 @@ body {
   width: 266px;
   margin-bottom: 10px;
 }
+.S9gUrf-YoZ4jf>iframe{
+  display: inline-block !important;
+}
 #customBtn:hover {
   cursor: pointer;
 }
@@ -5347,7 +5349,7 @@ span.label {
   font-weight: normal;
 }
 span.icon {
-  background: url('/thegioidochoi.vn/imgs/login/search.jpg') transparent 5px 50% no-repeat;
+  background: url('/imgs/login/search.jpg') transparent 5px 50% no-repeat;
   display: inline-block;
   vertical-align: middle;
   width: 40px;
@@ -5539,13 +5541,21 @@ span.buttonText {
 .left-sidebar-parent span:hover, .left-sidebar-parent i:hover {
   color: #3078a6 !important;
 }
+.set_choose{
+  background: #3078a6 !important;
+  color: #ffffff !important;
+}
+.set_choose:hover{
+  color: #fcb800;
+}
 .left-sidebar-parent .collapse.show a  {
   padding: 8px 0px;
   color: #212121 !important;
 }
 .left-sidebar-parent .collapse.show a:hover  {
-  color: #3078a6 !important;
+  color: #fcb800 !important;
 }
+
 .left-sidebar-parent i {
   display: inline-block;
 }

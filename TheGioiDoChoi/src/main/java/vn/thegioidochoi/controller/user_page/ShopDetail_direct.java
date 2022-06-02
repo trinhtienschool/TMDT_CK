@@ -22,8 +22,9 @@ public class ShopDetail_direct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("page_menu","shopping");
         request.setAttribute("title","Chi tiết sản phẩm");
-        int id=Integer.parseInt(request.getParameter("id"));
-        Product products= ProductEntity.loadProductById(id);
+        String product_slug=request.getParameter("product");
+        Product products= ProductEntity.loadProductBySlug(product_slug);
+        int id = products.getId();
         Product prostar5=ProductEntity.loadCountStarByIdProAndIdStar(id,1);
         Product prostar4=ProductEntity.loadCountStarByIdProAndIdStar(id,2);
         Product prostar3=ProductEntity.loadCountStarByIdProAndIdStar(id,3);
@@ -49,6 +50,8 @@ public class ShopDetail_direct extends HttpServlet {
         request.setAttribute("proavgstar",proavgstar);
         request.setAttribute("relaproducts",relaproducts);
         request.setAttribute("usercomment",users);
+        System.out.println("chuan bi vao shop-detail");
+        System.out.println(users);
         request.getRequestDispatcher("user_page/shop-detail.jsp").forward(request,response);
     }
 }

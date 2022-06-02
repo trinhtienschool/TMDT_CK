@@ -209,8 +209,10 @@
         stop: function (event, ui) {
             minamount.val(ui.values[0] + '.000 ₫');
             maxamount.val(ui.values[1] + '.000 ₫');
-            window.location.href = type_page + "?price_min=" + ui.values[0] + "&price_max=" + ui.values[1] + "&" + url;
-            console.log(type_page + "?price_min=" + ui.values[0] + "&price_max=" + ui.values[1] + "&" + url);
+            url = url.trim();
+            if(url.indexOf("&")==0) url = url.substring(1);
+            window.location.href = type_page + "?price_min=" + ui.values[0] + "&price_max=" + ui.values[1] +"&"+  url;
+            console.log(type_page + "?price_min=" + ui.values[0] + "&price_max=" + ui.values[1] +"&"+  url);
         }
     });
     minamount.val(rangeSlider.slider("values", 0) + ".000 ₫");
@@ -267,6 +269,8 @@
 
 
     });
+
+
 
     // Header sale
     var ww = $(window).width();
@@ -591,4 +595,17 @@ function load(position){
     $(window).scrollTop(position);
 
 }
+function clickCheckbox(type,checkbox,type_page,url){
 
+    if(checkbox.checked){
+        console.log('co vo0000000000000000000000000');
+        console.log(checkbox.id)
+        url = url.trim();
+        if(url.indexOf("&")==0) url = url.substring(1);
+        console.log(url);
+
+        window.location.href = type_page+"?" + type+"="+checkbox.id+"&" + url;
+    }else{
+        window.location.href = type_page+"?" + url;
+    }
+}
