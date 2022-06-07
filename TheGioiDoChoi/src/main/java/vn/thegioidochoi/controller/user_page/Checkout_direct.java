@@ -27,15 +27,16 @@ public class Checkout_direct extends HttpServlet {
 
         if (session.getAttribute("user_id") != null) {
             String address = (String) session.getAttribute("user_address");
-            String[] arr = separatedAddress(address);
-            if (arr.length == 4) {
-                request.setAttribute("province", arr[0]);
-                request.setAttribute("district", arr[1]);
-                request.setAttribute("sd", arr[2]);
-                request.setAttribute("detail", arr[3]);
-                System.out.println("co vo&&&&&&&&&&&&&&&&&");
+            if(address !=null) {
+                String[] arr = separatedAddress(address);
+                if (arr.length == 4) {
+                    request.setAttribute("province", arr[0]);
+                    request.setAttribute("district", arr[1]);
+                    request.setAttribute("sd", arr[2]);
+                    request.setAttribute("detail", arr[3]);
+                    System.out.println("co vo&&&&&&&&&&&&&&&&&");
+                }
             }
-
 
         }
         Cart cart = (Cart) session.getAttribute("cart");

@@ -14,7 +14,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(urlPatterns = "/shop-detail")
@@ -27,8 +29,8 @@ public class ShopDetail_direct extends HttpServlet {
         request.setAttribute("page_menu","shopping");
         request.setAttribute("title","Chi tiết sản phẩm");
         String product_slug=request.getParameter("product");
-        Product products= ProductEntity.loadProductBySlug(product_slug);
-        int id = products.getId();
+        Product product= ProductEntity.loadProductBySlug(product_slug);
+        int id = product.getId();
         Product prostar5=ProductEntity.loadCountStarByIdProAndIdStar(id,1);
         Product prostar4=ProductEntity.loadCountStarByIdProAndIdStar(id,2);
         Product prostar3=ProductEntity.loadCountStarByIdProAndIdStar(id,3);
@@ -41,10 +43,10 @@ public class ShopDetail_direct extends HttpServlet {
 
         List<Image> images = LoadImage.loadListImage(id);
 
-        int cateid=products.getCategory_id();
+        int cateid=product.getCategory_id();
         List<Product> relaproducts=ProductEntity.loadRelativeProduct(cateid,id);
         List<User> users= LoadUser.loadOrderCommentByIdUser(id);
-        request.setAttribute("product",products);
+        request.setAttribute("product",product);
         System.out.println("Đã vào trang chi tiết sản phẩm ttttttttttttttt");
         request.setAttribute("supplier", supplier);
         request.setAttribute("images", images);
@@ -66,7 +68,26 @@ public class ShopDetail_direct extends HttpServlet {
         System.out.println(users);
 
         System.out.println(users);
-        System.out.println(products);
+        System.out.println(product);
+
+        HttpSession session = request.getSession();
+        if(session.getAttribute("user_id") !=null) {
+            int user_id = (int) session.getAttribute("user_id");
+            ProductEntity.insertRecentViewProduct(user_id, id);
+
+            List<Product> viewProducts = ProductEntity.loadViewProducts(user_id);
+            session.setAttribute("vp",viewProducts);
+        }else{
+            if(session.getAttribute("vp") !=null) {
+                List<Product> vp = (List<Product>)session.getAttribute("vp");
+                vp.add(product);
+                session.setAttribute("vp",vp);
+            }else{
+                List<Product>vp = new ArrayList<>();
+                vp.add(product);
+                session.setAttribute("vp",vp);
+            }
+        }
 
         request.getRequestDispatcher("user_page/shop-detail.jsp").forward(request,response);
     }

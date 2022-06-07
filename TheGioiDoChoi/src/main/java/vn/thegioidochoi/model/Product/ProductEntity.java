@@ -5,11 +5,12 @@ import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
 import vn.thegioidochoi.model.header_footer.Category;
 import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
 import vn.thegioidochoi.model.supplier.Supplier;
+import vn.thegioidochoi.model.util.Util;
 
 
 import java.sql.*;
-import java.sql.Date;
 import java.util.*;
+import java.util.Date;
 
 public class ProductEntity {
     public static List<Product> loadProducts(String search,String category,int price_min, int price_max, String genders,String ages, String order, int page) {
@@ -337,8 +338,28 @@ public static void vidu(String s){
         s +="tien";
     System.out.println(s);
 }
+    public static boolean insertRecentViewProduct(int userId, int proId) {
+        String sql = "insert into recent_view_products value\n" +
+                "(?,?,?)";
+        int update = 0;
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
 
-    public static boolean insertProduct(String name, double price,
+            pe.setInt(1, userId);
+            pe.setInt(2, proId);
+            pe.setString(3, Util.dateFormat(new Date()));
+            System.out.println(pe.toString());
+            synchronized (pe) {
+                update = pe.executeUpdate();
+            }
+            pe.close();
+            return update == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+public static boolean insertProduct(String name, double price,
                                         String img, String description,
                                         String content, int supplier_id,
                                         int type_weight, int active,
