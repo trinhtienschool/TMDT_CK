@@ -1,4 +1,5 @@
 <%@ page import="vn.thegioidochoi.model.util.Util" %>
+<%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -90,7 +91,39 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" style="margin: 0 !important;">
+					<div class="col-md-8">
+						<!-- Recent Bookings -->
+						<div class="card card-table flex-fill">
+							<div class="card-header">
+								<h4 class="card-title">Doanh thu</h4>
+							</div>
+							<div class="card-body">
+								<!--								style="width:100%;max-width:700px"-->
+								<%
+									int[] total = {6,8,4,3,22,4,6};
+									pageContext.setAttribute("total_price", Arrays.toString(total));
+									
+								%>
+								<canvas data-revenue="${pageContext.getAttribute("total_price")}" id="revenue" ></canvas>
+							</div>
+						</div>
+						<!-- /Recent Bookings -->
+					</div>
+					<div class="col-md-4">
+						<!-- Recent Bookings -->
+						<div class="card card-table flex-fill">
+							<div class="card-header">
+								<h4 class="card-title">Trạng thái đơn hàng</h4>
+							</div>
+							<div class="card-body">
+								<canvas id="order-status"></canvas>
+							</div>
+						</div>
+						<!-- /Recent Bookings -->
+					</div>
+				</div>
+				<div class="row" style="margin: 0 !important;">
 					<div class="col-md-12 d-flex">
 					
 						<!-- Recent Bookings -->
@@ -151,6 +184,74 @@
 
 	<!-- Custom JS -->
 	<script src="assets/js/admin.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script>
+
+		const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+		const d = new Date();
+		let day_arr = []
+		for(let i = 1;i<=7;i++){
+			let date_before = new Date(d.getTime() - (i * 24 * 60 * 60 * 1000));
+			day_arr.push(weekday[date_before.getDay()])
+		}
+
+
+
+
+		const data_revenue = {
+			labels: day_arr,
+			datasets: [
+				{
+					label: 'Doanh thu (1000đ)',
+					data: [0, 10, 5, 2, 20, 30, 45],
+					borderColor: 'rgb(127, 173, 57)',
+					backgroundColor: 'rgba(127,173,57,0.46)',
+					fill : 'start',
+					tension: 0.3
+				}
+			]
+		};
+		const data_order_status = {
+			labels: [
+				'Đang giao',
+				'Đã xác nhận',
+				'Đã hủy'
+			],
+			datasets: [{
+				label: 'Trạng thái',
+				data: [300, 50, 100],
+				backgroundColor: [
+					'rgb(255, 99, 132)',
+					'rgb(54, 162, 235)',
+					'rgb(255, 205, 86)'
+				],
+				hoverOffset: 4
+			}]
+		};
+		const config_order_status = {
+			type: 'doughnut',
+			data: data_order_status,
+		};
+		const config_revenue = {
+			type: 'line',
+			data: data_revenue,
+			options: {}
+		};
+	</script>
+	<script>
+		let revenue_chart = new Chart(
+				document.getElementById('revenue'),
+				config_revenue
+		);
+		revenue_chart.destroy()
+
+		let order_status_chart = new Chart(
+				document.getElementById('order-status'),
+				config_order_status
+		);
+		order_status_chart.destroy()
+	</script>
 
 </body>
 

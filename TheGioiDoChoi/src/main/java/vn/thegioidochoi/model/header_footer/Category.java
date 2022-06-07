@@ -75,14 +75,14 @@ public class Category {
 
     @Override
     public String toString() {
-        System.out.println(id+"; "+name+" ; "+master_id);
-       if(!subcategories.isEmpty()){
-           System.out.println("s");
-           for(Category c: subcategories){
-               System.out.println(c);
-           }
-           System.out.println("e");
-       }
+//        System.out.println(id+"; "+name+" ; "+master_id);
+//       if(!subcategories.isEmpty()){
+//           System.out.println("s");
+//           for(Category c: subcategories){
+//               System.out.println(c);
+//           }
+////           System.out.println("e");
+//       }
         return "";
     }
 }

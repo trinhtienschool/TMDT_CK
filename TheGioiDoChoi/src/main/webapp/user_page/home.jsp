@@ -138,15 +138,15 @@
                         <div class="product__discount__item">
 
                             <div class="product__discount__item__pic">
-                                <a href=""><img src="${dp.img}" alt=""></a>
+                                <a href="/shop-detail?product=${dp.slug}"><img src="${dp.img}" alt=""></a>
                                 <!--                                    <a href="" class="fload-img"></a>-->
                                 <div class="product__discount__percent">-${dp.percent_sale}%</div>
                                 <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-money"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-
-
+                                    <li class="fast-checkout cursor-pointer" data-pro_id="${dp.id}"><a ><i class="fa fa-money"></i></a></li>
+                                    <c:if test="${sessionScope.user_id!=null}">
+                                        <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${dp.id}"><a><i class="fa fa-heart"></i></a></li>
+                                    </c:if>
+                                    <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${dp.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
 
@@ -222,11 +222,13 @@
                                             <c:if test="${bp.percent_sale==0}">
                                                 <div class="featured__item">
                                                     <div class="featured__item__pic ">
-                                                        <a href=""><img src="${bp.img}" alt=""></a>
-                                                        <ul class="featured__item__pic__hover">
-                                                            <li><a href="#"><i class="fa fa-money"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        <a href="/shop-detail?product=${bp.slug}"><img src="${bp.img}" alt=""></a>
+                                                        <ul class="product__item__pic__hover">
+                                                            <li class="fast-checkout cursor-pointer" data-pro_id="${bp.id}"><a ><i class="fa fa-money"></i></a></li>
+                                                            <c:if test="${sessionScope.user_id!=null}">
+                                                                <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
                                                         </ul>
                                                     </div>
                                                     <div class="featured__item__text">
@@ -242,16 +244,16 @@
                                                 <div class="product__discount__item">
 
                                                     <div class="product__discount__item__pic">
-                                                        <a href=""><img src="${bp.img}" alt=""></a>
+                                                        <a href="/shop-detail?product=${bp.slug}"><img src="${bp.img}" alt=""></a>
                                                         <!--                                    <a href="" class="fload-img"></a>-->
                                                         <div class="product__discount__percent">-${bp.percent_sale}%
                                                         </div>
                                                         <ul class="product__item__pic__hover">
-                                                            <li><a href="#"><i class="fa fa-money"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-
-
+                                                            <li class="fast-checkout cursor-pointer" data-pro_id="${bp.id}"><a ><i class="fa fa-money"></i></a></li>
+                                                            <c:if test="${sessionScope.user_id!=null}">
+                                                                <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
                                                         </ul>
                                                     </div>
 
@@ -307,11 +309,13 @@
                                             <c:if test="${np.percent_sale==0}">
                                                 <div class="featured__item">
                                                     <div class="featured__item__pic ">
-                                                        <a href=""><img src="${np.img}" alt=""></a>
-                                                        <ul class="featured__item__pic__hover">
-                                                            <li><a href="#"><i class="fa fa-money"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        <a href="/shop-detail?product=${np.slug}"><img src="${np.img}" alt=""></a>
+                                                        <ul class="product__item__pic__hover">
+                                                            <li class="fast-checkout cursor-pointer" data-pro_id="${np.id}"><a ><i class="fa fa-money"></i></a></li>
+                                                            <c:if test="${sessionScope.user_id!=null}">
+                                                                <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${np.id}"><a><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${np.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
                                                         </ul>
                                                     </div>
                                                     <div class="featured__item__text">
@@ -327,16 +331,16 @@
                                                 <div class="product__discount__item">
 
                                                     <div class="product__discount__item__pic">
-                                                        <a href=""><img src="${np.img}" alt=""></a>
+                                                        <a href="/shop-detail?product=${np.slug}"><img src="${np.img}" alt=""></a>
                                                         <!--                                    <a href="" class="fload-img"></a>-->
                                                         <div class="product__discount__percent">-${np.percent_sale}%
                                                         </div>
                                                         <ul class="product__item__pic__hover">
-                                                            <li><a href="#"><i class="fa fa-money"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-
-
+                                                            <li class="fast-checkout cursor-pointer" data-pro_id="${np.id}"><a ><i class="fa fa-money"></i></a></li>
+                                                            <c:if test="${sessionScope.user_id!=null}">
+                                                                <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${np.id}"><a><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${np.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
                                                         </ul>
                                                     </div>
 
@@ -392,11 +396,13 @@
                                             <c:if test="${hlp.percent_sale==0}">
                                                 <div class="featured__item">
                                                     <div class="featured__item__pic ">
-                                                        <a href=""><img src="${hlp.img}" alt=""></a>
-                                                        <ul class="featured__item__pic__hover">
-                                                            <li><a href="#"><i class="fa fa-money"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        <a href="/shop-detail?product=${hlp.slug}"><img src="${hlp.img}" alt=""></a>
+                                                        <ul class="product__item__pic__hover">
+                                                            <li class="fast-checkout cursor-pointer" data-pro_id="${hlp.id}"><a ><i class="fa fa-money"></i></a></li>
+                                                            <c:if test="${sessionScope.user_id!=null}">
+                                                                <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${hlp.id}"><a><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${hlp.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
                                                         </ul>
                                                     </div>
                                                     <div class="featured__item__text">
@@ -412,16 +418,16 @@
                                                 <div class="product__discount__item">
 
                                                     <div class="product__discount__item__pic">
-                                                        <a href=""><img src="${hlp.img}" alt=""></a>
+                                                        <a href="/shop-detail?product=${hlp.slug}"><img src="${hlp.img}" alt=""></a>
                                                         <!--                                    <a href="" class="fload-img"></a>-->
                                                         <div class="product__discount__percent">-${hlp.percent_sale}%
                                                         </div>
                                                         <ul class="product__item__pic__hover">
-                                                            <li><a href="#"><i class="fa fa-money"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-
-
+                                                            <li class="fast-checkout cursor-pointer" data-pro_id="${hlp.id}"><a ><i class="fa fa-money"></i></a></li>
+                                                            <c:if test="${sessionScope.user_id!=null}">
+                                                                <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${hlp.id}"><a><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${hlp.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
                                                         </ul>
                                                     </div>
 
@@ -478,11 +484,13 @@
                                             <c:if test="${bp.percent_sale==0}">
                                                 <div class="featured__item">
                                                     <div class="featured__item__pic ">
-                                                        <a href=""><img src="${bp.img}" alt=""></a>
-                                                        <ul class="featured__item__pic__hover">
-                                                            <li><a href="#"><i class="fa fa-money"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        <a href="/shop-detail?product=${bp.slug}"><img src="${bp.img}" alt=""></a>
+                                                        <ul class="product__item__pic__hover">
+                                                            <li class="fast-checkout cursor-pointer" data-pro_id="${bp.id}"><a ><i class="fa fa-money"></i></a></li>
+                                                            <c:if test="${sessionScope.user_id!=null}">
+                                                                <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
                                                         </ul>
                                                     </div>
                                                     <div class="featured__item__text">
@@ -498,16 +506,16 @@
                                                 <div class="product__discount__item">
 
                                                     <div class="product__discount__item__pic">
-                                                        <a href=""><img src="${bp.img}" alt=""></a>
+                                                        <a href="/shop-detail?product=${bp.slug}"><img src="${bp.img}" alt=""></a>
                                                         <!--                                    <a href="" class="fload-img"></a>-->
                                                         <div class="product__discount__percent">-${bp.percent_sale}%
                                                         </div>
                                                         <ul class="product__item__pic__hover">
-                                                            <li><a href="#"><i class="fa fa-money"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-
-
+                                                            <li class="fast-checkout cursor-pointer" data-pro_id="${bp.id}"><a ><i class="fa fa-money"></i></a></li>
+                                                            <c:if test="${sessionScope.user_id!=null}">
+                                                                <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
                                                         </ul>
                                                     </div>
 
@@ -586,11 +594,13 @@
                     <div class="featured__item">
                         </c:if>
                         <div class="featured__item__pic ">
-                            <a href=""><img src="${sp.img}" alt=""></a>
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-money"></i></a></li>
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                            <a href="/shop-detail?product=${sp.slug}"><img src="${sp.img}" alt=""></a>
+                            <ul class="product__item__pic__hover">
+                                <li class="fast-checkout cursor-pointer" data-pro_id="${sp.id}"><a ><i class="fa fa-money"></i></a></li>
+                                <c:if test="${sessionScope.user_id!=null}">
+                                    <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${sp.id}"><a><i class="fa fa-heart"></i></a></li>
+                                </c:if>
+                                <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${sp.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
@@ -637,11 +647,13 @@
                     <div class="featured__item">
                         </c:if>
                         <div class="featured__item__pic ">
-                            <a href=""><img src="${cp.img}" alt=""></a>
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-money"></i></a></li>
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                            <a href="/shop-detail?product=${cp.slug}"><img src="${cp.img}" alt=""></a>
+                            <ul class="product__item__pic__hover">
+                                <li class="fast-checkout cursor-pointer" data-pro_id="${cp.id}"><a ><i class="fa fa-money"></i></a></li>
+                                <c:if test="${sessionScope.user_id!=null}">
+                                    <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${cp.id}"><a><i class="fa fa-heart"></i></a></li>
+                                </c:if>
+                                <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${cp.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
@@ -688,11 +700,13 @@
                     <div class="featured__item">
                         </c:if>
                         <div class="featured__item__pic ">
-                            <a href=""><img src="${tp.img}" alt=""></a>
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-money"></i></a></li>
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                            <a href="/shop-detail?product=${tp.slug}"><img src="${tp.img}" alt=""></a>
+                            <ul class="product__item__pic__hover">
+                                <li class="fast-checkout cursor-pointer" data-pro_id="${tp.id}"><a ><i class="fa fa-money"></i></a></li>
+                                <c:if test="${sessionScope.user_id!=null}">
+                                    <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${tp.id}"><a><i class="fa fa-heart"></i></a></li>
+                                </c:if>
+                                <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${tp.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">

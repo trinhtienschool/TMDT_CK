@@ -1,5 +1,7 @@
 package vn.thegioidochoi.model.user;
 
+import vn.thegioidochoi.model.util.Util;
+
 import java.util.Date;
 
 public class User {
@@ -154,4 +156,28 @@ public class User {
         }
         return false;
     }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", password=" + password +
+                ", email='" + email + '\'' +
+                ", phone=" + phone +
+                ", address='" + address + '\'' +
+                ", sex='" + sex + '\'' +
+                ", birthday=" + birthday +
+                ", active=" + active +
+                ", about='" + about + '\'' +
+                ", role_id=" + role_id +
+                ", date_created=" + date_created +
+                ", date_created_comment=" + date_created_comment +
+                ", rating_type_id=" + rating_type_id +
+                ", comment='" + comment + '\'' +
+                '}';
+    }
+
 }

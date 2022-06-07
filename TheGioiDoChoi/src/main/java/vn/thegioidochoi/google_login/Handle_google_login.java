@@ -23,7 +23,9 @@ public class Handle_google_login extends HttpServlet {
 
         String name = request.getParameter("name");
         String email = request.getParameter("email");
-        User user_same_email = LoadUser.loadAUserByEmailGG_FB(email);
+        String id = request.getParameter("id");
+        System.out.println("Co vao handle-gg-loginnnnnnnnnnnnnnnnn");
+        User user_same_email = LoadUser.loadAUserByEmailGG_FB(email,id);
 
         //Kiem tra xem email da duoc dang ki chua
         if(user_same_email !=null){
@@ -35,7 +37,7 @@ public class Handle_google_login extends HttpServlet {
         }
         else {
             //neu email chua duoc dang ki, luu email
-            boolean isSaved = LoadUser.saveUserLoginByFb_GG(email, name);
+            boolean isSaved = LoadUser.saveUserLoginByFb_GG(email, name,id);
             if (isSaved) {
                 Login_handle.deleteAvailableSession(request);
                 User user = LoadUser.loadAUserByEmail(email);

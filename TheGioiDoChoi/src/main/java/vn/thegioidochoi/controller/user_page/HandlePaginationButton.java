@@ -26,9 +26,11 @@ public class HandlePaginationButton extends HttpServlet {
         //finalProduct CHI DUOC DUNG DE XU LI SEARCH
         List<Product> finalProduct=null;
 
+
         //lay chuoi sql
         String sql = (String)request.getAttribute("sql");
-
+        System.out.println("SQllllllllllllllllllll: ");
+        System.out.println(sql);
         //lay chuoi countSql: chinh la cau lenh de lay ra TONG so san pham thoa dieu kien
         String countSql = (String)request.getAttribute("sumOfItems_sql");
         System.out.println("sql: "+sql);
@@ -135,7 +137,7 @@ public class HandlePaginationButton extends HttpServlet {
                 System.out.println("co vo shopping");
                 //loc ra san pham thoa dieu kien tu cau sql
                 List<Product> list = ProductEntity.loadProductFormSql(sql);
-                System.out.println("Product:; " + list.size());
+                System.out.println("Product: " + list.size());
                 request.setAttribute("data", list);
             }
         }

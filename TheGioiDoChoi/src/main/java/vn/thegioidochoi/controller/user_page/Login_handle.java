@@ -1,7 +1,10 @@
 package vn.thegioidochoi.controller.user_page;
 
+import vn.thegioidochoi.model.Product.Product;
+import vn.thegioidochoi.model.Product.ProductEntity;
 import vn.thegioidochoi.model.mail.Mail;
 import vn.thegioidochoi.model.user.*;
+import vn.thegioidochoi.model.util.Util;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @WebServlet(urlPatterns = "/handle-login")
@@ -74,7 +78,7 @@ public class Login_handle extends HttpServlet {
                 ForgetPass fp= new ForgetPass(user.getId(),user.getEmail(),user.getPassword());
                 boolean succSave=Load_ForgetPass.saveForgetPass(fp);
                 if(succSave){
-                    String link = "http://localhost:8080/thegioidochoi.vn/handle-login?conform-fp=true&key="+ fp.getKey_forget();
+                    String link = "http://localhost:8082/handle-login?conform-fp=true&key="+ fp.getKey_forget();
                     String subject="Lấy lại mật khẩu";
                     String content= "Chào "+user.getName()+"!,"
                     + "\n Đây là link lấy lại mật khẩu! Link có thời hạn 3 ngày kể từ ngày nhận. Bấm vào để xác nhận\n"
@@ -145,11 +149,13 @@ public class Login_handle extends HttpServlet {
         System.out.println(email);
         System.out.println(pass);
         User user = LoadUser.loadAUserByEmail(email);
+
         if(user == null){
             notifyError(2,"Sai email hoặc mật khẩu",request,response);
             return;
         }
-        long passHashCode = user.getId()*email.hashCode()*pass.hashCode();
+        System.out.println("Date_createdLogin: "+Util.dateFormat(user.getDate_created())+" : "+email+" : "+pass);
+        long passHashCode =Util.hashPass(Util.dateFormat(user.getDate_created()),email,pass);;
         if(passHashCode != user.getPassword()){
             notifyError(2,"Sai email hoặc mật khẩu",request,response);
         }else {
@@ -175,6 +181,8 @@ public class Login_handle extends HttpServlet {
             session.setAttribute("user_mail", user.getEmail());
             session.setAttribute("user_address",user.getAddress());
             Cart cart = new Cart(user.getId());
+            List<Product> viewProducts = ProductEntity.loadViewProducts(user.getId());
+            session.setAttribute("vp",viewProducts);
             session.setAttribute("cart", cart);
             if (user.getRole_id() == 2 || user.getRole_id() == 3) {
                 session.setAttribute("isAdmin", true);

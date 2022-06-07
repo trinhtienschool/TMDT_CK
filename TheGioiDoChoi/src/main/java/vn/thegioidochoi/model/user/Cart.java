@@ -100,7 +100,7 @@ public class Cart {
         }
     }
     public void loadCart(int user_id) {
-        String sql = "select p.id,p.img,p.name,p.price,p.price_sale,s.quantity,p.is_sale,p.type_weight from shopping_cart s join product p on s.pro_id=p.id where user_id = ?";
+        String sql = "select p.id,p.img,p.name,p.price,p.price_sale,s.quantity,p.is_sale from shopping_cart s join product p on s.pro_id=p.id where user_id = ?";
         try {
             PreparedStatement pt = DBCPDataSource.preparedStatement(sql);
             pt.setInt(1, user_id);
@@ -115,7 +115,7 @@ public class Cart {
                     item.setPrice_sale(rs.getDouble(5));
                     item.setQuantity(rs.getInt(6));
                     item.setSale(rs.getInt(7)==1);
-                    item.setType_weight(rs.getInt(8));
+//                    item.setType_weight(rs.getInt(8));
                     item.calTotalPrice();
                     products.put(item.getId(), item);
                 }

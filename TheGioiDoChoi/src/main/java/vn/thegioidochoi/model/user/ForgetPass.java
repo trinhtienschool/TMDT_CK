@@ -1,5 +1,7 @@
 package vn.thegioidochoi.model.user;
 
+import vn.thegioidochoi.model.util.Util;
+
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -19,16 +21,16 @@ public class ForgetPass {
     public ForgetPass(int user_id, String email, long pass) {
         this.user_id=user_id;
         this.email=email;
-        this.createKey_Forget(user_id,email,pass);
+        this.createKey_Forget(Util.dateFormat(new Date()),email,pass);
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE,3);
         this.date_end=calendar.getTime();
-        createKey_Forget(user_id,email,pass);
+
     }
-    public void createKey_Forget(int user_id,String email,long pass){
+    public void createKey_Forget(String currentDate,String email,long pass){
 
         //Tao 1 hashcode
-        long hashcode = user_id*email.hashCode()*pass;
+        long hashcode = currentDate.hashCode()*email.hashCode()*pass;
         //tao sha 256 code
         this.key_forget = generateSHA_256(String.valueOf(hashcode));
     }
