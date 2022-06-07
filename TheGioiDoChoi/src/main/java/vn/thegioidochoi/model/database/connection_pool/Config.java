@@ -2,7 +2,7 @@ package vn.thegioidochoi.model.database.connection_pool;
 
 public class Config {
     public static final String HOST_NAME = "localhost";
-    public static final String DB_NAME = "thegioidochoi";
+    public static final String DB_NAME = "thegioidochoiv2";
     public static final String DB_PORT = "3306";
     public static final String USER_NAME = "root";
     public static final String PASSWORD = "";

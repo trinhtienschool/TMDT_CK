@@ -21,8 +21,6 @@
     <%--    <c:set var="header" scope="application" value="${applicationScope.header}"></c:set>--%>
     <link href="${applicationScope.header.shortcut}" rel="shortcut icon">
 
-
-
     <!-- Css Styles -->
     <link rel="stylesheet" href="user_page/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/font-awesome.min.css" type="text/css">
@@ -131,46 +129,6 @@
             </div>
         </div>
     </div>
-    <!-- Stick element -->
-<%--    <!-- Stick element -->--%>
-<%--    <div class="sticky-top">--%>
-<%--        <div class="container">--%>
-<%--            <div class="row">--%>
-<%--                <select id="selectest" class="mdb-select md-form col-md-2 mx-3">--%>
-<%--                    <option value="" disabled selected>Chọn loại</option>--%>
-<%--                    <option>Sản phẩm khuyến mãi</option>--%>
-<%--                    <option>Mã khuyến mãi</option>--%>
-<%--                </select>--%>
-<%--                <select class="mdb-select md-form col-md-2 mx-3">--%>
-<%--                    <option value="" disabled selected>Sắp xếp</option>--%>
-<%--                    <option value="2">Giá Cao xuống thấp</option>--%>
-<%--                    <option value="2">Giá thấp xuống cao</option>--%>
-<%--                </select>--%>
-<%--                <select class="mdb-select md-form col-md-2 mx-3">--%>
-<%--                    <option value="" disabled selected>Ngày hết hạn</option>--%>
-<%--                    <option value="2">Hôm nay</option>--%>
-<%--                    <option value="2">> 1 ngày</option>--%>
-<%--                    <option value="2">> 1 Tuần</option>--%>
-<%--                    <option value="">> nửa tháng</option>--%>
-<%--                    <option value="">> 1 tháng</option>--%>
-<%--                </select>--%>
-
-<%--                <!-- Search form -->--%>
-<%--&lt;%&ndash;                <form&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        class="form-inline d-flex justify-content-center md-form form-sm active-green mt-2 col-md-4 mx-3"&ndash;%&gt;--%>
-<%--&lt;%&ndash;                >&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    <input&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            class="form-control form-control-sm mr-3 w-75"&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            type="text"&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            placeholder="Search"&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            aria-label="Search"&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    />&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    <i class="fa fa-search" aria-hidden="true"></i>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                </form>&ndash;%&gt;--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--    <!-- Stick element -->--%>
     <section class="featured spad">
         <div class="container">
             <div class="row">

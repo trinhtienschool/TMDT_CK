@@ -42,7 +42,7 @@ public class Cart_direct extends HttpServlet {
         request.setAttribute("page_menu", "null");
 //        int id=Integer.parseInt(request.getParameter("id"));
         double randomDouble = Math.random();
-        randomDouble = randomDouble * 1000 + 1;
+        randomDouble = randomDouble * 266 + 1;
         int randomInt = (int) randomDouble;
         int id=randomInt;
         System.out.println("id"+id);
