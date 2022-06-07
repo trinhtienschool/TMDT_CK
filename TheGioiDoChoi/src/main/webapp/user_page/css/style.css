@@ -2061,6 +2061,13 @@ ol {
 .product-details {
   padding-top: 80px;
 }
+.product-details img{
+  display: block;
+  max-width:250px;
+  max-height:250px;
+  width: auto;
+  height: auto;
+}
 
 .product__details__pic__item {
   margin-bottom: 20px;
@@ -2385,10 +2392,66 @@ ol {
   border-radius: 0.5rem;
   background-color: #3078a6;
   color: #fff; }
-/* Loại
+/* pop up img
  */
-.product-type{
-  display: flex;
+.modal-content{
+  margin-top: 80px;
+}
+.list-image{
+  margin-top: 8px;
+  margin-right: 10px;
+  padding: 0;
+}
+.list-image li{
+  list-style: none;
+  margin-top: 2px;
+}
+.list-image li img{
+  max-width: 200px;
+  max-height: 200px;
+  margin: auto;
+  width: 100px;
+  cursor: pointer;
+  display: block;
+}
+#main-image{
+  margin: 10px;
+  width: 100%;
+  height: 100%;
+}
+#main-image img{
+  max-width: 600px;
+  max-height: 600px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 993px) {
+  .list-image{
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin: auto;
+  }
+  .list-image li{
+    display: inline-block;
+  }
+  #main-image img{
+    max-width: 478px;
+    max-height: 500px;
+  }
+}
+@media (max-width: 556px) {
+  #main-image img{
+    max-width: 250px;
+    max-height: 250px;
+  }
+}
+@media (max-width: 500px) {
+  #main-image img{
+    max-width: 100px;
+    max-height: 100px;
+  }
 }
 .type-title{
   margin-top: 10px;
@@ -5658,7 +5721,7 @@ input.form-check-input {
     height: 250px;
   }
 }
-
+.btn-getcode{margin-left: 20px}
 
 
 

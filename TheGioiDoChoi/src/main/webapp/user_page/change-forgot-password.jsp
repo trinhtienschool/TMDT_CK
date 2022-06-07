@@ -41,7 +41,7 @@
                         <input type="password" name="new-pass-con" id="pass-again" placeholder="Nhập Lại Mật Khẩu" required><br>
                         <label class="invisible" id="mka-notice" style="color: red">Mật khẩu phải trùng khớp với mật khẩu đã nhập</label>
 
-                        <input type="submit" name="submit" id="submit" value="ĐĂNG KÝ"><br>
+                        <input type="submit" name="submit" id="submit" value="ĐỔI MẬT KHẨU"><br>
                     </form>
                 </div>
             </div>

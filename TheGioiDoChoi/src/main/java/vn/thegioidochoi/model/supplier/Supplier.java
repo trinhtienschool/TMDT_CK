@@ -15,8 +15,7 @@ public class Supplier {
     private String website;
     private Date date;
     private double revenue;
-
-
+    private int total_product;
 
     public Supplier() {
     }
@@ -118,6 +117,14 @@ public class Supplier {
         this.date = date;
     }
 
+    public int getTotal_product() {
+        return total_product;
+    }
+
+    public void setTotal_product(int total_product) {
+        this.total_product = total_product;
+    }
+
     @Override
     public String toString() {
         return "Supplier{" +
@@ -133,6 +140,7 @@ public class Supplier {
                 ", website='" + website + '\'' +
                 ", date=" + date +
                 ", revenue=" + revenue +
+                ", total_product=" + total_product +
                 '}';
     }
 }
