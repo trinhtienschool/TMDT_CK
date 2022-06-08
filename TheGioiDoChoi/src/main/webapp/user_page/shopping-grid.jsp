@@ -1,5 +1,6 @@
 <%@ page import="vn.thegioidochoi.model.util.Util" %>
 <%@ page import="vn.thegioidochoi.model.util.Util" %>
+<%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -25,11 +26,28 @@
     <link rel="stylesheet" href="user_page/css/style_home.css" type="text/css">
 </head>
 <body
-    <c:if test="${position != null}">
-        <c:out value="Co vo"></c:out>
-        onload="load(${position})"
-    </c:if>
 >
+<c:if test="${position != null}">
+    <c:out value="Co vo"></c:out>
+    onload="load(${position})"
+</c:if>
+<c:set value="${url}" scope="page" var="url_test"></c:set>
+<%--<%--%>
+<%--    System.out.println("UUUUUUUUUULLLLLLLLLL");--%>
+<%--    System.out.println(pageContext.getAttribute("url_test"));--%>
+<%--    String url = (String) pageContext.getAttribute("url_test");--%>
+<%--    System.out.println(Util.cutTheSameUrlPart(url,"cate"));--%>
+<%--    %>--%>
+<%
+    if(pageContext.getAttribute("ages") !=null) {
+        System.out.println("Co Vo Day neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+        String[] ages = (String[]) pageContext.getAttribute("ages");
+        for (String age : ages) {
+            System.out.println("Ageeeeeeeee: " + age);
+        }
+    }
+%>
+<%--<c:out value="${Arrays.asList(paramValues.get('age')).contains('6-11')}"></c:out>--%>
 <%--<div class="invisible_type_page">${type_page}</div>--%>
 <%--<div class="invisible_url">${url}</div>--%>
 <jsp:include page="Menu.jsp"></jsp:include>
@@ -53,9 +71,23 @@
 
                                 <i class="fa fa-angle-down col-xl-2 col-lg-3   col-sm-1 col-12"></i>
                             </a>
-                            <div class="collapse" id="${cate.slug}">
+                            <c:if test="${Util.isContainSubCate(cate,cate_slug)}">
+                            <div class="collapse show" id="${cate.slug}">
+                                </c:if>
+                                    <c:if test="${!Util.isContainSubCate(cate,cate_slug)}">
+                                    <div class="collapse" id="${cate.slug}">
+                                        </c:if>
                                 <c:forEach var="sub_cate" items="${cate.subcategories}">
-                                <a href="" class="left-sidebar-item m-3">${sub_cate.name}</a>
+                                    <c:if test="${sub_cate.slug==cate_slug}">
+<%--                                        <%--%>
+<%--                                        Util.cutTheSameUrlPart(url,"cate")--%>
+<%--                                            System.out.println("UUUUUUUUUUUUULLLLLLLLLLLLl");--%>
+<%--                                            System.out.println(pageContext.getAttribute("url"));%>--%>
+                                <a href="${type_page}?cate=${sub_cate.slug}&${Util.cutTheSameUrlPart(url,"cate")}" class="set_choose left-sidebar-item m-3" style="color: white !important;">${sub_cate.name}</a>
+                                    </c:if>
+                                    <c:if test="${sub_cate.slug!=cate_slug}">
+                                        <a href="${type_page}?cate=${sub_cate.slug}&${Util.cutTheSameUrlPart(url,"cate")}" class="left-sidebar-item m-3">${sub_cate.name}</a>
+                                    </c:if>
                                 </c:forEach>
 
                             </div>
@@ -68,7 +100,7 @@
                         <div class="price-range-wrap">
                             <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
                                  data-min="${price_min}" data-max="${price_max}" data-maxi="${max_price}" data-mini="${min_price}"
-                                 data-type_page ="${type_page}" data-url="${url}">
+                                 data-type_page ="${type_page}" data-url="${Util.cutTheSameUrlPart(url,"price")}">
                                 <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
                                 <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                                 <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
@@ -84,19 +116,20 @@
                     <div class="single-block">
                         <h3 class="sidebar-title">Độ tuổi</h3>
                         <div class="form-check m-1 mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="tren-12-tuoi">
+
+                            <input  <c:if test="${ages[0]}">checked</c:if> class="form-check-input" onclick="clickCheckbox('age',this,'${type_page}','${Util.cutUrlAgeGender(url,"age=tren-12-tuoi")}')" class="age-checkbox" type="checkbox" value="" id="tren-12-tuoi">
                             <label class="form-check-label" for="tren-12-tuoi">
-                                Trên 11 tuổi
+                                Trên 12 tuổi
                             </label>
                         </div>
                         <div class="form-check m-1 mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="tu-6-11-tuoi">
+                            <input <c:if test="${ages[1]}">checked</c:if> class="form-check-input" onclick="clickCheckbox('age',this,'${type_page}','${Util.cutUrlAgeGender(url,"age=tu-6-11-tuoi")}')" class="age-checkbox" type="checkbox" value="" id="tu-6-11-tuoi">
                             <label class="form-check-label" for="tu-6-11-tuoi">
                                 Từ 6 - 11 tuổi
                             </label>
                         </div>
                         <div class="form-check m-1 mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="tu-1-6-tuoi">
+                            <input <c:if test="${ages[2]}">checked</c:if> class="form-check-input" onclick="clickCheckbox('age',this,'${type_page}','${Util.cutUrlAgeGender(url,"age=tu-1-6-tuoi")}')" class="age-checkbox" type="checkbox" value="" id="tu-1-6-tuoi">
                             <label class="form-check-label" for="tu-1-6-tuoi">
                                 Từ 1 - 6 tuổi
                             </label>
@@ -105,21 +138,21 @@
                     <div class="single-block">
                         <h3 class="sidebar-title">Giới tính</h3>
                         <div class="form-check m-1 mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="gt-nam">
+                            <input class="form-check-input" <c:if test="${genders[0]}">checked</c:if> onclick="clickCheckbox('gender',this,'${type_page}','${Util.cutUrlAgeGender(url,"gender=gt-nam")}')" class="gender-checkbox" type="checkbox" value="" id="gt-nam">
                             <label class="form-check-label" for="gt-nam">
                                 Nam
                             </label>
                         </div>
                         <div class="form-check m-1 mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="gt-nu">
+                            <input class="form-check-input" <c:if test="${genders[1]}">checked</c:if> onclick="clickCheckbox('gender',this,'${type_page}','${Util.cutUrlAgeGender(url,"gender=gt-nu")}')" class="gender-checkbox" type="checkbox" value="" id="gt-nu">
                             <label class="form-check-label" for="gt-nu">
                                 Nữ
                             </label>
                         </div>
                         <div class="form-check m-1 mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="gt-ca2">
-                            <label class="form-check-label" for="gt-ca2">
-                                Cả 2
+                            <input class="form-check-input" <c:if test="${genders[2]}">checked</c:if> onclick="clickCheckbox('gender',this,'${type_page}','${Util.cutUrlAgeGender(url,"gender=gt-unisex")}')" class="gender-checkbox" type="checkbox" value="" id="gt-unisex">
+                            <label class="form-check-label" for="gt-unisex">
+                                Unisex
                             </label>
                         </div>
                     </div>
@@ -170,27 +203,28 @@
                                 <select id="select_sort">
                                     <c:if test="${sort_id==0}">
                                         <option value="" disabled selected>Chọn</option>
-                                        <option value="${type_page}?sort_id=1&${url}">Mới Nhất</option>
-                                        <option value="${type_page}?sort_id=2&${url}">Giá thấp đến cao</option>
-                                        <option value="${type_page}?sort_id=3&${url}">Giá cao đến thấp</option>
+                                        ${type_page}?cate=${sub_cate.slug}&${Util.cutTheSameUrlPart(url,"cate")}
+                                        <option value="${type_page}?sort_id=1&${Util.cutTheSameUrlPart(url,"sort_id")}">Mới Nhất</option>
+                                        <option value="${type_page}?sort_id=2&${Util.cutTheSameUrlPart(url,"sort_id")}">Giá thấp đến cao</option>
+                                        <option value="${type_page}?sort_id=3&${Util.cutTheSameUrlPart(url,"sort_id")}">Giá cao đến thấp</option>
                                     </c:if>
                                     <c:if test="${sort_id==1}">
                                         <option value="" disabled selected>Chọn sắp xếp</option>
-                                        <option value="${type_page}?sort_id=1&${url}" selected>Mới Nhất</option>
-                                        <option value="${type_page}?sort_id=2&${url}">Giá thấp đến cao</option>
-                                        <option value="${type_page}?sort_id=3&${url}">Giá cao đến thấp</option>
+                                        <option value="${type_page}?sort_id=1&${Util.cutTheSameUrlPart(url,"sort_id")}" selected>Mới Nhất</option>
+                                        <option value="${type_page}?sort_id=2&${Util.cutTheSameUrlPart(url,"sort_id")}">Giá thấp đến cao</option>
+                                        <option value="${type_page}?sort_id=3&${Util.cutTheSameUrlPart(url,"sort_id")}">Giá cao đến thấp</option>
                                     </c:if>
                                     <c:if test="${sort_id==2}">
                                         <option value="" disabled selected>Chọn sắp xếp</option>
-                                        <option value="${type_page}?sort_id=1&${url}">Mới Nhất</option>
-                                        <option value="${type_page}?sort_id=2&${url}" selected>Giá thấp đến cao</option>
-                                        <option value="${type_page}?sort_id=3&${url}">Giá cao đến thấp</option>
+                                        <option value="${type_page}?sort_id=1&${Util.cutTheSameUrlPart(url,"sort_id")}">Mới Nhất</option>
+                                        <option value="${type_page}?sort_id=2&${Util.cutTheSameUrlPart(url,"sort_id")}" selected>Giá thấp đến cao</option>
+                                        <option value="${type_page}?sort_id=3&${Util.cutTheSameUrlPart(url,"sort_id")}">Giá cao đến thấp</option>
                                     </c:if>
                                     <c:if test="${sort_id==3}">
                                         <option value="" disabled selected>Chọn sắp xếp</option>
-                                        <option value="${type_page}?sort_id=1&${url}">Mới Nhất</option>
-                                        <option value="${type_page}?sort_id=2&${url}">Giá thấp đến cao</option>
-                                        <option value="${type_page}?sort_id=3&${url}" selected>Giá cao đến thấp</option>
+                                        <option value="${type_page}?sort_id=1&${Util.cutTheSameUrlPart(url,"sort_id")}">Mới Nhất</option>
+                                        <option value="${type_page}?sort_id=2&${Util.cutTheSameUrlPart(url,"sort_id")}">Giá thấp đến cao</option>
+                                        <option value="${type_page}?sort_id=3&${Util.cutTheSameUrlPart(url,"sort_id")}" selected>Giá cao đến thấp</option>
                                     </c:if>
                                 </select>
                             </div>

@@ -10,18 +10,17 @@ import java.util.Properties;
 public class Mail {
     public static boolean sendMail(String context,String subject,String receivers){
         final String username = "trinhtien6236@gmail.com";
-        final String password = "rgjwojzpmiowtvbr";
+        final String password = "ftnobneiwiizgjwh";
 
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.transport.protocol", "smtp");
-        prop.put("mail.smtp.port", "587");
+        prop.put("mail.smtp.port", "465");
         prop.put("mail.smtp.auth", "true");
-        prop.put("mail.smtp.starttls.enable", "true"); //TLS
-        prop.put("mail.smtp.connectiontimeout", "1000");
-        prop.put("mail.smtp.timeout", "1000");
+        prop.put("mail.smtp.socketFactory.port", "465");
+        prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 
-        Session session = Session.getDefaultInstance(prop,
+        Session session = Session.getInstance(prop,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(username, password);
@@ -29,7 +28,7 @@ public class Mail {
                 });
         session.getProperties().put("mail.smtp.ssl.trust", "smtp.gmail.com");
         session.getProperties().put("mail.smtp.starttls.enable", "true");
-//        session.setDebug(true);
+        session.setDebug(true);
         try {
 
             MimeMessage message = new MimeMessage(session);
@@ -43,10 +42,7 @@ public class Mail {
                     InternetAddress.parse(receivers)
             );
             message.setSubject(subject,"UTF-8");
-//            message.setText("Chào Tiến!,"
-//                    + "\n Đây là link lấy lại mật khẩu! Link có thời hạn 3 ngày kể từ ngày nhận. Bấm vào để xác nhận"
-//                    +"\n http://localhost:8080/thegioidochoi.vn");
-            message.setText(context,"UTF-8");
+            message.setText(context,"UTF-8","html");
             Transport.send(message);
             return true;
         } catch (MessagingException e) {
@@ -56,7 +52,21 @@ public class Mail {
     }
 
     public static void main(String[] args) {
-//        System.out.println(sendMail("toi ten tien","day la subject", new Notifications().getListEmail()));
+        String context = "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                "    <title>Document</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "    <h1 style=\"color: red\">Hi</h1>\n" +
+                "    <p style=\"color: blue\">Tôi là trịnh quang tiến</p>\n" +
+                "\n" +
+                "</body>\n" +
+                "</html>";
+        System.out.println(sendMail(context,"day la subject", "trinhtien6236@gmail.com"));
 
     }
 }

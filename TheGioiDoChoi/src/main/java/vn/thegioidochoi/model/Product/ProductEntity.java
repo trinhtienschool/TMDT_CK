@@ -5,16 +5,46 @@ import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
 import vn.thegioidochoi.model.header_footer.Category;
 import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
 import vn.thegioidochoi.model.supplier.Supplier;
+import vn.thegioidochoi.model.util.Util;
 
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 public class ProductEntity {
+    public static List<Product> loadProducts(String search,String category,int price_min, int price_max, String genders,String ages, String order, int page) {
+        List<Product> productList = new ArrayList<Product>();
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement("\n" +
+                    "select p.* from product p join categories c on p.category_id=c.id\n" +
+                    "where c.slug = ? and p.price_sale BETWEEN ? and ?\n" +
+                    "and age in ? and gender in ? \n" +
+                    "ORDER BY ?");
+
+            pe.setString(1, category);
+            pe.setInt(2, price_min);
+            pe.setInt(3, price_max);
+            pe.setString(4,ages);
+            pe.setString(5,genders);
+            pe.setString(6,order);
+
+            System.out.println(pe.toString());
+//            System.out.println((JDBC4PreparedStatement)pe.asSql());
+            synchronized (pe) {
+                ResultSet resultSet = pe.executeQuery();
+                System.out.println(resultSet.getStatement().toString());
+                while (resultSet.next()) productList.add(getProduct(resultSet));
+                resultSet.close();
+            }
+            pe.close();
+            return productList;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return productList;
+    }
+
     public static List<Product> loadBestSellerProducts(){
         String sql = "select *\n" +
                 "from product p join (\n" +
@@ -24,6 +54,11 @@ public class ProductEntity {
                 "group by op.pro_id\n" +
                 "order by sum(op.quantity) desc\n" +
                 "limit 10) as rp on p.id = rp.rpid";
+        return loadProductFormSql(sql);
+    }
+    public static List<Product> loadViewProducts(int userId){
+        String sql = "select p.* from product p join recent_view_products rp on p.id = rp.pro_id\n" +
+                "where rp.user_id = "+userId+" ORDER BY rp.date desc limit 8";
         return loadProductFormSql(sql);
     }
     public static List<Product> loadDiscountProducts(int num) {
@@ -43,6 +78,13 @@ public class ProductEntity {
 
     public static Product loadProductById(int id) {
         String sql = "select * from product where id=" + id;
+        List<Product> products = loadProductFormSql(sql);
+        if (products.isEmpty())
+            return null;
+        return products.get(0);
+    }
+    public static Product loadProductBySlug(String slug) {
+        String sql = "select * from product where slug='" + slug+"'";
         List<Product> products = loadProductFormSql(sql);
         if (products.isEmpty())
             return null;
@@ -296,8 +338,28 @@ public static void vidu(String s){
         s +="tien";
     System.out.println(s);
 }
+    public static boolean insertRecentViewProduct(int userId, int proId) {
+        String sql = "insert into recent_view_products value\n" +
+                "(?,?,?)";
+        int update = 0;
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
 
-    public static boolean insertProduct(String name, double price,
+            pe.setInt(1, userId);
+            pe.setInt(2, proId);
+            pe.setString(3, Util.dateFormat(new Date()));
+            System.out.println(pe.toString());
+            synchronized (pe) {
+                update = pe.executeUpdate();
+            }
+            pe.close();
+            return update == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+public static boolean insertProduct(String name, double price,
                                         String img, String description,
                                         String content, int supplier_id,
                                         int type_weight, int active,

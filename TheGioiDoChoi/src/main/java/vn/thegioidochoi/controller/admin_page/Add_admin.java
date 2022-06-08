@@ -1,5 +1,6 @@
 package vn.thegioidochoi.controller.admin_page;
 
+import org.apache.commons.fileupload.FileItem;
 import vn.thegioidochoi.model.user.LoadUser;
 import vn.thegioidochoi.model.user.User;
 import vn.thegioidochoi.model.util.Util;
@@ -12,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 @WebServlet(urlPatterns = "/admin_page/add-admin")
 public class Add_admin extends HttpServlet {
@@ -62,20 +66,20 @@ public class Add_admin extends HttpServlet {
         String date_created = Util.dateFormat(new Date());
 
         int id = request.getParameter("id")==null?0:Integer.parseInt(request.getParameter("id"));
-
-       if(type.equalsIgnoreCase("add")){
-           request.setAttribute("type","add");
-           request.setAttribute("title","Thêm admin");
-           boolean isInsert = LoadUser.insertUser(name,email,pass,phone,sex,birthday,address,active,role_id,date_created);
+        User user = LoadUser.loadUserById(id);
+        if(type.equalsIgnoreCase("add")){
+            request.setAttribute("type","add");
+            request.setAttribute("title","Thêm admin");
+            boolean isInsert = LoadUser.insertUser(name,email,pass,phone,sex,birthday,address,active,role_id,date_created);
             if(isInsert)
                 request.getRequestDispatcher("add-admin.jsp").forward(request,response);
-       }else if(type.equalsIgnoreCase("edit")){
-           request.setAttribute("type","edit");
-           request.setAttribute("title","Chỉnh sửa");
-           boolean isUpdate = LoadUser.updateUser(id,name,email,pass,phone,sex,birthday,address,active,role_id);
-           User user = LoadUser.loadUserById(id);
-           request.setAttribute("user",user);
-           request.getRequestDispatcher("add-admin.jsp").forward(request,response);
-       }
+        }else if(type.equalsIgnoreCase("edit")){
+            request.setAttribute("type","edit");
+            request.setAttribute("title","Chỉnh sửa");
+            boolean isUpdate = LoadUser.updateUser(id,Util.dateFormat(user.getDate_created()),name,email,pass,phone,sex,birthday,address,active,role_id);
+
+            request.setAttribute("user",user);
+            request.getRequestDispatcher("add-admin.jsp").forward(request,response);
+        }
     }
 }

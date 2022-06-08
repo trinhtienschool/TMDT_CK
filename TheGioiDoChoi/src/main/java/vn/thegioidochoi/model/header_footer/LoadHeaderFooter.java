@@ -44,7 +44,7 @@ public class LoadHeaderFooter {
             for(Category category: removeCategories){
                 categories.remove(category);
             }
-            System.out.println("Da ra categoriessssssssssssssssssssss");
+//            System.out.println("Da ra categoriessssssssssssssssssssss");
             return categories;
 
         } catch (SQLException throwables) {

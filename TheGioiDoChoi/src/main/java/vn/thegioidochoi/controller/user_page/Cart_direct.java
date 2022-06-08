@@ -40,11 +40,11 @@ public class Cart_direct extends HttpServlet {
         }
         request.setAttribute("title", "Giỏ hàng");
         request.setAttribute("page_menu", "null");
+
 //        int id=Integer.parseInt(request.getParameter("id"));
-        double randomDouble = Math.random();
-        randomDouble = randomDouble * 266 + 1;
-        int randomInt = (int) randomDouble;
-        int id=randomInt;
+
+
+        int id=(int) ((Math.random() * (267 - 1)) + 1);;
         System.out.println("id"+id);
         Product products= ProductEntity.loadProductById(id);
         int cateid=products.getCategory_id();

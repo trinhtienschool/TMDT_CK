@@ -2,23 +2,26 @@
 package vn.thegioidochoi.model.user;
 
 import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.util.Util;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class LoadUser {
 
-    public static boolean saveUserLoginByFb_GG(String email,String name){
+    public static boolean saveUserLoginByFb_GG(String email,String name,String id){
         boolean isSaved = false;
-        String sql = "insert into user(name,email,avatar,`password`,active,role_id,date_created) values(?,?,'imgs/user/default_avatar.png',-1,1,1,CURRENT_DATE);";
+        String sql = "insert into user(name,email,avatar,`password`,active,role_id,date_created) values(?,?,'imgs/user/default_avatar.png',?,1,1,CURRENT_DATE);";
         try {
             PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
             preparedStatement.setString(1,name);
             preparedStatement.setString(2,email);
+            preparedStatement.setLong(3,Util.hashPass("20220521",email,id));
             synchronized (preparedStatement){
                 int row = preparedStatement.executeUpdate();
                 if(row == 1)
@@ -91,6 +94,7 @@ public class LoadUser {
         }
         return false;
     }
+
 //   ,
     public static boolean updateUser(String name, String birthday, int phone,String email,String city,String distric,String ward, String detailaddress,int user_id){
         String sql= "Update user set address = '"+detailaddress+","+ward+","+distric+","+city+"', name ='"+name+"', phone= "+phone+",email='"+email+"',birthday='"+birthday+"' where id="+user_id;
@@ -138,7 +142,7 @@ public class LoadUser {
             user.setActive(rs.getByte(10)==1?true:false);
             user.setAbout(rs.getString(11));
             user.setRole_id(rs.getInt(12));
-            user.setDate_created(rs.getDate(13));
+            user.setDate_created(new Date(rs.getTimestamp(13).getTime()));
             return  user;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -260,16 +264,15 @@ public class LoadUser {
     }
     public static boolean insertUser(String name, String email, String pass, String phone, int sex, String birthday, String address, int active, int role_id, String date_created) {
         int isInserted = 0;
-        String sql = "insert into user(name,email,phone,sex,birthday,address,active,role_id,password,id,date_created,avatar) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into user(name,email,phone,sex,birthday,address,active,role_id,password,date_created,avatar) values(?,?,?,?,?,?,?,?,?,?,?)";
         try {
-            int id = getMaxUserId() + 1;
+
             PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
-            long passKey = id * email.hashCode() * pass.hashCode();
             peSetAttribute(pe, name, email, phone, sex, birthday, address, active, role_id);
-            pe.setLong(9,passKey);
-            pe.setInt(10, id);
-            pe.setString(11, date_created);
-            pe.setString(12,"imgs/user/default_avatar.png");
+            System.out.println("Date_createdInsert: "+date_created+" : "+email+" : "+pass);
+            pe.setLong(9,Util.hashPass(date_created,email,pass));
+            pe.setString(10, date_created);
+            pe.setString(11,"imgs/user/default_avatar.png");
             synchronized (pe) {
                 isInserted = pe.executeUpdate();
             }
@@ -295,7 +298,7 @@ public class LoadUser {
             throwables.printStackTrace();
         }
     }
-    public static boolean updateUser(int id, String name, String email, String pass, String phone, int sex, String birthday, String address, int active, int role_id) {
+    public static boolean updateUser(int id, String date_created, String name, String email, String pass, String phone, int sex, String birthday, String address, int active, int role_id) {
         int updated = 0;
         String sql = "update user set name = ? , email= ? , phone= ? , sex =? , birthday =? , address = ? , active= ? , role_id = ? ";
         if(pass!=null)
@@ -306,7 +309,7 @@ public class LoadUser {
 
             peSetAttribute(pe, name, email, phone, sex, birthday, address, active, role_id);
             if(pass !=null){
-                long passkey = id * email.hashCode() * pass.hashCode();
+                long passkey = Util.hashPass(date_created,email,pass);
                 pe.setLong(9,passkey);
                 pe.setInt(10, id);
             }else{
@@ -326,7 +329,8 @@ public class LoadUser {
     }
 
     public static void changePassword(int user_id, String email, String pass) {
-        long p = user_id*email.hashCode()*pass.hashCode();
+        User user = LoadUser.loadUserById(user_id);
+        long p = Util.hashPass(Util.dateFormat(user.getDate_created()),email,pass);
         try {
             PreparedStatement pe = DBCPDataSource.preparedStatement("update user set password=? where id=?");
             pe.setLong(1,p);
@@ -340,10 +344,11 @@ public class LoadUser {
         }
     }
 
-    public static User loadAUserByEmailGG_FB(String email) {
+    public static User loadAUserByEmailGG_FB(String email,String id) {
         try {
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("select * from user where email=? and password=-1");
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("select * from user where email=? and password=?");
             preparedStatement.setString(1,email);
+            preparedStatement.setLong(2,Util.hashPass("20220521",email,id));
             User user = null;
             synchronized (preparedStatement){
                 ResultSet rs = preparedStatement.executeQuery();

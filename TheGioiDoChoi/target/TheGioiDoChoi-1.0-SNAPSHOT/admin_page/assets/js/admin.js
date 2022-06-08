@@ -265,3 +265,69 @@ $(document).ready(function () {
 			$(this).unbind('submit').submit()
 	});
 })
+$(document).ready(function () {
+	let revenue = $("#revenue");
+	let data11111 = revenue.data('revenue');
+	console.log("data11111111111: ",data11111)
+	const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+	const d = new Date();
+	let day_arr = []
+	for(let i = 1;i<=7;i++){
+		let date_before = new Date(d.getTime() - (i * 24 * 60 * 60 * 1000));
+		day_arr.push(weekday[date_before.getDay()])
+	}
+
+
+
+
+	const data_revenue = {
+		labels: day_arr,
+		datasets: [
+			{
+				label: 'Doanh thu (1000đ)',
+				data: [0, 10, 5, 2, 20, 30, 45],
+				borderColor: 'rgb(127, 173, 57)',
+				backgroundColor: 'rgba(127,173,57,0.46)',
+				fill : 'start',
+				tension: 0.3
+			}
+		]
+	};
+	const data_order_status = {
+		labels: [
+			'Đang giao',
+			'Đã xác nhận',
+			'Đã hủy'
+		],
+		datasets: [{
+			label: 'Trạng thái',
+			data: [300, 50, 100],
+			backgroundColor: [
+				'rgb(255, 99, 132)',
+				'rgb(54, 162, 235)',
+				'rgb(255, 205, 86)'
+			],
+			hoverOffset: 4
+		}]
+	};
+	const config_order_status = {
+		type: 'doughnut',
+		data: data_order_status,
+	};
+	const config_revenue = {
+		type: 'line',
+		data: data_revenue,
+		options: {}
+	};
+
+	new Chart(
+		document.getElementById('revenue'),
+		config_revenue
+	);
+	new Chart(
+		document.getElementById('order-status'),
+		config_order_status
+	);
+
+})

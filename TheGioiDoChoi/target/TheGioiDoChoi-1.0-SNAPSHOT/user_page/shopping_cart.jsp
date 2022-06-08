@@ -21,14 +21,16 @@
     <!-- Css Styles -->
     <link rel="stylesheet" href="user_page/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="user_page/css/elegant-icons.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="user_page/css/jquery-ui.min.css" type="text/css">
+    <!--    <link rel="stylesheet" href="user_page/css/elegant-icons.css" type="text/css">-->
+    <!--    <link rel="stylesheet" href="user_page/css/nice-select.css" type="text/css">-->
+    <!--    <link rel="stylesheet" href="user_page/css/jquery-ui.min.css" type="text/css">-->
     <link rel="stylesheet" href="user_page/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="user_page/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="user_page/css/style.css" type="text/css">
-    <link rel="stylesheet" href="user_page/css/style_home.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/owl.theme.default.min.css" type="text/css">
+    <link rel="stylesheet" href="user_page/css/style.css" type="text/css">
+    <!--    <link rel="stylesheet" href="user_page/css/slicknav.min.css" type="text/css">-->
+    <link rel="stylesheet" href="user_page/css/style_home.css" type="text/css">
+
 </head>
 <body
         <c:if test="${position != null}">
@@ -37,7 +39,7 @@
         </c:if>
 >
 <jsp:include page="Menu.jsp"></jsp:include>
-<%--<jsp:include page="search_bar.jsp"></jsp:include>--%>
+
 <!-- Breadcrumb Section End -->
 <!-- Shoping Cart Section Begin -->
 <section class="shoping-cart spad">
@@ -190,11 +192,14 @@
 <jsp:include page="footer.jsp"></jsp:include>
 <!-- Js Plugins -->
 <script src="user_page/js/jquery-3.3.1.min.js"></script>
+<script src="user_page/js/popper.min.js"></script>
 <script src="user_page/js/bootstrap.min.js"></script>
 <script src="user_page/js/jquery.nice-select.min.js"></script>
 <script src="user_page/js/jquery-ui.min.js"></script>
-<script src="user_page/js/jquery.slicknav.js"></script>
-<script src="user_page/js/mixitup.min.js"></script>
+<!--<script src="user_page/js/jquery.nice-select.min.js"></script>-->
+<!--<script src="user_page/js/jquery-ui.min.js"></script>-->
+<!--<script src="user_page/js/jquery.slicknav.js"></script>-->
+<!--<script src="user_page/js/mixitup.min.js"></script>-->
 <script src="user_page/js/owl.carousel.min.js"></script>
 <script src="user_page/js/main.js"></script>
 <script src="user_page/js/main_home.js"></script>
