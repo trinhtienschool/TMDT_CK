@@ -96,6 +96,11 @@ public class ProductEntity {
         return loadProductFormSql(sql);
     }
 
+    public static List<Product> loadListProductBySupplierId(int supplier_id){
+        String sql = "SELECT * from product where supplier_id  = " + supplier_id;
+        return loadProductFormSql(sql);
+    }
+
     public static List<Product> loadFirstPros(int num) {
         String sql = "SELECT * from product p LIMIT " + num;
         return loadProductFormSql(sql);
@@ -610,7 +615,7 @@ public static boolean insertProduct(String name, double price,
 //        System.out.println(loadCountStarByIdProAndIdStar(3,5).getCountstar());
 //        System.out.println(loadCountCommentByIdPro(3).getContcomment());
 //        System.out.println(loadCountAvgstarByIdPro(3).getAvgstar());
-//        for(Product p:loadRelativeProduct(3,3)){
+//        for(Product p:loadListProductBySupplierId(1)){
 //            System.out.println(p.getId());
 //        }
     }

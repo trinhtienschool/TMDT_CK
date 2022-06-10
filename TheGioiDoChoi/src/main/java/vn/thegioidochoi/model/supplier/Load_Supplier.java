@@ -212,6 +212,6 @@ public class Load_Supplier {
 //        System.out.println(insertSupplier("Trần Thị Lan","152/63 Lý Chính Thắng P.7 Q.3",87979,"yuknp22@gmail.com"));
 //        System.out.println(updateSupplier(302,"Trần Thị Lan","152/63 Lý Chính Thắng P.7 Q.3",8797955,"yuknp22@gmail.com"));
 //        System.out.println(loadSupplier(302).getAddress());
-        System.out.println(loadSupplierById(1));
+        System.out.println(loadSupplier(1));
     }
 }
