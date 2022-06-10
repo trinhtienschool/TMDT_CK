@@ -45,7 +45,10 @@
                 </h6>
             </div>
         </div>
-        <div class="checkout__form">
+        <div class="checkout__form" style="
+    background: white;
+    padding: 50px;
+">
             <h4>Chi tiết đơn hàng</h4>
             <form action="order-handle" method="post">
                 <div class="row">

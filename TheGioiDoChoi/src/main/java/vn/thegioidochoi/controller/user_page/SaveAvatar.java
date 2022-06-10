@@ -25,6 +25,7 @@ public class SaveAvatar extends HttpServlet {
         int id = (int)request.getSession().getAttribute("user_id");
         while(i.hasNext()){
             FileItem fi =i.next();
+            System.out.println("Đang vào SaveFile data whileeeeeeeeeeee");
             if(!fi.isFormField()){
                 String urlImg = Util.getUrlFileFromUpload(fi,"user"+id,"imgs/user/");
                 if(urlImg!=null){

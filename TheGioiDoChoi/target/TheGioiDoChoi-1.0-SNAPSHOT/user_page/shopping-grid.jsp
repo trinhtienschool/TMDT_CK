@@ -1,6 +1,7 @@
 <%@ page import="vn.thegioidochoi.model.util.Util" %>
 <%@ page import="vn.thegioidochoi.model.util.Util" %>
 <%@ page import="java.util.Arrays" %>
+<%@ page import="vn.thegioidochoi.model.supplier.Supplier" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -156,6 +157,31 @@
                             </label>
                         </div>
                     </div>
+                        <div class="single-block">
+                            <h3 class="sidebar-title" >Thương hiệu</h3>
+                            <c:forEach var="supplier" items="${suppliers}">
+                                <c:set var="cut_sup_slug" value="sup-slug=${supplier.slug}" scope="page"></c:set>
+                            <div class="form-check m-1 mt-3">
+<%--                                <c:if test="${genders[0]}">checked</c:if> onclick="clickCheckbox('gender',this,'${type_page}','${Util.cutUrlAgeGender(url,"gender=gt-nam")}')"--%>
+<%--        ${Util.cutUrlAgeGender(url,"sup-slug="+supplier.slug)}                            --%>
+                                <input class="form-check-input gender-checkbox"
+
+                                       type="checkbox"
+                                       value=""
+                                       id="${supplier.slug}"
+                                       <c:if test="${supplier.checked}">checked</c:if>
+                                       onclick="clickCheckbox('sup-slug',this,'${type_page}','${Util.cutUrlAgeGender(url,cut_sup_slug)}')"
+                                       onclick="clickCheckbox('sup-slug',this,$(this).data('page'),cutUrl($(this).data('url'),'sup-slug='+brands[i].slug))"
+
+
+                                >
+                                <label class="form-check-label" for="${supplier.slug}">
+                                    ${supplier.name} (${supplier.total_product})
+                                </label>
+                            </div>
+                            </c:forEach>
+                            <a class="my-1 show mt-3 d-block ml-1"  id="more-brand" data-url="${url}" data-page="${type_page}" data-brand="[${supplier_json}]">Hiển thị thêm</a>
+                        </div>
                     <div id="met" class="sidebar__item">
                         <div class="latest-product__text">
                             <h3 class="sidebar-title" style="margin-bottom: 20px">Mới nhất</h3>
@@ -197,68 +223,81 @@
             <div class="col-lg-9 col-md-7">
                 <div class="filter__item">
                     <div class="row">
-                        <div class="col-lg-4 col-md-5">
+                        <div class="col-md-6 ">
                             <div class="filter__sort">
                                 <span>Sắp xếp</span>
                                 <select id="select_sort">
                                     <c:if test="${sort_id==0}">
                                         <option value="" disabled selected>Chọn</option>
-                                        ${type_page}?cate=${sub_cate.slug}&${Util.cutTheSameUrlPart(url,"cate")}
+
                                         <option value="${type_page}?sort_id=1&${Util.cutTheSameUrlPart(url,"sort_id")}">Mới Nhất</option>
                                         <option value="${type_page}?sort_id=2&${Util.cutTheSameUrlPart(url,"sort_id")}">Giá thấp đến cao</option>
                                         <option value="${type_page}?sort_id=3&${Util.cutTheSameUrlPart(url,"sort_id")}">Giá cao đến thấp</option>
+                                        <option value="${type_page}?sort_id=4&${Util.cutTheSameUrlPart(url,"sort_id")}">Số lượng đã bán</option>
                                     </c:if>
                                     <c:if test="${sort_id==1}">
                                         <option value="" disabled selected>Chọn sắp xếp</option>
                                         <option value="${type_page}?sort_id=1&${Util.cutTheSameUrlPart(url,"sort_id")}" selected>Mới Nhất</option>
                                         <option value="${type_page}?sort_id=2&${Util.cutTheSameUrlPart(url,"sort_id")}">Giá thấp đến cao</option>
                                         <option value="${type_page}?sort_id=3&${Util.cutTheSameUrlPart(url,"sort_id")}">Giá cao đến thấp</option>
+                                        <option value="${type_page}?sort_id=4&${Util.cutTheSameUrlPart(url,"sort_id")}">Số lượng đã bán</option>
                                     </c:if>
                                     <c:if test="${sort_id==2}">
                                         <option value="" disabled selected>Chọn sắp xếp</option>
                                         <option value="${type_page}?sort_id=1&${Util.cutTheSameUrlPart(url,"sort_id")}">Mới Nhất</option>
                                         <option value="${type_page}?sort_id=2&${Util.cutTheSameUrlPart(url,"sort_id")}" selected>Giá thấp đến cao</option>
                                         <option value="${type_page}?sort_id=3&${Util.cutTheSameUrlPart(url,"sort_id")}">Giá cao đến thấp</option>
+                                        <option value="${type_page}?sort_id=4&${Util.cutTheSameUrlPart(url,"sort_id")}">Số lượng đã bán</option>
                                     </c:if>
                                     <c:if test="${sort_id==3}">
                                         <option value="" disabled selected>Chọn sắp xếp</option>
                                         <option value="${type_page}?sort_id=1&${Util.cutTheSameUrlPart(url,"sort_id")}">Mới Nhất</option>
                                         <option value="${type_page}?sort_id=2&${Util.cutTheSameUrlPart(url,"sort_id")}">Giá thấp đến cao</option>
                                         <option value="${type_page}?sort_id=3&${Util.cutTheSameUrlPart(url,"sort_id")}" selected>Giá cao đến thấp</option>
+                                        <option value="${type_page}?sort_id=4&${Util.cutTheSameUrlPart(url,"sort_id")}">Số lượng đã bán</option>
+                                    </c:if>
+                                    <c:if test="${sort_id==4}">
+                                        <option value="" disabled selected>Chọn sắp xếp</option>
+                                        <option value="${type_page}?sort_id=1&${Util.cutTheSameUrlPart(url,"sort_id")}">Mới Nhất</option>
+                                        <option value="${type_page}?sort_id=2&${Util.cutTheSameUrlPart(url,"sort_id")}">Giá thấp đến cao</option>
+                                        <option value="${type_page}?sort_id=3&${Util.cutTheSameUrlPart(url,"sort_id")}" >Giá cao đến thấp</option>
+                                        <option value="${type_page}?sort_id=4&${Util.cutTheSameUrlPart(url,"sort_id")}" selected>Số lượng đã bán</option>
                                     </c:if>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4">
+                        <div class="col-md-6">
                             <div class="filter__found">
-                                <h6><span>${sumOfItems}</span> sản phẩm đã tìm thấy</h6>
+                                <h6 style="color: white"><span>${sumOfItems}</span> sản phẩm đã tìm thấy</h6>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-3">
-                            <div class="filter__option">
-                                <c:if test="${type_view==1}">
-                                    <a href="${type_page}?type_view=1&${url}"><span class="icon_grid-2x2 set_choose"></span></a>
-                                    <a href="${type_page}?type_view=2&${url}"><span class="icon_ul "></span></a>
-                                </c:if>
-                                <c:if test="${type_view==2}">
-                                    <a href="${type_page}?type_view=1&${url}"><span class="icon_grid-2x2 "></span></a>
-                                    <a href="${type_page}?type_view=2&${url}"><span class="icon_ul set_choose"></span></a>
-                                </c:if>
-                            </div>
-                        </div>
+<%--                        <div class="col-lg-4 col-md-3">--%>
+<%--                            <div class="filter__option">--%>
+<%--                                <c:if test="${type_view==1}">--%>
+<%--                                    <a href="${type_page}?type_view=1&${url}"><span class="icon_grid-2x2 set_choose"></span></a>--%>
+<%--                                    <a href="${type_page}?type_view=2&${url}"><span class="icon_ul "></span></a>--%>
+<%--                                </c:if>--%>
+<%--                                <c:if test="${type_view==2}">--%>
+<%--                                    <a href="${type_page}?type_view=1&${url}"><span class="icon_grid-2x2 "></span></a>--%>
+<%--                                    <a href="${type_page}?type_view=2&${url}"><span class="icon_ul set_choose"></span></a>--%>
+<%--                                </c:if>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
                     </div>
                 </div>
                 <div class="row">
                     <c:forEach var="sgd" items="${data}">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="col-lg-4 col-md-6 col-sm-6" style="margin-bottom: 10px;margin-top: 10px">
                         <c:if test="${sgd.percent_sale==0}">
                             <div class="featured__item">
                                 <div class="featured__item__pic ">
-                                    <a href=""><img src="${sgd.img}" alt=""></a>
+                                    <a href="/shop-detail?product=${sgd.slug}"><img src="${sgd.img}" alt=""></a>
                                     <ul class="featured__item__pic__hover">
-                                        <li><a href="#"><i class="fa fa-money"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li class="fast-checkout cursor-pointer" data-pro_id="${sgd.id}"><a><i class="fa fa-money"></i></a></li>
+                                        <c:if test="${sessionScope.user_id!=null}">
+                                        <li class="addFa cursor-pointer" data-current_page="shopping" data-pro_id="${sgd.id}"><a ><i class="fa fa-heart"></i></a></li>
+                                        </c:if>
+                                        <li class="addCart cursor-pointer" data-current_page="shopping" data-pro_id="${sgd.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="featured__item__text">

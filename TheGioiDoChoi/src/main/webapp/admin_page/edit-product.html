@@ -360,6 +360,21 @@
 										<label>Tên sản phẩm</label>
 										<input class="form-control" type="text" value="Sen đá mini kèm chậu">
                                     </div>
+									<div class="container">
+										<div class="row">
+											<form class="col-md-4">
+												<label>Select</label>
+												<select class="form-control select2">
+													<option>Select</option>
+													<option>Car</option>
+													<option>Bike</option>
+													<option>Scooter</option>
+													<option>Cycle</option>
+													<option>Horse</option>
+												</select>
+											</form>
+										</div>
+									</div>
                                     <div class="form-group">
 										<label>Danh mục</label>
 										<input class="form-control" type="text" value="Cây để bàn">
@@ -461,6 +476,9 @@
 
 	<!-- Custom JS -->
 	<script src="assets/js/admin.js"></script>
+	<script>
+		$('.select2').select2();
+	</script>
 
 </body>
 

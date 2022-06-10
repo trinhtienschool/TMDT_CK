@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Supplier {
     private int id;
+    private String name;
     private String logo;
     private String address;
     private String phone;
@@ -13,9 +14,13 @@ public class Supplier {
     private int user_id;
     private String company_name;
     private String website;
+    private String slug;
     private Date date;
     private double revenue;
     private int total_product;
+    private boolean checked;
+
+
 
     public Supplier() {
     }
@@ -44,6 +49,13 @@ public class Supplier {
         this.logo = logo;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getAddress() {
         return address;
@@ -124,7 +136,20 @@ public class Supplier {
     public void setTotal_product(int total_product) {
         this.total_product = total_product;
     }
+    public boolean isChecked() {
+        return checked;
+    }
 
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
     @Override
     public String toString() {
         return "Supplier{" +
@@ -142,5 +167,13 @@ public class Supplier {
                 ", revenue=" + revenue +
                 ", total_product=" + total_product +
                 '}';
+    }
+    public String toJson(){
+        return "{" +
+                "&quot;name&quot;:&quot;"+name+"&quot;,"+
+                "&quot;slug&quot;:&quot;"+slug+"&quot;,"+
+                "&quot;products&quot;:"+total_product+","+
+                "&quot;checked&quot;:"+checked+""+
+                "}";
     }
 }
