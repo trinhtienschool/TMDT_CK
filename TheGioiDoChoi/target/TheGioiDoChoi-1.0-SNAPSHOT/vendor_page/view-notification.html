@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết thông báo</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <!-- Datepicker CSS -->
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+
+    <!-- Datatables CSS -->
+    <link rel="stylesheet" href="plugins/datatables/datatables.min.css">
+
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="css/animate.min.css">
+
+    <!-- Select CSS -->
+    <link rel="stylesheet" href="css/select2.min.css">
+
+    <!-- Main CSS -->
+</head>
+<body>
+<div class="main-wrapper">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <a href="dashboard.html" class="logo logo-small">
+                <img src="assets/img/logo-icon.png" alt="Logo" width="30" height="30">
+            </a>
+        </div>
+        <a href="javascript:void(0);" id="toggle_btn">
+            <i class="fas fa-align-left"></i>
+        </a>
+        <a class="mobile_btn" id="mobile_btn" href="javascript:void(0);">
+            <i class="fas fa-align-left"></i>
+        </a>
+
+        <ul class="nav user-menu">
+
+            <!-- User Menu -->
+            <li class="nav-item dropdown">
+                <a href="javascript:void(0)" class="dropdown-toggle user-link  nav-link" data-toggle="dropdown">
+						<span class="user-img">
+							<img class="rounded-circle" src="assets/img/user.jpg" width="40" alt="Admin">
+						</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="admin-profile.html">Thông tin cá nhân</a>
+                    <a class="dropdown-item" href="login.html">Đăng xuất</a>
+                </div>
+            </li>
+            <!-- /User Menu -->
+
+        </ul>
+    </div>
+    <!-- /Header -->
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <a href="dashboard.html">
+                <img src="assets/img/logo-icon.png" class="img-fluid" alt="">
+            </a>
+        </div>
+        <div class="sidebar-inner slimscroll">
+            <div id="sidebar-menu" class="sidebar-menu">
+                <ul>
+                    <li>
+                        <a href="dashboard.html"><i class="fas fa-columns"></i> <span>Dashboard</span></a>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i class="fas fa-tasks"></i> <span>Quản lí</span> <span class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                            <li><a href="categories.html">Danh mục</a></li>
+                            <li><a href="product.html" >Sản phẩm</a></li>
+                            <li><a href="blog.html" >Blog</a></li>
+                            <li><a href="coupon-code-type.html ">Loại mã giảm giá</a></li>
+                            <li><a href="coupon-code.html">Mã giảm giá</a></li>
+                            <li><a href="ratingstype.html">Loại đánh giá</a></li>
+                            <li><a href="email.html">Email</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="submenu">
+                        <a href="#"><i class="fas fa-shopping-cart"></i><span>Bán hàng</span> <span class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                            <li ><a  class="active" href="total-report.html">Danh sách đặt hàng</a></li>
+                            <li><a href="shipments.html">Vận chuyển</a></li>
+                            <li><a href="return-request.html">Bảo hành</a></li>
+                            <li><a href="review-reports.html">Đánh giá sản phẩm</a></li>
+
+
+                        </ul>
+                    </li>
+
+                    <li class="submenu">
+                        <a href="#"><i class="fas fa-users"></i><span>Người dùng</span> <span class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                            <li><a href="users.html">Khách hàng</a></li>
+                            <li><a href="admin-list.html">Danh sách admin</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="admin-profile.html"><i class="fas fa-user-plus"></i> <span>Thông tin cá nhân</span></a>
+                    </li>
+                    <li>
+                        <a href="settings.html"><i class="fas fa-cog"></i> <span>Thiết lập</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /Sidebar -->
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="page-title">Chi tiết thông báo</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="total-report.html">Thông báo</a></li>
+                            <li class="breadcrumb-item active">Chi tiết thông báo</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /Page Header -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Chi tiết</h4>
+                        </div>
+                        <div class="card-body" id="gener-info">
+                            <form action="#">
+                                <div class="form-group row">
+                                    <label class="col-md-3">ID thông báo</label>
+                                    <div class="col-md-9">
+                                        Noti-1
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3">Tên thông báo</label>
+                                    <div class="col-md-9">
+                                        Báo cáo
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3">Ngày gửi</label>
+                                    <div class="col-md-9">
+                                        15/09/2020
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3">Nội dung</label>
+                                    <div class="col-md-9">
+                                        Cửa hàng của bạn bị không phù hợp với yêu cầu của đề bài
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3">Tổng tiền</label>
+                                    <div class="col-md-9">
+                                        125.000 VNĐ
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
