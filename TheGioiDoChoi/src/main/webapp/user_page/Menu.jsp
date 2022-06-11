@@ -120,7 +120,7 @@
                                 <img class="user_avatar" src="${sessionScope.user_avatar}" alt="avatar">
                             </div>
                             <div class="ps-block__right">
-                                <div class="filter__sort">
+                                <div class="filter__sort" style="padding-top: 15px">
 
                                     <select id="login-web">
                                         <option selected disabled>${sessionScope.user_name}</option>
@@ -433,7 +433,7 @@
             <img class="user_avatar"  src="${sessionScope.user_avatar}" alt="avatar">
         </div>
         <div class="ps-block__right">
-            <div class="filter__sort">
+            <div class="filter__sort" style="padding-top: 15px">
 
                 <select id="login-mobile">
                     <option selected disabled>${sessionScope.user_name}</option>

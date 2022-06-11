@@ -12,6 +12,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderProduct_Con_DB {
+    public static List<Integer>loadAllOrderProductId(){
+        List<Integer> order_ids = new ArrayList<Integer>();
+        String sql = "select order_id from `order_product` ORDER BY order_id asc";
+        try {
+            Statement statement = DBCPDataSource.getStatement();
+            synchronized (statement){
+                ResultSet resultSet = statement.executeQuery(sql);
+                while(resultSet.next()) {
+                    order_ids.add(resultSet.getInt(1));
+                }
+                resultSet.close();
+            }
+            statement.close();
+            return order_ids;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
     public static List<OrderProduct> loadOrderProductFormSql(String sql){
         List<OrderProduct>list = new ArrayList<OrderProduct>();
         try {

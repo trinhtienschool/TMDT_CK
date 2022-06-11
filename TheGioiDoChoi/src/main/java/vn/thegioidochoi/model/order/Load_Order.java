@@ -280,7 +280,7 @@ public class Load_Order {
     }
     public static void main(String[] args) {
 //        System.out.println(loadOrderFormSql("SELECT * FROM `order` "));
-//        System.out.println(loadOderByUserId(5));
+        System.out.println(loadOderByUserId(5));
 //        System.out.println(loadOrder_view(2));
 //        System.out.println(loadOrderByStatus("2","2019-01-01","2020-05-08"));
     }

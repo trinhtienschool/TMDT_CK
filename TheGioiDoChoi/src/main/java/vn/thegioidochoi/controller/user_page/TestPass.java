@@ -6,13 +6,18 @@ import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
 import vn.thegioidochoi.model.header_footer.Category;
 import vn.thegioidochoi.model.header_footer.LoadHeaderFooter;
 import vn.thegioidochoi.model.header_footer.Load_Category;
+import vn.thegioidochoi.model.order_product.OrderProduct;
+import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
 import vn.thegioidochoi.model.supplier.Load_Supplier;
+import vn.thegioidochoi.model.supplier.Supplier;
 import vn.thegioidochoi.model.user.LoadUser;
 
 import vn.thegioidochoi.model.user.User;
 
 import vn.thegioidochoi.model.util.Util;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.Array;
 import java.sql.Connection;
@@ -21,10 +26,7 @@ import java.sql.SQLOutput;
 import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class TestPass {
@@ -123,14 +125,112 @@ public class TestPass {
 //        System.out.println(Util.dateFormat(new Date()));
 //        LoadUser.insertUser("Trinh Quang Tiến","trinhtien6236@gmail.com","Tien@123","0335364399",1,"2000-01-01","Long An",1,1);
 
-        Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2000-01-01");
-        System.out.println(date);
+//        Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2000-01-01");
+//        System.out.println(date);
+//
+//        List<User> users  = LoadUser.loadOrderCommentByIdUser(1);
+//        for(User u: users){
+//            System.out.println(u);
+//        }
+//
+//        List<Supplier>suppliers = Load_Supplier.loadSupplierByKeySearch("");
+//        for(Supplier s:suppliers){
+//            System.out.println(s);
+//        }
 
-        List<User> users  = LoadUser.loadOrderCommentByIdUser(1);
-        for(User u: users){
-            System.out.println(u);
+//        System.out.println(toKhongDau("Đồ Chơi Đoan Khang Vina - Công Ty TNHH Dịch Vụ Và Thương Mại Đoan Khang Vina"));
+//        System.out.println(System.currentTimeMillis());
+//        for(int i=1;i<=267;i++){
+//            ProductEntity.updateProductSlug(i,toKhongDau(ProductEntity.loadProductById(i).getName())+"-"+System.currentTimeMillis());
+//        }
+
+
+//        for(int i=1;i<=45;i++){
+//            Load_Supplier.updateSupplierSlug(i,toKhongDau(Load_Supplier.loadSupplierById(i).getName())+"-"+System.currentTimeMillis());
+//        }
+
+//        List<Supplier>suppliers = Load_Supplier.loadSupplier_view();
+//        for(Supplier supplier: suppliers){
+//            String[] arr = supplier.getCompany_name().split("-");
+//            if(arr.length == 2){
+//                String name = arr[0].trim();
+//                System.out.println("Name: "+name);
+//                Load_Supplier.updateSupplierName(supplier.getId(),name);
+//            }
+//        }
+
+//        String url = Util.cutUrlAgeGender("http://localhost:8082","sup-slug=do-choi-tre-em-phu-thai---cong-ty-tnhh-mtv-dau-tu-va-dv-tm-phu-thai-1654682046457");
+//        System.out.println(url);
+
+//        String dir = System.getProperty("user.dir");
+//        System.out.println(dir);
+
+//        Set<TestPair> testPairs = new HashSet<TestPair>();
+//        testPairs.add(new TestPair(354,43,43));
+//        testPairs.add(new TestPair(354,43,42));
+//        testPairs.add(new TestPair(354,43,41));
+//
+//        System.out.println(testPairs.size());
+//        System.out.println(testPairs.contains(new TestPair(354,43,65)));
+
+//        List<Product>products = ProductEntity.loadProductSameSupOrderId(1);
+//        System.out.println(products);
+//        List<Integer>order_ids = OrderProduct_Con_DB.loadAllOrderProductId();
+//        System.out.println(order_ids);
+
+
+//        Product product = ProductEntity.loadProductByOrderId(1);
+//        System.out.println(product);
+//        List<OrderProduct> orderProducts = new ArrayList<OrderProduct>();
+//        for(int i=1;i<=3011;i++){
+//            OrderProduct orderProduct= new OrderProduct();
+//            Product p1 = ProductEntity.loadProductByOrderId(i);
+//            orderProduct.setOrder_id(i);
+//            orderProduct.setPro_id(p1.getId());
+//            int random = (int) ((Math.random() * (4 - 1)) + 1);
+//            orderProduct.setQuantity(random);
+//            orderProduct.setPrice(p1.getPriceSaleOrPrice());
+//            int randTrue = (int) ((Math.random() * (2-0)) + 0);
+//            orderProduct.setStatus(randTrue==1?true:false);
+//            orderProduct.setTotal_price(random*p1.getPriceSaleOrPrice());
+//            orderProducts.add(orderProduct);
+//        }
+//
+//        System.out.println(orderProducts.size());
+//        try {
+//            // Creates a FileWriter
+//            FileWriter file = new FileWriter("C:\\Users\\trinh\\Desktop\\writefile\\file.txt");
+//
+//            // Creates a BufferedWriter
+//            BufferedWriter output = new BufferedWriter(file);
+//
+//            // Writes the string to the file
+//            for(OrderProduct orderProduct:orderProducts) {
+//
+//                String line = orderProduct.toLine();
+//                output.write(line);
+//                output.newLine();
+//                output.flush();
+//            }
+//
+//            // Closes the writer
+//            output.close();
+//        }
+//
+//        catch (Exception e) {
+//            e.getStackTrace();
+//        }
+
+    }
+    public static String toKhongDau(String str) {
+        try {
+            String temp = Normalizer.normalize(str, Normalizer.Form.NFD);
+            Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+            return pattern.matcher(temp).replaceAll("").toLowerCase().replaceAll(" ", "-").replaceAll("đ", "d");
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
+        return "";
     }
 
 

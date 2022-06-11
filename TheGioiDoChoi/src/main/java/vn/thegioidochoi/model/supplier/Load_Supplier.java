@@ -24,6 +24,7 @@ public class Load_Supplier {
                     supplier.setPhone(resultSet.getString(4));
                     supplier.setEmail(resultSet.getString(5));
                     supplier.setCompany_name(resultSet.getString(9));
+                    supplier.setName(resultSet.getString(10));
 
                     supplierList.add(supplier);
                 }
@@ -87,6 +88,42 @@ public class Load_Supplier {
         }
         return false;
     }
+    public static boolean updateSupplierSlug(int id, String slug) {
+        String sql = "update supplier set slug=? where id= ?";
+        int update = 0;
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
+            pe.setString(1,slug);
+            pe.setInt(2, id);
+
+            synchronized (pe) {
+                update = pe.executeUpdate();
+            }
+            pe.close();
+            return update == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean updateSupplierName(int id, String name) {
+        String sql = "update supplier set name=? where id= ?";
+        int update = 0;
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
+            pe.setString(1,name);
+            pe.setInt(2, id);
+
+            synchronized (pe) {
+                update = pe.executeUpdate();
+            }
+            pe.close();
+            return update == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
     public static boolean updateSupplier(int id,String name, String address, int phone, String email) {
         String sql = "update supplier set name=?,address=?,phone=?,email=? where id= ?";
         int update = 0;
@@ -110,7 +147,7 @@ public class Load_Supplier {
     }
     public static List<Supplier> loadBestSupplier(int nos){
         List<Supplier>suppliers = new ArrayList<Supplier>();
-        String sql = "select r.supplier_id, s.logo, s.company_name, sum(r.real_revenue) as total\n" +
+        String sql = "select r.supplier_id,s.name, s.logo, s.company_name,s.slug, sum(r.real_revenue) as total\n" +
                 "from revenue_by_products r JOIN supplier s on r.supplier_id = s.id\n" +
                 "where MONTH(r.date)=11 and YEAR(r.date)=2021\n" +
                 "GROUP BY r.supplier_id, s.logo, s.company_name\n" +
@@ -123,9 +160,11 @@ public class Load_Supplier {
                 while (resultSet.next()){
                     Supplier supplier = new Supplier();
                     supplier.setId(resultSet.getInt(1));
-                    supplier.setLogo(resultSet.getString(2));
-                    supplier.setCompany_name(resultSet.getString(3));
-                    supplier.setRevenue(resultSet.getDouble(4));
+                    supplier.setName(resultSet.getString(2));
+                    supplier.setLogo(resultSet.getString(3));
+                    supplier.setCompany_name(resultSet.getString(4));
+                    supplier.setSlug(resultSet.getString(5));
+                    supplier.setRevenue(resultSet.getDouble(6));
 
                     suppliers.add(supplier);
                 }
@@ -134,6 +173,25 @@ public class Load_Supplier {
             statement.close();
             return suppliers;
         } catch(SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+    public static Supplier loadSupplier(String slug){
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement("select * from supplier where slug=?");
+            pe.setString(1,slug);
+            synchronized (pe){
+                ResultSet rs = pe.executeQuery();
+                Supplier supplier = null;
+                if(rs.next()) {
+                    supplier = getSupplier(rs);
+                }
+                rs.close();
+                pe.close();
+                return supplier;
+            }
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return null;
@@ -173,6 +231,8 @@ public class Load_Supplier {
             supplier.setCompany_name(resultSet.getString(9));
             supplier.setWebsite(resultSet.getString(10));
             supplier.setDate(resultSet.getDate(11));
+            supplier.setSlug(resultSet.getString(12));
+            supplier.setName(resultSet.getString(13));
             return supplier;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -180,9 +240,32 @@ public class Load_Supplier {
         return  null;
 
     }
+    public static List<Supplier> loadSupplierByKeySearch(String key){
+        List<Supplier>suppliers = new ArrayList<Supplier>();
+        String sql = "select DISTINCT s.`name`, s.slug, count(p.id) from product p join supplier s on p.supplier_id = s.id where p.`name` LIKE '%"+key+"%' GROUP BY s.id ORDER BY count(p.id) desc";
+        try {
+            Statement statement = DBCPDataSource.getStatement();
+            synchronized (statement) {
+                ResultSet resultSet = statement.executeQuery(sql);
+                while (resultSet.next()) {
+                    Supplier supplier = new Supplier();
+                    supplier.setName(resultSet.getString(1));
+                    supplier.setSlug(resultSet.getString(2));
+                    supplier.setTotal_product(resultSet.getInt(3));
+                    suppliers.add(supplier);
+                }
+                resultSet.close();
+            }
+            statement.close();
+            return suppliers;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
     public static Supplier loadSupplierById(int id){
         Supplier supplier = new Supplier();
-        String sql = "SELECT s.id, s.company_name, s.logo, s.description, COUNT(p.supplier_id) AS total_product\n" +
+        String sql = "SELECT s.id, s.name, s.logo, s.description, COUNT(p.supplier_id) AS total_product\n" +
                 "FROM supplier s JOIN product p ON s.id = p.supplier_id\n" +
                 "WHERE supplier_id = " + id;
         try {
@@ -190,7 +273,7 @@ public class Load_Supplier {
             synchronized (statement) {
                 ResultSet resultSet = statement.executeQuery(sql);
                 while (resultSet.next()) {
-                    supplier.setCompany_name(resultSet.getString(2));
+                    supplier.setName(resultSet.getString(2));
                     supplier.setLogo(resultSet.getString(3));
                     supplier.setDescription(resultSet.getString(4));
                     supplier.setTotal_product(resultSet.getInt(5));

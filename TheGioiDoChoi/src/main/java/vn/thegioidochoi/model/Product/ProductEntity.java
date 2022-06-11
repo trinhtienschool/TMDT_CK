@@ -13,6 +13,7 @@ import java.util.*;
 import java.util.Date;
 
 public class ProductEntity {
+
     public static List<Product> loadProducts(String search,String category,int price_min, int price_max, String genders,String ages, String order, int page) {
         List<Product> productList = new ArrayList<Product>();
         try {
@@ -75,9 +76,20 @@ public class ProductEntity {
                 "order by date_created desc LIMIT " + num;
         return loadProductFormSql(sql);
     }
+    public static List<Product> loadProductSameSupOrderId(int order_id) {
+        String sql = "select * from product p join `order`  o on p.supplier_id = o.supplier_id where o.id="+ order_id;
+        return loadProductFormSql(sql);
+    }
 
     public static Product loadProductById(int id) {
         String sql = "select * from product where id=" + id;
+        List<Product> products = loadProductFormSql(sql);
+        if (products.isEmpty())
+            return null;
+        return products.get(0);
+    }
+    public static Product loadProductByOrderId(int order_id) {
+        String sql = "select p.* from product p join `order`  o on p.supplier_id = o.supplier_id where o.id ="+order_id+ " order by RAND() LIMIT 1";
         List<Product> products = loadProductFormSql(sql);
         if (products.isEmpty())
             return null;
@@ -242,10 +254,10 @@ public class ProductEntity {
         convertListToMap(map, ab_pros);
         String[] words = key.split(" ");
         for (String word : words) {
-            if (word.equalsIgnoreCase("cây")
-                    || word.equalsIgnoreCase("chậu")
-                    || word.equalsIgnoreCase("cay")
-                    || word.equalsIgnoreCase("chau"))
+            if (word.equalsIgnoreCase("đồ")
+                    || word.equalsIgnoreCase("chơi")
+                    || word.equalsIgnoreCase("do")
+                    || word.equalsIgnoreCase("choi"))
                 continue;
             ;
             List<Product> pros = loadProductFormSql("select * from product where name like '% " + word + " %' or discription like '% " + key + " %'or content like '% " + key + " %'");
@@ -435,6 +447,24 @@ public static boolean insertProduct(String name, double price,
                 pe.setInt(17, id);
             }
             System.out.println("Day la query update: " + pe.toString());
+            synchronized (pe) {
+                update = pe.executeUpdate();
+            }
+            pe.close();
+            return update == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean updateProductSlug(int id, String slug) {
+        String sql = "update product set slug=? where id= ?";
+        int update = 0;
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
+            pe.setString(1,slug);
+            pe.setInt(2, id);
+
             synchronized (pe) {
                 update = pe.executeUpdate();
             }

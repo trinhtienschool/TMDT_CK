@@ -288,7 +288,10 @@ public class Product {
     public void setGender(int gender) {
         this.gender = gender;
     }
-
+    public double getPriceSaleOrPrice(){
+        if(price == price_sale) return price;
+        return price_sale;
+    }
     @Override
     public String toString() {
         return "Product{" +

@@ -155,7 +155,7 @@ public class Login_handle extends HttpServlet {
             return;
         }
         System.out.println("Date_createdLogin: "+Util.dateFormat(user.getDate_created())+" : "+email+" : "+pass);
-        long passHashCode =Util.hashPass(Util.dateFormat(user.getDate_created()),email,pass);;
+        long passHashCode =Util.hashPass(Util.dateFormat(user.getDate_created()),email,pass);
         if(passHashCode != user.getPassword()){
             notifyError(2,"Sai email hoặc mật khẩu",request,response);
         }else {

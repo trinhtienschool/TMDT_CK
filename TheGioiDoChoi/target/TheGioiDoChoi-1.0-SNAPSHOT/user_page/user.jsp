@@ -30,8 +30,25 @@
 <%--<jsp:include page="search_bar.jsp"></jsp:include>--%>
 
 <!-- User Section -->
-<div class="container">
+<div class="container" style="
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+">
     <div class="row my-2 user__border">
+        <div class="col-lg-4 order-lg-1 text-center img-2">
+            <div class="img-ava">
+                <img src="${sessionScope.user_avatar}" class="mx-auto img-fluid img-circle d-block" alt="Ảnh đại diện">
+                <label class="load-ava">
+                    <span class="custom-file-control">Đổi Ảnh</span>
+                    <form id="submit-avatar" action="saveAvatar" method="post" enctype="multipart/form-data">
+                        <input type="file" id="file" class="custom-file-input" name="avatar" accept="image/png, image/gif, image/jpeg">
+
+                    </form>
+                </label>
+            </div>
+            <h6 class="mt-2">${sessionScope.user_name}</h6>
+        </div>
         <div class="col-lg-8 order-lg-2">
             <ul class="nav nav-tabs tab">
                 <li class="nav-item">
@@ -176,6 +193,16 @@
                             <form id="formPass" class="formAcount validate clearfix" method="post" action="user">
                                 <div class="form-group clearfix">
                                     <div class="row">
+                                        <label class="col-md-3 control-label"> Mật khẩu cũ: </label>
+                                        <div class="col-lg-6 col-md-9">
+                                            <input type="password"  name="passwd-old" id="passwd-old"
+                                                   class="validate[required,minSize[4],maxSize[32]] form-control input-sm">
+                                            <label id="mk-old-notice" class="invisible notice">Trường này không được trống</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <div class="row">
                                         <label class="col-md-3 control-label"> Mật khẩu mới: </label>
                                         <div class="col-lg-6 col-md-9">
                                             <input type="password" id="passwd" name="passwd"
@@ -276,18 +303,33 @@
                         <c:forEach items="${sessionScope.favorite}" var="f">
                             <c:set var="price" value="${f.price}"></c:set>
                             <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="${f.img}">
-                                        <ul class="product__item__pic__hover">
-                                            <li class="subFa cursor-pointer" data-current_page="user" data-pro_id="${f.id}"><a ><i class="fa fa-close"></i></a></li>
-                                            <li class="addCart cursor-pointer" data-current_page="user" data-pro_id="${f.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <h6><a href="shop-detail?id=${f.id}">${f.name}</a></h6>
-                                        <h5><%= Util.formatCurrency((double) pageContext.getAttribute("price"))%></h5>
-                                    </div>
-                                </div>
+<%--                                <div class="product__item">--%>
+<%--                                    <div class="product__item__pic set-bg" data-setbg="${f.img}">--%>
+<%--                                        <ul class="product__item__pic__hover">--%>
+<%--                                            <li class="subFa cursor-pointer" data-current_page="user" data-pro_id="${f.id}"><a ><i class="fa fa-close"></i></a></li>--%>
+<%--                                            <li class="addCart cursor-pointer" data-current_page="user" data-pro_id="${f.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>--%>
+<%--                                        </ul>--%>
+<%--                                    </div>--%>
+<%--                                    <div class="product__item__text">--%>
+<%--                                        <h6><a href="shop-detail?id=${f.id}">${f.name}</a></h6>--%>
+<%--                                        <h5><%= Util.formatCurrency((double) pageContext.getAttribute("price"))%></h5>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+    <div class="featured__item">
+        <div class="featured__item__pic ">
+            <a href="/shop-detail?product=${f.slug}"><img src="${f.img}" alt=""></a>
+            <ul class="featured__item__pic__hover">
+                <li class="subFa cursor-pointer" data-current_page="user" data-pro_id="${f.id}"><a ><i class="fa fa-close"></i></a></li>
+                 <li class="addCart cursor-pointer" data-current_page="user" data-pro_id="${f.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
+            </ul>
+        </div>
+        <div class="featured__item__text">
+            <h4 class=" text-truncate" data-toggle="tooltip"><a href="#">${f.name}</a></h4>
+            <h5>${Util.formatCurrency(f.price)}</h5>
+            <p>Đã bán ${f.sold}</p>
+        </div>
+
+    </div>
                             </div>
                         </c:forEach>
                     </div>
@@ -296,22 +338,32 @@
             </div>
 
         </div>
-        <div class="col-lg-4 order-lg-1 text-center img-2">
-            <div class="img-ava">
-                <img src="${sessionScope.user_avatar}" class="mx-auto img-fluid img-circle d-block" alt="Ảnh đại diện">
-                <label class="load-ava">
-                    <span class="custom-file-control">Đổi Ảnh</span>
-                    <form action="saveAvatar" method="post" enctype="multipart/form-data">
-                    <input type="file" id="file" class="custom-file-input" name="avatar">
-                        <input type="submit" value="Lưu">
-                    </form>
-                </label>
-            </div>
-            <h6 class="mt-2">${sessionScope.user_name}</h6>
 
-        </div>
     </div>
 </div>
+<c:if test="${status==2}">
+    <div class="modal fade" id="wrong_info_login" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog forget-dialog" role="document">
+            <div class="modal-content forget-content">
+                <div class="modal-header forget-header">
+                    <h5 class="modal-title forget-title">Thông báo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="x">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body forget-body">
+                    <!-- <h5 class="forget-h5">Vui lòng nhập Email bạn đã đăng kí để lấy lại mật khẩu</h5> -->
+                    <div>
+                        <p>${status_content}</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary forget-send" data-dismiss="modal">ĐÓNG</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</c:if>
 <!-- User Section End -->
 <jsp:include page="footer.jsp"></jsp:include>
 

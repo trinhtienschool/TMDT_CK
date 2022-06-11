@@ -210,9 +210,9 @@
             minamount.val(ui.values[0] + '.000 ₫');
             maxamount.val(ui.values[1] + '.000 ₫');
             url = url.trim();
-            if(url.indexOf("&")==0) url = url.substring(1);
-            window.location.href = type_page + "?price_min=" + ui.values[0] + "&price_max=" + ui.values[1] +"&"+  url;
-            console.log(type_page + "?price_min=" + ui.values[0] + "&price_max=" + ui.values[1] +"&"+  url);
+            if (url.indexOf("&") == 0) url = url.substring(1);
+            window.location.href = type_page + "?price_min=" + ui.values[0] + "&price_max=" + ui.values[1] + "&" + url;
+            console.log(type_page + "?price_min=" + ui.values[0] + "&price_max=" + ui.values[1] + "&" + url);
         }
     });
     minamount.val(rangeSlider.slider("values", 0) + ".000 ₫");
@@ -251,8 +251,8 @@
             var scroll = $(window).scrollTop();
             var newVal = parseFloat(oldValue) + 1;
             let id = $(this).parent().data("pro_id");
-            let directUrl = "cart-handle?current-page=cart"+"&id="+id+"&action=add&position="+scroll;
-            window.location.href=directUrl;
+            let directUrl = "cart-handle?current-page=cart" + "&id=" + id + "&action=add&position=" + scroll;
+            window.location.href = directUrl;
         } else {
             // Don't allow decrementing below zero
             if (oldValue > 0) {
@@ -262,14 +262,13 @@
             }
             var scroll = $(window).scrollTop();
             let id = $(this).parent().data("pro_id");
-            let directUrl = "cart-handle?current-page=cart"+"&id="+id+"&action=sub&position="+scroll;
-            window.location.href=directUrl;
+            let directUrl = "cart-handle?current-page=cart" + "&id=" + id + "&action=sub&position=" + scroll;
+            window.location.href = directUrl;
         }
         $button.parent().find('input').val(newVal);
 
 
     });
-
 
 
     // Header sale
@@ -487,6 +486,15 @@ $(document).ready(function () {
     $(document).ready(function () {
         $('#formPass').submit(function (e) {
             e.preventDefault();
+            let pass_old = $("#passwd-old").val();
+            if(pass_old.trim().length==0) {
+                $('#mk-old-notice').addClass("visible")
+                $('#mk-old-notice').removeClass("invisible")
+                return;
+            }else{
+                $('#mk-old-notice').removeClass("visible")
+                $('#mk-old-notice').addClass("invisible")
+            }
             let passwd = $('#passwd').val();
             let pass_again = $('#pass-again').val();
             let checkpass = false;
@@ -494,7 +502,7 @@ $(document).ready(function () {
             if (passwd.length < 8) {
                 $('#mk-notice').addClass("visible");
                 $('#mk-notice').removeClass("invisible");
-                checkpass=false;
+                checkpass = false;
             }
             let up = false,
                 num = false;
@@ -511,7 +519,7 @@ $(document).ready(function () {
             if (passwd == pass_again) {
                 $('#mka-notice').removeClass("visible");
                 $('#mka-notice').addClass("invisible");
-                checkpass_again=true;
+                checkpass_again = true;
             } else {
                 $('#mka-notice').addClass("visible");
                 $('#mka-notice').removeClass("invisible");
@@ -520,12 +528,12 @@ $(document).ready(function () {
                 $('#mk-notice').addClass("visible");
                 $('#mk-notice').removeClass("invisible");
 
-            } else{
+            } else {
                 $('#mk-notice').addClass("invisible");
                 $('#mk-notice').removeClass("visible");
-                checkpass=true;
+                checkpass = true;
             }
-            if(checkpass==true && checkpass_again==true){
+            if (checkpass == true && checkpass_again == true) {
                 $(this).unbind('submit').submit();
             }
 
@@ -534,84 +542,159 @@ $(document).ready(function () {
     });
 
     //add cart
-    $('.addCart').click(function (e){
+    $('.addCart').click(function (e) {
         var scroll = $(window).scrollTop();
         let curentUrl = window.location.href;
         let arrCondition = curentUrl.split("?");
         // console.log("length: "+arrCondition.length)
         let condition;
-        if(arrCondition.length == 1){
+        if (arrCondition.length == 1) {
             // console.log("co vo dk if")
             condition = "";
-        }else condition = arrCondition[1];
+        } else condition = arrCondition[1];
 
         let currentPage = $(this).data('current_page');
         let id = $(this).data('pro_id');
-        let directUrl = "cart-handle?current-page="+currentPage+"&id="+id+"&position="+scroll+"&action=add"+"&"+condition;
-        window.location.href=directUrl;
+        let directUrl = "cart-handle?current-page=" + currentPage + "&id=" + id + "&position=" + scroll + "&action=add" + "&" + condition;
+        window.location.href = directUrl;
         // console.log(directUrl);
     });
     //add favouristlist
-    $('.addFa').click(function (e){
+    $('.addFa').click(function (e) {
         var scroll = $(window).scrollTop();
         let curentUrl = window.location.href;
         let arrCondition = curentUrl.split("?");
         // console.log("length: "+arrCondition.length)
         let condition;
-        if(arrCondition.length == 1){
+        if (arrCondition.length == 1) {
             // console.log("co vo dk if")
             condition = "";
-        }else condition = arrCondition[1];
+        } else condition = arrCondition[1];
 
         let currentPage = $(this).data('current_page');
         let id = $(this).data('pro_id');
-        let directUrl = "add-favourist?current-page="+currentPage+"&id="+id+"&position="+scroll+"&action=add"+"&"+condition;
-        window.location.href=directUrl;
+        let directUrl = "add-favourist?current-page=" + currentPage + "&id=" + id + "&position=" + scroll + "&action=add" + "&" + condition;
+        window.location.href = directUrl;
         // console.log(directUrl);
     });
 
     //add favouristlist
-    $('.subFa').click(function (e){
+    $('.subFa').click(function (e) {
         var scroll = $(window).scrollTop();
         let currentPage = $(this).data('current_page');
         let id = $(this).data('pro_id');
-        let directUrl = "add-favourist?current-page="+currentPage+"&id="+id+"&position="+scroll+"&action=sub";
-        window.location.href=directUrl;
+        let directUrl = "add-favourist?current-page=" + currentPage + "&id=" + id + "&position=" + scroll + "&action=sub";
+        window.location.href = directUrl;
         // console.log(directUrl);
     });
 
 
     //fast checkout
-    $('.fast-checkout').click(function (e){
+    $('.fast-checkout').click(function (e) {
         let id = $(this).data('pro_id');
-        let directUrl = "checkout?fast-checkout=true&pro_id="+id;
-        window.location.href=directUrl;
+        let directUrl = "checkout?fast-checkout=true&pro_id=" + id;
+        window.location.href = directUrl;
         // console.log(directUrl);
     });
 
 });
 
-function load(position){
+function load(position) {
     $(window).scrollTop(position);
 }
+
 // SHOP DETAIL
-function changeImage(id){
+function changeImage(id) {
     let imagePath = document.getElementById(id).getAttribute('src');
     document.getElementById('img-main').setAttribute('src', imagePath);
-    console.log('Image Path: '+imagePath);
+    console.log('Image Path: ' + imagePath);
     console.log('image path change: ' + document.getElementById('img-main'));
 }
-function clickCheckbox(type,checkbox,type_page,url){
 
-    if(checkbox.checked){
+function clickCheckbox(type, checkbox, type_page, url) {
+
+    if (checkbox.checked) {
         console.log('co vo0000000000000000000000000');
         console.log(checkbox.id)
         url = url.trim();
-        if(url.indexOf("&")==0) url = url.substring(1);
+        if (url.indexOf("&") == 0) url = url.substring(1);
         console.log(url);
 
-        window.location.href = type_page+"?" + type+"="+checkbox.id+"&" + url;
-    }else{
-        window.location.href = type_page+"?" + url;
+        window.location.href = type_page + "?" + type + "=" + checkbox.id + "&" + url;
+    } else {
+        window.location.href = type_page + "?" + url;
     }
+}
+
+$(document).ready(function () {
+    console.log(cutUrl("http://localhost:8082/shopping?gender=gt-nu&keyword=puzzle&age=tu-6-11-tuoi&age=tren-12-tuoi&gender=gt-nam&sup-slug=nhua-3h-1654696762323&sup-slug=do-choi-tre-em-phu-thai-1654696761915","sup-slug=nhua-3h-1654696762323"))
+    let brands = $('#more-brand').data('brand')
+    console.log(brands)
+    $('#more-brand').click(function () {
+        let show = false;
+        if ($(this).hasClass('show')) {
+            show = true;
+            $(this).removeClass('show')
+        } else {
+            $(this).addClass('show')
+        }
+
+        let brands = $(this).data('brand')
+        console.log(brands)
+        if (show) {
+            for (let i = 0; i < brands.length; i++) {
+                console.log(brands[i].name)
+                console.log(brands[i].checked)
+                let child = "<div class=\"form-check m-1 mt-3 br-more\">\n" +
+                    "  <input class=\"form-check-input gender-checkbox\"\n " +
+                    "                                       type=\"checkbox\"\n" +
+                    "                                       id=\""+brands[i].slug+"\"\n" +
+                    getChecked(brands[i].checked)
+                    // (brands[i]==true?" checked ":"")
+                    +
+
+                    "onclick=\"clickCheckbox('sup-slug',this,\'"+$(this).data('page')+"\',\'"+cutUrl($(this).data('url'),'sup-slug='+brands[i].slug)+"\')\">" +
+
+
+                    "                                <label class=\"form-check-label\" for=\"" + brands[i].slug + "\">\n" +
+                    "                                   " + brands[i].name + " ("+brands[i].products+")" +
+                    "                                </label>\n" +
+                    "                            </div>";
+                $(this).before(child);
+            }
+            $(this).text('Ẩn bớt')
+        } else {
+            $(".br-more").remove();
+            $(this).text('Hiển thị thêm')
+        }
+    })
+})
+$(document).ready(function () {
+
+    $('#file').change(function(e) {
+        e.preventDefault();
+        $('#submit-avatar').submit()
+    })
+})
+function cutUrl(url,equal){
+    equal = equal.toLowerCase();
+    if(url.includes(equal)){
+
+        let parts = url.split("&");
+
+        let result_url="";
+        for(let i=0;i<parts.length;i++){
+            let p = parts[i];
+            p = p.toLowerCase();
+            if(p != equal & p.length !=0) result_url+="&"+p;
+        }
+
+        return result_url;
+    }
+    return url;
+}
+function getChecked(checked){
+    console.log("checkeddddddddd: ",checked)
+    if(checked) return " checked "
+    return ""
 }
