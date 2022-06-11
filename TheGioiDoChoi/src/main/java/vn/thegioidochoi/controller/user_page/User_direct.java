@@ -8,6 +8,7 @@ import vn.thegioidochoi.model.order.Load_Order;
 import vn.thegioidochoi.model.order.Order;
 import vn.thegioidochoi.model.user.LoadUser;
 import vn.thegioidochoi.model.user.User;
+import vn.thegioidochoi.model.util.Util;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,11 +28,30 @@ public class User_direct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
        if(request.getParameter("passwd")!=null){
-           String pass= request.getParameter("passwd");
-           int user_id = (int)session.getAttribute("user_id");
-           LoadUser.changePassword(user_id,(String) session.getAttribute("user_email"),pass);
+           if(session !=null){
+               User user = LoadUser.loadUserById((int)session.getAttribute("user_id"));
+               long pass = Util.hashPass(Util.dateFormat(user.getDate_created()),user.getEmail(),request.getParameter("passwd-old"));
+               if(pass == user.getPassword()){
+                   String passNew= request.getParameter("passwd");
+                   int user_id = (int)session.getAttribute("user_id");
+                   LoadUser.changePassword(user_id,(String) session.getAttribute("user_email"),passNew);
+                   request.setAttribute("status",2);
+                   request.setAttribute("status_content","Cập nhật mật khẩu thành công");
+
+               }else{
+                   request.setAttribute("status",2);
+                   request.setAttribute("status_content","Sai mật khẩu cũ");
+
+               }
+           }else{
+               request.setAttribute("status",2);
+               request.setAttribute("status_content","Cập nhật mật khẩu thất bại");
+
+           }
+
        }
-        if(request.getAttribute("city")!=null){
+        if(request.getParameter("city")!=null){
+            System.out.println("Cập nhật userrrrrrrrrrrrrrrrrrrrrrrrrr");
             int user_id = (int)session.getAttribute("user_id");
             String name=request.getParameter("fullName");
             String birthday=request.getParameter("birthday");

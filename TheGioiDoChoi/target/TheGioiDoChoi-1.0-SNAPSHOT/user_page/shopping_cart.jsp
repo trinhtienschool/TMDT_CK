@@ -41,7 +41,9 @@
 <!-- Breadcrumb Section End -->
 <!-- Shoping Cart Section Begin -->
 <section class="shoping-cart spad">
-    <div class="container">
+    <div class="container" style="background: white;
+    padding: 40px;
+    margin-top: -50px;">
         <div class="row">
             <div class="col-lg-12">
                 <div class="shoping__cart__table">
@@ -144,8 +146,11 @@
     </div>
 </section>
 <!-- Related Product Section Begin -->
-<section class="related-product">
-    <div class="container">
+<section class="related-product" style="margin-top: -50px;">
+    <div class="container" style="
+    background: white;
+    padding: 0px 30px 30px;
+">
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title related__product__title">

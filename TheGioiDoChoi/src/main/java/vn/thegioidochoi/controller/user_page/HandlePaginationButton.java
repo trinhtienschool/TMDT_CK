@@ -194,8 +194,8 @@ public class HandlePaginationButton extends HttpServlet {
      */
     public List<Product> getTheCorrectProduct(List<Product>keyProducts,List<Product>conditionProduct){
         List<Product>finalProducts = new ArrayList<Product>();
-        for(Product kp : keyProducts){
-            for(Product cp : conditionProduct){
+        for(Product cp : conditionProduct){
+            for(Product kp : keyProducts){
                 if(kp.getId()==cp.getId())
                     finalProducts.add(kp);
             }

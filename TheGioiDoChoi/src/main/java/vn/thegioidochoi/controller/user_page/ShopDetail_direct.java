@@ -39,7 +39,7 @@ public class ShopDetail_direct extends HttpServlet {
         Product procountcomment=ProductEntity.loadCountCommentByIdPro(id);
         Product proavgstar=ProductEntity.loadCountAvgstarByIdPro(id);
 
-        Supplier supplier = Load_Supplier.loadSupplierById(id);
+        Supplier supplier = Load_Supplier.loadSupplierById(product.getSupplier_id());
 
         List<Image> images = LoadImage.loadListImage(id);
 
@@ -88,7 +88,7 @@ public class ShopDetail_direct extends HttpServlet {
                 session.setAttribute("vp",vp);
             }
         }
-
+        System.out.println("Dang chuyen qua JSPPPPPPPPPPPPPPPPPPPPPPP");
         request.getRequestDispatcher("user_page/shop-detail.jsp").forward(request,response);
     }
 }

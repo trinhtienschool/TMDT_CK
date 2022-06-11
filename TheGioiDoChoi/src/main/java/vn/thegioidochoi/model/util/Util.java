@@ -7,8 +7,7 @@ import vn.thegioidochoi.model.header_footer.Category;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
 import java.text.NumberFormat;
@@ -16,6 +15,34 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Util {
+    public static String getUrlProjectPath(){
+        Properties prop = new Properties();
+        InputStream input = null;
+        String path=null;
+        try {
+            File file1= new File("..\\webapps\\ROOT\\user_page\\ImageUrlLocation.properties");
+            System.out.println(file1.getCanonicalPath());
+            input = new FileInputStream(file1);
+
+            // load a properties file
+            prop.load(input);
+
+            // get the property for upload path
+            path=prop.getProperty("path");
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return path;
+    }
     public static long hashPass(String date_created,String email,String pass){
         return date_created.hashCode()*email.hashCode()*pass.hashCode();
     }
@@ -113,8 +140,6 @@ public class Util {
     public static String cutUrlAgeGender(String url, String equal){
         if(url.contains(equal)){
             System.out.println(url);
-//            String replaced = url.replaceAll(equal,"");
-//            System.out.println("Afterrrr: "+replaced);
             String[] parts = url.split("&");
             System.out.println("part: "+Arrays.toString(parts));
             String result_url="";
@@ -145,12 +170,14 @@ public class Util {
         return url;
     }
 
-    public static String getUrlFileFromUpload(FileItem fi, String name, String url) {
+    public static String getUrlFileFromUpload(FileItem fi, String name, String url) throws IOException {
         File file;
+        System.out.println("Dang vao getUrlFilllllllllllllllllll");
         System.out.println(fi==null?false:true);
         // Get the uploaded file parameters
         String fieldName = fi.getFieldName();
         String fileName = fi.getName();
+        System.out.println("File name: "+fileName);
         String contentType = fi.getContentType();
         boolean isInMemory = fi.isInMemory();
         long sizeInBytes = fi.getSize();
@@ -163,14 +190,20 @@ public class Util {
         } else {
             return null;
         }
-
+        //write to server location
         fileNameSave += ext;
-        File folder= new File("..\\webapps\\thegioidochoi.vn/" + url);
+        File folder= new File("..\\webapps\\ROOT" + url);
         if(!folder.exists()) folder.mkdirs();
-        file = new File("..\\webapps\\thegioidochoi.vn/" + url + "/" + fileNameSave);
-//                    System.out.println(file.getCanonicalFile());
+        file = new File("..\\webapps\\ROOT/" + url + "/" + fileNameSave);
+                    System.out.println(file.getCanonicalPath());
+        //write to project location
+
+
+//        File filePathProject = new File("D:\\School\\Codes\\TMDT_CK_Project\\TheGioiDoChoi\\src\\main\\webapp\\imgs\\user\\"+fileNameSave);
+//        System.out.println(filePathProject.getCanonicalPath());
         try {
             fi.write(file);
+//            fi.write(filePathProject);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -155,7 +155,7 @@ public class Login_handle extends HttpServlet {
             return;
         }
         System.out.println("Date_createdLogin: "+Util.dateFormat(user.getDate_created())+" : "+email+" : "+pass);
-        long passHashCode =Util.hashPass(Util.dateFormat(user.getDate_created()),email,pass);;
+        long passHashCode =Util.hashPass(Util.dateFormat(user.getDate_created()),email,pass);
         if(passHashCode != user.getPassword()){
             notifyError(2,"Sai email hoặc mật khẩu",request,response);
         }else {
@@ -172,14 +172,16 @@ public class Login_handle extends HttpServlet {
 
     public static void successLogin(HttpServletRequest request, HttpServletResponse response, User user) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        session.setAttribute("user_avatar", user.getAvatar());
+        session.setAttribute("user_id", user.getId());
+        session.setAttribute("user_name", user.getName());
+        // them
+        session.setAttribute("user_mail", user.getEmail());
+        session.setAttribute("user_address",user.getAddress());
+        session.setAttribute("user_phone", user.getPhone());
         if(session.getAttribute("isAdmin")==null) {
             session.setAttribute("favourist",new FavouriteListMap(user.getId()));
-            session.setAttribute("user_avatar", user.getAvatar());
-            session.setAttribute("user_id", user.getId());
-            session.setAttribute("user_name", user.getName());
-            // them
-            session.setAttribute("user_mail", user.getEmail());
-            session.setAttribute("user_address",user.getAddress());
+
             Cart cart = new Cart(user.getId());
             List<Product> viewProducts = ProductEntity.loadViewProducts(user.getId());
             session.setAttribute("vp",viewProducts);

@@ -32,6 +32,7 @@ public class Setting_direct extends HttpServlet {
        HttpSession session = request.getSession();
        int roleId = 0;
        int user_id = (int)session.getAttribute("user_id");
+       System.out.println((long)session.getAttribute("user_phone"));
        if(session.getAttribute("user_id") != null){
            User user = LoadUser.loadUserById(user_id);
            if(user.getRole_id() == 2){

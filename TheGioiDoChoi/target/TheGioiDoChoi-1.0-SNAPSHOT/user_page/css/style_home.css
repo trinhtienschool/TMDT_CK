@@ -3853,7 +3853,7 @@ textarea.form-control {
 .ps-block--average-rating .ps-block__header h3 {
   font-size: 58px;
   font-weight: 500;
-  color: #690;
+  color: #3078a6;
   line-height: 1;
 }
 
@@ -3899,7 +3899,7 @@ textarea.form-control {
   transform: translateY(-50%);
   left: 0;
   height: 100%;
-  background-color: #690;
+  background-color: #3078a6;
 }
 
 .ps-block--questions-answers h3 {
@@ -9284,7 +9284,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .ps-product--detail .ps-product__progress-bar p > b {
-  color: #690;
+  color: #3078a6;
 }
 
 .ps-product--detail .ps-product__countdown {
@@ -9820,7 +9820,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .ps-product--hot-deal .ps-product__processs-bar p strong {
-  color: #690;
+  color: #3078a6;
 }
 
 .ps-product--hot-deal .ps-product__meta {
@@ -14095,7 +14095,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 
 .ps-my-account-2 .ps-section__coupon span {
   font-size: 72px;
-  color: #690;
+  color: #3078a6;
   margin: 0 30px 0 0;
 }
 
@@ -14532,7 +14532,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 #homepage-1 .ps-deal-of-day .ps-product .ps-product__price {
-  color: #690;
+  color: #3078a6;
   font-size: 18px;
   font-weight: 600;
 }
@@ -16581,7 +16581,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 .ps-footer--3 {
   padding: 0;
   border-top: 1px solid #e1e1e1;
-  background-color: #f8f8f8;
+  background-color: #ffffff;
 }
 
 .ps-footer--3 .ps-block--site-features {
@@ -17774,7 +17774,7 @@ html .bg--parallax {
 }
 
 #homepage-kids .ps-deal-of-day .ps-product .ps-product__price {
-  color: #690;
+  color: #3078a6;
   font-size: 18px;
 }
 
@@ -18025,6 +18025,7 @@ html .bg--parallax {
   /*border-top: 1px solid #e1e1e1;*/
   /*border-right: 1px solid #e1e1e1;*/
   padding: 10px;
+  background: white;
   /*margin: 10px;*/
 }
 .product__discount__item:hover
@@ -18196,6 +18197,7 @@ html .bg--parallax {
   /*border-top: 1px solid #e1e1e1;*/
   /*border-right: 1px solid #e1e1e1;*/
   padding:10px;
+  background: white;
   /* margin: 10px;*/
 }
 

@@ -124,4 +124,7 @@ public class OrderProduct {
                 ", total=" + total +
                 '}';
     }
+    public String toLine(){
+        return order_id+","+pro_id+","+quantity+","+(int)price+","+(status?1:0)+","+(int)total_price;
+    }
 }
