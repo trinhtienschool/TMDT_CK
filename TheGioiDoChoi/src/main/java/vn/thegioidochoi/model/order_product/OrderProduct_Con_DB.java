@@ -75,10 +75,10 @@ public class OrderProduct_Con_DB {
     public static List<OrderProduct> loadOrderProductByOrderId(int order_id){
         List<OrderProduct> productList = new ArrayList<>();
         try{
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT p.id, p.`name`, op.quantity, p.price, o.id, o.date_created, u.id, o.`status`, (sum(p.price * op.quantity) + s.price) AS total, o.payment, o.address, o.phone, o.note, u.`name`, s.price , p.percent_sale, p.img " +
-                    "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN shipment s ON s.id=o.ship_id JOIN `user` u ON u.id = o.user_id " +
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT p.id, p.`name`, op.quantity, p.price, o.id, o.date_created, u.id, o.`status`, (sum(p.price * op.quantity) + o.shipment) AS total, o.payment, o.address, o.phone, o.note, u.`name`, o.shipment , p.percent_sale, p.img " +
+                    "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN `user` u ON u.id = o.user_id " +
                     "WHERE o.id = ? " +
-                    "GROUP BY o.id, o.date_created, u.name, o.`status`, o.payment, o.address, o.phone, o.note, u.`name`, s.price, p.id, p.`name`, op.quantity, p.price, p.percent_sale, p.img");
+                    "GROUP BY o.id, o.date_created, u.name, o.`status`, o.payment, o.address, o.phone, o.note, u.`name`, o.shipment, p.id, p.`name`, op.quantity, p.price, p.percent_sale, p.img");
             preparedStatement.setInt(1,order_id);
             synchronized (preparedStatement){
                 ResultSet resultSet = preparedStatement.executeQuery();

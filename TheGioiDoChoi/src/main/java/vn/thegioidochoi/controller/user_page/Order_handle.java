@@ -113,6 +113,7 @@ public class Order_handle extends HttpServlet {
                 int idSaved = Load_Order.addOrder(user_id, coupon_code_id, note, phone, address, 3, Util.dateFormat(new Date()), total_price + 20000, vendor_id);
                 System.out.println("idSaved: " + idSaved);
 
+
                 if (idSaved == 0) {
                     request.setAttribute("type", "err");
                     request.getRequestDispatcher("user_page/checkout.jsp").forward(request, response);

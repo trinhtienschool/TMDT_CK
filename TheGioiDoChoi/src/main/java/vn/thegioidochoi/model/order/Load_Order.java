@@ -74,7 +74,7 @@ public class Load_Order {
     public static List<Order> loadOrderNear(int limit){
         List<Order> list = new ArrayList<>();
         try{
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, (sum(p.price * op.quantity) + s.price) AS total FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN shipment s ON s.id=o.ship_id JOIN `user` u ON u.id = o.user_id " +
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, (sum(p.price * op.quantity) + o.shipment) AS total FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN `user` u ON u.id = o.user_id " +
                     "GROUP BY o.id, o.date_created, u.name, o.`status` " +
                     "ORDER BY date_created " +
                     "LIMIT ?");
@@ -103,8 +103,8 @@ public class Load_Order {
     public static Order loadOrder_view(int order_id){
         Order order = new Order();
         try{
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.id, o.`status`, (sum(p.price * op.quantity) + s.price) AS total, o.payment, o.address, o.phone, o.note, u.`name`, s.price, o.supplier_id " +
-                    "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN shipment s ON s.id=o.ship_id JOIN `user` u ON u.id = o.user_id " +
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.id, o.`status`, (sum(p.price * op.quantity) + o.shipment) AS total, o.payment, o.address, o.phone, o.note, u.`name`, o.shipment, o.supplier_id " +
+                    "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN `user` u ON u.id = o.user_id " +
                     "WHERE o.id = ?");
             preparedStatement.setInt(1,order_id);
             synchronized (preparedStatement){
@@ -280,9 +280,9 @@ public class Load_Order {
         return false;
     }
 
-    public static int addOrder(int user_id, int coupon_code_id, int type_weight, String note, String phone, String address, int status, String date_created, double total_price) {
-        //int shipment_id= Load_Shipment.addShipment(type_weight);
-
+    public static int addOrder(int user_id, int coupon_code_id, String note, String phone, String address, int status, String date_created, double total_price,int vendor_id) {
+//        int shipment_id= Load_Shipment.addShipment(type_weight);
+        //TODO
         int updated=0;
         int id = getNextOrderId();
         String sql = "insert into `order`(user_id,payment,note,phone,address,status,date_created,total_price,id,shipment,supplier_id ";
