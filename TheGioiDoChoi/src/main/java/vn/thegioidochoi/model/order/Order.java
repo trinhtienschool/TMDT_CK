@@ -24,6 +24,8 @@ public class Order {
     private double ship_price;
     private String name_product;
     private int number_product;
+    private int total_order;
+    private int supplier_id;
     public Order() {
     }
     public String getName_product() {
@@ -189,6 +191,22 @@ public class Order {
         this.ship_price = ship_price;
     }
 
+    public int getTotal_order() {
+        return total_order;
+    }
+
+    public void setTotal_order(int total_order) {
+        this.total_order = total_order;
+    }
+
+    public int getSupplier_id() {
+        return supplier_id;
+    }
+
+    public void setSupplier_id(int supplier_id) {
+        this.supplier_id = supplier_id;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -204,6 +222,7 @@ public class Order {
                 ", status=" + status +
                 ", date_created=" + date_created +
                 ", total_pay=" + total_pay +
+                ", supplier_id=" + supplier_id +
                 '}';
     }
 }

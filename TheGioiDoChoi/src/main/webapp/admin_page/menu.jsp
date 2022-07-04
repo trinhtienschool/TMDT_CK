@@ -116,6 +116,9 @@
 
                     </ul>
                 </li>
+                <li <c:if test="${current_page=='customers'}">class="active"</c:if>>
+                    <a href="customers">Danh sách khách hàng</a>
+                </li>
                 <li <c:if test="${current_page=='setting'}">class="active"</c:if>>
                     <a href="setting"><i class="fas fa-cog"></i> <span>Thiết lập</span></a>
                 </li>

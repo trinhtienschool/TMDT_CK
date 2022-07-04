@@ -243,10 +243,10 @@ public class LoadUser {
 
     public static void main(String[] args) {
 //        Syzstem.out.println(updateUserInAdimin(1,"sfdsa",324234,"name","Nam","20/12/2010","hung vuong","20/12/2020"));
-        System.out.println(loadUserById(6));
-        for(User u:loadOrderCommentByIdUser(3)){
-            System.out.println(u.getComment()+"/"+u.getRating_type_id());
-        }
+        System.out.println(loadUserById(24));
+//        for(User u:loadOrderCommentByIdUser(3)){
+//            System.out.println(u.getComment()+"/"+u.getRating_type_id());
+//        }
     }
     public static int getMaxUserId() {
         int id = 0;

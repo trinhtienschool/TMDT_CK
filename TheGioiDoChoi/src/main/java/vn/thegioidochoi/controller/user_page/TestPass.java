@@ -31,11 +31,11 @@ import java.util.regex.Pattern;
 
 public class TestPass {
     public static void main(String[] args) throws UnsupportedEncodingException, SQLException, ParseException {
-//        int id = 1;
-//        String email = "trinhtien6236@gmail.com";
-//        String pass = "Tien12345@";
-//        long passEn =  id*email.hashCode()*pass.hashCode();
-//        System.out.println(passEn);
+        int id = 5;
+        String email = "nhatthy1224@gmail.com";
+        String pass = "Tien12345@";
+        long passEn =  id*email.hashCode()*pass.hashCode();
+        System.out.println(passEn);
 //        List<Category> categories = LoadHeaderFooter.loadCategories();
 //        List<Category> removeCategories = new ArrayList<Category>();
 //        System.out.println("Da ra");

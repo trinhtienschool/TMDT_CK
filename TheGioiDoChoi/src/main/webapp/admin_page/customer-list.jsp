@@ -6,7 +6,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>${title}</title>
+    <link href="assets/img/icon/icon-logo.png" rel="shortcut icon">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="assets/css/admin.css">
+
 </head>
 <body>
 <div class="main-wrapper">
@@ -73,13 +89,15 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <c:forEach var="order" items="${orders}">
                                     <tr>
-                                        <td>1</td>
-                                        <td>Bùi Cẩm Hường</td>
-                                        <td>0821456745</td>
-                                        <td>2.000.000</td>
+                                        <td>${order.id}</td>
+                                        <td>${order.user_name}</td>
+                                        <td>0${order.phone}</td>
+                                        <td>${order.total_pay}</td>
                                         <td>5</td>
                                     </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -90,5 +108,14 @@
         </div>
     </div>
 </div>
+<!-- jQuery -->
+<script src="assets/js/jquery-3.5.0.min.js"></script>
+
+<!-- Bootstrap Core JS -->
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Custom JS -->
+<script src="assets/js/admin.js"></script>
 </body>
 </html>

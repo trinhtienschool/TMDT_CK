@@ -11,8 +11,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>${title}</title>
     <link href="img/icon/icon-logo.png" rel="shortcut icon">
-
-
     <!-- Css Styles -->
     <link rel="stylesheet" href="user_page/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/font-awesome.min.css" type="text/css">
@@ -100,10 +98,13 @@
                                 <div class="product-item">
                                     <img src="${pl.img}" alt="Cây Cẩm Nhung chống bức xạ điện thoại">
                                     <div class="product-info">
-                                        <a class="product-name" href="#">${pl.pro_name}</a>
-                                        <p class="product-seller">Cung cấp bởi Thế Giới Cây Cảnh</p>
+                                        <a class="product-name" href="shop-detail?product=${pl.pro_slug}">${pl.pro_name}</a>
+                                        <p class="product-seller">Cung cấp bởi ${user.name}</p>
                                         <div class="product-review">
+                                            <c:if test="${order.status==6}">
                                             <a id="btn-comment"  href="#" data-toggle="modal" data-target="#exampleModalCenter">Viết nhận xét</a>
+                                            <a href="shop-detail?product=${pl.pro_slug}">Mua lại</a>
+                                            </c:if>
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +141,13 @@
                         </tfoot>
                     </table>
                     <a class="view-list-order" href="/user">Quay lại đơn hàng của tôi</a>
-                    <button class="cancel-order btn" disabled="">Hủy Đơn Hàng</button>
+                    <a class="view-tracking-detail" href="order_progress?id=${order.id}">Theo dõi đơn hàng</a>
+                    <c:if test="${order.status==3}">
+                        <a class="view-tracking-detail" style="background: #dc3545; border-color: #dc3545;" href="#">Hủy đơn hàng</a>
+                    </c:if>
+                    <c:if test="${order.status!=3}">
+                        <a class="view-tracking-detail" style="background: grey; border-color: #dc3545;" href="#" disabled="disabled">Hủy đơn hàng</a>
+                    </c:if>
                 </div>
             </div>
         </div>

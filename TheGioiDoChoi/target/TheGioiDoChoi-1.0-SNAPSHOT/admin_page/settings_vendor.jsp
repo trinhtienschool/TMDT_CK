@@ -39,9 +39,8 @@
                     <div class="col-xl-12 col-lg-12 col-md-12">
                         <div class="card">
                             <div class="card-body p-0">
-                                <form>
+                                <form action="setting" method="post" enctype="multipart/form-data">
                                     <div class="tab-content pt-0">
-
                                         <!-- General Settings -->
                                         <div id="general" class="tab-pane active">
                                             <div class="card mb-0">

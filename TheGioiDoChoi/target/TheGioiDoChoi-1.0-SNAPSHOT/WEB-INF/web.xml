@@ -7,14 +7,14 @@
         <welcome-file>home</welcome-file>
 <!--        <welcome-file></welcome-file>-->
     </welcome-file-list>
-    <servlet>
-        <servlet-name>home</servlet-name>
-        <servlet-class>vn.thegioidochoi.controller.user_page.Home_direct</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>home</servlet-name>
-        <url-pattern></url-pattern>
-    </servlet-mapping>
+<!--    <servlet>-->
+<!--        <servlet-name>home</servlet-name>-->
+<!--        <servlet-class>vn.thegioidochoi.controller.user_page.Home_direct</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>home</servlet-name>-->
+<!--        <url-pattern></url-pattern>-->
+<!--    </servlet-mapping>-->
 <!--    <filter>-->
 <!--        <filter-name>cart_filter</filter-name>-->
 <!--        <filter-class>vn.thegioidochoi.controller.filter.Cart_filter</filter-class>-->
