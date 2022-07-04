@@ -110,6 +110,7 @@ public class Cart {
         try {
             PreparedStatement pt = DBCPDataSource.preparedStatement(sql);
             pt.setInt(1, user_id);
+            System.out.println(pt);
             synchronized (pt) {
                 ResultSet rs = pt.executeQuery();
                 while (rs.next()) {

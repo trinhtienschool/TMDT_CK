@@ -158,10 +158,15 @@ public class Login_handle extends HttpServlet {
         long passHashCode =Util.hashPass(Util.dateFormat(user.getDate_created()),email,pass);
         if(passHashCode != user.getPassword()){
             notifyError(2,"Sai email hoặc mật khẩu",request,response);
-        }else {
-            System.out.println("Vao success");
-            successLogin(request, response, user);
-        }
+        }else if(!user.isActive())
+            {
+                System.out.println("Tai khoan user bi khoa");
+                notifyError(2,"Tài khoản của bạn đã bị khóa",request,response);
+//                request.getRequestDispatcher("user_page/Login.jsp").forward(request,response);
+                }else {
+                        System.out.println("Vao success");
+                        successLogin(request, response, user);
+                    }
     }
 
     public static void deleteAvailableSession(HttpServletRequest request) {

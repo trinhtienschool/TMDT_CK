@@ -78,10 +78,28 @@ public class Favorist_list_Con_DB {
         }
         return false;
     }
+    public static boolean updateFavoristlistActiveById( int active,int user_id){
+        String sql = "UPDATE favorist_list SET active = ? WHERE user_id = ?";
+        int update = 0;
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1,active);
+            preparedStatement.setInt(2,user_id);
+            synchronized (preparedStatement) {
+                update = preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            return update == 1;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
 //        System.out.println( deleteFavoristList(1995,156));
-        System.out.println(insertFavorist(5,6));
+//        System.out.println(insertFavorist(5,6));
+        updateFavoristlistActiveById(1,1);
     }
     public static boolean saveFavoristList(int user_id,int pro_id){
         int updated =0;

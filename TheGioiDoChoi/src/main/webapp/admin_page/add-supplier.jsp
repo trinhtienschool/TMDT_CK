@@ -113,7 +113,7 @@
 <%--                                    </div>--%>
                                     <div class="form-group">
                                         <label>Nhà cung cấp</label>
-                                        <input id="name_supplier"class="form-control" type="text" value="${supplier.name}" name="name">
+                                        <input id="name_supplier"class="form-control" type="text" value="${supplier.company_name}" name="name">
                                     </div>
                                     <div class="form-group">
                                         <label>Địa chỉ</label>

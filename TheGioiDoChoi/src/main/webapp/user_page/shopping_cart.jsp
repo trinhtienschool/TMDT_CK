@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="user_page/css/style.css" type="text/css">
     <!--    <link rel="stylesheet" href="user_page/css/slicknav.min.css" type="text/css">-->
     <link rel="stylesheet" href="user_page/css/style_home.css" type="text/css">
+
 </head>
 <body
         <c:if test="${position != null}">
@@ -38,6 +39,7 @@
         </c:if>
 >
 <jsp:include page="Menu.jsp"></jsp:include>
+
 <!-- Breadcrumb Section End -->
 <!-- Shoping Cart Section Begin -->
 <section class="shoping-cart spad">

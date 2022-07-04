@@ -19,6 +19,7 @@
     <link href="img/icon/icon-logo.png" rel="shortcut icon">
 
 
+
     <link rel="stylesheet" href="user_page/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/nice-select.css" type="text/css">
@@ -30,10 +31,12 @@
     <link rel="stylesheet" href="user_page/css/style.css" type="text/css">
     <!--    <link rel="stylesheet" href="user_page/css/slicknav.min.css" type="text/css">-->
     <link rel="stylesheet" href="user_page/css/style_home.css" type="text/css">
+
 </head>
 
 <body>
 <jsp:include page="Menu.jsp"></jsp:include>
+
 <!-- Checkout Section Begin -->
 <section class="checkout spad">
     <div class="container">

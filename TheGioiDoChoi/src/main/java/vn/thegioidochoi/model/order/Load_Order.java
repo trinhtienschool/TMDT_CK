@@ -91,7 +91,7 @@ public class Load_Order {
     public static List<Order> loadOrderNear(int limit){
         List<Order> list = new ArrayList<>();
         try{
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, (sum(p.price * op.quantity) + s.price) AS total FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN shipment s ON s.id=o.ship_id JOIN `user` u ON u.id = o.user_id " +
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, (sum(p.price * op.quantity) + o.shipment) AS total FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN `user` u ON u.id = o.user_id " +
                     "GROUP BY o.id, o.date_created, u.name, o.`status` " +
                     "ORDER BY date_created " +
                     "LIMIT ?");
@@ -120,8 +120,8 @@ public class Load_Order {
     public static Order loadOrder_view(int order_id){
         Order order = new Order();
         try{
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.id, o.`status`, (sum(p.price * op.quantity) + s.price) AS total, o.payment, o.address, o.phone, o.note, u.`name`, s.price " +
-                    "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN shipment s ON s.id=o.ship_id JOIN `user` u ON u.id = o.user_id " +
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.id, o.`status`, (sum(p.price * op.quantity) + o.shipment) AS total, o.payment, o.address, o.phone, o.note, u.`name`, o.shipment, o.supplier_id " +
+                    "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN `user` u ON u.id = o.user_id " +
                     "WHERE o.id = ?");
             preparedStatement.setInt(1,order_id);
             synchronized (preparedStatement){
@@ -138,6 +138,7 @@ public class Load_Order {
                     order.setNote(resultSet.getString(9));
                     order.setUser_name(resultSet.getString(10));
                     order.setShip_price(resultSet.getDouble(11));
+                    order.setSupplier_id(resultSet.getInt(12));
                 }
                 resultSet.close();
             }
@@ -154,11 +155,44 @@ public class Load_Order {
         try{
             PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, (sum(p.price * op.quantity) + s.price) AS total, count(o.id) AS countOr " +
                     "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN shipment s ON s.id=o.ship_id JOIN `user` u ON u.id = o.user_id " +
-                    "WHERE o.`status` like ? and o.date_created between ? and ? " +
+                    "WHERE o.`status` like ? and o.active = 1 and o.date_created between ? and ? " +
                     "GROUP BY o.id, o.date_created, u.name, o.`status`");
             preparedStatement.setString(1, status);
             preparedStatement.setString(2, from_date);
             preparedStatement.setString(3, to_date);
+            synchronized (preparedStatement){
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()){
+                    Order order = new Order();
+                    order.setId(resultSet.getInt(1));
+                    order.setDate_created(resultSet.getDate(2));
+                    order.setUser_name(resultSet.getString(3));
+                    order.setStatus(resultSet.getInt(4));
+                    order.setTotal_pay(resultSet.getDouble(5));
+                    order.setCount_id(resultSet.getInt(6));
+                    orderList.add(order);
+                }
+                resultSet.close();
+            }
+            preparedStatement.close();
+            return orderList;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return orderList;
+    }
+    // load trang danh sach don hang theo tinh trang (status=1..6) trong trang danh sach don hang and user_id
+    public static List<Order> loadOrderByStatusWithUserId(String status, String from_date, String to_date,int user_id){
+        List<Order> orderList = new ArrayList<>();
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, (sum(p.price * op.quantity) + s.price) AS total, count(o.id) AS countOr " +
+                    "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN shipment s ON s.id=o.ship_id JOIN `user` u ON u.id = o.user_id " +
+                    "WHERE o.`status` like ? and o.`supplier_id`=? and o.active = 1 and o.date_created between ? and ? " +
+                    "GROUP BY o.id, o.date_created, u.name, o.`status`");
+            preparedStatement.setString(1, status);
+            preparedStatement.setInt(2,user_id);
+            preparedStatement.setString(3, from_date);
+            preparedStatement.setString(4, to_date);
             synchronized (preparedStatement){
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()){
@@ -295,12 +329,7 @@ public class Load_Order {
         }
         return false;
     }
-    public static void main(String[] args) {
-//        System.out.println(loadOrderFormSql("SELECT * FROM `order` "));
-//        System.out.println(loadOderByUserId(5));
-//        System.out.println(loadOrder_view(2));
-//        System.out.println(loadOrderByStatus("2","2019-01-01","2020-05-08"));
-    }
+
     public static int addOrder(int user_id, int coupon_code_id, String note, String phone, String address, int status, String date_created, double total_price,int vendor_id) {
 //        int shipment_id= Load_Shipment.addShipment(type_weight);
         //TODO
@@ -341,6 +370,23 @@ public class Load_Order {
         }
         return 0;
     }
+ public static boolean updateOrderStatusBySupplierId( int status,int supplier_id){
+        String sql = "UPDATE `order` SET status = ? WHERE supplier_id = ?";
+        int update = 0;
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1,status);
+            preparedStatement.setInt(2,supplier_id);
+            synchronized (preparedStatement) {
+                update = preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            return update == 1;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return false;
+    }
     public static int getNextOrderId(){
         int result=0;
         try {
@@ -358,6 +404,39 @@ public class Load_Order {
             throwables.printStackTrace();
         }
         return  result;
+    }
+    public static List<Order> loadOrderBySupplierId(int supplierId){
+        List<Order> orders = new ArrayList<>();
+        String sql = "SELECT * FROM `order` o JOIN `user` u ON o.id = u.id WHERE supplier_id=?";
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1,supplierId);
+            synchronized (preparedStatement){
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    Order order = new Order();
+                    order.setId(resultSet.getInt(1));
+                    order.setUser_id(resultSet.getInt(2));
+                    order.setPhone(resultSet.getLong(6));
+                    order.setTotal_pay(resultSet.getDouble(10));
+                    order.setUser_name(resultSet.getString(14));
+                    order.setTotal_order(1);
+                    orders.add(order);
+                }
+                resultSet.close();
+            }
+            preparedStatement.close();
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return orders;
+    }
+    public static void main(String[] args) {
+//        System.out.println(loadOrderFormSql("SELECT * FROM `order` "));
+//        System.out.println(loadOderByUserId(5));
+        System.out.println(loadOrder_view(1924));
+//        System.out.println(loadOrderByStatus("2","2019-01-01","2020-05-08"));
+//        System.out.println(loadOrderBySupplierId(44));
     }
 }
 

@@ -174,11 +174,59 @@ public class Load_Supplier {
         }
         return false;
     }
+    public static boolean updateSupplierActiveById( int active,int supplier_id){
+        String sql = "UPDATE supplier SET active = ? WHERE id = ?";
+        int update = 0;
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1,active);
+            preparedStatement.setInt(2,supplier_id);
+            synchronized (preparedStatement) {
+                update = preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            return update == 1;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return false;
+    }
     public static List<Supplier> loadBestSupplier(int nos){
         List<Supplier>suppliers = new ArrayList<Supplier>();
         String sql = "select r.supplier_id,s.name, s.logo, s.company_name,s.slug, sum(r.real_revenue) as total\n" +
                 "from revenue_by_products r JOIN supplier s on r.supplier_id = s.id\n" +
                 "where MONTH(r.date)=11 and YEAR(r.date)=2021\n" +
+                "GROUP BY r.supplier_id, s.logo, s.company_name\n" +
+                "ORDER BY total DESC\n" +
+                "LIMIT "+nos;
+        try{
+            Statement statement = DBCPDataSource.getStatement();
+            synchronized (statement){
+                ResultSet resultSet = statement.executeQuery(sql);
+                while (resultSet.next()){
+                    Supplier supplier = new Supplier();
+                    supplier.setId(resultSet.getInt(1));
+                    supplier.setName(resultSet.getString(2));
+                    supplier.setLogo(resultSet.getString(3));
+                    supplier.setCompany_name(resultSet.getString(4));
+                    supplier.setSlug(resultSet.getString(5));
+                    supplier.setRevenue(resultSet.getDouble(6));
+
+                    suppliers.add(supplier);
+                }
+                resultSet.close();
+            }
+            statement.close();
+            return suppliers;
+        } catch(SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+    public static List<Supplier> loadTopSupplierWithOderTable(int nos){
+        List<Supplier>suppliers = new ArrayList<Supplier>();
+        String sql = "select r.supplier_id, s.name, s.logo, s.company_name,s.slug, sum(r.total_price) as total\n" +
+                "from `order` r JOIN supplier s on r.supplier_id = s.id\n" +
                 "GROUP BY r.supplier_id, s.logo, s.company_name\n" +
                 "ORDER BY total DESC\n" +
                 "LIMIT "+nos;
@@ -324,6 +372,6 @@ public class Load_Supplier {
 //        System.out.println(insertSupplier("Trần Thị Lan","152/63 Lý Chính Thắng P.7 Q.3",87979,"yuknp22@gmail.com"));
 //        System.out.println(updateSupplier(302,"Trần Thị Lan","152/63 Lý Chính Thắng P.7 Q.3",8797955,"yuknp22@gmail.com"));
 //        System.out.println(loadSupplier(302).getAddress());
-        System.out.println(loadSupplierById(1));
+//        System.out.println(loadTopSupplierWithOderTable(3));
     }
 }

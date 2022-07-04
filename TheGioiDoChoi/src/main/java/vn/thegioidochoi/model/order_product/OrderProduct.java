@@ -12,12 +12,9 @@ public class OrderProduct {
     private int percent;
     private double sale;
     private double total;
-
+    private String pro_slug;
     public OrderProduct() {
     }
-
-
-
 
     public int getOrder_id() {
         return order_id;
@@ -89,6 +86,23 @@ public class OrderProduct {
 
     public void setTotal_price(double total_price) {
         this.total_price = total_price;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+
+    public void setSale(double sale) {
+        this.sale = sale;
+    }
+
+    public String getPro_slug() {
+        return pro_slug;
+    }
+
+    public void setPro_slug(String pro_slug) {
+        this.pro_slug = pro_slug;
     }
 
     // Giảm giá

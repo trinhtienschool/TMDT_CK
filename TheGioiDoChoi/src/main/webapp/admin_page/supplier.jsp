@@ -125,7 +125,7 @@
 									<tr>
 										<td>${su.id}</td>
 <%--										<td><img class="rounded service-img mr-1" src="${su.logo}" alt="Hình ảnh danh mục"></td>--%>
-										<td>${su.name}</td>
+										<td>${su.company_name}</td>
 										<td>${su.address}</td>
 										<td>${su.phone}</td>
 										<td>${su.email}</td>
