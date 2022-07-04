@@ -138,11 +138,44 @@ public class Load_Order {
         try{
             PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, (sum(p.price * op.quantity) + s.price) AS total, count(o.id) AS countOr " +
                     "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN shipment s ON s.id=o.ship_id JOIN `user` u ON u.id = o.user_id " +
-                    "WHERE o.`status` like ? and o.date_created between ? and ? " +
+                    "WHERE o.`status` like ? and o.active = 1 and o.date_created between ? and ? " +
                     "GROUP BY o.id, o.date_created, u.name, o.`status`");
             preparedStatement.setString(1, status);
             preparedStatement.setString(2, from_date);
             preparedStatement.setString(3, to_date);
+            synchronized (preparedStatement){
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()){
+                    Order order = new Order();
+                    order.setId(resultSet.getInt(1));
+                    order.setDate_created(resultSet.getDate(2));
+                    order.setUser_name(resultSet.getString(3));
+                    order.setStatus(resultSet.getInt(4));
+                    order.setTotal_pay(resultSet.getDouble(5));
+                    order.setCount_id(resultSet.getInt(6));
+                    orderList.add(order);
+                }
+                resultSet.close();
+            }
+            preparedStatement.close();
+            return orderList;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return orderList;
+    }
+    // load trang danh sach don hang theo tinh trang (status=1..6) trong trang danh sach don hang and user_id
+    public static List<Order> loadOrderByStatusWithUserId(String status, String from_date, String to_date,int user_id){
+        List<Order> orderList = new ArrayList<>();
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, (sum(p.price * op.quantity) + s.price) AS total, count(o.id) AS countOr " +
+                    "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN shipment s ON s.id=o.ship_id JOIN `user` u ON u.id = o.user_id " +
+                    "WHERE o.`status` like ? and o.`supplier_id`=? and o.active = 1 and o.date_created between ? and ? " +
+                    "GROUP BY o.id, o.date_created, u.name, o.`status`");
+            preparedStatement.setString(1, status);
+            preparedStatement.setInt(2,user_id);
+            preparedStatement.setString(3, from_date);
+            preparedStatement.setString(4, to_date);
             synchronized (preparedStatement){
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()){
@@ -319,6 +352,23 @@ public class Load_Order {
             throwables.printStackTrace();
         }
         return 0;
+    }
+ public static boolean updateOrderStatusBySupplierId( int status,int supplier_id){
+        String sql = "UPDATE `order` SET status = ? WHERE supplier_id = ?";
+        int update = 0;
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1,status);
+            preparedStatement.setInt(2,supplier_id);
+            synchronized (preparedStatement) {
+                update = preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            return update == 1;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return false;
     }
     public static int getNextOrderId(){
         int result=0;
