@@ -6,6 +6,7 @@ import vn.thegioidochoi.model.rating_type.Rating_Type_Con_DB;
 import vn.thegioidochoi.model.user.LoadUser;
 import vn.thegioidochoi.model.user.User;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -76,9 +77,27 @@ public class Rating_Con_DB {
         }
         return null;
     }
+    public static boolean updateRatingActiveById( int active,int user_id){
+        String sql = "UPDATE rating SET active = ? WHERE user_id = ?";
+        int update = 0;
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1,active);
+            preparedStatement.setInt(2,user_id);
+            synchronized (preparedStatement) {
+                update = preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            return update == 1;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return false;
+    }
     public static void main(String[] args) {
-        System.out.println(loadRatingFormSql("select * from rating"));
+//        System.out.println(loadRatingFormSql("select * from rating"));
 //        System.out.println(getNameUserById(1));
-        System.out.println(getNameRatingTypeById(2));
+//        System.out.println(getNameRatingTypeById(2));
+        updateRatingActiveById(1,125);
     }
 }

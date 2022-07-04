@@ -2,9 +2,7 @@
 package vn.thegioidochoi.model.Product;
 
 import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
-import vn.thegioidochoi.model.header_footer.Category;
 import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
-import vn.thegioidochoi.model.supplier.Supplier;
 import vn.thegioidochoi.model.util.Util;
 
 
@@ -506,6 +504,23 @@ public static boolean insertProduct(String name, double price,
         }
         return false;
     }
+    public static boolean updateProductActiveBySupplierId(int active, int supplier_id){
+        String sql = "UPDATE product SET active = ? WHERE supplier_id = ?";
+        int update = 0;
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1,active);
+            preparedStatement.setInt(2,supplier_id);
+            synchronized (preparedStatement) {
+                update = preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            return update == 1;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return false;
+    }
     public static List<Product> loadFavorateByIdUser(int idUser){
         List<Product> productList = new ArrayList<>();
         try{
@@ -648,6 +663,7 @@ public static boolean insertProduct(String name, double price,
 //        for(Product p:loadListProductBySupplierId(1)){
 //            System.out.println(p.getId());
 //        }
+        updateProductActiveBySupplierId(1,33);
     }
     public static void deleteProductById(int id){
         try {

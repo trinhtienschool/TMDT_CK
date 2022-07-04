@@ -15,22 +15,35 @@
     <meta name="description" content="">
     <title>Supplier</title>
     <link href="user_page/supplier/css" rel="stylesheet">
-    <link rel="stylesheet" href="user_page/supplier/font-awesome.min.css">
+<%--    <link rel="stylesheet" href="user_page/supplier/font-awesome.min.css">--%>
     <link rel="stylesheet" href="user_page/supplier/demo.css">
-    <link rel="stylesheet" href="user_page/supplier/bootstrap.min.css">
-    <link rel="stylesheet" href="user_page/supplier/owl.carousel.min.css">
-    <link rel="stylesheet" href="user_page/supplier/owl.theme.default.min.css">
-    <link rel="stylesheet" href="user_page/supplier/slick.css">
-    <link rel="stylesheet" href="user_page/supplier/nouislider.min.css">
-    <link rel="stylesheet" href="user_page/supplier/lightgallery.min.css">
-    <link rel="stylesheet" href="user_page/supplier/fontawesome-stars.css">
-    <link rel="stylesheet" href="user_page/supplier/select2.min.css">
-    <link rel="stylesheet" href="user_page/supplier/style.css">
+<%--    <link rel="stylesheet" href="user_page/supplier/bootstrap.min.css">--%>
+<%--    <link rel="stylesheet" href="user_page/supplier/owl.carousel.min.css">--%>
+<%--    <link rel="stylesheet" href="user_page/supplier/owl.theme.default.min.css">--%>
+<%--    <link rel="stylesheet" href="user_page/supplier/slick.css">--%>
+<%--    <link rel="stylesheet" href="user_page/supplier/nouislider.min.css">--%>
+<%--    <link rel="stylesheet" href="user_page/supplier/lightgallery.min.css">--%>
+<%--    <link rel="stylesheet" href="user_page/supplier/fontawesome-stars.css">--%>
+<%--    <link rel="stylesheet" href="user_page/supplier/select2.min.css">--%>
+<%--    <link rel="stylesheet" href="user_page/supplier/style.css">--%>
+<%--    <link rel="stylesheet" href="user_page/supplier/market-place-1.css">--%>
+    <link rel="stylesheet" href="user_page/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="user_page/css/font-awesome.min.css" type="text/css">
+    <%--    <link rel="stylesheet" href="user_page/css/elegant-icons.css" type="text/css">--%>
+    <link rel="stylesheet" href="user_page/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="user_page/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="user_page/css/owl.carousel.min.css" type="text/css">
+    <%--    <link rel="stylesheet" href="user_page/css/slicknav.min.css" type="text/css">--%>
+    <link rel="stylesheet" href="user_page/css/style.css" type="text/css">
+    <link rel="stylesheet" href="user_page/css/owl.theme.default.min.css" type="text/css">
+    <link rel="stylesheet" href="user_page/css/style_home.css" type="text/css">
     <link rel="stylesheet" href="user_page/supplier/market-place-1.css">
+
+
     <script type="text/javascript" src="user_page/supplier/js"></script><script type="text/javascript" charset="UTF-8" src="user_page/supplier/common.js.download"></script><script type="text/javascript" charset="UTF-8" src="user_page/supplier/util.js.download"></script></head>
 
 <body data-new-gr-c-s-check-loaded="14.1040.0" data-gr-ext-installed="" class="loaded">
-<%--<jsp:include page="Menu.jsp"></jsp:include>--%>
+<jsp:include page="Menu.jsp"></jsp:include>
 <div class="ps-page--single">
     <!-- <div class="ps-breadcrumb">
         <div class="container">
@@ -803,24 +816,33 @@
     </div>
 </div>
 <%--<jsp:include page="footer.jsp"></jsp:include>--%>
-<script src="user_page/supplier/jquery.min.js.download"></script>
-<script src="user_page/supplier/nouislider.min.js.download"></script>
-<script src="user_page/supplier/popper.min.js.download"></script>
-<script src="user_page/supplier/owl.carousel.min.js.download"></script>
-<script src="user_page/supplier/bootstrap.min.js.download"></script>
-<script src="user_page/supplier/imagesloaded.pkgd.min.js.download"></script>
-<script src="user_page/supplier/masonry.pkgd.min.js.download"></script>
-<script src="user_page/supplier/isotope.pkgd.min.js.download"></script>
-<script src="user_page/supplier/jquery.matchHeight-min.js.download"></script>
-<script src="user_page/supplier/slick.min.js.download"></script>
-<script src="user_page/supplier/jquery.barrating.min.js.download"></script>
-<script src="user_page/supplier/slick-animation.min.js.download"></script>
-<script src="user_page/supplier/lightgallery-all.min.js.download"></script>
-<script src="user_page/supplier/sticky-sidebar.min.js.download"></script>
-<script src="user_page/supplier/select2.full.min.js.download"></script>
-<script src="user_page/supplier/gmap3.min.js.download"></script>
+<%--<script src="user_page/supplier/jquery.min.js.download"></script>--%>
+<%--<script src="user_page/supplier/nouislider.min.js.download"></script>--%>
+<%--<script src="user_page/supplier/popper.min.js.download"></script>--%>
+<%--<script src="user_page/supplier/owl.carousel.min.js.download"></script>--%>
+<%--<script src="user_page/supplier/bootstrap.min.js.download"></script>--%>
+<%--<script src="user_page/supplier/imagesloaded.pkgd.min.js.download"></script>--%>
+<%--<script src="user_page/supplier/masonry.pkgd.min.js.download"></script>--%>
+<%--<script src="user_page/supplier/isotope.pkgd.min.js.download"></script>--%>
+<%--<script src="user_page/supplier/jquery.matchHeight-min.js.download"></script>--%>
+<%--<script src="user_page/supplier/slick.min.js.download"></script>--%>
+<%--<script src="user_page/supplier/jquery.barrating.min.js.download"></script>--%>
+<%--<script src="user_page/supplier/slick-animation.min.js.download"></script>--%>
+<%--<script src="user_page/supplier/lightgallery-all.min.js.download"></script>--%>
+<%--<script src="user_page/supplier/sticky-sidebar.min.js.download"></script>--%>
+<%--<script src="user_page/supplier/select2.full.min.js.download"></script>--%>
+<%--<script src="user_page/supplier/gmap3.min.js.download"></script>--%>
 <!-- custom scripts-->
-<script src="user_page/supplier/main.js.download"></script>
+<%--<script src="user_page/supplier/main.js.download"></script>--%>
+
+<script src="user_page/js/jquery-3.3.1.min.js"></script>
+<script src="user_page/js/popper.min.js"></script>
+<script src="user_page/js/bootstrap.min.js"></script>
+<script src="user_page/js/jquery.nice-select.min.js"></script>
+<script src="user_page/js/jquery-ui.min.js"></script>
+<script src="user_page/js/owl.carousel.min.js"></script>
+<script src="user_page/js/main.js"></script>
+<script src="user_page/js/main_home.js"></script>
 
 
-</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
+<%--</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>--%>

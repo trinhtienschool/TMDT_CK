@@ -210,6 +210,23 @@ public class LoadUser {
         }
         return false;
     }
+    public static boolean updateUserActiveById( int active,int user_id){
+        String sql = "UPDATE user SET active = ? WHERE id = ?";
+        int update = 0;
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1,active);
+            preparedStatement.setInt(2,user_id);
+            synchronized (preparedStatement) {
+                update = preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            return update == 1;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return false;
+    }
     public static List<User> loadOrderCommentByIdUser(int idUser){
         List<User> userList = new ArrayList<>();
         try{
@@ -239,10 +256,11 @@ public class LoadUser {
 
     public static void main(String[] args) {
 //        Syzstem.out.println(updateUserInAdimin(1,"sfdsa",324234,"name","Nam","20/12/2010","hung vuong","20/12/2020"));
-        System.out.println(loadUserById(6));
-        for(User u:loadOrderCommentByIdUser(3)){
-            System.out.println(u.getComment()+"/"+u.getRating_type_id());
-        }
+//        System.out.println(loadUserById(6));
+//        for(User u:loadOrderCommentByIdUser(3)){
+//            System.out.println(u.getComment()+"/"+u.getRating_type_id());
+//        }
+        updateUserActiveById(1,2);
     }
     public static int getMaxUserId() {
         int id = 0;
@@ -382,5 +400,6 @@ public class LoadUser {
         }
 
     }
+
 }
 

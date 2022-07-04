@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class TotalReport_direct extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         request.setAttribute("current_page", "total-report");
         // Khoi tao gia tri mac dinh cho bien view = 1..6
         int type_view = 0;
@@ -50,7 +53,18 @@ public class TotalReport_direct extends HttpServlet {
         System.out.println(type_view);
         System.out.println(status);
         request.setAttribute("type_view",type_view);
-        List<Order> orderList = Load_Order.loadOrderByStatus(status,from_date,to_date);
+        List<Order> orderList=new ArrayList<Order>();
+        int user_id_out = (int)session.getAttribute("user_id");
+        System.out.println("user id form sesstion"+user_id_out);
+        int role_id=(int)session.getAttribute("role_id");
+        System.out.println("user co role_id"+role_id);
+        if(role_id==2){
+            int user_id = (int)session.getAttribute("user_id");
+            orderList = Load_Order.loadOrderByStatusWithUserId(status,from_date,to_date,user_id);
+        }else {
+            orderList = Load_Order.loadOrderByStatus(status,from_date,to_date);
+        }
+
         request.setAttribute("total_report", orderList);
         request.setAttribute("title", "Danh sách đặt hàng");
         request.getRequestDispatcher("total-report.jsp").forward(request, response);
