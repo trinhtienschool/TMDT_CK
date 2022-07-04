@@ -21,7 +21,6 @@ public class Handle_sign_up extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         request.setAttribute("page_menu","login");
         request.setAttribute("title","Đăng kí");
         int user_role = 1;

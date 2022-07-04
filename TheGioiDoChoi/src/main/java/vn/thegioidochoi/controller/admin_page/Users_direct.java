@@ -25,13 +25,11 @@ public class Users_direct extends HttpServlet {
         if(request.getParameter("active")!=null&&request.getParameter("user_id")!=null){
             int active=Integer.parseInt(request.getParameter("active"));
             int user_id=Integer.parseInt(request.getParameter("user_id"));
-
                 LoadUser.updateUserActiveById(active,user_id);
                 Rating_Con_DB.updateRatingActiveById(active,user_id);
                 Favorist_list_Con_DB.updateFavoristlistActiveById(active,user_id);
                 Load_Order.updateOrderActiveById(active,user_id);
                 Load_Shopping_Cart.updateOrderActiveById(active,user_id);
-
         }
         request.setAttribute("current_page","user");
         List<User> users=LoadUser.loadUserFormSql("select * from user WHERE (active = 1)\n" +
