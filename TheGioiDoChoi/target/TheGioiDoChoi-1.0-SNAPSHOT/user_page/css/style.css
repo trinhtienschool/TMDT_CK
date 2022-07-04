@@ -2942,13 +2942,15 @@ td.shoping__cart__quantity
 
 /*---------------------
   Blog
------------------------*/
 
+-----------------------*/
+/*Ba nhuan*/
 .blog__item {
   margin-bottom: 60px;
 }
 
 .blog__item__pic img {
+  height: 270px;
   min-width: 100%;
 }
 

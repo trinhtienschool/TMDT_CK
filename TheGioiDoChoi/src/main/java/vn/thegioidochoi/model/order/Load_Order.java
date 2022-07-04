@@ -12,6 +12,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Load_Order {
+    public static boolean updateOrderActiveById( int active,int user_id){
+        String sql = "UPDATE order SET active = ? WHERE user_id = ?";
+        int update = 0;
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1,active);
+            preparedStatement.setInt(2,user_id);
+            synchronized (preparedStatement) {
+                update = preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            return update == 1;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return false;
+    }
     public static List<Order> loadOderByUserId(int user_id){
         List<Order> orderList = new ArrayList<>();
         String sql = "SELECT * FROM `order` WHERE user_id = ?";
