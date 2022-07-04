@@ -223,11 +223,13 @@ public class Util {
         //write to project location
 
 
+
         File filePathProject = new File("D:\\School\\Codes\\TMDT_CK_Project\\TheGioiDoChoi\\src\\main\\webapp\\"+url+"\\"+fileNameSave);
         System.out.println(filePathProject.getCanonicalPath());
+
         try {
             fi.write(file);
-            fi.write(filePathProject);
+//            fi.write(filePathProject);
         } catch (Exception e) {
             e.printStackTrace();
         }

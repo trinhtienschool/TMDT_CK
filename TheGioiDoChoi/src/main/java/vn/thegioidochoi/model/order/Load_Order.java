@@ -103,7 +103,7 @@ public class Load_Order {
     public static Order loadOrder_view(int order_id){
         Order order = new Order();
         try{
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.id, o.`status`, (sum(p.price * op.quantity) + s.price) AS total, o.payment, o.address, o.phone, o.note, u.`name`, s.price " +
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.id, o.`status`, (sum(p.price * op.quantity) + s.price) AS total, o.payment, o.address, o.phone, o.note, u.`name`, s.price, o.supplier_id " +
                     "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN shipment s ON s.id=o.ship_id JOIN `user` u ON u.id = o.user_id " +
                     "WHERE o.id = ?");
             preparedStatement.setInt(1,order_id);
@@ -121,6 +121,7 @@ public class Load_Order {
                     order.setNote(resultSet.getString(9));
                     order.setUser_name(resultSet.getString(10));
                     order.setShip_price(resultSet.getDouble(11));
+                    order.setSupplier_id(resultSet.getInt(12));
                 }
                 resultSet.close();
             }
@@ -278,15 +279,10 @@ public class Load_Order {
         }
         return false;
     }
-    public static void main(String[] args) {
-//        System.out.println(loadOrderFormSql("SELECT * FROM `order` "));
-//        System.out.println(loadOderByUserId(5));
-//        System.out.println(loadOrder_view(2));
-//        System.out.println(loadOrderByStatus("2","2019-01-01","2020-05-08"));
-    }
-    public static int addOrder(int user_id, int coupon_code_id, String note, String phone, String address, int status, String date_created, double total_price,int vendor_id) {
-//        int shipment_id= Load_Shipment.addShipment(type_weight);
-        //TODO
+
+    public static int addOrder(int user_id, int coupon_code_id, int type_weight, String note, String phone, String address, int status, String date_created, double total_price) {
+        //int shipment_id= Load_Shipment.addShipment(type_weight);
+
         int updated=0;
         int id = getNextOrderId();
         String sql = "insert into `order`(user_id,payment,note,phone,address,status,date_created,total_price,id,shipment,supplier_id ";
@@ -341,6 +337,39 @@ public class Load_Order {
             throwables.printStackTrace();
         }
         return  result;
+    }
+    public static List<Order> loadOrderBySupplierId(int supplierId){
+        List<Order> orders = new ArrayList<>();
+        String sql = "SELECT * FROM `order` o JOIN `user` u ON o.id = u.id WHERE supplier_id=?";
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1,supplierId);
+            synchronized (preparedStatement){
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    Order order = new Order();
+                    order.setId(resultSet.getInt(1));
+                    order.setUser_id(resultSet.getInt(2));
+                    order.setPhone(resultSet.getLong(6));
+                    order.setTotal_pay(resultSet.getDouble(10));
+                    order.setUser_name(resultSet.getString(14));
+                    order.setTotal_order(1);
+                    orders.add(order);
+                }
+                resultSet.close();
+            }
+            preparedStatement.close();
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return orders;
+    }
+    public static void main(String[] args) {
+//        System.out.println(loadOrderFormSql("SELECT * FROM `order` "));
+//        System.out.println(loadOderByUserId(5));
+        System.out.println(loadOrder_view(1924));
+//        System.out.println(loadOrderByStatus("2","2019-01-01","2020-05-08"));
+//        System.out.println(loadOrderBySupplierId(44));
     }
 }
 

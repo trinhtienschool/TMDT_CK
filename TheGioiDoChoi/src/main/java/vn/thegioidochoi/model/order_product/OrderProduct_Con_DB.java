@@ -105,7 +105,7 @@ public class OrderProduct_Con_DB {
     }
 
     public static void main(String[] args) {
-        System.out.println(loadOrderProductByOrderId(1));
+        System.out.println(loadOrderProductByOrderId(1924));
     }
     public static void deleteOrderWithProductId(int id) throws SQLException {
         PreparedStatement pe = DBCPDataSource.preparedStatement("delete from order where pro_id=?");
