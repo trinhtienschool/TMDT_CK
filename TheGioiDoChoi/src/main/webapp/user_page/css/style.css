@@ -2560,20 +2560,20 @@ Supplier
 }
 
 .shoping__cart__table table tbody tr td {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  /*padding-top: 30px;*/
+  /*padding-bottom: 30px;*/
   border-bottom: 1px solid #3078a6;
   border-top: 1px solid #3078a6;
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item {
-  width: 630px;
+
   text-align: left;
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item img {
   display: inline-block;
-  margin-right: 25px;
+  /*margin-right: 25px;*/
   width: 189px;
   height: 149px;
 
@@ -5807,5 +5807,17 @@ input.form-check-input {
 /*li.section.visited.current:before {*/
 /*  box-shadow: 0 0 0 2px mediumseagreen;*/
 /*}*/
+.passwd-wrapper{
+  position: relative;
 
+}
+.passwd{
+  padding-right: 30px;
+}
+.show-passwd{
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  height: inherit;
+}
 

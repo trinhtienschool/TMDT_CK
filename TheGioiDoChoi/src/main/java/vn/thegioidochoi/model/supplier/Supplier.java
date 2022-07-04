@@ -20,7 +20,19 @@ public class Supplier {
     private int total_product;
     private boolean checked;
 
-
+    public Supplier(String name, String logo, String address, String phone, String email, String description, int commission_rate, int user_id, String company_name, String website, String slug) {
+        this.name = name;
+        this.logo = logo;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.description = description;
+        this.commission_rate = commission_rate;
+        this.user_id = user_id;
+        this.company_name = company_name;
+        this.website = website;
+        this.slug = slug;
+    }
 
     public Supplier() {
     }

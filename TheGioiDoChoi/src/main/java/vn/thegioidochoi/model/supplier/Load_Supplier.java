@@ -24,7 +24,7 @@ public class Load_Supplier {
                     supplier.setPhone(resultSet.getString(4));
                     supplier.setEmail(resultSet.getString(5));
                     supplier.setCompany_name(resultSet.getString(9));
-                    supplier.setName(resultSet.getString(10));
+                    supplier.setName(resultSet.getString(13));
 
                     supplierList.add(supplier);
                 }
@@ -66,6 +66,35 @@ public class Load_Supplier {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public static boolean insertSupplier(Supplier supplier){
+        String sql = "insert into supplier(logo, address, email, phone, description, commission_rate, user_id, company_name, website, slug, name) \n" +
+                "value(?,?,?,?,?,?,?,?,?,?,?)";
+        int update = 0;
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
+            pe.setString(1,supplier.getLogo());
+            pe.setString(2, supplier.getAddress());
+            pe.setString(3, supplier.getEmail());
+            pe.setLong(4, Long.parseLong(supplier.getPhone()));
+            pe.setString(5, supplier.getDescription());
+            pe.setInt(6, supplier.getCommission_rate());
+            pe.setInt(7, supplier.getUser_id());
+            pe.setString(8, supplier.getCompany_name());
+            pe.setString(9, supplier.getWebsite());
+            pe.setString(10, supplier.getSlug());
+            pe.setString(11, supplier.getName());
+
+            System.out.println(pe.toString());
+            synchronized (pe) {
+                update = pe.executeUpdate();
+            }
+            pe.close();
+            return update == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
     public static boolean insertSupplier(String name, String address, int phone, String email) {
         String sql = "insert into supplier(logo,name,address,phone,email) values(?,?,?,?,?)";

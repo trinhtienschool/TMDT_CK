@@ -8,7 +8,10 @@ import vn.thegioidochoi.model.supplier.Supplier;
 import vn.thegioidochoi.model.util.Util;
 
 
+import java.io.File;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.*;
 import java.util.Date;
 
@@ -47,14 +50,16 @@ public class ProductEntity {
     }
 
     public static List<Product> loadBestSellerProducts(){
-        String sql = "select *\n" +
-                "from product p join (\n" +
-                "select op.pro_id as rpid\n" +
-                "from order_product op join `order` o on op.order_id=o.id \n" +
-                "where MONTH(o.date_created)=11 and year(o.date_created)=2021\n" +
+        LocalDate currentdate = LocalDate.now();
+        Month currentMonth = currentdate.getMonth();
+        int currentYear = currentdate.getYear();
+
+        String sql = "select p.*\n" +
+                "from order_product op join `order` o on op.order_id=o.id join product p on p.id = op.pro_id\n" +
+                "where MONTH(o.date_created)= "+currentMonth.getValue()+" and year(o.date_created)= "+currentYear+" \n" +
                 "group by op.pro_id\n" +
                 "order by sum(op.quantity) desc\n" +
-                "limit 10) as rp on p.id = rp.rpid";
+                "limit 12";
         return loadProductFormSql(sql);
     }
     public static List<Product> loadViewProducts(int userId){
@@ -88,6 +93,27 @@ public class ProductEntity {
             return null;
         return products.get(0);
     }
+    public static List<String> loadProductImagesById(int id) {
+        String sql = "select * from images where pro_id = " + id;
+
+        List<String> images = new ArrayList<String>();
+        try {
+            Statement statement = DBCPDataSource.getStatement();
+            synchronized (statement) {
+                ResultSet resultSet = statement.executeQuery(sql);
+                while (resultSet.next()) {
+                    images.add(resultSet.getString(2));
+                }
+                resultSet.close();
+            }
+            statement.close();
+            return images;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
     public static Product loadProductByOrderId(int order_id) {
         String sql = "select p.* from product p join `order`  o on p.supplier_id = o.supplier_id where o.id ="+order_id+ " order by RAND() LIMIT 1";
         List<Product> products = loadProductFormSql(sql);
@@ -206,7 +232,8 @@ public class ProductEntity {
             product.setGender(resultSet.getInt(20));
 
             product.setImg(resultSet.getString(21));
-            product.setType_weight(resultSet.getByte(8));
+            byte highlight = resultSet.getByte(22);
+            product.setHighlight(highlight == 1);
 
             product.setPercent_sale_past(product.percent_sale_past());
             product.setDayRest(product.dayRest());
@@ -371,25 +398,49 @@ public static void vidu(String s){
         }
         return false;
     }
+public static boolean insertProductImage(int product_id, List<String>images){
+    String sql = "insert into images(src,pro_id) value(?,?)";
+
+    int update = 0;
+    try {
+        for(String image:images) {
+            PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
+            pe.setString(1, image);
+            pe.setInt(2, product_id);
+            System.out.println(pe.toString());
+            synchronized (pe) {
+                update = pe.executeUpdate();
+            }
+            pe.close();
+        }
+        return update == 1;
+    } catch (SQLException throwables) {
+        throwables.printStackTrace();
+    }
+    return false;
+}
 public static boolean insertProduct(String name, double price,
-                                        String img, String description,
+                                        String description,
                                         String content, int supplier_id,
-                                        int type_weight, int active,
+                                         int active,
                                         int percent_sale, double price_sale,
                                         int category_id, int quantity,
                                         int is_sale, String date_start_sale,
                                         String date_end_sale, String slug,
+                                        String product_code, int age, int gender,
+                                        String img, int highlight,
                                         String date_created) {
-        String sql = "insert into product(name,price,discription,content,supplier_id,type_weight,active,percent_sale,price_sale,category_id,quantity,is_sale,date_start_sale,date_end_sale,slug,img,date_created) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+//        String sql = "insert into product(name,price,discription,content,supplier_id,type_weight,active,percent_sale,price_sale,category_id,quantity,is_sale,date_start_sale,date_end_sale,slug,img,date_created) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into product(name,price,discription,content,supplier_id, active, percent_sale, price_sale, category_id, quantity, is_sale, date_start_sale, date_end_sale, slug,  product_code, age, gender,  highlight,img,date_created) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         int update = 0;
         try {
             PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
 
             peSetAttribute(pe, name, price, description, content
-                    , supplier_id, type_weight, active, percent_sale, price_sale, category_id, quantity, is_sale,
-                    date_start_sale, date_end_sale, slug);
-            pe.setString(16, img);
-            pe.setString(17, date_created);
+                    , supplier_id, active, percent_sale, price_sale, category_id, quantity, is_sale,
+                    date_start_sale, date_end_sale, slug,product_code,age, gender, highlight);
+            pe.setString(19, img);
+            pe.setString(20, date_created);
             System.out.println(pe.toString());
             synchronized (pe) {
                 update = pe.executeUpdate();
@@ -402,44 +453,114 @@ public static boolean insertProduct(String name, double price,
         return false;
     }
 
-    private static void peSetAttribute(PreparedStatement pe, String name, double price, String description, String content, int supplier_id, int type_weight, int active, int percent_sale, double price_sale, int category_id, int quantity, int is_sale, String date_start_sale, String date_end_sale, String slug) {
-        try {
+    private static void peSetAttribute(PreparedStatement pe, String name, double price, String description, String content,
+                                       int supplier_id, int active, int percent_sale, double price_sale, int category_id,
+                                       int quantity, int is_sale, String date_start_sale, String date_end_sale, String slug,
+                                       String product_code, int age, int gender, int highlight) {
+                try {
             pe.setString(1, name);
             pe.setDouble(2, price);
             pe.setString(3, description);
             pe.setString(4, content);
             pe.setInt(5, supplier_id);
-            pe.setInt(6, type_weight);
-            pe.setInt(7, active);
-            pe.setInt(8, percent_sale);
-            pe.setDouble(9, price_sale);
-            pe.setInt(10, category_id);
-            pe.setInt(11, quantity);
-            pe.setInt(12, is_sale);
-            pe.setString(13, date_start_sale);
-            pe.setString(14, date_end_sale);
-            pe.setString(15, slug);
+            pe.setInt(6, active);
+            pe.setInt(7, percent_sale);
+            pe.setDouble(8, price_sale);
+            pe.setInt(9, category_id);
+            pe.setInt(10, quantity);
+            pe.setInt(11, is_sale);
+            pe.setString(12, date_start_sale);
+            pe.setString(13, date_end_sale);
+            pe.setString(14, slug);
+            pe.setString(15, product_code);
+            pe.setInt(16, age);
+            pe.setInt(17, gender);
+            pe.setInt(18, highlight);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+//    private static void peSetAttribute(PreparedStatement pe, String name, double price, String description, String content, int supplier_id, int type_weight, int active, int percent_sale, double price_sale, int category_id, int quantity, int is_sale, String date_start_sale, String date_end_sale, String slug) {
+//        try {
+//            pe.setString(1, name);
+//            pe.setDouble(2, price);
+//            pe.setString(3, description);
+//            pe.setString(4, content);
+//            pe.setInt(5, supplier_id);
+//            pe.setInt(6, type_weight);
+//            pe.setInt(7, active);
+//            pe.setInt(8, percent_sale);
+//            pe.setDouble(9, price_sale);
+//            pe.setInt(10, category_id);
+//            pe.setInt(11, quantity);
+//            pe.setInt(12, is_sale);
+//            pe.setString(13, date_start_sale);
+//            pe.setString(14, date_end_sale);
+//            pe.setString(15, slug);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    public static boolean updateProduct(int id, String name, double price, String img, String description, String content, int supplier_id, int type_weight, int active, int percent_sale, double price_sale, int category_id, int quantity, int is_sale, String date_start_sale, String date_end_sale, String slug) {
-        String sql = "update product set name = ?, price=?, discription=?,content=?,supplier_id=?,type_weight=?,active=?,percent_sale=?,price_sale=?,category_id=?,quantity=?,is_sale=?,date_start_sale=?,date_end_sale=?,slug=? ";
-        if (img == null) {
-            sql += " where id = ? ";
-        } else sql += ", img=? where id = ? ";
+    public static boolean updateProductImages(int product_id, List<String>images) {
+        List<String>images_old = loadProductImagesById(product_id);
+        for(String image_old:images_old){
+            if(!image_old.startsWith("http")) Util.deleteFile(image_old);
+        }
+        String sql = "DELETE FROM images WHERE pro_id = ?";
         int update = 0;
         try {
             PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
-            peSetAttribute(pe, name, price, description, content, supplier_id, type_weight, active, percent_sale, price_sale, category_id, quantity, is_sale, date_start_sale, date_end_sale, slug);
+            pe.setInt(1,product_id);
+            synchronized (pe) {
+                update = pe.executeUpdate();
+            }
+            pe.close();
+            insertProductImage(product_id,images);
+            return update == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean updateProduct(int id, String name, double price,
+                                        String description,
+                                        String content, int supplier_id,
+                                        int active,
+                                        int percent_sale, double price_sale,
+                                        int category_id, int quantity,
+                                        int is_sale, String date_start_sale,
+                                        String date_end_sale, String slug,
+                                        String product_code, int age, int gender,
+                                        String img, int highlight
+                                        ) {
+        String sql = "update product set name = ?, price=?, discription=?,content=?,supplier_id=?,active=?," +
+                "percent_sale=?,price_sale=?,category_id=?,quantity=?," +
+                "is_sale=?,date_start_sale=?,date_end_sale=?,slug=?,product_code=?," +
+                "age=?,gender=?,highlight=?";
+        if (img == null) {
 
+            sql += " where id = ? ";
+        } else {
+            Product product_old = ProductEntity.loadProductById(id);
+            String thumbnail_old = product_old.getImg();
+            if(!thumbnail_old.startsWith("http") && !thumbnail_old.contains("default_img")) Util.deleteFile(thumbnail_old);
+            sql += ", img=? where id = ? ";
+        }
+
+
+        int update = 0;
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
+            peSetAttribute(pe, name, price, description, content
+                    , supplier_id, active, percent_sale, price_sale, category_id, quantity, is_sale,
+                    date_start_sale, date_end_sale, slug,product_code,age, gender, highlight);
             if (img == null)
-                pe.setInt(16, id);
+                pe.setInt(19, id);
             else {
-                pe.setString(16, img);
-                pe.setInt(17, id);
+                pe.setString(19, img);
+                pe.setInt(20, id);
             }
             System.out.println("Day la query update: " + pe.toString());
             synchronized (pe) {
@@ -529,7 +650,7 @@ public static boolean insertProduct(String name, double price,
 //        List<Product> productList = new ArrayList<>();
         Product product=new Product();
         try{
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT COUNT(rating_type_id)as soluong FROM rating WHERE pro_id=? and rating_type_id=?");
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT COUNT(rating_type_id) as soluong FROM rating WHERE pro_id=? and rating_type_id=?");
             preparedStatement.setString(1, String.valueOf(idpro));
             preparedStatement.setString(2, String.valueOf(nstar));
             synchronized (preparedStatement){

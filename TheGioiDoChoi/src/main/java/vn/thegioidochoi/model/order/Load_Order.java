@@ -284,29 +284,32 @@ public class Load_Order {
 //        System.out.println(loadOrder_view(2));
 //        System.out.println(loadOrderByStatus("2","2019-01-01","2020-05-08"));
     }
-    public static int addOrder(int user_id, int coupon_code_id, int type_weight, String note, String phone, String address, int status, String date_created, double total_price) {
-        int shipment_id= Load_Shipment.addShipment(type_weight);
+    public static int addOrder(int user_id, int coupon_code_id, String note, String phone, String address, int status, String date_created, double total_price,int vendor_id) {
+//        int shipment_id= Load_Shipment.addShipment(type_weight);
+        //TODO
         int updated=0;
         int id = getNextOrderId();
-        String sql = "insert into `order`(user_id,ship_id,payment,note,phone,address,status,date_created,total_price,id ";
+        String sql = "insert into `order`(user_id,payment,note,phone,address,status,date_created,total_price,id,shipment,supplier_id ";
         if(coupon_code_id!=0)
-            sql+=" , sale_id) values(?,?,?,?,?,?,?,?,?,?,?)";
-        else sql+=") values(?,?,?,?,?,?,?,?,?,?)";
+            sql+=" , sale_id) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+        else sql+=") values(?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
             pe.setInt(1,user_id);
-            pe.setInt(2,shipment_id);
-            pe.setInt(3,0);
-            pe.setString(4,note);
-            pe.setString(5,phone);
-            pe.setString(6,address);
-            pe.setInt(7,status);
-            pe.setString(8,date_created);
-            pe.setDouble(9,total_price);
-            pe.setInt(10,id);
+
+            pe.setInt(2,0);
+            pe.setString(3,note);
+            pe.setString(4,phone);
+            pe.setString(5,address);
+            pe.setInt(6,status);
+            pe.setString(7,date_created);
+            pe.setDouble(8,total_price);
+            pe.setInt(9,id);
+            pe.setInt(10,20000);
+            pe.setInt(11,vendor_id);
             if(coupon_code_id!=0)
-                pe.setInt(11,coupon_code_id);
+                pe.setInt(12,coupon_code_id);
             System.out.println(pe.toString());
             synchronized (pe){
                 updated=pe.executeUpdate();

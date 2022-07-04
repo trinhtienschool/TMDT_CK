@@ -29,10 +29,10 @@ public class Cart {
             products.get(id).addQuantity();
             updateQuantity(id, products.get(id).getQuantity(), user_id);
         } else {
-            Product product = ProductEntity.loadProductById(id);
-            if (product != null) {
-                Cart_item cart_item = new Cart_item(product.getId(), product.getImg(), product.getName(), product.getPrice(), product.getPrice_sale(), 1,product.isIs_sale(),product.getType_weight());
-                products.put(product.getId(), cart_item);
+            Cart_item cart_item = Cart_item.loadCartItemProduct(id);
+            if (cart_item != null) {
+//                Cart_item cart_item = new Cart_item(product.getId(), product.getImg(), product.getName(), product.getPrice(), product.getPrice_sale(), 1,product.isIs_sale(),product.);
+                products.put(cart_item.getId(), cart_item);
                 insert(id, 1, user_id);
             }
         }
@@ -68,9 +68,15 @@ public class Cart {
         if (products.containsKey(id)) {
             products.get(id).addQuantity();
         } else {
-            Product product = ProductEntity.loadProductById(id);
-            if (product != null) {
-                products.put(product.getId(), new Cart_item(product.getId(), product.getImg(), product.getName(), product.getPrice(), product.getPrice_sale(), 1,product.isIs_sale(),product.getType_weight()));
+//            Product product = ProductEntity.loadProductById(id);
+//            if (product != null) {
+//                products.put(product.getId(), new Cart_item(product.getId(), product.getImg(), product.getName(), product.getPrice(), product.getPrice_sale(), 1,product.isIs_sale(),product.getType_weight()));
+//            }
+            Cart_item cart_item = Cart_item.loadCartItemProduct(id);
+            if (cart_item != null) {
+//                Cart_item cart_item = new Cart_item(product.getId(), product.getImg(), product.getName(), product.getPrice(), product.getPrice_sale(), 1,product.isIs_sale(),product.);
+                products.put(cart_item.getId(), cart_item);
+//                insert(id, 1, user_id);
             }
         }
        calTotalPrice_Size();
@@ -100,7 +106,7 @@ public class Cart {
         }
     }
     public void loadCart(int user_id) {
-        String sql = "select p.id,p.img,p.name,p.price,p.price_sale,s.quantity,p.is_sale from shopping_cart s join product p on s.pro_id=p.id where user_id = ?";
+        String sql = "select p.id,p.img,p.name,p.price,p.price_sale,s.quantity,p.is_sale, sup.name, p.slug from shopping_cart s join product p on s.pro_id=p.id join supplier sup on p.supplier_id = sup.id where s.user_id = ?";
         try {
             PreparedStatement pt = DBCPDataSource.preparedStatement(sql);
             pt.setInt(1, user_id);
@@ -115,6 +121,8 @@ public class Cart {
                     item.setPrice_sale(rs.getDouble(5));
                     item.setQuantity(rs.getInt(6));
                     item.setSale(rs.getInt(7)==1);
+                    item.setVendor_name(rs.getString(8));
+                    item.setProduct_slug(rs.getString(9));
 //                    item.setType_weight(rs.getInt(8));
                     item.calTotalPrice();
                     products.put(item.getId(), item);
@@ -171,12 +179,13 @@ public class Cart {
     }
 
     public void insert(int pro_id, int quantity, int user_id) {
-        String sql = "insert into shopping_cart values (?,?,?)";
+        String sql = "insert into shopping_cart values (?,?,?,?)";
         try {
             PreparedStatement pt = DBCPDataSource.preparedStatement(sql);
             pt.setInt(1, user_id);
             pt.setInt(2, pro_id);
             pt.setInt(3, quantity);
+            pt.setInt(4,1);
             synchronized (pt) {
                 pt.executeUpdate();
             }
@@ -202,13 +211,13 @@ public class Cart {
             throwables.printStackTrace();
         }
     }
-    public int getMaxTypeWeight(){
-        int typeWeight=0;
-        for(Cart_item c: products.values()){
-            typeWeight = Integer.max(typeWeight,c.getType_weight());
-        }
-        return typeWeight;
-    }
+//    public int getMaxTypeWeight(){
+//        int typeWeight=0;
+//        for(Cart_item c: products.values()){
+//            typeWeight = Integer.max(typeWeight,c.getType_weight());
+//        }
+//        return typeWeight;
+//    }
 
     public Map<Integer, Cart_item> getProducts() {
         return products;

@@ -34,12 +34,16 @@
                         <h5 class="title-all">Đổi mật khẩu</h5>
                         <input type="text" name="key" id="key" value="${key}"  style="display: none" ><br>
                         <input type="email" name="email-change-pass" id="email" placeholder="Email (*)" required><br>
-
-                        <input type="password" name="new-pass" id="passwd" placeholder="Mật Khẩu" required><br>
-                        <label id="mk-notice" class="invisible" style="color: red">Mật khẩu phải dài từ 8-25 kí tự và phải chứa cả số và chữ in hoa</label>
-
-                        <input type="password" name="new-pass-con" id="pass-again" placeholder="Nhập Lại Mật Khẩu" required><br>
-                        <label class="invisible" id="mka-notice" style="color: red">Mật khẩu phải trùng khớp với mật khẩu đã nhập</label>
+                        <div class="passwd-wrapper">
+                            <input type="password" name="new-pass" class="passwd" id="passwd" placeholder="Mật Khẩu" required>
+                            <div style="top: 33px; right: 30px;" class="show-passwd"><i class="fa fa-eye d-block"></i> <i class="fa fa-eye-slash d-none"></i></div>
+                        </div>
+                            <label id="mk-notice" class="invisible" style="color: red">Mật khẩu phải dài từ 8-25 kí tự và phải chứa cả số và chữ in hoa</label>
+                        <div class="passwd-wrapper">
+                            <input type="password" class="passwd" name="new-pass-con" id="pass-again" placeholder="Nhập Lại Mật Khẩu" required>
+                            <div style="top: 33px; right: 30px;" class="show-passwd"><i class="fa fa-eye d-block"></i> <i class="fa fa-eye-slash d-none"></i></div>
+                        </div>
+                            <label class="invisible" id="mka-notice" style="color: red">Mật khẩu phải trùng khớp với mật khẩu đã nhập</label>
 
                         <input type="submit" name="submit" id="submit" value="ĐỔI MẬT KHẨU"><br>
                     </form>

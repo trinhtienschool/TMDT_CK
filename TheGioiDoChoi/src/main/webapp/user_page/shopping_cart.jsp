@@ -50,7 +50,8 @@
                     <table>
                         <thead>
                         <tr>
-                            <th class="shoping__product">Sản phẩm</th>
+                            <th class="shoping__product">Hình ảnh</th>
+                            <th >Tên</th>
                             <th>Giá bán</th>
                             <th>Số lượng</th>
                             <th>Tổng</th>
@@ -66,7 +67,13 @@
                             <c:set var="total" value="${ci.totalPrice}"></c:set>
                             <td class="shoping__cart__item">
                                 <a  href="shop-detail?id=${ci.id}"><img src="${ci.img}" alt=""></a>
-                                <a  href="shop-detail?id=${ci.id}"><h5>${ci.name}</h5></a>
+
+                            </td>
+                            <td style="text-align: left" class="shoping__cart__name">
+                                <a  href="shop-detail?product=${ci.product_slug}">
+                                    <h5>${ci.name}</h5>
+                                    <p>Bán bởi: <span>${ci.vendor_name}</span></p>
+                                </a>
                             </td>
                             <td class="shoping__cart__price">
 

@@ -33,6 +33,76 @@ public class LoadUser {
         }
         return isSaved;
     }
+    public static EmailConfirm loadEmailConfirm(String email){
+        try {
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("select * from email_confirm where email=?");
+            preparedStatement.setString(1,email);
+            EmailConfirm emailConfirm = null;
+            synchronized (preparedStatement){
+                ResultSet rs = preparedStatement.executeQuery();
+                if(rs.next()){
+                    emailConfirm = new EmailConfirm();
+                    emailConfirm.setEmail(rs.getString(1));
+                    emailConfirm.setUser_name(rs.getString(2));
+                    emailConfirm.setCode(rs.getInt(3));
+                    emailConfirm.setTime_created(rs.getLong(4));
+                }
+                rs.close();
+            }
+            preparedStatement.close();
+            return emailConfirm;
+        } catch (SQLException throwables) {
+
+            throwables.printStackTrace();
+
+        }
+        return null;
+    }
+    public static boolean updateActiveEmail(String email){
+           String sql = "update user set `active`=? where email=?";
+       boolean isSaved = false;
+        try {
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1,1);
+            preparedStatement.setString(2,email);
+            synchronized (preparedStatement){
+                int row = preparedStatement.executeUpdate();
+                if(row == 1)
+                    isSaved=true;
+            }
+            preparedStatement.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return isSaved;
+    }
+    public static boolean saveEmailConfirm(String email,String name,int code){
+        boolean isSaved = false;
+        String sql="";
+        if(loadEmailConfirm(email)==null) {
+             sql = "insert into email_confirm(`user_name`,code,time_created,email) values(?,?,?,?)";
+        }else{
+             sql = "update email_confirm set `user_name`=?,code=?,time_created=? where email=?";
+        }
+        try {
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+//            preparedStatement.setInt(1,user_id);
+            preparedStatement.setString(1,name);
+            preparedStatement.setInt(2,code);
+            preparedStatement.setLong(3,System.currentTimeMillis());
+            preparedStatement.setString(4,email);
+//            preparedStatement.setLong(3,Util.hashPass("20220521",email,id));
+            synchronized (preparedStatement){
+                int row = preparedStatement.executeUpdate();
+                if(row == 1)
+                    isSaved=true;
+            }
+            preparedStatement.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return isSaved;
+    }
     public static User loadAUserByEmail(String email){
         try {
             PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("select * from user where email=?");
@@ -381,6 +451,34 @@ public class LoadUser {
             throwables.printStackTrace();
         }
 
+    }
+    public static void deleteUser(String email) {
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement("DELETE FROM user WHERE email = ?");
+            pe.setString(1,email);
+
+            synchronized (pe){
+                pe.executeUpdate();
+            }
+            pe.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public static void deleteEmailConfirm(String email) {
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement("DELETE FROM email_confirm WHERE email = ?");
+            pe.setString(1,email);
+
+            synchronized (pe){
+                pe.executeUpdate();
+            }
+            pe.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }
 

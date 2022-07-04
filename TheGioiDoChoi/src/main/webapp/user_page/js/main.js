@@ -27,6 +27,40 @@
 // });
 
 (function ($) {
+    console.log("add-cart-inputttttttttt")
+    console.log($(".add-cart-input").length>0)
+    if($(".add-cart-input").length > 0) {
+        $(".add-cart-up").click(function (){
+            var value = $(".add-cart-input").val();
+            value = parseInt(value) + 1;
+            $(".add-cart-input").val(value);
+        })
+        $(".add-cart-down").click(function (){
+            var value = $(".add-cart-input").val();
+            if(value>1) {
+                value = parseInt(value) - 1;
+                $(".add-cart-input").val(value);
+            }
+        })
+        $('.add-cart-shop-detail').click(function (e) {
+            e.preventDefault();
+            var scroll = $(window).scrollTop();
+            // let curentUrl = window.location.href;
+            // let arrCondition = curentUrl.split("?");
+            // // console.log("length: "+arrCondition.length)
+            // let condition;
+            // if (arrCondition.length == 1) {
+            //     // console.log("co vo dk if")
+            //     condition = "";
+            // } else condition = arrCondition[1];
+            let quantity = $(".add-cart-input").val();
+            let currentPage = $(this).data('current_page');
+            let id = $(this).data('pro_id');
+            let directUrl = "cart-handle?current-page=" + currentPage + "&id=" + id + "&position=" + scroll + "&action=add" + "&quantity=" + quantity;
+            window.location.href = directUrl;
+            // console.log(directUrl);
+        });
+    }
 
     /*------------------
         Preloader
@@ -221,7 +255,9 @@
     /*--------------------------
         Select
     ----------------------------*/
+    // if($('.no_nice_selection').length ==0) {
     $("select").niceSelect();
+    // }
 
     /*------------------
         Single Product
@@ -454,6 +490,7 @@ function radio_input(url) {
 }
 
 $(document).ready(function () {
+
     $('#login-form').submit(function (e) {
         e.preventDefault();
         let pass = $('#pass').val();
@@ -487,13 +524,15 @@ $(document).ready(function () {
         $('#formPass').submit(function (e) {
             e.preventDefault();
             let pass_old = $("#passwd-old").val();
-            if(pass_old.trim().length==0) {
-                $('#mk-old-notice').addClass("visible")
-                $('#mk-old-notice').removeClass("invisible")
-                return;
-            }else{
-                $('#mk-old-notice').removeClass("visible")
-                $('#mk-old-notice').addClass("invisible")
+            if (pass_old != undefined) {
+                if (pass_old.trim().length == 0) {
+                    $('#mk-old-notice').addClass("visible")
+                    $('#mk-old-notice').removeClass("invisible")
+                    return;
+                } else {
+                    $('#mk-old-notice').removeClass("visible")
+                    $('#mk-old-notice').addClass("invisible")
+                }
             }
             let passwd = $('#passwd').val();
             let pass_again = $('#pass-again').val();
@@ -561,6 +600,7 @@ $(document).ready(function () {
     });
     //add favouristlist
     $('.addFa').click(function (e) {
+        e.preventDefault();
         var scroll = $(window).scrollTop();
         let curentUrl = window.location.href;
         let arrCondition = curentUrl.split("?");
@@ -598,6 +638,46 @@ $(document).ready(function () {
     });
 
 });
+$(document).ready(function () {
+    $('input').focus(function(){
+        if($(this).attr('type')!='password') {
+            console.log("Dang vao inputttttttttttttttttttttttt")
+            $('.show-passwd').children(".fa.fa-eye").addClass('d-none');
+            $('.show-passwd').children(".fa.fa-eye").removeClass('d-block');
+            $('.show-passwd').children(".fa.fa-eye-slash").addClass('d-none');
+            $('.show-passwd').children(".fa.fa-eye-slash").removeClass('d-block');
+        }
+    })
+    $('.show-passwd').click(function () {
+        if ($(this).prev().attr('type') == 'password') {
+            $(this).prev().attr('type', 'text');
+            $(this).children(".fa.fa-eye-slash").addClass('d-block');
+            $(this).children(".fa.fa-eye-slash").removeClass('d-none');
+            $(this).children(".fa.fa-eye").addClass('d-none');
+            $(this).children(".fa.fa-eye").removeClass('d-block');
+        } else {
+            $(this).prev().attr('type', 'password');
+            $(this).children(".fa.fa-eye-slash").removeClass('d-block');
+            $(this).children(".fa.fa-eye-slash").addClass('d-none');
+            $(this).children(".fa.fa-eye").removeClass('d-none');
+            $(this).children(".fa.fa-eye").addClass('d-block');
+        }
+        console.log();
+    })
+    $('.show-passwd').children(".fa.fa-eye").addClass('d-none');
+    $('.show-passwd').children(".fa.fa-eye").removeClass('d-block');
+
+    $('.passwd').focus(function(){
+        $(".passwd").attr('type', 'password');
+        $('.show-passwd').children(".fa.fa-eye").addClass('d-none');
+        $('.show-passwd').children(".fa.fa-eye").removeClass('d-block');
+        $('.show-passwd').children(".fa.fa-eye-slash").addClass('d-none');
+        $('.show-passwd').children(".fa.fa-eye-slash").removeClass('d-block');
+        $(this).next().children(".fa.fa-eye").removeClass('d-none');
+        $(this).next().children(".fa.fa-eye").addClass('d-block');
+    })
+
+})
 
 function load(position) {
     $(window).scrollTop(position);
@@ -627,7 +707,7 @@ function clickCheckbox(type, checkbox, type_page, url) {
 }
 
 $(document).ready(function () {
-    console.log(cutUrl("http://localhost:8082/shopping?gender=gt-nu&keyword=puzzle&age=tu-6-11-tuoi&age=tren-12-tuoi&gender=gt-nam&sup-slug=nhua-3h-1654696762323&sup-slug=do-choi-tre-em-phu-thai-1654696761915","sup-slug=nhua-3h-1654696762323"))
+    console.log(cutUrl("http://localhost:8082/shopping?gender=gt-nu&keyword=puzzle&age=tu-6-11-tuoi&age=tren-12-tuoi&gender=gt-nam&sup-slug=nhua-3h-1654696762323&sup-slug=do-choi-tre-em-phu-thai-1654696761915", "sup-slug=nhua-3h-1654696762323"))
     let brands = $('#more-brand').data('brand')
     console.log(brands)
     $('#more-brand').click(function () {
@@ -648,16 +728,16 @@ $(document).ready(function () {
                 let child = "<div class=\"form-check m-1 mt-3 br-more\">\n" +
                     "  <input class=\"form-check-input gender-checkbox\"\n " +
                     "                                       type=\"checkbox\"\n" +
-                    "                                       id=\""+brands[i].slug+"\"\n" +
+                    "                                       id=\"" + brands[i].slug + "\"\n" +
                     getChecked(brands[i].checked)
                     // (brands[i]==true?" checked ":"")
                     +
 
-                    "onclick=\"clickCheckbox('sup-slug',this,\'"+$(this).data('page')+"\',\'"+cutUrl($(this).data('url'),'sup-slug='+brands[i].slug)+"\')\">" +
+                    "onclick=\"clickCheckbox('sup-slug',this,\'" + $(this).data('page') + "\',\'" + cutUrl($(this).data('url'), 'sup-slug=' + brands[i].slug) + "\')\">" +
 
 
                     "                                <label class=\"form-check-label\" for=\"" + brands[i].slug + "\">\n" +
-                    "                                   " + brands[i].name + " ("+brands[i].products+")" +
+                    "                                   " + brands[i].name + " (" + brands[i].products + ")" +
                     "                                </label>\n" +
                     "                            </div>";
                 $(this).before(child);
@@ -671,30 +751,55 @@ $(document).ready(function () {
 })
 $(document).ready(function () {
 
-    $('#file').change(function(e) {
+    $('#file').change(function (e) {
         e.preventDefault();
         $('#submit-avatar').submit()
     })
+
+    //nice selection
+    // $("select").niceSelect();
+    $('.thumbnail-img').on('change', function() {
+        imagesPreview(this, 'div.gallery-thumbnail-img');
+    });
 })
-function cutUrl(url,equal){
+
+function cutUrl(url, equal) {
     equal = equal.toLowerCase();
-    if(url.includes(equal)){
+    if (url.includes(equal)) {
 
         let parts = url.split("&");
 
-        let result_url="";
-        for(let i=0;i<parts.length;i++){
+        let result_url = "";
+        for (let i = 0; i < parts.length; i++) {
             let p = parts[i];
             p = p.toLowerCase();
-            if(p != equal & p.length !=0) result_url+="&"+p;
+            if (p != equal & p.length != 0) result_url += "&" + p;
         }
 
         return result_url;
     }
     return url;
 }
-function getChecked(checked){
-    console.log("checkeddddddddd: ",checked)
-    if(checked) return " checked "
+
+function getChecked(checked) {
+    console.log("checkeddddddddd: ", checked)
+    if (checked) return " checked "
     return ""
 }
+var imagesPreview = function(input, placeToInsertImagePreview) {
+    $(placeToInsertImagePreview).children().remove();
+    if (input.files) {
+        var filesAmount = input.files.length;
+
+        for (i = 0; i < filesAmount; i++) {
+            var reader = new FileReader();
+
+            reader.onload = function(event) {
+                $($.parseHTML('<img>')).attr({'src': event.target.result}).css('marginRight', '10px').width(100).height(100).appendTo(placeToInsertImagePreview);
+            }
+
+            reader.readAsDataURL(input.files[i]);
+        }
+    }
+
+};
