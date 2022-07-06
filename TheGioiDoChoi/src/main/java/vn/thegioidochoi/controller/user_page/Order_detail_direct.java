@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,11 @@ public class Order_detail_direct extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        System.out.println("Gia trị session tại order_detail+"+session.getAttribute("user_id"));
+        if(session.getAttribute("user_id")==null){
+            request.getRequestDispatcher("user_page/error_404.jsp").forward(request,response);
+        }
         request.setAttribute("title", "Chi tiết đơn hàng");
         int order_id = Integer.parseInt(request.getParameter("id"));
         Order order = Load_Order.loadOrder_view(order_id);

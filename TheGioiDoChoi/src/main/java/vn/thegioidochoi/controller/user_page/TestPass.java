@@ -278,6 +278,7 @@ public class TestPass {
 //        EmailConfirm emailConfirm = LoadUser.loadEmailConfirm("trinhquangtien5543@gmail.com");
 //        System.out.println(System.currentTimeMillis()-emailConfirm.getTime_created());
 //        System.out.println(1000*60*5);
+
 //        String url = "http://www.example.com/something.html?one=1&two=2&three=3&three=3a";
 //
 //        List<NameValuePair> params = URLEncodedUtils.parse(new URI(url), Charset.forName("UTF-8"));
@@ -292,6 +293,8 @@ public class TestPass {
 //            System.out.println(order);
 //        }
         System.out.println(Util.formatCurrency((int)34));
+        Mail.sendMail("My mail content","My mail subject","duongbanhuan2020@gmail.com");
+
     }
 
 

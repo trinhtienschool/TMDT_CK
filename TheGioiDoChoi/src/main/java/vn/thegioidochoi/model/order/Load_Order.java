@@ -3,6 +3,7 @@ package vn.thegioidochoi.model.order;
 
 import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
 import vn.thegioidochoi.model.shipment.Load_Shipment;
+import vn.thegioidochoi.model.user.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -372,12 +373,12 @@ public class Load_Order {
         }
         return 0;
     }
- public static boolean updateOrderStatusBySupplierId( int status,int supplier_id){
-        String sql = "UPDATE `order` SET status = ? WHERE supplier_id = ?";
+ public static boolean updateOrderActiveBySupplierId( int active,int supplier_id){
+        String sql = "UPDATE `order` SET active = ? WHERE supplier_id = ?";
         int update = 0;
         try{
             PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
-            preparedStatement.setInt(1,status);
+            preparedStatement.setInt(1,active);
             preparedStatement.setInt(2,supplier_id);
             synchronized (preparedStatement) {
                 update = preparedStatement.executeUpdate();
@@ -433,12 +434,40 @@ public class Load_Order {
         }
         return orders;
     }
+    public static List<Order> loadOrderByStatus(int status, int supplier_id){
+        List<Order> orderList = new ArrayList<>();
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT `order`.id FROM `order` WHERE `status`=? and supplier_id=?");
+            preparedStatement.setString(1, String.valueOf(status));
+            preparedStatement.setString(2, String.valueOf(supplier_id));
+            synchronized (preparedStatement){
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()){
+                    Order order = new Order();
+                    order.setId(resultSet.getInt(1));
+                    orderList.add(order);
+                }
+                resultSet.close();
+            }
+            preparedStatement.close();
+            return orderList;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return orderList;
+    }
     public static void main(String[] args) {
 //        System.out.println(loadOrderFormSql("SELECT * FROM `order` "));
 //        System.out.println(loadOderByUserId(5));
-        System.out.println(loadOrder_view(1924));
+//        System.out.println(loadOrder_view(1924));
 //        System.out.println(loadOrderByStatus("2","2019-01-01","2020-05-08"));
 //        System.out.println(loadOrderBySupplierId(44));
+//        updateOrderActiveBySupplierId(-1,41);
+//        for (Order o: loadOrderByStatus(3,41)){
+//            System.out.println(o.getId());
+//        }
+        List<Order> listOders=loadOrderByStatus(5,41);
+        System.out.println(listOders.size());
     }
 }
 

@@ -2,6 +2,7 @@
 package vn.thegioidochoi.model.user;
 
 import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.supplier.Supplier;
 import vn.thegioidochoi.model.util.Util;
 
 import java.sql.PreparedStatement;
@@ -495,6 +496,39 @@ public class LoadUser {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+    public static List<User> loadUserWithStatusOrder(int status, int supplier_id){
+        List<User>users = new ArrayList<User>();
+        String sql = "SELECT u.id, u.`name`,u.email\n" +
+                "FROM `user` u  JOIN `order` o ON u.id=o.user_id WHERE o.`status`="+status+" and o.supplier_id="+supplier_id;
+        System.out.println(sql);
+        try{
+            Statement statement = DBCPDataSource.getStatement();
+            synchronized (statement){
+                ResultSet resultSet = statement.executeQuery(sql);
+                while (resultSet.next()){
+                    User user = new User();
+                    user.setId(resultSet.getInt(1));
+                    user.setName(resultSet.getString(2));
+                    user.setEmail(resultSet.getString(3));
+
+
+                    users.add(user);
+                }
+                resultSet.close();
+            }
+            statement.close();
+            return users;
+        } catch(SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        List<User> listUsers= LoadUser.loadUserWithStatusOrder(5,41);
+        System.out.println(listUsers.size());
+//        System.out.println(loadUserWithStatusOrder(3).toArray().length);
     }
 
 }

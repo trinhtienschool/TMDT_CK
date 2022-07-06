@@ -19,11 +19,11 @@ public class SupplierDirect extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getParameter("vendor") == null){
+        if(request.getParameter("supplier") == null){
             response.sendRedirect("/home");
             return;
         }
-        Supplier supplier = Load_Supplier.loadSupplier(request.getParameter("vendor"));
+        Supplier supplier = Load_Supplier.loadSupplier(request.getParameter("supplier"));
         int supplier_id = supplier.getId();
         request.setAttribute("products", ProductEntity.loadListProductBySupplierId(supplier_id));
         request.setAttribute("count", ProductEntity.loadListProductBySupplierId(supplier_id).size());
