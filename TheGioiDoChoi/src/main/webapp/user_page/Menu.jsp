@@ -125,7 +125,10 @@
                                     <select id="login-web">
                                         <option selected disabled>${sessionScope.user_name}</option>
                                         <option value="user">Quản lí tài khoản</option>
-                                        <c:if test="${isAdmin !=null}">
+                                        <c:if test="${sessionScope.role_id !=null && sessionScope.role_id ==2}">
+                                            <option value="handle-login?login=vendor">Vào Cửa hàng</option>
+                                        </c:if>
+                                        <c:if test="${sessionScope.role_id !=null && sessionScope.role_id ==3}">
                                             <option value="handle-login?login=admin">Vào trang Admin</option>
                                         </c:if>
                                         <option value="handle-login?logout=true">Đăng xuất</option>
@@ -438,7 +441,10 @@
                 <select id="login-mobile">
                     <option selected disabled>${sessionScope.user_name}</option>
                     <option value="user">Quản lí tài khoản</option>
-                    <c:if test="${isAdmin !=null}">
+                    <c:if test="${sessionScope.role_id !=null && sessionScope.role_id ==2}">
+                        <option value="handle-login?login=vendor">Vào Cửa hàng</option>
+                    </c:if>
+                    <c:if test="${sessionScope.role_id !=null && sessionScope.role_id ==3}">
                         <option value="handle-login?login=admin">Vào trang Admin</option>
                     </c:if>
                     <option value="handle-login?logout=true">Đăng xuất</option>
@@ -595,7 +601,15 @@
                 <span>Quản lý tài khoản</span>
             </a>
         </div>
-        <c:if test="${isAdmin !=null}">
+        <c:if test="${sessionScope.role_id !=null && sessionScope.role_id ==2}">
+            <div class="left-sidebar-parent" style="display: block !important; ">
+                <a class="left-sidebar-title"  href="handle-login?login=vendor" style="margin-left: 20px;border-bottom: none"
+                   role="button" >
+                    <span>Vào cửa hàng</span>
+                </a>
+            </div>
+        </c:if>
+        <c:if test="${sessionScope.role_id !=null && sessionScope.role_id ==3}">
             <div class="left-sidebar-parent" style="display: block !important; ">
                 <a class="left-sidebar-title"  href="handle-login?login=admin" style="margin-left: 20px;border-bottom: none"
                    role="button" >

@@ -29,7 +29,7 @@ public class Order_handle extends HttpServlet {
         //Xu li neu nguoi dung da dang nhap
         HttpSession session = request.getSession();
         String payment_method = "cash";
-        if (request.getParameter("status_order").equalsIgnoreCase("enter_order")) {
+        if (request.getParameter("status_order") !=null && request.getParameter("status_order").equalsIgnoreCase("enter_order")) {
             if (request.getParameter("paypal_payment") != null)
                 payment_method = "paypal";
             if (request.getParameter("cash_payment") != null)

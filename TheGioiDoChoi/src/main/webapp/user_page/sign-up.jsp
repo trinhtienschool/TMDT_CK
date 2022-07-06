@@ -34,6 +34,9 @@
                         <button><a href="handle-login?login=user" class="btn-dn">ĐĂNG NHẬP</a></button>
                         <button><a class="btn-dk">ĐĂNG KÍ</a></button>
                         <br>
+                        <c:if test="${vendor_sign_up}">
+                        <input type="text" name="vendor-sign-up" value="true" style="display: none">
+                        </c:if>
                         <input type="text" name="name" id="fname" placeholder="Họ Tên (*)" required><br>
 
                         <input type="number" name="phone" id="phone" placeholder="Điện Thoại (*)" required><br>
@@ -174,9 +177,9 @@
 
                             <input type="hidden" name="email" value="${email}">
                             <input type="hidden" name="confirm" value="confirm">
-<%--                            <c:if test="${user_role ==2}">--%>
-<%--                                <input type="hidden" name="sign_up_vendor" value="1">--%>
-<%--                            </c:if>--%>
+                            <c:if test="${vendor_sign_up}">
+                                <input type="hidden" name="vendor-sign-up" value="1">
+                            </c:if>
                             <input type="text" name="code" id="code" placeholder="Mã Xác Nhận" required>
 
                         </div>

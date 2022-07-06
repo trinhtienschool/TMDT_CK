@@ -88,13 +88,15 @@ public class Load_Order {
     }
 
     // Load lên dashboard
-    public static List<Order> loadOrderNear(int limit){
+    public static List<Order> loadOrderNear(int supplier_id,int limit){
         List<Order> list = new ArrayList<>();
+        String sql ="select o.id, o.date_created, u.name, o.`status`, sum(total_price) from `order` o join `user` u on o.user_id = u.id " ;
+        if(supplier_id != 0){
+            sql +=" where o.supplier_id= "+supplier_id;
+        }
+        sql +=" group by o.id, o.date_created, u.name, o.`status` order by o.date_created desc limit ?";
         try{
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, (sum(p.price * op.quantity) + o.shipment) AS total FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN `user` u ON u.id = o.user_id " +
-                    "GROUP BY o.id, o.date_created, u.name, o.`status` " +
-                    "ORDER BY date_created " +
-                    "LIMIT ?");
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
             preparedStatement.setInt(1,limit);
             synchronized (preparedStatement){
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -104,7 +106,7 @@ public class Load_Order {
                     order.setDate_created(resultSet.getDate(2));
                     order.setUser_name(resultSet.getString(3));
                     order.setStatus(resultSet.getInt(4));
-                    order.setTotal_pay(resultSet.getDouble(5));
+                    order.setTotal_order(resultSet.getInt(5));
                     list.add(order);
                 }
                 resultSet.close();
@@ -153,7 +155,7 @@ public class Load_Order {
     public static List<Order> loadOrderByStatus(String status, String from_date, String to_date){
         List<Order> orderList = new ArrayList<>();
         try{
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, (sum(p.price * op.quantity) + s.price) AS total, count(o.id) AS countOr " +
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, (sum(p.price * op.quantity) + o.shipment) AS total, count(o.id) AS countOr " +
                     "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN shipment s ON s.id=o.ship_id JOIN `user` u ON u.id = o.user_id " +
                     "WHERE o.`status` like ? and o.active = 1 and o.date_created between ? and ? " +
                     "GROUP BY o.id, o.date_created, u.name, o.`status`");

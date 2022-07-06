@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.util.JSONPObject;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.json.JSONObject;
 import vn.thegioidochoi.model.Product.Product;
 import vn.thegioidochoi.model.Product.ProductEntity;
@@ -13,6 +15,8 @@ import vn.thegioidochoi.model.header_footer.Category;
 import vn.thegioidochoi.model.header_footer.LoadHeaderFooter;
 import vn.thegioidochoi.model.header_footer.Load_Category;
 import vn.thegioidochoi.model.mail.Mail;
+import vn.thegioidochoi.model.order.Load_Order;
+import vn.thegioidochoi.model.order.Order;
 import vn.thegioidochoi.model.order_product.OrderProduct;
 import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
 import vn.thegioidochoi.model.supplier.Load_Supplier;
@@ -28,6 +32,9 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -42,7 +49,7 @@ import java.util.regex.Pattern;
 
 public class TestPass {
 
-    public static void main(String[] args) throws IOException, SQLException, ParseException {
+    public static void main(String[] args) throws IOException, SQLException, ParseException, URISyntaxException {
 //        int id = 1;
 //        String email = "trinhtien6236@gmail.com";
 //        String pass = "Tien12345@";
@@ -270,7 +277,21 @@ public class TestPass {
 //        LoadUser.saveEmailConfirm("trinhquangtien5543@gmail.com","Tiến",123456);
 //        EmailConfirm emailConfirm = LoadUser.loadEmailConfirm("trinhquangtien5543@gmail.com");
 //        System.out.println(System.currentTimeMillis()-emailConfirm.getTime_created());
-        System.out.println(1000*60*5);
+//        System.out.println(1000*60*5);
+//        String url = "http://www.example.com/something.html?one=1&two=2&three=3&three=3a";
+//
+//        List<NameValuePair> params = URLEncodedUtils.parse(new URI(url), Charset.forName("UTF-8"));
+//
+//        for (NameValuePair param : params) {
+//            System.out.println(param.getName() + "=" + param.getValue());
+//            System.out.println(param.getName() + " : " + param.getValue());
+//        }
+
+//        List<Order> orders = Load_Order.loadOrderNear(27,5);
+//        for(Order order:orders){
+//            System.out.println(order);
+//        }
+        System.out.println(Util.formatCurrency((int)34));
     }
 
 

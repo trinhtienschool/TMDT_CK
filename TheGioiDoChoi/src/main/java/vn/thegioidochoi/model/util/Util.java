@@ -94,7 +94,7 @@ public class Util {
         List<String> imgUrls = new ArrayList<String>();
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         if (!isMultipart) {
-
+            return null;
         }
 
         DiskFileItemFactory factory = new DiskFileItemFactory();

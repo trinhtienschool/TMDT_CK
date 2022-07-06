@@ -1,6 +1,9 @@
 package vn.thegioidochoi.controller.user_page;
 
+import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
 import vn.thegioidochoi.model.order_product.OrderDetail;
 import vn.thegioidochoi.model.order_product.OrderDetailPayPal;
 import vn.thegioidochoi.model.order_product.PaymentServices;
@@ -11,18 +14,34 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.Charset;
+import java.util.List;
 
 @WebServlet(name = "AuthorizePaymentServlet", value = "/authorize_payment")
 public class AuthorizePaymentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("Dang vao authorize_paymenttttttttttttttttt");
+        PaymentServices paymentServices = new PaymentServices();
+        if(request.getParameter("paymentId") !=null){
+            String paymentId = request.getParameter("paymentId");
+            String PayerID = request.getParameter("PayerID");
+            try {
+                Payment payment = paymentServices.executePayment(paymentId, PayerID);
+                request.setAttribute("type","suc");
+                response.sendRedirect("http://localhost:8082/order-handle");
+            } catch (PayPalRESTException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
+        PaymentServices paymentServices = new PaymentServices();
 //        OrderDetailPayPal orderDetail = new OrderDetailPayPal(product, subtotal, shipping, tax, total);
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
@@ -40,9 +59,9 @@ public class AuthorizePaymentServlet extends HttpServlet {
         }
 
         try {
-            PaymentServices paymentServices = new PaymentServices();
-            String approvalLink = paymentServices.authorizePayment(orderDetail, name, province, district, detail_address,email);
 
+            String approvalLink = paymentServices.authorizePayment(orderDetail, name, province, district, detail_address,email);
+            System.out.println(approvalLink);
             response.sendRedirect(approvalLink);
 
         } catch (PayPalRESTException ex) {

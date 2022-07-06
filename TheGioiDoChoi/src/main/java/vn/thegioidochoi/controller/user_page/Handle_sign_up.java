@@ -24,7 +24,7 @@ public class Handle_sign_up extends HttpServlet {
         request.setAttribute("page_menu","login");
         request.setAttribute("title","Đăng kí");
         int user_role = 1;
-        if(request.getParameter("sign_up_vendor") != null){
+        if(request.getParameter("vendor-sign-up") != null){
             user_role = 2;
         }
         if(request.getParameter("confirm") !=null){
@@ -32,7 +32,6 @@ public class Handle_sign_up extends HttpServlet {
             String code = request.getParameter("code").trim();
             EmailConfirm emailConfirm= LoadUser.loadEmailConfirm(email_confirm);
             if(emailConfirm != null) {
-
                 if (System.currentTimeMillis() - emailConfirm.getTime_created() > 1000*60*5) {
                     request.setAttribute("status", 2);
                     request.setAttribute("message", "Mã xác nhận đã hết hạn, vui lòng đăng ký lại");
@@ -45,10 +44,12 @@ public class Handle_sign_up extends HttpServlet {
                     if (status) {
                         if(user_role==1) {
                             request.setAttribute("status", 2);
-                            request.setAttribute("status_content", "Đăng kí tài khoản thành công, vui lòng đăng nhập");
+                            request.setAttribute("status_content", "Đăng ký tài khoản thành công, vui lòng đăng nhập");
                             request.getRequestDispatcher("user_page/Login.jsp").forward(request, response);
                         }else{
                             User user = LoadUser.loadAUserByEmail(email_confirm);
+                            request.setAttribute("status", 2);
+                            request.setAttribute("status_content", "Đăng ký tài khoản thành công, vui lòng đăng ký thông tin cửa hàng");
                             request.setAttribute("user_id", user.getId());
                             request.getRequestDispatcher("user_page/vendor-sign-up.jsp").forward(request, response);
                         }
@@ -69,6 +70,8 @@ public class Handle_sign_up extends HttpServlet {
         if(request.getParameter("name")==null){
             request.setAttribute("status",1);
             request.setAttribute("status_content","");
+            if(request.getParameter("vendor-sign-up") !=null)
+                request.setAttribute("vendor_sign_up",true);
             request.getRequestDispatcher("user_page/sign-up.jsp").forward(request,response);
             return;
         }
@@ -101,6 +104,9 @@ public class Handle_sign_up extends HttpServlet {
                     "Thegioidochoi";
             Mail.sendMail(content,"Xác nhận email",email);
             request.setAttribute("email",email);
+            if(user_role ==2){
+                request.setAttribute("vendor_sign_up",true);
+            }
             request.setAttribute("status",3);
             request.getRequestDispatcher("user_page/sign-up.jsp").forward(request,response);
         }else{

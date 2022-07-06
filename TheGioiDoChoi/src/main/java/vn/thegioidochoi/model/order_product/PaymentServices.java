@@ -65,7 +65,7 @@ public class PaymentServices {
     private RedirectUrls getRedirectURLs() {
         RedirectUrls redirectUrls = new RedirectUrls();
         redirectUrls.setCancelUrl("http://localhost:8082/CancelPayPal_direct");
-        redirectUrls.setReturnUrl("http://localhost:8082/review_payment");
+        redirectUrls.setReturnUrl("http://localhost:8082/authorize_payment");
 
         return redirectUrls;
     }

@@ -32,7 +32,16 @@ public class Handle_vendor_register extends HttpServlet {
         request.setAttribute("title","Thông tin cửa hàng");
 
 
+
         Iterator<FileItem> i = Util.uploadFile(request,response);
+
+        //Xu li chuyen vao dang ky vendor
+        if(i==null){
+            request.setAttribute("status",1);
+            request.setAttribute("status_content","");
+            request.getRequestDispatcher("user_page/vendor-sign-up.jsp").forward(request,response);
+            return;
+        }
 
         FileItem fiImg=null;
         Map<String,String> pair = new HashMap<String,String>();
@@ -74,7 +83,12 @@ public class Handle_vendor_register extends HttpServlet {
         String name = pair.get("name");
         String slug = Util.generateSlug(name);
         long phone = Long.parseLong(pair.get("phone"));
-        int supplier_id = Integer.parseInt(pair.get("supplier_id"));
+
+        HttpSession session = request.getSession();
+        int user_id = 0;
+       if(session.getAttribute("user_id") !=null){
+           user_id = (int)session.getAttribute("user_id");
+       }else user_id = Integer.parseInt(pair.get("user_id"));
         String email = pair.get("email");
         String city = pair.get("city");
         String district = pair.get("district");
@@ -117,15 +131,15 @@ public class Handle_vendor_register extends HttpServlet {
 //            if (urlImg != null)
 //                img = urlImg;
         }
-        HttpSession session = request.getSession();
-        Supplier supplier = new Supplier(name,thumbnail, address,String.valueOf(phone), email, description,10,supplier_id, company_name,website,Util.generateSlug(name));
+
+        Supplier supplier = new Supplier(name,thumbnail, address,String.valueOf(phone), email, description,10,user_id, company_name,website,Util.generateSlug(name));
         boolean status = Load_Supplier.insertSupplier(supplier);
 
         if(status) {
             request.setAttribute("page_menu", "login");
             request.setAttribute("title", "Đăng nhập");
             request.setAttribute("status",2);
-            request.setAttribute("status_content","Đăng ký thành công");
+            request.setAttribute("status_content","Đăng ký thành công, vui lòng đăng nhập");
             request.getRequestDispatcher("user_page/Login.jsp").forward(request,response);
             return;
         }else{

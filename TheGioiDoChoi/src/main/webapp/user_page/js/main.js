@@ -788,10 +788,11 @@ function getChecked(checked) {
 }
 var imagesPreview = function(input, placeToInsertImagePreview) {
     $(placeToInsertImagePreview).children().remove();
+    console.log(input);
     if (input.files) {
         var filesAmount = input.files.length;
 
-        for (i = 0; i < filesAmount; i++) {
+        for (let i = 0; i < filesAmount; i++) {
             var reader = new FileReader();
 
             reader.onload = function(event) {

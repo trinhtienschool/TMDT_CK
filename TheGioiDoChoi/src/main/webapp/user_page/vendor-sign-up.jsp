@@ -25,26 +25,26 @@
 <%System.out.println("co vao day nua ne________________");%>
 <jsp:include page="Menu.jsp"></jsp:include>
 
-<section class="sign-in spad">
+<section class="sign-in spad" style="height: 1000px;">
     <div class="container">
         <div class="row sign__in sign__up">
             <div class="col-lg">
                 <div class="sign__in__form sign__up__form">
-                    <form action="handle-sign-up" id="formPass" method="post">
+                    <form action="vendor-handle-sign-up"  method="post" enctype="multipart/form-data">
 <%--                        <button><a href="handle-login?login=user" class="btn-dn">ĐĂNG NHẬP</a></button>--%>
                         <button><a class="btn-dk">THÔNG TIN CỬA HÀNG</a></button>
                         <br>
 
-
+                        <input type="text" name="user_id" value="${user_id}" style="display: none">
                         <input type="text" name="name" id="fname" placeholder="Tên nhà cung cấp (*)"
                                required><br>
-                        <input class="form-control thumbnail-img img-field" type="file" name="thumbnail-img"
+                        <input style=" margin-left: 20px; background: white; padding-left: 0px; padding-top: 5px;" class="form-control thumbnail-img img-field" type="file" name="thumbnail-img"
                                accept=".png, .jpg, .jpeg" required>
-                        <div class="gallery-thumbnail-img"></div>
+                        <div style="text-align: left; margin-left: 20px;" class="gallery-thumbnail-img"></div>
                         <input type="number" name="phone" id="phone" placeholder="Điện Thoại (*)" required><br>
 <%--    <input type="" name="website" id="website" placeholder="Website (*)" required>
                    --%>
-    <textarea style="height: 100px;" class="form-control" type="text"
+    <textarea style="height: 100px; margin-left: 20px; background: white;" class="form-control" type="text"
               name="description" required></textarea>
     <input type="email" name="email" id="mail" placeholder="Email (*)" required><br>
                         <select name="city" id="city" required>

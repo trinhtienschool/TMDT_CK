@@ -1,6 +1,7 @@
 package vn.thegioidochoi.model.supplier;
 
 import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.order.Load_Order;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,7 +39,7 @@ public class Load_Supplier {
         return supplierList;
     }
 
-    public static int sumOfSupplier(String sql){
+    public static int sumOf(String sql){
         int sum = 0;
         try {
             Statement statement = DBCPDataSource.getStatement();
@@ -225,9 +226,8 @@ public class Load_Supplier {
     }
     public static List<Supplier> loadTopSupplierWithOderTable(int nos){
         List<Supplier>suppliers = new ArrayList<Supplier>();
-        String sql = "select r.supplier_id, s.name, s.logo, s.company_name,s.slug, sum(r.total_price) as total\n" +
-                "from `order` r JOIN supplier s on r.supplier_id = s.id\n" +
-                "GROUP BY r.supplier_id, s.logo, s.company_name\n" +
+        String sql = "select r.supplier_id, s.name, s.logo, s.company_name,s.slug, sum(r.total_price*(100-s.commission_rate)/100) as total \n" +
+                "from `order` r JOIN supplier s on r.supplier_id = s.id where month(r.date_created) = month(curdate() - interval 1 month) and year(r.date_created)= year(curdate()) GROUP BY r.supplier_id, s.logo, s.company_name\n" +
                 "ORDER BY total DESC\n" +
                 "LIMIT "+nos;
         try{
@@ -253,6 +253,26 @@ public class Load_Supplier {
             throwables.printStackTrace();
         }
         return null;
+    }
+    public static int loadSupplierIdWithUserId(int user_id){
+        String sql = "select id from supplier where user_id = ?";
+        int supplier_id = 0;
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1,user_id);
+            synchronized (preparedStatement){
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()){
+                    supplier_id = resultSet.getInt(1);
+                }
+                resultSet.close();
+            }
+            preparedStatement.close();
+            return supplier_id;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return 0;
     }
     public static Supplier loadSupplier(String slug){
         try {
@@ -365,13 +385,17 @@ public class Load_Supplier {
         return null;
     }
     public static void main(String[] args) {
-//        for(Supplier s: loadSupplier_view()){
-//            System.out.println(s.getName());
-//        }
+        List<Supplier> suppliers = loadTopSupplierWithOderTable(3);
+//        for()
+        for(Supplier s: suppliers){
+            System.out.println(s);
+        }
 //        System.out.println(sumOfSupplier("select count(id) from supplier"));
 //        System.out.println(insertSupplier("Trần Thị Lan","152/63 Lý Chính Thắng P.7 Q.3",87979,"yuknp22@gmail.com"));
 //        System.out.println(updateSupplier(302,"Trần Thị Lan","152/63 Lý Chính Thắng P.7 Q.3",8797955,"yuknp22@gmail.com"));
 //        System.out.println(loadSupplier(302).getAddress());
 //        System.out.println(loadTopSupplierWithOderTable(3));
     }
+
+
 }

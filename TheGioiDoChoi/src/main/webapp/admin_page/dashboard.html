@@ -17,10 +17,13 @@
 	 
 	<!-- Animate CSS -->
 	<link rel="stylesheet" href="assets/css/animate.min.css">
-
+	<link rel="stylesheet" href="assets/css/select2.min.css">
+	<link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css">
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="assets/css/admin.css">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 </head>
 
 <body>
@@ -322,13 +325,123 @@
 			<div class="row" style="margin: 0 !important;">
 				<div class="col-md-8">
 					<!-- Recent Bookings -->
-					<div class="card card-table flex-fill">
-						<div class="card-header">
-							<h4 class="card-title">Doanh thu</h4>
+					<div class="card card-table flex-fill ">
+						<div class="card-header ">
+							<h4 class="card-title ">Doanh thu</h4>
 						</div>
+							<div class="m-2">
+								<form action="#" method="post">
+									<div class="row">
+
+										<!-- Thay đổi theo danh sách đề mục -->
+										<div class="col-sm-6 col-md-3">
+												<select class="form-control select">
+													<option>Tuần này</option>
+													<option>Tháng này</option>
+													<option>Quý này</option>
+													<option>Năm này (xem theo quý)</option>
+													<option>Năm này (xem theo tháng)</option>
+												</select>
+										</div>
+										<div class="col-sm-6 col-md-3">
+												<div class="cal-icon">
+													<input class="form-control datetimepicker" type="text" placeholder="Từ">
+												</div>
+										</div>
+										<div class="col-sm-6 col-md-3">
+												<div class="cal-icon">
+													<input class="form-control datetimepicker" type="text" placeholder="Đến">
+												</div>
+										</div>
+										<div class="col-sm-6 col-md-3">
+												<button class="btn btn-primary btn-block" type="submit">Chọn</button>
+										</div>
+									</div>
+								</form>
+							</div>
+
+						<!-- Page Header -->
+<!--						<div class="page-header">-->
+<!--							<div class="row">-->
+<!--								<div class="col">-->
+<!--									<h3 class="page-title">Sản phẩm</h3>-->
+<!--								</div>-->
+<!--								<div class="col-auto text-right">-->
+<!--									<a class="btn btn-white filter-btn" href="javascript:void(0);" id="filter_search">-->
+<!--										<i class="fas fa-filter"></i>-->
+<!--									</a>-->
+<!--									<a href="add-product.html" class="btn btn-primary add-button ml-3">-->
+<!--										<i class="fas fa-plus"></i>-->
+<!--									</a>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						 /Page Header-->
+
+<!--						 Search Filter-->
+<!--						<div class="card filter-card" id="filter_inputs">-->
+<!--							<div class="card-body pb-0">-->
+<!--								<form action="#" method="post">-->
+<!--									<div class="row filter-row">-->
+
+<!--										&lt;!&ndash; thay đổi ở đây ************************ &ndash;&gt;-->
+<!--										<div class="col-sm-6 col-md-3">-->
+<!--											<div class="form-group">-->
+<!--												<label>Mã sản phẩm</label>-->
+<!--												<input class="form-control" type="text">-->
+<!--											</div>-->
+<!--										</div>-->
+<!--										<div class="col-sm-6 col-md-3">-->
+<!--											<div class="form-group">-->
+<!--												<label>Tên sản phẩm</label>-->
+<!--												<input class="form-control" type="text">-->
+<!--											</div>-->
+<!--										</div>-->
+<!--										&lt;!&ndash; Thay đổi theo danh sách đề mục &ndash;&gt;-->
+<!--										<div class="col-sm-6 col-md-3">-->
+<!--											<div class="form-group">-->
+<!--												<label>Category</label>-->
+<!--												<select class="form-control select">-->
+<!--													<option>Chọn Danh Mục</option>-->
+<!--													<option>Cây để bàn</option>-->
+<!--													<option>Cây dây leo</option>-->
+<!--													<option>Cây tết</option>-->
+<!--													<option>Cây thủy sinh</option>-->
+<!--													<option>Cây trong nhà</option>-->
+<!--													<option>Cây ngoài vườn</option>-->
+<!--												</select>-->
+<!--											</div>-->
+<!--										</div>-->
+<!--										<div class="col-sm-6 col-md-3">-->
+<!--											<div class="form-group">-->
+<!--												<label>Từ Ngày</label>-->
+<!--												<div class="cal-icon">-->
+<!--													<input class="form-control datetimepicker" type="text">-->
+<!--												</div>-->
+<!--											</div>-->
+<!--										</div>-->
+<!--										<div class="col-sm-6 col-md-3">-->
+<!--											<div class="form-group">-->
+<!--												<label>Đến Ngày</label>-->
+<!--												<div class="cal-icon">-->
+<!--													<input class="form-control datetimepicker" type="text">-->
+<!--												</div>-->
+<!--											</div>-->
+<!--										</div>-->
+<!--										<div class="col-sm-6 col-md-3">-->
+<!--											<div class="form-group">-->
+<!--												<button class="btn btn-primary btn-block" type="submit">Chọn</button>-->
+<!--											</div>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</form>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						 /Search Filter -->
+
 						<div class="card-body">
 							<!--								style="width:100%;max-width:700px"-->
-							<canvas data-revenue="[3,2,4,25,9,34,64]" id="revenue" ></canvas>
+							<canvas  data-revenue="[3,2,4,25,9,34,64]" data-labels="['Thu 2','Thu 3','Thu 4','Thu 5', 'Thu 6','Thu 7','Chu nhat']" id="revenue" ></canvas>
 						</div>
 					</div>
 					<!-- /Recent Bookings -->
@@ -339,8 +452,17 @@
 						<div class="card-header">
 							<h4 class="card-title">Trạng thái đơn hàng</h4>
 						</div>
+						<div class="m-2">
+							<select class="form-control select">
+								<option>Tuần này</option>
+								<option>Tháng này</option>
+								<option>Quý này</option>
+								<option>Năm này (xem theo quý)</option>
+								<option>Năm này (xem theo tháng)</option>
+							</select>
+						</div>
 						<div class="card-body">
-							<canvas id="order-status"></canvas>
+							<canvas  data-revenue="[3,2,4,25,9,34,64]" data-labels="['Thu 2','Thu 3','Thu 4','Thu 5', 'Thu 6','Thu 7','Chu nhat']" id="order-status"></canvas>
 						</div>
 					</div>
 					<!-- /Recent Bookings -->
@@ -449,77 +571,100 @@
 	<!-- Bootstrap Core JS -->
 	<script src="assets/js/popper.min.js"></script>
 	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-
+	<script src="assets/js/select2.min.js"></script>
+	<script src="assets/js/moment.min.js"></script>
+	<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
 	<!-- Custom JS -->
 	<script src="assets/js/admin.js"></script>
-	<script>
-		let cavasEle = $("#revenue");
-		let total_price = cavasEle.data('revenue');
-		console.log((total_price))
-		const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+	<script src="assets/js/chartconfig.js"></script>
+<!--	<script>-->
+<!--		let cavasEle = $("#revenue");-->
+<!--		let total_price = cavasEle.data('revenue');-->
+<!--		console.log((total_price))-->
+<!--		const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];-->
 
-		const d = new Date();
-		let day_arr = []
-		for(let i = 1;i<=7;i++){
-			let date_before = new Date(d.getTime() - (i * 24 * 60 * 60 * 1000));
-			day_arr.push(weekday[date_before.getDay()])
-		}
+<!--		const d = new Date();-->
+<!--		let day_arr = []-->
+<!--		for(let i = 1;i<=7;i++){-->
+<!--			let date_before = new Date(d.getTime() - (i * 24 * 60 * 60 * 1000));-->
+<!--			day_arr.push(weekday[date_before.getDay()])-->
+<!--		}-->
 
 
 
 
-		const data_revenue = {
-			labels: day_arr,
-			datasets: [
-				{
-					label: 'Doanh thu (1000đ)',
-					data: total_price,
-					borderColor: 'rgb(127, 173, 57)',
-					backgroundColor: 'rgba(127,173,57,0.46)',
-					fill : 'start',
-					tension: 0.3
-				}
-			]
-		};
-		const data_order_status = {
-			labels: [
-				'Đang giao',
-				'Đã xác nhận',
-				'Đã hủy'
-			],
-			datasets: [{
-				label: 'Trạng thái',
-				data: [300, 50, 100],
-				backgroundColor: [
-					'rgb(255, 99, 132)',
-					'rgb(54, 162, 235)',
-					'rgb(255, 205, 86)'
-				],
-				hoverOffset: 4
-			}]
-		};
-		const config_order_status = {
-			type: 'doughnut',
-			data: data_order_status,
-		};
-		const config_revenue = {
-			type: 'line',
-			data: data_revenue,
-			options: {}
-		};
-	</script>
-	<script>
-		let revenue_chart = new Chart(
-				document.getElementById('revenue'),
-				config_revenue
-		);
-		revenue_chart.destroy()
-		let order_status_chart = new Chart(
-				document.getElementById('order-status'),
-				config_order_status
-		);
-		order_status_chart.destroy()
-	</script>
+<!--		const data_revenue = {-->
+<!--			labels: day_arr,-->
+<!--			datasets: [-->
+<!--				{-->
+<!--					label: 'Doanh thu (1000đ)',-->
+<!--					data: total_price,-->
+<!--					borderColor: 'rgb(127, 173, 57)',-->
+<!--					backgroundColor: 'rgba(127,173,57,0.46)',-->
+<!--					fill : 'start',-->
+<!--					tension: 0.3-->
+<!--				}-->
+<!--			]-->
+<!--		};-->
+<!--		const data_order_status = {-->
+<!--			labels: [-->
+<!--				'Đang rồi',-->
+<!--				'Đã xác nhận',-->
+<!--				'Đã hủy',-->
+<!--					'Đã nhận',-->
+<!--					'Đã thanh toán'-->
+<!--			],-->
+<!--			datasets: [{-->
+<!--				label: 'Trạng thái',-->
+<!--				data: [2, 2, 53,45,23],-->
+<!--				backgroundColor: [-->
+<!--					'rgb(255, 99, 132)',-->
+<!--					'rgb(54, 162, 235)',-->
+<!--					'rgb(255, 205, 86)',-->
+<!--					'rgb(0,245,131)',-->
+<!--					'rgb(33,225,0)',-->
+
+<!--				],-->
+<!--				// hoverOffset: 4-->
+<!--			}]-->
+<!--		};-->
+<!--		const config_order_status = {-->
+<!--			type: 'doughnut',-->
+<!--			data: data_order_status,-->
+<!--		};-->
+<!--		const config_revenue = {-->
+<!--			type: 'line',-->
+<!--			data: data_revenue,-->
+<!--			// options: {-->
+<!--			// 	scales: {-->
+<!--			// 		y: [{-->
+<!--			// 			title: {-->
+<!--			// 				display: true,-->
+<!--			// 				text: 'Y Tieu de'-->
+<!--			// 			}-->
+<!--			// 		}],-->
+<!--			// 		x: [{-->
+<!--			// 			title: {-->
+<!--			// 				display: true,-->
+<!--			// 				text: 'X Tieu de'-->
+<!--			// 			}-->
+<!--			// 		}]-->
+<!--			// 	}-->
+<!--			// }-->
+<!--		};-->
+<!--	</script>-->
+<!--	<script>-->
+<!--		let revenue_chart = new Chart(-->
+<!--				document.getElementById('revenue'),-->
+<!--				config_revenue-->
+<!--		);-->
+<!--		revenue_chart.destroy()-->
+<!--		let order_status_chart = new Chart(-->
+<!--				document.getElementById('order-status'),-->
+<!--				config_order_status-->
+<!--		);-->
+<!--		order_status_chart.destroy()-->
+<!--	</script>-->
 
 </body>
 

@@ -224,7 +224,7 @@ public class LoadUser {
        return null;
     }
     // Dem co bao nhieu user
-    public static int sumOfUser(String sql){
+    public static int loadSumOfUser(String sql){
         int sum = 0;
         try {
             Statement statement = DBCPDataSource.getStatement();
