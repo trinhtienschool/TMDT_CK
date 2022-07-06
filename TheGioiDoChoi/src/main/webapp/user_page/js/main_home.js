@@ -505,6 +505,10 @@
     }
 
     function productLightbox() {
+        console.log("ps-product__galleryyyyyyyyyyyyyyyyyyy");
+        console.log($('.ps-product__gallery').length==0);
+        if($('.ps-product__gallery').length==0) return;
+        console.log("có vào ps-product__galleryyyyyyyyyyyyyyyyyyy");
         var product = $('.ps-product--detail');
         if (product.length > 0) {
             $('.ps-product__gallery').lightGallery({

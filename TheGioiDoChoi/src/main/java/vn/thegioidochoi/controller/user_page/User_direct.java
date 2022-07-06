@@ -72,6 +72,7 @@ public class User_direct extends HttpServlet {
             session.setAttribute("user_id", user.getId());
             session.setAttribute("user_email",user.getEmail());
             session.setAttribute("user_avatar",user.getAvatar());
+            session.setAttribute("user_about", user.getAbout());
             getDetailAddress(user.getAddress(), session);
             // Ma giam gia
             List<CouponCode> couponCodes = Coupon_Con_DB.loadCouponCodeByUserId(user.getId());

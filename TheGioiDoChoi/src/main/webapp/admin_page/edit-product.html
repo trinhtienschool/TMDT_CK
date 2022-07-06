@@ -346,21 +346,7 @@
                                         <!-- Thay đổi code ở đây Thay đổi theo file word -->
                                         <!-- Form -->
 								<form action="categories.html">
-									
 									<div class="form-group">
-										<label>Ảnh</label>
-										<input class="form-control" type="file">
-									</div>
-									<div class="form-group">
-										<div class="avatar">
-											<img class="avatar-img rounded" alt="" src="assets/img/categories/cay-de-ban.jpg">
-										</div>
-                                    </div>
-                                    <div class="form-group">
-										<label>Tên sản phẩm</label>
-										<input class="form-control" type="text" value="Sen đá mini kèm chậu">
-                                    </div>
-									<div class="container">
 										<div class="row">
 											<form class="col-md-4">
 												<label>Select</label>
@@ -371,23 +357,62 @@
 													<option>Scooter</option>
 													<option>Cycle</option>
 													<option>Horse</option>
+													<optgroup label="Swedish Cars">
+														<option value="volvo">Volvo</option>
+														<option value="saab">Saab</option>
+													  </optgroup>
+													  <optgroup label="German Cars">
+														<option value="mercedes">Mercedes</option>
+														<option value="audi">Audi</option>
+													  </optgroup>
 												</select>
 											</form>
 										</div>
 									</div>
+									<div class="form-group">
+										<label>Ảnh</label>
+										<input class="form-control gallery-photo-add" type="file" multiple  accept="image/*" >
+									</div>
+
+									<div class="gallery"></div>
+									<div class="form-group">
+										<div class="avatar">
+											<img class="avatar-img rounded" alt="" src="assets/img/categories/cay-de-ban.jpg">
+										</div>
+                                    </div>
+                                    <div class="form-group">
+										<label>Tên sản phẩm</label>
+										<input class="form-control" type="text" value="Sen đá mini kèm chậu">
+                                    </div>
+
                                     <div class="form-group">
 										<label>Danh mục</label>
 										<input class="form-control" type="text" value="Cây để bàn">
                                     </div>
                                     <div class="form-group">
-										<label>Giá khuyến mãi</label>
-										<input class="form-control" type="text" value="50.000VNĐ">
+										<label>Giá </label>
+										<input class="form-control price" type="text" data-type="currency" value="505623">
                                     </div>
+									<div class="status-toggle">
+										<label>Có khuyến mãi không</label>
+										<input id="is_sale" class="check" type="checkbox" name="is_sale" value="true">
+										<label for="is_sale" class="checktoggle">checkbox</label>
+									</div>
+									<div class="form-group">
+										<label>Phần trăm khuyến mãi</label>
+										<input class="form-control percent-sale"  type="number"  value="505623">
+									</div>
+									<div class="sale-zone">
+									<div class="form-group">
+										<label>Giá khuyến mãi</label>
+										<input class="form-control price-sale" data-type="currency" type="text"  value="505623">
+									</div>
                                     <div class="status-toggle">
                                         <label>Có khuyến mãi không</label>
                                         <input id="rating_1" class="check" type="checkbox" checked>
                                         <label for="rating_1" class="checktoggle">checkbox</label>
                                     </div>
+									</div>
                                     <div class="form-group">
 										<label>Số lượng</label>
 										<input class="form-control" type="text" value="10">
@@ -448,6 +473,7 @@
 										<button class="btn btn-primary" type="submit">Lưu thay đổi</button>
 										<a href="categories.html" class="btn btn-link">Hủy</a>
 									</div>
+
 								</form>
 								<!-- /Form -->
                                         <!-- Thêm vào nội dung ở đây -->
@@ -475,9 +501,15 @@
 	<script src="assets/js/select2.min.js"></script>
 
 	<!-- Custom JS -->
+	<script src="assets/js/currency.js"></script>
 	<script src="assets/js/admin.js"></script>
 	<script>
 		$('.select2').select2();
+		
+		
+
+
+		
 	</script>
 
 </body>

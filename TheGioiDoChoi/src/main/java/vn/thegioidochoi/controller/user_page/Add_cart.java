@@ -25,25 +25,30 @@ public class Add_cart extends HttpServlet {
         //neu action = sub
         int product_id = Integer.parseInt(request.getParameter("id"));
         String action = request.getParameter("action");
-        if (session.getAttribute("user_id") != null) {
-            int user_id = (int)session.getAttribute("user_id");
-            if (action.equalsIgnoreCase("add"))
-                cart.addProduct(product_id,user_id);
-            else if (action.equalsIgnoreCase("sub"))
-                cart.subProduct(product_id,user_id);
-            else if(action.equalsIgnoreCase("del"))
-                cart.deleteProduct(product_id,user_id);
-        }else{
-            if(action.equalsIgnoreCase("add")) {
-                System.out.println(cart);
-                cart.addProduct(product_id);
-                System.out.println(session.getAttribute("cart"));
-            }
-            else if(action.equalsIgnoreCase("sub"))
-                cart.subProduct(product_id);
-            else if(action.equalsIgnoreCase("del"))
-                cart.deleteProduct(product_id);
+        int quantity = 1;
+        if(request.getParameter("quantity") !=null){
+            quantity = Integer.parseInt(request.getParameter("quantity"));
+        }
+        for(int i=0;i<quantity;i++) {
+            if (session.getAttribute("user_id") != null) {
+                int user_id = (int) session.getAttribute("user_id");
+                if (action.equalsIgnoreCase("add"))
+                    cart.addProduct(product_id, user_id);
+                else if (action.equalsIgnoreCase("sub"))
+                    cart.subProduct(product_id, user_id);
+                else if (action.equalsIgnoreCase("del"))
+                    cart.deleteProduct(product_id, user_id);
+            } else {
+                if (action.equalsIgnoreCase("add")) {
+                    System.out.println(cart);
+                    cart.addProduct(product_id);
+                    System.out.println(session.getAttribute("cart"));
+                } else if (action.equalsIgnoreCase("sub"))
+                    cart.subProduct(product_id);
+                else if (action.equalsIgnoreCase("del"))
+                    cart.deleteProduct(product_id);
 //            session.setAttribute("cart",cart);
+            }
         }
         String currentPage = request.getParameter("current-page");
         double position = 0;

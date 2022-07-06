@@ -195,8 +195,11 @@
                                     <div class="row">
                                         <label class="col-md-3 control-label"> Mật khẩu cũ: </label>
                                         <div class="col-lg-6 col-md-9">
-                                            <input type="password"  name="passwd-old" id="passwd-old"
-                                                   class="validate[required,minSize[4],maxSize[32]] form-control input-sm">
+                                            <div class="passwd-wrapper">
+                                                <input type="password" name="passwd-old" id="passwd-old"
+                                               class="form-control input-sm passwd">
+                                                <div style="top: 20px; right: 30px;" class="show-passwd"><i class="fa fa-eye d-block"></i> <i class="fa fa-eye-slash d-none"></i></div>
+                                            </div>
                                             <label id="mk-old-notice" class="invisible notice">Trường này không được trống</label>
                                         </div>
                                     </div>
@@ -205,8 +208,11 @@
                                     <div class="row">
                                         <label class="col-md-3 control-label"> Mật khẩu mới: </label>
                                         <div class="col-lg-6 col-md-9">
-                                            <input type="password" id="passwd" name="passwd"
-                                                   class="validate[required,minSize[4],maxSize[32]] form-control input-sm">
+                                            <div class="passwd-wrapper">
+                                                 <input type="password" id="passwd" name="passwd"
+                                                   class="form-control input-sm passwd">
+                                                <div style="top: 20px; right: 30px;" class="show-passwd"><i class="fa fa-eye d-block"></i> <i class="fa fa-eye-slash d-none"></i></div>
+                                            </div>
                                             <label id="mk-notice" class="invisible notice">Mật khẩu phải dài từ 8 - 25
                                                 kí tự và phải chứa cả số và chữ in hoa</label>
                                         </div>
@@ -216,8 +222,11 @@
                                     <div class="row">
                                         <label class="col-md-3 control-label"> Xác nhận mật khẩu: </label>
                                         <div class="col-lg-6 col-md-9">
-                                            <input type="password" id="pass-again" name="pass-again"
-                                                   class="validate[required,minSize[4],maxSize[32]] form-control input-sm">
+                                            <div class="passwd-wrapper">
+                                                <input type="password" id="pass-again" name="pass-again"
+                                                       class="form-control input-sm passwd">
+                                                <div style="top: 20px; right: 30px;" class="show-passwd"><i class="fa fa-eye d-block"></i> <i class="fa fa-eye-slash d-none"></i></div>
+                                        </div>
                                             <label id="mka-notice" class="invisible notice">Mật khẩu phải trùng khớp với
                                                 mật khẩu mới đã nhập</label>
                                         </div>

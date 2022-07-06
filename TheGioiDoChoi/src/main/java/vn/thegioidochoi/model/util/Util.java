@@ -1,18 +1,24 @@
 package vn.thegioidochoi.model.util;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.json.JSONObject;
 import vn.thegioidochoi.model.header_footer.Category;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
 import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class Util {
     public static String getUrlProjectPath(){
@@ -60,22 +66,20 @@ public class Util {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(date);
     }
-
-    public static String generateSlug(String input) throws UnsupportedEncodingException {
-        input = input.replaceAll("đ","d");
-        String convertedString =
-                Normalizer
-                        .normalize(input, Normalizer.Form.NFD)
-                        .replaceAll("[^\\p{ASCII}]", "").replaceAll(" ", "-");
-
-//        String s1 = Normalizer.normalize(input, Normalizer.Form.NFKD);
-//        String regex = "[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+";
-//
-//        String s2 = new String(s1.replaceAll(regex, "").getBytes("ascii"), "ascii");
-//        return s2.replaceAll(" ","-");
-
-
-        return convertedString.toLowerCase();
+    public static String toKhongDau(String str) {
+        try {
+            String temp = Normalizer.normalize(str, Normalizer.Form.NFD);
+            Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+            return pattern.matcher(temp).replaceAll("").toLowerCase().replaceAll(" ", "-").replaceAll("đ", "d");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "";
+    }
+    public static String generateSlug(String input){
+        String khongDau = toKhongDau(input);
+        khongDau +="-"+System.nanoTime();
+        return khongDau.toLowerCase();
     }
     public static String revertDate(String date){
         String day = date.substring(0,date.indexOf("-"));
@@ -85,8 +89,8 @@ public class Util {
     }
 
     public static Iterator<FileItem> uploadFile(HttpServletRequest request, HttpServletResponse response) {
-        int maxMemSize = 1024 * 1024;//1MB
-        int maxFileSize = 1024 * 1024;
+        int maxMemSize = 1024 * 1024*1024;//1MB
+//        int maxFileSize = 1024 * 1024;
         List<String> imgUrls = new ArrayList<String>();
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         if (!isMultipart) {
@@ -105,7 +109,9 @@ public class Util {
         ServletFileUpload upload = new ServletFileUpload(factory);
 
         // maximum file size to be uploaded.
-        upload.setSizeMax(maxFileSize);
+//        upload.setSizeMax(maxFileSize);
+        String applicationPath = request.getServletContext().getRealPath("");
+        System.out.println("application pathhhhhhhhhhhhhhhhhhhhhh: "+applicationPath);
         Iterator<FileItem> i = null;
         try {
             // Parse the request to get file items.
@@ -169,6 +175,24 @@ public class Util {
         }
         return url;
     }
+    public static double convertCurrentVNDtoUSD(double vnd) throws IOException {
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        Request request = new Request.Builder()
+                .url("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/vnd.json")
+                .method("GET", null)
+                .build();
+        Response response = client.newCall(request).execute();
+        JSONObject jsonObject = new JSONObject(response.body().string());
+        double exchangeRate = jsonObject.getJSONObject("vnd").getDouble("usd");
+        double round = (double) Math.ceil(vnd*exchangeRate * 100) / 100;
+        return round;
+    }
+    public static String formatNumber(double number){
+        DecimalFormat  formatter = (DecimalFormat) NumberFormat.getNumberInstance(Locale.US);
+        String pattern = "###,###.##";
+        formatter.applyPattern(pattern);
+        return formatter.format(number);
+    }
 
     public static String getUrlFileFromUpload(FileItem fi, String name, String url) throws IOException {
         File file;
@@ -199,18 +223,24 @@ public class Util {
         //write to project location
 
 
-        File filePathProject = new File("D:\\School\\Codes\\TMDT_CK_Project\\TheGioiDoChoi\\src\\main\\webapp\\imgs\\user\\"+fileNameSave);
+
+        File filePathProject = new File("D:\\School\\Codes\\TMDT_CK_Project\\TheGioiDoChoi\\src\\main\\webapp\\"+url+"\\"+fileNameSave);
         System.out.println(filePathProject.getCanonicalPath());
+
         try {
             fi.write(file);
-            fi.write(filePathProject);
+//            fi.write(filePathProject);
         } catch (Exception e) {
             e.printStackTrace();
         }
 //                    out.println("Uploaded Filename: " + fileName + "<br>");
         return url + "/" + fileNameSave;
     }
-
+    public static boolean deleteFile(String url){
+        File file_server = new File("..\\webapps\\ROOT/" + url );
+        File filePathProject = new File("D:\\School\\Codes\\TMDT_CK_Project\\TheGioiDoChoi\\src\\main\\webapp\\"+url);
+        return file_server.delete() && filePathProject.delete();
+    }
 
     public static boolean hasMoreParameter(HttpServletRequest request) {
         Enumeration<String> parameterNames = request.getParameterNames();

@@ -3,6 +3,8 @@ package vn.thegioidochoi.controller.admin_page;
 import org.apache.commons.fileupload.FileItem;
 import vn.thegioidochoi.model.Product.Product;
 import vn.thegioidochoi.model.Product.ProductEntity;
+import vn.thegioidochoi.model.supplier.Load_Supplier;
+import vn.thegioidochoi.model.supplier.Supplier;
 import vn.thegioidochoi.model.util.Util;
 
 import javax.servlet.ServletException;
@@ -23,11 +25,14 @@ public class Add_product_direct extends HttpServlet {
 
         request.setAttribute("current_page","product");
         String type = request.getParameter("type");
+        List<Supplier> suppliers = Load_Supplier.loadSupplier_view();
+        request.setAttribute("suppliers",suppliers);
         if(type !=null) {
             if (type.equalsIgnoreCase("enterAdd")) {
                 request.setAttribute("type", "add");
                 request.setAttribute("title", "Thêm sản phẩm");
                 System.out.println("Co vo enterAdd");
+
                 request.getRequestDispatcher("add-product.jsp").forward(request, response);
                 System.out.println("Da qua khoi qua trinh chuyen trang ****");
                 return;
@@ -36,6 +41,7 @@ public class Add_product_direct extends HttpServlet {
                 request.setAttribute("title", "Chỉnh sửa sản phẩm");
                 int id = Integer.parseInt(request.getParameter("id"));
                 Product product = ProductEntity.loadProductById(id);
+                product.setImageUrls(ProductEntity.loadProductImagesById(id));
                 request.setAttribute("product", product);
                 request.getRequestDispatcher("add-product.jsp").forward(request, response);
                 return;
@@ -49,36 +55,67 @@ public class Add_product_direct extends HttpServlet {
 
         FileItem fiImg=null;
         Map<String,String>pair = new HashMap<String,String>();
+        Map<String,FileItem>pairImg = new HashMap<String,FileItem>();
         while(i.hasNext()){
             FileItem fi =i.next();
             if(fi.isFormField()){
                 pair.put(fi.getFieldName(),fi.getString("UTF-8").trim());
+                System.out.println("Dang vao isFormField");
+                System.out.println(fi.getFieldName());
+                System.out.println(fi.getString("UTF-8").trim());
+                System.out.println("ket thuc vao isFormField");
             }
             else if(!fi.isFormField()){
-                fiImg=fi;
+                System.out.println("Not FormFielddddddddddddd:");
+                System.out.println(fi.getFieldName());
+                System.out.println(fi);
+                if(fi.getFieldName().equalsIgnoreCase("gallery-img")){
+                    if(fi.getSize()!=0) {
+                        pairImg.put("gallery-img-" + System.nanoTime(), fi);
+                    }
+                    System.out.println(System.nanoTime());
+
+                }else{
+                    if(fi.getSize()!=0) {
+                        pairImg.put(fi.getFieldName(), fi);
+                    }
+                }
+
                 System.out.println("co vao fiImg");
+                System.out.println(fi.getFieldName());
+                for(String key: pairImg.keySet()){
+                    System.out.println(key+" : "+pairImg.get(key));
+                }
+                System.out.println("Ket thuc vao fiImg");
             }
         }
         type = pair.get("type");
         String name = pair.get("name");
-        double price = Double.parseDouble(pair.get("price"));
-
+        String slug = Util.generateSlug(name);
+        int category_id = Integer.parseInt(pair.get("category_id"));
+        int supplier_id = Integer.parseInt(pair.get("supplier_id"));
+        int age = Integer.parseInt(pair.get("age"));
+        int gender = Integer.parseInt(pair.get("gender"));
+        double price = Double.parseDouble(pair.get("price").replaceAll("\\D",""));
+        int is_sale = pair.get("is_sale")==null?0:1;
+        int is_highlight = pair.get("is_highlight")==null?0:1;
+        int percent_sale = 0;
+        double price_sale = 0;
+        String date_start_sale = Util.dateFormat(new Date());
+        String date_end_sale = Util.dateFormat(new Date());
+        if(is_sale==1){
+             percent_sale = pair.get("percent_sale").isEmpty()?0:Integer.parseInt(pair.get("percent_sale"));
+             price_sale =pair.get("price_sale").isEmpty()?0: Double.parseDouble(pair.get("price_sale"));
+             date_start_sale = pair.get("date_start_sale").isEmpty()? Util.dateFormat(new Date()):pair.get("date_start_sale");
+             date_end_sale = pair.get("date_end_sale").isEmpty()?Util.dateFormat(new Date()):pair.get("date_end_sale");
+        }
+        int active = pair.get("active")==null?0:1;
+        String sku = pair.get("sku");
+        int quantity =Integer.parseInt(pair.get("quantity"));
         String description = pair.get("description");
         String content = pair.get("content");
-        int supplier_id = Integer.parseInt(pair.get("supplier_id"));
-        int type_weight = Integer.parseInt(pair.get("type_weight"));
-
-        int active = pair.get("active")==null?0:1;
-        int percent_sale = pair.get("percent_sale").isEmpty()?0:Integer.parseInt(pair.get("percent_sale"));
-        double price_sale =pair.get("price_sale").isEmpty()?0: Double.parseDouble(pair.get("price_sale"));
-        int category_id = Integer.parseInt(pair.get("category_id"));
-        int quantity =Integer.parseInt(pair.get("quantity"));
-        int is_sale = pair.get("is_sale")==null?0:1;
-        String date_start_sale = pair.get("date_start_sale").isEmpty()? Util.dateFormat(new Date()):pair.get("date_start_sale");
-        String date_end_sale = pair.get("date_end_sale").isEmpty()?Util.dateFormat(new Date()):pair.get("date_end_sale");
-        String slug = Util.generateSlug(name);
         String date_created = Util.dateFormat(new Date());
-
+        //Danh cho edit
         int id = pair.get("id")==null?0:Integer.parseInt(pair.get("id"));
 
 
@@ -87,30 +124,50 @@ public class Add_product_direct extends HttpServlet {
 //        System.out.println("pair.getImg: "+pair.get("img"));
 //        System.out.println("original img: "+originalImg);
 //        String img = imgUrls.isEmpty()?originalImg:imgUrls.get(0);
-        String img=null;
-       String urlImg = Util.getUrlFileFromUpload(fiImg,slug,"imgs/products/"+getCategoryName(category_id));
-       if(urlImg!=null)
-        img = urlImg;
+        String thumbnail = null;
+        List<String>imgs = new ArrayList<String>();
+        for(String imageField: pairImg.keySet()) {
+            if(imageField.equalsIgnoreCase("thumbnail-img")){
+                thumbnail = Util.getUrlFileFromUpload(pairImg.get(imageField),slug+"-thumbnail-"+System.currentTimeMillis(),"imgs/products");
+                if(thumbnail== null) thumbnail = "imgs/products/default_img.png";
+            }else{
+                String img = Util.getUrlFileFromUpload(pairImg.get(imageField),slug+"-gallery-"+System.currentTimeMillis(),"imgs/products");
+                if(img == null) img = "imgs/products/default_img.png";
+                imgs.add(img);
+            }
+//            String img = null;
+//            String urlImg = Util.getUrlFileFromUpload(fiImg, slug, "imgs/products/");
+//            if (urlImg != null)
+//                img = urlImg;
+        }
 
 
 
         if(type.equalsIgnoreCase("add")){
-            img = img==null?"imgs/products/default_img.png":img;
+
             request.setAttribute("type","add");
             request.setAttribute("title","Thêm sản phẩm");
-            boolean isInsert = ProductEntity.insertProduct(name,price,img,description,content,supplier_id
-                    ,type_weight,active,percent_sale,price_sale,category_id,quantity,is_sale,date_start_sale,date_end_sale,slug,date_created);
-            if(isInsert)
-                request.getRequestDispatcher("add-product.jsp").forward(request,response);
-
+            if(thumbnail==null) thumbnail="imgs/products/default_img.png";
+            boolean isInsert = ProductEntity.insertProduct(name,price,description,content,supplier_id,active,percent_sale,
+                    price_sale,category_id,quantity,is_sale,date_start_sale,
+                    date_end_sale,slug,sku,age,gender,thumbnail,is_highlight,date_created);
+            if(isInsert) {
+                Product pro_saved = ProductEntity.loadProductBySlug(slug);
+                System.out.println("Imagessssssssssssss: ");
+                System.out.println(imgs);
+                if(imgs.size() !=0)ProductEntity.insertProductImage(pro_saved.getId(),imgs);
+                request.getRequestDispatcher("add-product.jsp").forward(request, response);
+            }
         }else if(type.equalsIgnoreCase("edit")){
             request.setAttribute("type","edit");
             request.setAttribute("title","Chỉnh sửa");
             System.out.println("co vao edit");
-            boolean isUpdate = ProductEntity.updateProduct(id,name,price,img,description,content,supplier_id
-                    ,type_weight,active,percent_sale,price_sale,category_id,quantity,is_sale,date_start_sale,date_end_sale,slug);
-
+            boolean isUpdate = ProductEntity.updateProduct(id,name,price,description,content,supplier_id,active,percent_sale,price_sale,
+                    category_id,quantity,is_sale,date_start_sale,date_end_sale,slug,sku,age,gender,
+                    thumbnail,is_highlight);
+            if(imgs.size()!=0) ProductEntity.updateProductImages(id,imgs);
             Product product = ProductEntity.loadProductById(id);
+            product.setImageUrls(ProductEntity.loadProductImagesById(id));
             request.setAttribute("product",product);
             request.getRequestDispatcher("add-product.jsp").forward(request,response);
 

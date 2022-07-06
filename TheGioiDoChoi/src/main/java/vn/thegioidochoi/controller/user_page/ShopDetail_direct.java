@@ -2,6 +2,8 @@ package vn.thegioidochoi.controller.user_page;
 
 import vn.thegioidochoi.model.Product.Product;
 import vn.thegioidochoi.model.Product.ProductEntity;
+import vn.thegioidochoi.model.header_footer.Category;
+import vn.thegioidochoi.model.header_footer.Load_Category;
 import vn.thegioidochoi.model.image.Image;
 import vn.thegioidochoi.model.image.LoadImage;
 import vn.thegioidochoi.model.supplier.Load_Supplier;
@@ -45,8 +47,10 @@ public class ShopDetail_direct extends HttpServlet {
 
         int cateid=product.getCategory_id();
         List<Product> relaproducts=ProductEntity.loadRelativeProduct(cateid,id);
+        Category category = Load_Category.loadCategoryById(cateid);
         List<User> users= LoadUser.loadOrderCommentByIdUser(id);
         request.setAttribute("product",product);
+        request.setAttribute("category",category);
         System.out.println("Đã vào trang chi tiết sản phẩm ttttttttttttttt");
         request.setAttribute("supplier", supplier);
         request.setAttribute("images", images);

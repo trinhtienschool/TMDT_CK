@@ -1,7 +1,9 @@
 package vn.thegioidochoi.model.Product;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Product {
@@ -12,7 +14,6 @@ public class Product {
     private String description;
     private String content;
     private int supplier_id;
-    private byte type_weight;
     private boolean active;
     private byte percent_sale;
     private double price_sale;
@@ -32,8 +33,9 @@ public class Product {
     private int countstar;
     private int contcomment;
     private double avgstar;
-
-
+    private boolean highlight;
+    private List<String>imageUrls;
+    private DecimalFormat format = new DecimalFormat("0.#");
     public Product() {
     }
 
@@ -75,7 +77,16 @@ public class Product {
 
         return (int)dateRest;
     }
-//    public static int percent(Date start,Date end){
+
+    public boolean isHighlight() {
+        return highlight;
+    }
+
+    public void setHighlight(boolean highlight) {
+        this.highlight = highlight;
+    }
+
+    //    public static int percent(Date start,Date end){
 //        long diffInMillies = Math.abs(start.getTime() - end.getTime());
 //        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 //        Date now = Calendar.getInstance().getTime();
@@ -184,13 +195,8 @@ public class Product {
         this.supplier_id = supplier_id;
     }
 
-    public byte getType_weight() {
-        return type_weight;
-    }
 
-    public void setType_weight(byte type_weight) {
-        this.type_weight = type_weight;
-    }
+
 
     public boolean isActive() {
         return active;
@@ -292,6 +298,15 @@ public class Product {
         if(price == price_sale) return price;
         return price_sale;
     }
+
+    public List<String> getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -302,7 +317,7 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", content='" + content + '\'' +
                 ", supplier_id=" + supplier_id +
-                ", type_weight=" + type_weight +
+
                 ", active=" + active +
                 ", percent_sale=" + percent_sale +
                 ", price_sale=" + price_sale +

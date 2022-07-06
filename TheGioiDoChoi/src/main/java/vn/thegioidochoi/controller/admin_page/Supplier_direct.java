@@ -4,11 +4,13 @@ import vn.thegioidochoi.model.Product.ProductEntity;
 import vn.thegioidochoi.model.favorist_list.Favorist_list_Con_DB;
 import vn.thegioidochoi.model.mail.Mail;
 import vn.thegioidochoi.model.order.Load_Order;
+import vn.thegioidochoi.model.order.Order;
 import vn.thegioidochoi.model.rating.Rating_Con_DB;
 import vn.thegioidochoi.model.shopping_cart.Load_Shopping_Cart;
 import vn.thegioidochoi.model.supplier.Load_Supplier;
 import vn.thegioidochoi.model.supplier.Supplier;
 import vn.thegioidochoi.model.user.LoadUser;
+import vn.thegioidochoi.model.user.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(urlPatterns = "/admin_page/supplier")
@@ -34,16 +37,29 @@ public class    Supplier_direct extends HttpServlet {
 //            Load_Order.updateOrderStatusBySupplierId(6,supplier_id);
            if(active==-1){
 
-               Load_Order.updateOrderStatusBySupplierId(2,supplier_id);
+               Load_Order.updateOrderActiveBySupplierId(active,supplier_id);
 
-               String subject="Thông báo khóa tài khoản";
-               String link="This is link for notice about block your account";
+               String subject="Thông báo hủy đơn hàng";
+               String link="http://localhost:8080/order_detail?id=";
                Supplier supplier=Load_Supplier.loadSupplierById(supplier_id);
-               String content= "Chào "+supplier.getName()+"!,"
-                       + "\n Đây là link thông báo về việc khóa tài khoản của bạn! Link có thời hạn 3 ngày kể từ ngày nhận. Bấm vào để xác nhận\n"
-                       +link;
 
-               Mail.sendMail(content,subject,supplier.getEmail());
+               List<User> listUsers= LoadUser.loadUserWithStatusOrder(5,supplier_id);
+               List<Order> listOrders=Load_Order.loadOrderByStatus(5,supplier_id);
+
+               for(int i=0;i<listUsers.size();i++){
+                   System.out.println("danh sach khach hang nhan email"+listUsers.get(i).getEmail()+"\n"+
+                           "order id ="+listOrders.get(i).getId());
+                   String content= "Chào "+listUsers.get(i).getName()+"."
+                           + "\n"+ "Đây là thông báo về việc hủy đơn hàng của bạn. Bấm vào Link bên dưới để xem thông tin đơn hàng."+"\n"
+                           +link+listOrders.get(i).getId();
+
+                   Mail.sendMail(content,subject,listUsers.get(i).getEmail());
+               }
+//                for(User u: LoadUser.loadUserWithStatusOrder(3)){
+////                    Mail.sendMail(content,subject,u.getEmail());
+//                    System.out.println("danh sach khach hang nhan email"+u.getEmail());
+//                }
+
            }
 
         }

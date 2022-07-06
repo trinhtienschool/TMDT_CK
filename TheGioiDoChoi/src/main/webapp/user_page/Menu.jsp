@@ -107,8 +107,8 @@
                                 <c:set var="tc" value="${sessionScope.cart.totalPrice}"></c:set>
                                 <h3>Tổng: <strong><%=Util.formatCurrency((double) pageContext.getAttribute("tc"))%></strong></h3>
 
-                                    <figure><a class="ps-btn" href="shopping-cart.html">Giỏ hàng</a><a class="ps-btn"
-                                                                                                    href="checkout.html">Thanh toán</a>
+                                    <figure><a class="ps-btn" href="cart" style="color: white">Giỏ hàng</a><a class="ps-btn"
+                                                                                                    href="checkout" style="color: white">Thanh toán</a>
                                 </figure>
                             </div>
                         </div>
@@ -416,8 +416,8 @@
                             <c:set var="tc" value="${sessionScope.cart.totalPrice}"></c:set>
                             <h3>Tổng: <strong><%=Util.formatCurrency((double) pageContext.getAttribute("tc"))%></strong></h3>
 
-                            <figure><a class="ps-btn" href="shopping-cart.html">Giỏ hàng</a><a class="ps-btn"
-                                                                                               href="checkout.html">Thanh toán</a>
+                            <figure><a class="ps-btn" href="cart" style="color: white">Giỏ hàng</a><a class="ps-btn"
+                                                                                               href="checkout" style="color: white">Thanh toán</a>
                             </figure>
                         </div>
                     </div>
@@ -513,8 +513,8 @@
                 <c:set var="tc" value="${sessionScope.cart.totalPrice}"></c:set>
                 <h3>Tổng: <strong><%=Util.formatCurrency((double) pageContext.getAttribute("tc"))%></strong></h3>
 
-                <figure><a class="ps-btn" href="shopping-cart.html">Giỏ hàng</a><a class="ps-btn"
-                                                                                   href="checkout.html">Thanh toán</a>
+                <figure><a class="ps-btn" href="cart" style="color: white">Giỏ hàng</a><a class="ps-btn"
+                                                                                   href="checkout" style="color: white">Thanh toán</a>
                 </figure>
             </div>
         </div>
@@ -621,9 +621,9 @@
 </div>
 <div class="ps-panel--sidebar" id="search-sidebar">
     <div class="ps-panel__header">
-        <form class="ps-form--search-mobile" action="index.html" method="get">
+        <form class="ps-form--search-mobile" action="/shopping" method="get">
             <div class="form-group--nest">
-                <input class="form-control" type="text" placeholder="Tìm kiếm đồ chơi...">
+                <input class="form-control" name="keyword" type="text" placeholder="Tìm kiếm đồ chơi...">
                 <button><i class="icon-magnifier"></i></button>
             </div>
         </form>

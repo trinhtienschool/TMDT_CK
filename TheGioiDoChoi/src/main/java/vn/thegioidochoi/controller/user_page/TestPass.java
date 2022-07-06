@@ -1,15 +1,23 @@
 package vn.thegioidochoi.controller.user_page;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONObject;
 import vn.thegioidochoi.model.Product.Product;
 import vn.thegioidochoi.model.Product.ProductEntity;
 import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
 import vn.thegioidochoi.model.header_footer.Category;
 import vn.thegioidochoi.model.header_footer.LoadHeaderFooter;
 import vn.thegioidochoi.model.header_footer.Load_Category;
+import vn.thegioidochoi.model.mail.Mail;
 import vn.thegioidochoi.model.order_product.OrderProduct;
 import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
 import vn.thegioidochoi.model.supplier.Load_Supplier;
 import vn.thegioidochoi.model.supplier.Supplier;
+import vn.thegioidochoi.model.user.EmailConfirm;
 import vn.thegioidochoi.model.user.LoadUser;
 
 import vn.thegioidochoi.model.user.User;
@@ -18,6 +26,7 @@ import vn.thegioidochoi.model.util.Util;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Array;
 import java.sql.Connection;
@@ -26,16 +35,22 @@ import java.sql.SQLOutput;
 import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.*;
 import java.util.regex.Pattern;
 
 public class TestPass {
-    public static void main(String[] args) throws UnsupportedEncodingException, SQLException, ParseException {
+
+    public static void main(String[] args) throws IOException, SQLException, ParseException {
 //        int id = 1;
 //        String email = "trinhtien6236@gmail.com";
 //        String pass = "Tien12345@";
 //        long passEn =  id*email.hashCode()*pass.hashCode();
 //        System.out.println(passEn);
+
+
+
 //        List<Category> categories = LoadHeaderFooter.loadCategories();
 //        List<Category> removeCategories = new ArrayList<Category>();
 //        System.out.println("Da ra");
@@ -220,18 +235,45 @@ public class TestPass {
 //        catch (Exception e) {
 //            e.getStackTrace();
 //        }
+//        System.out.println("1.324,323 đ".replaceAll("\\D",""));
+//        System.out.println(ProductEntity.loadProductById(1));
+//        float tien = 100;
+//        System.out.println(String.format("%.0f",tien));
+//        OkHttpClient client = new OkHttpClient().newBuilder().build();
+//        Request request = new Request.Builder()
+//                .url("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/vnd.json")
+//                .method("GET",null)
+//            .build();
+//
+//    Response response = client.newCall(request).execute();
+//        JSONObject jsonObject = new JSONObject(response.body().string());
+//        double exchangeRate = jsonObject.getJSONObject("vnd").getDouble("usd");
+//        System.out.println(exchangeRate*100000);
+//    System.out.println(response.body().string());
+//        System.out.println((double) Math.ceil(5.26783 * 100) / 100);
+//        System.out.println(Util.formatNumber(46543125.26783));
+//        List<Product> products = ProductEntity.loadHighLightProducts();
+//        for(Product product:products){
+//            System.out.println(product);
+//        }
+        //Getting the current month
+//        LocalDate currentdate = LocalDate.now();
+//        System.out.println("Current date: "+currentdate);
+//        Month currentMonth = currentdate.getMonth();
+//        System.out.println("Current month: "+currentMonth.getValue());
+//        int currentYear = currentdate.getYear();
+//        System.out.println("Current month: "+currentYear);
 
+//        Mail.sendMail("Hi","Xin chào","trinhtien2212@gmail.com");
+//        System.out.println((int) ((Math.random() * (999999 - 111111)) + 111111));
+//        System.out.println(LoadUser.saveEmailConfirm("trinhquangtien3@gmail.com","Tiến",123456));
+//        LoadUser.saveEmailConfirm("trinhquangtien5543@gmail.com","Tiến",123456);
+//        EmailConfirm emailConfirm = LoadUser.loadEmailConfirm("trinhquangtien5543@gmail.com");
+//        System.out.println(System.currentTimeMillis()-emailConfirm.getTime_created());
+//        System.out.println(1000*60*5);
+        Mail.sendMail("My mail content","My mail subject","duongbanhuan2020@gmail.com");
     }
-    public static String toKhongDau(String str) {
-        try {
-            String temp = Normalizer.normalize(str, Normalizer.Form.NFD);
-            Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
-            return pattern.matcher(temp).replaceAll("").toLowerCase().replaceAll(" ", "-").replaceAll("đ", "d");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return "";
-    }
+
 
 
 }

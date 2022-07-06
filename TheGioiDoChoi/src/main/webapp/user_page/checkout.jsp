@@ -56,6 +56,7 @@
             <form action="order-handle" method="post">
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
+                        <input style="display: none" type="text" name="status_order" value="enter_order">
                         <div class="checkout__input">
                             <p>Họ và tên<span>*</span></p>
                             <input style="color:black" type="text" name="name" <c:if test="${sessionScope.user_name!=null}">value="${sessionScope.user_name}"</c:if> required/>
@@ -138,6 +139,14 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="checkout__order">
                             <h4>Đơn hàng</h4>
+                            <div class="checkout__order__products">
+                                Sản phẩm <span>Giá</span>
+                            </div>
+                            <ul>
+                                <c:forEach items="${products}" var="product">
+                                <li>${product.name} <span>${Util.formatCurrency(product.price_sale)}</span></li>
+                                </c:forEach>
+                            </ul>
                             <div class="checkout__order__subtotal">
                                 Tổng:<span><%=Util.formatCurrency((double)request.getAttribute("price"))%></span>
                             </div>
@@ -148,7 +157,25 @@
                             <div class="checkout__order__total">
                                 Thành tiền:<span><%=Util.formatCurrency((double)request.getAttribute("total_price"))%></span>
                             </div>
-
+                            <p>Vui lòng chọn hình thức thanh toán</p>
+                            <div class="checkout__input__checkbox">
+                                <label for="cash">
+                                    Tiền mặt
+                                    <input type="checkbox" id="cash" name="cash_payment"/>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="checkout__input__checkbox">
+                                <label for="momo">
+                                    PayPal
+                                    <input type="checkbox" id="momo" name="paypal_payment"/>
+                                    <span class="checkmark" ></span>
+                                </label>
+<%--                                <div id="momo-code" class="checkout__input collapse">--%>
+<%--                                    <p>Mã giảm momo</p>--%>
+<%--                                    <input type="text"/>--%>
+<%--                                </div>--%>
+                            </div>
                             <button  type="submit" class="site-btn">Đặt hàng</button>
 <%--                            id="checkout-btn"--%>
                         </div>

@@ -126,7 +126,7 @@
                         <img src="user_page/img/icon/hot_sale.gif" alt="" style="height: 50px">
                     </div>
                 </div>
-                <a href="shop-default.html">Xem tất cả</a>
+                <a href="/shopping">Xem tất cả</a>
             </div>
             <div class="ps-section__content">
                 <div class="ps-carousel--nav owl-slider" data-owl-auto="false" data-owl-loop="true"
@@ -189,23 +189,24 @@
         <div class="ps-search-trending">
             <div class="container">
                 <div class="ps-section__header">
-                    <h3 style="color: orangered">Xu hướng<span>Updated at 9:00AM</span></h3>
+                    <h3 style="color: orangered">Xu hướng</h3>
                 </div>
                 <div class="ps-section__content">
                     <div class="ps-block--categories-tabs ps-tab-root">
                         <div class="ps-block__header">
                             <div class="ps-carousel--nav ps-tab-list owl-slider" data-owl-auto="false"
                                  data-owl-speed="1000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true"
-                                 data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="2" data-owl-item-md="3"
-                                 data-owl-item-lg="4" data-owl-item-xl="4" data-owl-duration="500"
+                                 data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="2" data-owl-item-md="2"
+                                 data-owl-item-lg="3" data-owl-item-xl="3" data-owl-duration="500"
                                  data-owl-mousedrag="on">
                                 <a href="#bestseller"><i
                                         class="fa fa-paper-plane-o"></i><span>Bán chạy</span></a>
                                 <a href="#new"><i
                                         class="fa fa-clock-o"></i><span>Mới nhất</span></a>
                                 <a href="#highlight"><i
-                                        class="fa fa-star-o"></i><span>Nổi bật</span></a><a href="#suggest"><i
-                                    class="fa fa-user-o"></i><span>Dành cho bạn</span></a></div>
+                                        class="fa fa-star-o"></i><span>Nổi bật</span></a>
+<%--                                <a href="#suggest"><i--%>
+<%--                                    class="fa fa-user-o"></i><span>Dành cho bạn</span></a></div>--%>
                         </div>
                         <div class="ps-tabs">
                             <div class="ps-tabs">
@@ -471,91 +472,91 @@
 
                                     </div>
                                 </div>
-                                <div class="ps-tab" id="suggest">
-                                    <div class="ps-carousel--nav owl-slider" data-owl-auto="true" data-owl-loop="true"
-                                         data-owl-speed="1000" data-owl-gap="30" data-owl-nav="true"
-                                         data-owl-dots="true"
-                                         data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="2"
-                                         data-owl-item-md="3"
-                                         data-owl-item-lg="4" data-owl-item-xl="4" data-owl-duration="1000"
-                                         data-owl-mousedrag="on">
+<%--                                <div class="ps-tab" id="suggest">--%>
+<%--                                    <div class="ps-carousel--nav owl-slider" data-owl-auto="true" data-owl-loop="true"--%>
+<%--                                         data-owl-speed="1000" data-owl-gap="30" data-owl-nav="true"--%>
+<%--                                         data-owl-dots="true"--%>
+<%--                                         data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="2"--%>
+<%--                                         data-owl-item-md="3"--%>
+<%--                                         data-owl-item-lg="4" data-owl-item-xl="4" data-owl-duration="1000"--%>
+<%--                                         data-owl-mousedrag="on">--%>
 
-                                        <c:forEach var="bp" items="${bps}">
-                                            <c:if test="${bp.percent_sale==0}">
-                                                <div class="featured__item">
-                                                    <div class="featured__item__pic ">
-                                                        <a href="/shop-detail?product=${bp.slug}"><img src="${bp.img}" alt=""></a>
-                                                        <ul class="product__item__pic__hover">
-                                                            <li class="fast-checkout cursor-pointer" data-pro_id="${bp.id}"><a ><i class="fa fa-money"></i></a></li>
-                                                            <c:if test="${sessionScope.user_id!=null}">
-                                                                <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a><i class="fa fa-heart"></i></a></li>
-                                                            </c:if>
-                                                            <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="featured__item__text">
-                                                        <h4 class=" text-truncate" data-toggle="tooltip"><a
-                                                                href="#">${bp.name}</a></h4>
-                                                        <h5>${Util.formatCurrency(bp.price)}</h5>
-                                                        <p>Đã bán ${bp.sold}</p>
-                                                    </div>
+<%--                                        <c:forEach var="bp" items="${bps}">--%>
+<%--                                            <c:if test="${bp.percent_sale==0}">--%>
+<%--                                                <div class="featured__item">--%>
+<%--                                                    <div class="featured__item__pic ">--%>
+<%--                                                        <a href="/shop-detail?product=${bp.slug}"><img src="${bp.img}" alt=""></a>--%>
+<%--                                                        <ul class="product__item__pic__hover">--%>
+<%--                                                            <li class="fast-checkout cursor-pointer" data-pro_id="${bp.id}"><a ><i class="fa fa-money"></i></a></li>--%>
+<%--                                                            <c:if test="${sessionScope.user_id!=null}">--%>
+<%--                                                                <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a><i class="fa fa-heart"></i></a></li>--%>
+<%--                                                            </c:if>--%>
+<%--                                                            <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>--%>
+<%--                                                        </ul>--%>
+<%--                                                    </div>--%>
+<%--                                                    <div class="featured__item__text">--%>
+<%--                                                        <h4 class=" text-truncate" data-toggle="tooltip"><a--%>
+<%--                                                                href="#">${bp.name}</a></h4>--%>
+<%--                                                        <h5>${Util.formatCurrency(bp.price)}</h5>--%>
+<%--                                                        <p>Đã bán ${bp.sold}</p>--%>
+<%--                                                    </div>--%>
 
-                                                </div>
-                                            </c:if>
-                                            <c:if test="${bp.percent_sale>0}">
-                                                <div class="product__discount__item">
+<%--                                                </div>--%>
+<%--                                            </c:if>--%>
+<%--                                            <c:if test="${bp.percent_sale>0}">--%>
+<%--                                                <div class="product__discount__item">--%>
 
-                                                    <div class="product__discount__item__pic">
-                                                        <a href="/shop-detail?product=${bp.slug}"><img src="${bp.img}" alt=""></a>
-                                                        <!--                                    <a href="" class="fload-img"></a>-->
-                                                        <div class="product__discount__percent">-${bp.percent_sale}%
-                                                        </div>
-                                                        <ul class="product__item__pic__hover">
-                                                            <li class="fast-checkout cursor-pointer" data-pro_id="${bp.id}"><a ><i class="fa fa-money"></i></a></li>
-                                                            <c:if test="${sessionScope.user_id!=null}">
-                                                                <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a><i class="fa fa-heart"></i></a></li>
-                                                            </c:if>
-                                                            <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>
-                                                        </ul>
-                                                    </div>
+<%--                                                    <div class="product__discount__item__pic">--%>
+<%--                                                        <a href="/shop-detail?product=${bp.slug}"><img src="${bp.img}" alt=""></a>--%>
+<%--                                                        <!--                                    <a href="" class="fload-img"></a>-->--%>
+<%--                                                        <div class="product__discount__percent">-${bp.percent_sale}%--%>
+<%--                                                        </div>--%>
+<%--                                                        <ul class="product__item__pic__hover">--%>
+<%--                                                            <li class="fast-checkout cursor-pointer" data-pro_id="${bp.id}"><a ><i class="fa fa-money"></i></a></li>--%>
+<%--                                                            <c:if test="${sessionScope.user_id!=null}">--%>
+<%--                                                                <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a><i class="fa fa-heart"></i></a></li>--%>
+<%--                                                            </c:if>--%>
+<%--                                                            <li class="addCart cursor-pointer" data-current_page="home" data-pro_id="${bp.id}"><a ><i class="fa fa-shopping-cart"></i></a></li>--%>
+<%--                                                        </ul>--%>
+<%--                                                    </div>--%>
 
-                                                    <div class="product__discount__item__text">
+<%--                                                    <div class="product__discount__item__text">--%>
 
-                                                        <h4 class=" text-truncate" data-toggle="tooltip"
-                                                            title="${bp.name}"><a href="#">${bp.name}</a></h4>
-                                                        <div class="product__item__price"><h5
-                                                                style="display: inline-block">
-                                                                ${Util.formatCurrency(bp.price_sale)}</h5>
-                                                            <span>${Util.formatCurrency(bp.price)}</span>
-                                                        </div>
-                                                        <p>Đã bán ${bp.sold}</p>
-                                                        <div class="progress progress-style mb-5">
+<%--                                                        <h4 class=" text-truncate" data-toggle="tooltip"--%>
+<%--                                                            title="${bp.name}"><a href="#">${bp.name}</a></h4>--%>
+<%--                                                        <div class="product__item__price"><h5--%>
+<%--                                                                style="display: inline-block">--%>
+<%--                                                                ${Util.formatCurrency(bp.price_sale)}</h5>--%>
+<%--                                                            <span>${Util.formatCurrency(bp.price)}</span>--%>
+<%--                                                        </div>--%>
+<%--                                                        <p>Đã bán ${bp.sold}</p>--%>
+<%--                                                        <div class="progress progress-style mb-5">--%>
 
-                                                            <div
-                                                                    class="progress-bar bg-warning"
-                                                                    role="progressbar"
-                                                                    style="width: ${bp.percent_sale_past()}%"
-                                                                    aria-valuenow="60"
-                                                                    aria-valuemin="0"
-                                                                    aria-valuemax="100">
-                                                            </div>
-                                                            <div class="progress-text">
-                                                                <img src="user_page/img/icon/fire.png"
-                                                                     style="width:2rem !important; display: inline-block; margin-bottom: 8px;"
-                                                                     alt="">
-                                                                <p style="display: inline-block; color:#f34f00">
-                                                                    Còn ${bp.dayRest()} ngày</p>
-                                                            </div>
+<%--                                                            <div--%>
+<%--                                                                    class="progress-bar bg-warning"--%>
+<%--                                                                    role="progressbar"--%>
+<%--                                                                    style="width: ${bp.percent_sale_past()}%"--%>
+<%--                                                                    aria-valuenow="60"--%>
+<%--                                                                    aria-valuemin="0"--%>
+<%--                                                                    aria-valuemax="100">--%>
+<%--                                                            </div>--%>
+<%--                                                            <div class="progress-text">--%>
+<%--                                                                <img src="user_page/img/icon/fire.png"--%>
+<%--                                                                     style="width:2rem !important; display: inline-block; margin-bottom: 8px;"--%>
+<%--                                                                     alt="">--%>
+<%--                                                                <p style="display: inline-block; color:#f34f00">--%>
+<%--                                                                    Còn ${bp.dayRest()} ngày</p>--%>
+<%--                                                            </div>--%>
 
-                                                        </div>
-                                                    </div>
+<%--                                                        </div>--%>
+<%--                                                    </div>--%>
 
 
-                                                </div>
-                                            </c:if>
-                                        </c:forEach>
-                                    </div>
-                                </div>
+<%--                                                </div>--%>
+<%--                                            </c:if>--%>
+<%--                                        </c:forEach>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
                             </div>
                         </div>
                     </div>
@@ -570,10 +571,10 @@
                 <ul>
                     <c:forEach var="p" items="${applicationScope.category.get(1).subcategories}">
 
-                        <li><a href="#">${p.name}</a></li>
+                        <li><a href="/shopping?cate=${p.slug}">${p.name}</a></li>
                     </c:forEach>
                 </ul>
-                <a class="ps-block__more-link" href="#">Xem tất cả</a>
+                <a class="ps-block__more-link" href="/shopping?cate=${applicationScope.category.get(1).slug}">Xem tất cả</a>
             </div>
             <div class="ps-block__slider">
                 <div class="ps-carousel--product-box owl-slider" data-owl-auto="true" data-owl-loop="true"
@@ -595,7 +596,7 @@
                         </c:if>
                         <div class="featured__item__pic ">
                             <a href="/shop-detail?product=${sp.slug}"><img src="${sp.img}" alt=""></a>
-                            <ul class="product__item__pic__hover">
+                            <ul class="featured__item__pic__hover">
                                 <li class="fast-checkout cursor-pointer" data-pro_id="${sp.id}"><a ><i class="fa fa-money"></i></a></li>
                                 <c:if test="${sessionScope.user_id!=null}">
                                     <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${sp.id}"><a><i class="fa fa-heart"></i></a></li>
@@ -622,10 +623,10 @@
                 <ul>
                     <c:forEach var="p" items="${applicationScope.category.get(3).subcategories}">
 
-                        <li><a href="#">${p.name}</a></li>
+                        <li><a href="/shopping?cate=${p.slug}">${p.name}</a></li>
                     </c:forEach>
                 </ul>
-                <a class="ps-block__more-link" href="#">Xem tất cả</a>
+                <a class="ps-block__more-link" href="/shopping?cate=${applicationScope.category.get(3).slug}">Xem tất cả</a>
             </div>
             <div class="ps-block__slider">
                 <div class="ps-carousel--product-box owl-slider" data-owl-auto="true" data-owl-loop="true"
@@ -648,7 +649,7 @@
                         </c:if>
                         <div class="featured__item__pic ">
                             <a href="/shop-detail?product=${cp.slug}"><img src="${cp.img}" alt=""></a>
-                            <ul class="product__item__pic__hover">
+                            <ul class="featured__item__pic__hover">
                                 <li class="fast-checkout cursor-pointer" data-pro_id="${cp.id}"><a ><i class="fa fa-money"></i></a></li>
                                 <c:if test="${sessionScope.user_id!=null}">
                                     <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${cp.id}"><a><i class="fa fa-heart"></i></a></li>
@@ -675,10 +676,10 @@
                 <ul>
                     <c:forEach var="p" items="${applicationScope.category.get(2).subcategories}">
 
-                        <li><a href="#">${p.name}</a></li>
+                        <li><a href="/shopping?cate=${p.slug}">${p.name}</a></li>
                     </c:forEach>
                 </ul>
-                <a class="ps-block__more-link" href="#">Xem tất cả</a>
+                <a class="ps-block__more-link" href="/shopping?cate=${applicationScope.category.get(2).slug}">Xem tất cả</a>
             </div>
             <div class="ps-block__slider">
                 <div class="ps-carousel--product-box owl-slider" data-owl-auto="true" data-owl-loop="true"
@@ -701,7 +702,7 @@
                         </c:if>
                         <div class="featured__item__pic ">
                             <a href="/shop-detail?product=${tp.slug}"><img src="${tp.img}" alt=""></a>
-                            <ul class="product__item__pic__hover">
+                            <ul class="featured__item__pic__hover">
                                 <li class="fast-checkout cursor-pointer" data-pro_id="${tp.id}"><a ><i class="fa fa-money"></i></a></li>
                                 <c:if test="${sessionScope.user_id!=null}">
                                     <li class="addFa cursor-pointer" data-current_page="home" data-pro_id="${tp.id}"><a><i class="fa fa-heart"></i></a></li>
@@ -725,18 +726,18 @@
 
         <div class="ps-block--recent-viewed">
             <div class="ps-block__header">
-                <h3>Sản phẩm đã xem</h3><a href="shop-default.html">Xem tất cả</a>
+                <h3>Sản phẩm đã xem</h3>
+<%--                <a href="/shop-detail">Xem tất cả</a>--%>
             </div>
-            <div class="ps-block__content"><a href="#"><img src="img/products/home-kids/recent-view/1.jpg"
-                                                            alt=""></a><a
-                    href="#"><img src="img/products/home-kids/recent-view/2.jpg" alt=""></a><a href="#"><img
-                    src="img/products/home-kids/recent-view/3.jpg" alt=""></a><a href="#"><img
-                    src="img/products/home-kids/recent-view/4.jpg" alt=""></a><a href="#"><img
-                    src="img/products/home-kids/recent-view/5.jpg" alt=""></a><a href="#"><img
-                    src="img/products/home-kids/recent-view/6.jpg" alt=""></a><a href="#"><img
-                    src="img/products/home-kids/recent-view/7.jpg" alt=""></a>
+            <div class="ps-block__content">
+<c:forEach var="rp" items="${sessionScope.vp}">
+                <a href="/shop-detail?product=${rp.slug}"><img src="${rp.img}"
+                                                            alt=""></a>
+    </c:forEach>
+
             </div>
         </div>
+
 
     </div>
 </div>

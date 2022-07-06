@@ -184,6 +184,7 @@ public class Login_handle extends HttpServlet {
             session.setAttribute("user_name", user.getName());
             // them
             session.setAttribute("user_mail", user.getEmail());
+            session.setAttribute("user_phone", user.getPhone());
             session.setAttribute("user_address",user.getAddress());
             Cart cart = new Cart(user.getId());
             List<Product> viewProducts = ProductEntity.loadViewProducts(user.getId());

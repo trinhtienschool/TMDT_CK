@@ -2,6 +2,7 @@
 package vn.thegioidochoi.model.user;
 
 import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.supplier.Supplier;
 import vn.thegioidochoi.model.util.Util;
 
 import java.sql.PreparedStatement;
@@ -22,6 +23,76 @@ public class LoadUser {
             preparedStatement.setString(1,name);
             preparedStatement.setString(2,email);
             preparedStatement.setLong(3,Util.hashPass("20220521",email,id));
+            synchronized (preparedStatement){
+                int row = preparedStatement.executeUpdate();
+                if(row == 1)
+                    isSaved=true;
+            }
+            preparedStatement.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return isSaved;
+    }
+    public static EmailConfirm loadEmailConfirm(String email){
+        try {
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("select * from email_confirm where email=?");
+            preparedStatement.setString(1,email);
+            EmailConfirm emailConfirm = null;
+            synchronized (preparedStatement){
+                ResultSet rs = preparedStatement.executeQuery();
+                if(rs.next()){
+                    emailConfirm = new EmailConfirm();
+                    emailConfirm.setEmail(rs.getString(1));
+                    emailConfirm.setUser_name(rs.getString(2));
+                    emailConfirm.setCode(rs.getInt(3));
+                    emailConfirm.setTime_created(rs.getLong(4));
+                }
+                rs.close();
+            }
+            preparedStatement.close();
+            return emailConfirm;
+        } catch (SQLException throwables) {
+
+            throwables.printStackTrace();
+
+        }
+        return null;
+    }
+    public static boolean updateActiveEmail(String email){
+           String sql = "update user set `active`=? where email=?";
+       boolean isSaved = false;
+        try {
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1,1);
+            preparedStatement.setString(2,email);
+            synchronized (preparedStatement){
+                int row = preparedStatement.executeUpdate();
+                if(row == 1)
+                    isSaved=true;
+            }
+            preparedStatement.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return isSaved;
+    }
+    public static boolean saveEmailConfirm(String email,String name,int code){
+        boolean isSaved = false;
+        String sql="";
+        if(loadEmailConfirm(email)==null) {
+             sql = "insert into email_confirm(`user_name`,code,time_created,email) values(?,?,?,?)";
+        }else{
+             sql = "update email_confirm set `user_name`=?,code=?,time_created=? where email=?";
+        }
+        try {
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+//            preparedStatement.setInt(1,user_id);
+            preparedStatement.setString(1,name);
+            preparedStatement.setInt(2,code);
+            preparedStatement.setLong(3,System.currentTimeMillis());
+            preparedStatement.setString(4,email);
+//            preparedStatement.setLong(3,Util.hashPass("20220521",email,id));
             synchronized (preparedStatement){
                 int row = preparedStatement.executeUpdate();
                 if(row == 1)
@@ -98,6 +169,10 @@ public class LoadUser {
 //   ,
     public static boolean updateUser(String name, String birthday, int phone,String email,String city,String distric,String ward, String detailaddress,int user_id){
         String sql= "Update user set address = '"+detailaddress+","+ward+","+distric+","+city+"', name ='"+name+"', phone= "+phone+",email='"+email+"',birthday='"+birthday+"' where id="+user_id;
+        return excuteSql(sql);
+    }
+    public static boolean updateUserVendor(String name, String email, int phone, String city, String district, String ward, String detail, String description, String avatar, int user_id){
+        String sql = "Update user set name ='" + name +"', email='" + email + "', phone='" + phone + "', address='" + detail + ", " + ward + ", " + district + ", " + city + "', about='" + description + "', avatar='" + avatar + "' where id=" + user_id;
         return excuteSql(sql);
     }
     public  static boolean updateUserInAdimin(int id,String email,long password,String name,String sex,String birthday,String address,String datecreated){
@@ -254,14 +329,7 @@ public class LoadUser {
     }
 
 
-    public static void main(String[] args) {
-//        Syzstem.out.println(updateUserInAdimin(1,"sfdsa",324234,"name","Nam","20/12/2010","hung vuong","20/12/2020"));
-//        System.out.println(loadUserById(6));
-//        for(User u:loadOrderCommentByIdUser(3)){
-//            System.out.println(u.getComment()+"/"+u.getRating_type_id());
-//        }
-        updateUserActiveById(1,2);
-    }
+
     public static int getMaxUserId() {
         int id = 0;
         Statement statement = null;
@@ -399,6 +467,68 @@ public class LoadUser {
             throwables.printStackTrace();
         }
 
+    }
+
+    public static void deleteUser(String email) {
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement("DELETE FROM user WHERE email = ?");
+            pe.setString(1,email);
+
+            synchronized (pe){
+                pe.executeUpdate();
+            }
+            pe.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public static void deleteEmailConfirm(String email) {
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement("DELETE FROM email_confirm WHERE email = ?");
+            pe.setString(1,email);
+
+            synchronized (pe){
+                pe.executeUpdate();
+            }
+            pe.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public static List<User> loadUserWithStatusOrder(int status, int supplier_id){
+        List<User>users = new ArrayList<User>();
+        String sql = "SELECT u.id, u.`name`,u.email\n" +
+                "FROM `user` u  JOIN `order` o ON u.id=o.user_id WHERE o.`status`="+status+" and o.supplier_id="+supplier_id;
+        System.out.println(sql);
+        try{
+            Statement statement = DBCPDataSource.getStatement();
+            synchronized (statement){
+                ResultSet resultSet = statement.executeQuery(sql);
+                while (resultSet.next()){
+                    User user = new User();
+                    user.setId(resultSet.getInt(1));
+                    user.setName(resultSet.getString(2));
+                    user.setEmail(resultSet.getString(3));
+
+
+                    users.add(user);
+                }
+                resultSet.close();
+            }
+            statement.close();
+            return users;
+        } catch(SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        List<User> listUsers= LoadUser.loadUserWithStatusOrder(5,41);
+        System.out.println(listUsers.size());
+//        System.out.println(loadUserWithStatusOrder(3).toArray().length);
     }
 
 }

@@ -3,6 +3,7 @@ package vn.thegioidochoi.controller.user_page;
 import vn.thegioidochoi.model.Product.Product;
 import vn.thegioidochoi.model.Product.ProductEntity;
 import vn.thegioidochoi.model.user.Cart;
+import vn.thegioidochoi.model.user.Cart_item;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @WebServlet(urlPatterns = "/checkout")
 public class Checkout_direct extends HttpServlet {
@@ -44,7 +49,8 @@ public class Checkout_direct extends HttpServlet {
         double price = 0;
         double price_shipment = 0;
         double total_price = 0;
-        int typeWeight = 0;
+//        int typeWeight = 1;
+        List<Product>products = new ArrayList<>();
 
         if (request.getParameter("fast-checkout") != null) {
             int pro_id = Integer.parseInt(request.getParameter("pro_id"));
@@ -52,27 +58,41 @@ public class Checkout_direct extends HttpServlet {
             if (product.isIs_sale())
                 price = product.getPrice_sale();
             else price = product.getPrice();
-            typeWeight = product.getType_weight();
+//            typeWeight = product.getType_weight();
             session.setAttribute("fast-checkout", true);
-            session.setAttribute("type_weight", typeWeight);
+//            session.setAttribute("type_weight", typeWeight);
+           price_shipment=20000;
             session.setAttribute("pro_id", pro_id);
             session.setAttribute("price", product.getPrice());
+            products.add(product);
 
         } else {
             price = cart.getPriceSaled() != 0 ? cart.getPriceSaled() : cart.getTotalPrice();
-            typeWeight = cart.getMaxTypeWeight();
+//            typeWeight = cart.getMaxTypeWeight();
             cart.setTotalPriceCheckout(total_price);
+            Set<String> vendors = new HashSet<String>();
+            for(Cart_item item : cart.getProducts().values()) {
+                vendors.add(item.getVendor_name());
+            }
+            price_shipment = vendors.size()*20000;
+
+            for(Cart_item item:cart.getProducts().values()){
+                Product product_temp = new Product();
+                product_temp.setName(item.getName());
+                product_temp.setPrice(item.getPrice());
+                product_temp.setPrice_sale(item.getPrice_sale());
+                products.add(product_temp);
+            }
+
+            System.out.println("Fee shippppppppppppppppppppp: " + price_shipment);
+
         }
-
-        if (typeWeight == 1) price_shipment = 10000;
-        else if (typeWeight == 2) price_shipment = 20000;
-        else if (typeWeight == 3) price_shipment = 50000;
-        else if (typeWeight == 4) price_shipment = 70000;
         total_price = price + price_shipment;
-
+        session.setAttribute("products", products);
         session.setAttribute("total-price", total_price);
         request.setAttribute("price", price);
         request.setAttribute("fee_ship", price_shipment);
+        session.setAttribute("fee_ship", price_shipment);
         request.setAttribute("total_price", total_price);
 
         request.getRequestDispatcher("user_page/checkout.jsp").forward(request, response);

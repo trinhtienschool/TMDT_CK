@@ -31,8 +31,9 @@
             <div class="col-lg">
                 <div class="sign__in__form sign__up__form">
                     <form action="handle-sign-up" id="formPass" method="post">
-                        <button><a href="login" class="btn-dn">ĐĂNG NHẬP</a></button>
-                        <button><a  class="btn-dk">ĐĂNG KÍ</a></button><br>
+                        <button><a href="handle-login?login=user" class="btn-dn">ĐĂNG NHẬP</a></button>
+                        <button><a class="btn-dk">ĐĂNG KÍ</a></button>
+                        <br>
                         <input type="text" name="name" id="fname" placeholder="Họ Tên (*)" required><br>
 
                         <input type="number" name="phone" id="phone" placeholder="Điện Thoại (*)" required><br>
@@ -107,12 +108,23 @@
                         <input type="text" name="district" id="district" placeholder="Quận/ Huyện (*)" required>
                         <input type="text" name="warm" id="warm" placeholder="Xã/ Phường/ Thị trấn (*)" required>
                         <input type="text" name="address" id="address" placeholder="Địa Chỉ Chi Tiết (*)" required>
-                        <input type="password" name="new-pass" id="passwd" placeholder="Mật Khẩu" required><br>
-                        <label id="mk-notice" class="invisible" style="color: red">Mật khẩu phải dài từ 8-25 kí tự và phải chứa cả số và chữ in hoa</label>
+                        <div class="passwd-wrapper">
+                            <input class="passwd" type="password" name="new-pass" id="passwd" placeholder="Mật Khẩu"
+                                   required>
+                            <div style="top: 33px; right: 30px;" class="show-passwd"><i class="fa fa-eye d-block"></i>
+                                <i class="fa fa-eye-slash d-none"></i></div>
+                        </div>
 
-                        <input type="password" name="new-pass-con" id="pass-again" placeholder="Nhập Lại Mật Khẩu" required><br>
-                        <label class="invisible" id="mka-notice" style="color: red">Mật khẩu phải trùng khớp với mật khẩu đã nhập</label>
-
+                        <label id="mk-notice" class="invisible" style="color: red">Mật khẩu phải dài từ 8-25 kí tự và
+                            phải chứa cả số và chữ in hoa</label>
+                        <div class="passwd-wrapper">
+                            <input class="passwd" type="password" name="new-pass-con" id="pass-again"
+                                   placeholder="Nhập Lại Mật Khẩu" required>
+                            <div style="top: 33px; right: 30px;" class="show-passwd"><i class="fa fa-eye d-block"></i>
+                                <i class="fa fa-eye-slash d-none"></i></div>
+                        </div>
+                        <label class="invisible" id="mka-notice" style="color: red">Mật khẩu phải trùng khớp với mật
+                            khẩu đã nhập</label>
                         <input type="submit" name="submit" id="submit" value="ĐĂNG KÝ"><br>
                     </form>
                 </div>
@@ -121,7 +133,7 @@
     </div>
 </section>
 <c:if test="${status==2}">
-    <div class="modal fade" id="wrong_info_login" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal fade" id="wrong_info_login" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog forget-dialog" role="document">
             <div class="modal-content forget-content">
                 <div class="modal-header forget-header">
@@ -140,6 +152,40 @@
                     <button type="button" class="btn btn-primary forget-send" data-dismiss="modal">ĐÓNG</button>
                 </div>
             </div>
+        </div>
+    </div>
+</c:if>
+<c:if test="${status==3}">
+    <div class="modal fade" id="wrong_info_login" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog forget-dialog" role="document">
+            <form action="/handle-sign-up" method="post">
+                <div class="modal-content forget-content">
+                    <div class="modal-header forget-header">
+                        <h5 class="modal-title forget-title">Xác nhận email</h5>
+                            <%--                    <button type="button" class="close" data-dismiss="modal" aria-label="x">--%>
+                            <%--                        <span aria-hidden="true">&times;</span>--%>
+                            <%--                    </button>--%>
+                    </div>
+                    <div class="modal-body forget-body">
+                        <!-- <h5 class="forget-h5">Vui lòng nhập Email bạn đã đăng kí để lấy lại mật khẩu</h5> -->
+                        <div>
+                            <p>Đã gửi một email chứa mã xác nhận đến email bạn vừa đăng ký, vui lòng nhập mã xác
+                                nhận:</p>
+
+                            <input type="hidden" name="email" value="${email}">
+                            <input type="hidden" name="confirm" value="confirm">
+<%--                            <c:if test="${user_role ==2}">--%>
+<%--                                <input type="hidden" name="sign_up_vendor" value="1">--%>
+<%--                            </c:if>--%>
+                            <input type="text" name="code" id="code" placeholder="Mã Xác Nhận" required>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary forget-send">XÁC NHẬN</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </c:if>

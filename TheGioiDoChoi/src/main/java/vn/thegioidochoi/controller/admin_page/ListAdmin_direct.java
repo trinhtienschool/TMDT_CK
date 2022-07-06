@@ -21,7 +21,6 @@ public class ListAdmin_direct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         if(session.getAttribute("role_id")==null){
-
             System.out.println("Url: "+request.getRequestURL());
             System.out.println("query: "+request.getQueryString());
             response.sendRedirect("../handle-login?logout=true");

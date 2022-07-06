@@ -21,12 +21,13 @@
     <link rel="stylesheet" href="user_page/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/elegant-icons.css" type="text/css">
-    <%--    <link rel="stylesheet" href="user_page/css/nice-select.css" type="text/css">--%>
+    <link rel="stylesheet" href="user_page/css/nice-select.css" type="text/css">
+<%--        <link rel="stylesheet" href="user_page/css/nice-select.css" type="text/css">--%>
     <link rel="stylesheet" href="user_page/css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/owl.theme.default.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="user_page/css/slick.min.css" type="text/css">
+    <link rel="stylesheet" href="user_page/css/slick.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/lightgallery.min.css" type="text/css">
     <link rel="stylesheet" href="user_page/css/fontawesome-stars.css" type="text/css">
     <%--    <link rel="stylesheet" href="user_page/css/blog_style.css" type="text/css">--%>
@@ -40,6 +41,7 @@
 <%--            onload="load(${position})"--%>
 <%--        </c:if>--%>
 >
+<div style="display: none" class="no_nice_selection"></div>
 <jsp:include page="Menu.jsp"></jsp:include>
 <%--<jsp:include page="search_bar.jsp"></jsp:include>--%>
 
@@ -234,6 +236,10 @@
 <%--        </div>--%>
 <%--    </div>--%>
 <%--</section>--%>
+
+
+
+<%--///////////////////--%>
 <div class="ps-page--product ps-page--product-box">
     <div class="container" style="background: white;
 ">
@@ -243,76 +249,219 @@
                     <figure>
                         <div class="ps-wrapper">
                             <div class="ps-product__gallery" data-arrow="true">
-                                <div class="item"><a href="img/products/detail/fullwidth/1.jpg"><img
-                                        src="img/products/detail/fullwidth/1.jpg" alt=""></a></div>
-                                <div class="item"><a href="img/products/detail/fullwidth/2.jpg"><img
-                                        src="img/products/detail/fullwidth/2.jpg" alt=""></a></div>
-                                <div class="item"><a href="img/products/detail/fullwidth/3.jpg"><img
-                                        src="img/products/detail/fullwidth/3.jpg" alt=""></a></div>
+                                <div class="item"><a href="${product.img}"><img
+                                        src="${product.img}" alt=""></a></div>
+                                <c:forEach items="${images}" var="image">
+                                <div class="item"><a href="${image.url}"><img
+                                        src="${image.url}" alt=""></a></div>
+                                </c:forEach>
+<%--    <div class="item"><a href="user_page/img/products/detail/fullwidth/1.jpg"><img--%>
+<%--            src="user_page/img/products/detail/fullwidth/1.jpg" alt=""></a></div>--%>
+
+<%--                                <div class="item"><a href="user_page/img/products/detail/fullwidth/2.jpg"><img--%>
+<%--                                        src="user_page/img/products/detail/fullwidth/2.jpg" alt=""></a></div>--%>
+<%--                                <div class="item"><a href="user_page/img/products/detail/fullwidth/3.jpg"><img--%>
+<%--                                        src="user_page/img/products/detail/fullwidth/3.jpg" alt=""></a></div>--%>
+<%--    <div class="item"><a href="user_page/img/products/detail/fullwidth/4.jpg"><img--%>
+<%--            src="user_page/img/products/detail/fullwidth/4.jpg" alt=""></a></div>--%>
                             </div>
                         </div>
                     </figure>
                     <div class="ps-product__variants" data-item="4" data-md="4" data-sm="4" data-arrow="false">
-                        <div class="item"><img src="img/products/detail/fullwidth/1.jpg" alt=""></div>
-                        <div class="item"><img src="img/products/detail/fullwidth/2.jpg" alt=""></div>
-                        <div class="item"><img src="img/products/detail/fullwidth/3.jpg" alt=""></div>
-                        <div class="item"><img src="img/products/detail/fullwidth/4.jpg" alt=""></div>
+                        <div class="item"><img src="${product.img}" alt=""></div>
+                        <c:forEach items="${images}" var="image">
+                        <div class="item"><img src="${image.url}" alt=""></div>
+                        </c:forEach>
+<%--                        <div class="item"><img src="user_page/img/products/detail/fullwidth/1.jpg" alt=""></div>--%>
+<%--                        <div class="item"><img src="user_page/img/products/detail/fullwidth/2.jpg" alt=""></div>--%>
+<%--                        <div class="item"><img src="user_page/img/products/detail/fullwidth/3.jpg" alt=""></div>--%>
+<%--                        <div class="item"><img src="user_page/img/products/detail/fullwidth/4.jpg" alt=""></div>--%>
                     </div>
                 </div>
                 <div class="ps-product__info">
-                    <h1>Marshall Kilburn Portable Wireless Speaker</h1>
+                    <h1>${product.name}</h1>
                     <div class="ps-product__meta">
-                        <p>Brand:<a href="shop-default.html">Sony</a></p>
+                        <p class="categories"><strong> Danh mục: </strong><a href="/shopping?cate=${category.slug}">${category.name}</a></p>
+                        <p><strong>SKU: </strong> ${product.product_code}</p>
+
                         <div class="ps-product__rating">
-                            <select class="ps-rating" data-read-only="true">
-                                <option value="1">1</option>
-                                <option value="1">2</option>
-                                <option value="1">3</option>
-                                <option value="2">4</option>
-                                <option value="2">5</option>
-                            </select><span>(1 review)</span>
+<%--                                                <div class="product-rating">--%>
+                                                    <c:if test="${proavgstar.avgstar==5}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar==4}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar==3}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar==2}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar==1}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar>1&&proavgstar.avgstar<2}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star-half-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar>2&&proavgstar.avgstar<3}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star-half-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar>3&&proavgstar.avgstar<4}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star-half-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar>4&&proavgstar.avgstar<5}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star-half-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+<%--                                                </div>--%>
+<%--                            <select class="ps-rating" data-read-only="true">--%>
+<%--                                <c:if test="${proavgstar.avgstar==1}">--%>
+<%--                                    <option value="1">1</option>--%>
+<%--                                    <option value="2">2</option>--%>
+<%--                                    <option value="2">3</option>--%>
+<%--                                    <option value="2">4</option>--%>
+<%--                                    <option value="2">5</option>--%>
+<%--                                </c:if>--%>
+<%--                                <c:if test="${proavgstar.avgstar==2}">--%>
+<%--                                    <option value="1">1</option>--%>
+<%--                                    <option value="1">2</option>--%>
+<%--                                    <option value="2">3</option>--%>
+<%--                                    <option value="2">4</option>--%>
+<%--                                    <option value="2">5</option>--%>
+<%--                                </c:if>--%>
+<%--                                <c:if test="${proavgstar.avgstar==3}">--%>
+<%--                                    <option value="1">1</option>--%>
+<%--                                    <option value="1">2</option>--%>
+<%--                                    <option value="1">3</option>--%>
+<%--                                    <option value="2">4</option>--%>
+<%--                                    <option value="2">5</option>--%>
+<%--                                </c:if>--%>
+<%--                                <c:if test="${proavgstar.avgstar==4}">--%>
+<%--                                    <option value="1">1</option>--%>
+<%--                                    <option value="1">2</option>--%>
+<%--                                    <option value="1">3</option>--%>
+<%--                                    <option value="1">4</option>--%>
+<%--                                    <option value="2">5</option>--%>
+<%--                                </c:if>--%>
+<%--<c:if test="${proavgstar.avgstar==5}">--%>
+<%--                                <option value="1">1</option>--%>
+<%--                                <option value="1">2</option>--%>
+<%--                                <option value="1">3</option>--%>
+<%--                                <option value="1">4</option>--%>
+<%--                                <option value="1">5</option>--%>
+<%--    </c:if>--%>
+<%--                            </select>--%>
+                            <span>(${totalratestar})</span>
                         </div>
                     </div>
-                    <h4 class="ps-product__price">$36.78 – $56.99</h4>
+                    <c:if test="${product.is_sale==true}">
+                    <h4 class="ps-product__price" style="display: inline-block">${Util.formatCurrency(product.price_sale)}</h4>
+                        <h5 style="display: inline-block"><del>   ${Util.formatCurrency(product.price)}</del></h5>
+                    </c:if>
+                    <c:if test="${product.is_sale==false}">
+                        <h4 class="ps-product__price" >${Util.formatCurrency(product.price)}</h4>
+
+                    </c:if>
                     <div class="ps-product__desc">
-                        <p>Sold By:<a href="shop-default.html"><strong> Go Pro</strong></a></p>
-                        <ul class="ps-list--dot">
-                            <li> Unrestrained and portable active stereo speaker</li>
-                            <li> Free from the confines of wires and chords</li>
-                            <li> 20 hours of portable capabilities</li>
-                            <li> Double-ended Coil Cord with 3.5mm Stereo Plugs Included</li>
-                            <li> 3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li>
-                        </ul>
+<%--                        <p>Sold By:<a href="shop-default.html"><strong> Go Pro</strong></a></p>--%>
+<%--                        <ul class="ps-list--dot">--%>
+<%--                            <li> Unrestrained and portable active stereo speaker</li>--%>
+<%--                            <li> Free from the confines of wires and chords</li>--%>
+<%--                            <li> 20 hours of portable capabilities</li>--%>
+<%--                            <li> Double-ended Coil Cord with 3.5mm Stereo Plugs Included</li>--%>
+<%--                            <li> 3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li>--%>
+<%--                        </ul>--%>
+                        <p>${product.description}</p>
                     </div>
                     <div class="ps-product__variations">
-                        <figure>
-                            <figcaption>Color</figcaption>
-                            <div class="ps-variant ps-variant--color color--1"><span
-                                    class="ps-variant__tooltip">Black</span></div>
-                            <div class="ps-variant ps-variant--color color--2"><span
-                                    class="ps-variant__tooltip"> Gray</span></div>
-                        </figure>
+<%--                        <figure>--%>
+<%--                            <figcaption>Color</figcaption>--%>
+<%--                            <div class="ps-variant ps-variant--color color--1"><span--%>
+<%--                                    class="ps-variant__tooltip">Black</span></div>--%>
+<%--                            <div class="ps-variant ps-variant--color color--2"><span--%>
+<%--                                    class="ps-variant__tooltip"> Gray</span></div>--%>
+<%--                        </figure>--%>
                     </div>
                     <div class="ps-product__shopping">
                         <figure>
-                            <figcaption>Quantity</figcaption>
+                            <figcaption>Số lượng</figcaption>
                             <div class="form-group--number">
-                                <button class="up"><i class="fa fa-plus"></i></button>
-                                <button class="down"><i class="fa fa-minus"></i></button>
-                                <input class="form-control" type="text" placeholder="1">
+                                <button class="add-cart-up up"><i class="fa fa-plus"></i></button>
+                                <button class="add-cart-down down"><i class="fa fa-minus"></i></button>
+                                <input class="add-cart-input form-control" type="text" value="1">
                             </div>
                         </figure>
-                        <a class="ps-btn ps-btn--black" href="#">Add to cart</a><a class="ps-btn" href="#">Buy Now</a>
-                        <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a><a href="#"><i
-                                class="icon-chart-bars"></i></a></div>
+                        <a style="font-size: 18px;" class="btn btn-outline-primary add-cart-shop-detail" data-pro_id="${product.id}" data-current_page="shop-detail?product=${product.slug}" href="#">Thêm giỏ hàng</a><a class="btn btn-primary" style="font-size: 18px;" href="/checkout?fast-checkout=true&pro_id=${product.id}">Mua hàng</a>
+                        <c:if test="${sessionScope.user_id !=null}">
+                        <div class="ps-product__actions">
+                            <a href="#" class="addFa" data-current_page="shop-detail" data-pro_id="${product.id}"><i class="icon-heart"></i></a>
+                        </div>
+                        </c:if>
                     </div>
-                    <div class="ps-product__specification"><a class="report" href="#">Report Abuse</a>
-                        <p><strong>SKU:</strong> SF1133569600-1</p>
-                        <p class="categories"><strong> Categories:</strong><a href="#">Consumer Electronics</a>,<a
-                                href="#"> Refrigerator</a>,<a href="#">Babies & Moms</a></p>
-                        <p class="tags"><strong> Tags</strong><a href="#">sofa</a>,<a href="#">technologies</a>,<a
-                                href="#">wireless</a></p>
-                    </div>
+
                     <div class="ps-product__sharing"><a class="facebook" href="#"><i class="fa fa-facebook"></i></a><a
                             class="twitter" href="#"><i class="fa fa-twitter"></i></a><a class="google" href="#"><i
                             class="fa fa-google-plus"></i></a><a class="linkedin" href="#"><i
@@ -325,6 +474,88 @@
 
     </div>
 </div>
+
+<%--/////////////////////--%>
+
+<%--<div class="ps-page--product ps-page--product-box">--%>
+<%--    <div class="container">--%>
+<%--        <div class="ps-product--detail ps-product--box">--%>
+<%--            <div class="ps-product__header ps-product__box">--%>
+<%--                <div class="ps-product__thumbnail" data-vertical="true">--%>
+<%--                    <figure>--%>
+<%--                        <div class="ps-wrapper">--%>
+<%--                            <div class="ps-product__gallery" data-arrow="true">--%>
+<%--                                <div class="item"><a href="user_page/img/products/detail/fullwidth/1.jpg"><img src="user_page/img/products/detail/fullwidth/1.jpg" alt=""></a></div>--%>
+<%--                                <div class="item"><a href="user_page/img/products/detail/fullwidth/2.jpg"><img src="user_page/img/products/detail/fullwidth/2.jpg" alt=""></a></div>--%>
+<%--                                <div class="item"><a href="user_page/img/products/detail/fullwidth/3.jpg"><img src="user_page/img/products/detail/fullwidth/3.jpg" alt=""></a></div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </figure>--%>
+<%--                    <div class="ps-product__variants" data-item="4" data-md="4" data-sm="4" data-arrow="false">--%>
+<%--                        <div class="item"><img src="user_page/img/products/detail/fullwidth/1.jpg" alt=""></div>--%>
+<%--                        <div class="item"><img src="user_page/img/products/detail/fullwidth/2.jpg" alt=""></div>--%>
+<%--                        <div class="item"><img src="user_page/img/products/detail/fullwidth/3.jpg" alt=""></div>--%>
+<%--                        <div class="item"><img src="user_page/img/products/detail/fullwidth/4.jpg" alt=""></div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div class="ps-product__info">--%>
+<%--                    <h1>Marshall Kilburn Portable Wireless Speaker</h1>--%>
+<%--                    <div class="ps-product__meta">--%>
+<%--                        <p>Brand:<a href="shop-default.html">Sony</a></p>--%>
+<%--                        <div class="ps-product__rating">--%>
+<%--                            <select class="ps-rating" data-read-only="true">--%>
+<%--                                <option value="1">1</option>--%>
+<%--                                <option value="1">2</option>--%>
+<%--                                <option value="1">3</option>--%>
+<%--                                <option value="1">4</option>--%>
+<%--                                <option value="2">5</option>--%>
+<%--                            </select><span>(1 review)</span>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <h4 class="ps-product__price">$36.78 – $56.99</h4>--%>
+<%--                    <div class="ps-product__desc">--%>
+<%--                        <p>Sold By:<a href="shop-default.html"><strong> Go Pro</strong></a></p>--%>
+<%--                        <ul class="ps-list--dot">--%>
+<%--                            <li> Unrestrained and portable active stereo speaker</li>--%>
+<%--                            <li> Free from the confines of wires and chords</li>--%>
+<%--                            <li> 20 hours of portable capabilities</li>--%>
+<%--                            <li> Double-ended Coil Cord with 3.5mm Stereo Plugs Included</li>--%>
+<%--                            <li> 3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li>--%>
+<%--                        </ul>--%>
+<%--                    </div>--%>
+<%--                    <div class="ps-product__variations">--%>
+<%--                        <figure>--%>
+<%--                            <figcaption>Color</figcaption>--%>
+<%--                            <div class="ps-variant ps-variant--color color--1"><span class="ps-variant__tooltip">Black</span></div>--%>
+<%--                            <div class="ps-variant ps-variant--color color--2"><span class="ps-variant__tooltip"> Gray</span></div>--%>
+<%--                        </figure>--%>
+<%--                    </div>--%>
+<%--                    <div class="ps-product__shopping">--%>
+<%--                        <figure>--%>
+<%--                            <figcaption>Quantity</figcaption>--%>
+<%--                            <div class="form-group--number">--%>
+<%--                                <button class="up"><i class="fa fa-plus"></i></button>--%>
+<%--                                <button class="down"><i class="fa fa-minus"></i></button>--%>
+<%--                                <input class="form-control" type="text" placeholder="1">--%>
+<%--                            </div>--%>
+<%--                        </figure><a class="ps-btn ps-btn--black" href="#">Add to cart</a><a class="ps-btn" href="#">Buy Now</a>--%>
+<%--                        <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a></div>--%>
+<%--                    </div>--%>
+<%--                    <div class="ps-product__specification"><a class="report" href="#">Report Abuse</a>--%>
+<%--                        <p><strong>SKU:</strong> SF1133569600-1</p>--%>
+<%--                        <p class="categories"><strong> Categories:</strong><a href="#">Consumer Electronics</a>,<a href="#"> Refrigerator</a>,<a href="#">Babies & Moms</a></p>--%>
+<%--                        <p class="tags"><strong> Tags</strong><a href="#">sofa</a>,<a href="#">technologies</a>,<a href="#">wireless</a></p>--%>
+<%--                    </div>--%>
+<%--                    <div class="ps-product__sharing"><a class="facebook" href="#"><i class="fa fa-facebook"></i></a><a class="twitter" href="#"><i class="fa fa-twitter"></i></a><a class="google" href="#"><i class="fa fa-google-plus"></i></a><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+
+<%--        </div>--%>
+
+<%--    </div>--%>
+<%--</div>--%>
+
+<%--//////////////////////////////////--%>
 <section class="supplier" style="  background: #f1f1f1; padding:0 !important; margin-top: -30px">
     <div class="container" style="background: white">
         <div class="row">
@@ -359,9 +590,8 @@
         </div>
     </div>
 </section>
-<%-- Details end --%>
-<%-- Product details end--%>
-<!-- Product Details Section Begin -->
+<%--//////////////////////////////////--%>
+
 <section class="product-details" style="  background: #f1f1f1; padding:0 !important; margin-top: 20px">
     <div class="container" style="background: white">
         <div class="row">
@@ -399,38 +629,170 @@
                                         <div class="ps-block--average-rating">
                                             <div class="ps-block__header">
                                                 <h3>4.00</h3>
-                                                <select class="ps-rating" data-read-only="true">
-                                                    <option value="1">1</option>
-                                                    <option value="1">2</option>
-                                                    <option value="1">3</option>
-                                                    <option value="1">4</option>
-                                                    <option value="2">5</option>
-                                                </select><span>1 Đánh giá</span>
+                                                <div class="ps-product__rating">
+                                                    <%--                                                <div class="product-rating">--%>
+                                                    <c:if test="${proavgstar.avgstar==5}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar==4}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar==3}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar==2}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar==1}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar>1&&proavgstar.avgstar<2}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star-half-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar>2&&proavgstar.avgstar<3}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star-half-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar>3&&proavgstar.avgstar<4}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star-half-o"></i>
+                                                            <i style="color: #edbb0e;" class="fa fa-star-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${proavgstar.avgstar>4&&proavgstar.avgstar<5}">
+                                                        <div class="product__details__rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star-half-o"></i>
+
+                                                        </div>
+                                                    </c:if>
+                                                    <%--                                                </div>--%>
+                                                    <%--                            <select class="ps-rating" data-read-only="true">--%>
+                                                    <%--                                <c:if test="${proavgstar.avgstar==1}">--%>
+                                                    <%--                                    <option value="1">1</option>--%>
+                                                    <%--                                    <option value="2">2</option>--%>
+                                                    <%--                                    <option value="2">3</option>--%>
+                                                    <%--                                    <option value="2">4</option>--%>
+                                                    <%--                                    <option value="2">5</option>--%>
+                                                    <%--                                </c:if>--%>
+                                                    <%--                                <c:if test="${proavgstar.avgstar==2}">--%>
+                                                    <%--                                    <option value="1">1</option>--%>
+                                                    <%--                                    <option value="1">2</option>--%>
+                                                    <%--                                    <option value="2">3</option>--%>
+                                                    <%--                                    <option value="2">4</option>--%>
+                                                    <%--                                    <option value="2">5</option>--%>
+                                                    <%--                                </c:if>--%>
+                                                    <%--                                <c:if test="${proavgstar.avgstar==3}">--%>
+                                                    <%--                                    <option value="1">1</option>--%>
+                                                    <%--                                    <option value="1">2</option>--%>
+                                                    <%--                                    <option value="1">3</option>--%>
+                                                    <%--                                    <option value="2">4</option>--%>
+                                                    <%--                                    <option value="2">5</option>--%>
+                                                    <%--                                </c:if>--%>
+                                                    <%--                                <c:if test="${proavgstar.avgstar==4}">--%>
+                                                    <%--                                    <option value="1">1</option>--%>
+                                                    <%--                                    <option value="1">2</option>--%>
+                                                    <%--                                    <option value="1">3</option>--%>
+                                                    <%--                                    <option value="1">4</option>--%>
+                                                    <%--                                    <option value="2">5</option>--%>
+                                                    <%--                                </c:if>--%>
+                                                    <%--<c:if test="${proavgstar.avgstar==5}">--%>
+                                                    <%--                                <option value="1">1</option>--%>
+                                                    <%--                                <option value="1">2</option>--%>
+                                                    <%--                                <option value="1">3</option>--%>
+                                                    <%--                                <option value="1">4</option>--%>
+                                                    <%--                                <option value="1">5</option>--%>
+                                                    <%--    </c:if>--%>
+                                                    <%--                            </select>--%>
+                                                    <span>(${totalratestar})</span>
+                                                </div>
+<%--                                                <select class="ps-rating" data-read-only="true">--%>
+<%--                                                    <option value="1">1</option>--%>
+<%--                                                    <option value="1">2</option>--%>
+<%--                                                    <option value="1">3</option>--%>
+<%--                                                    <option value="1">4</option>--%>
+<%--                                                    <option value="2">5</option>--%>
+<%--                                                </select><span>1 Đánh giá</span>--%>
                                             </div>
 
                                         </div>
                                     </div>
                                     <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 ">
                                         <div class="ps-block--average-rating">
-                                            <div class="ps-block__star"><span>5 Star</span>
-                                                <div class="ps-progress" data-value="100"><span></span></div>
-                                                <span>100%</span>
+                                            <div class="ps-block__star"><span>5 Sao</span>
+                                                <div class="ps-progress" data-value="${Math.round(prostar5.getCountstar()*100/totalratestar)}"><span></span></div>
+                                                <span>${Math.round(prostar5.getCountstar()*100/totalratestar)}%</span>
                                             </div>
-                                            <div class="ps-block__star"><span>4 Star</span>
-                                                <div class="ps-progress" data-value="0"><span></span></div>
-                                                <span>0</span>
+                                            <div class="ps-block__star"><span>4 Sao</span>
+                                                <div class="ps-progress" data-value="${Math.round(prostar4.getCountstar()*100/totalratestar)}"><span></span></div>
+                                                <span>${Math.round(prostar4.getCountstar()*100/totalratestar)}%</span>
                                             </div>
-                                            <div class="ps-block__star"><span>3 Star</span>
-                                                <div class="ps-progress" data-value="0"><span></span></div>
-                                                <span>0</span>
+                                            <div class="ps-block__star"><span>3 Sao</span>
+                                                <div class="ps-progress" data-value="${Math.round(prostar3.getCountstar()*100/totalratestar)}"><span></span></div>
+                                                <span>${Math.round(prostar3.getCountstar()*100/totalratestar)}%</span>
                                             </div>
-                                            <div class="ps-block__star"><span>2 Star</span>
-                                                <div class="ps-progress" data-value="0"><span></span></div>
-                                                <span>0</span>
+                                            <div class="ps-block__star"><span>2 Sao</span>
+                                                <div class="ps-progress" data-value="${Math.round(prostar2.getCountstar()*100/totalratestar)}"><span></span></div>
+                                                <span>${Math.round(prostar2.getCountstar()*100/totalratestar)}%</span>
                                             </div>
-                                            <div class="ps-block__star"><span>1 Star</span>
-                                                <div class="ps-progress" data-value="0"><span></span></div>
-                                                <span>0</span>
+                                            <div class="ps-block__star"><span>1 Sao</span>
+                                                <div class="ps-progress" data-value="${Math.round(prostar1.getCountstar()*100/totalratestar)}"><span></span></div>
+                                                <span>${Math.round(prostar1.getCountstar()*100/totalratestar)}%</span>
                                             </div>
                                         </div>
                                     </div>
@@ -631,6 +993,7 @@
         </div>
     </div>
 </section>
+<%--///////////////////////////////////////--%>
 <!-- Product Details Section End -->
 
 <%-- Modal Image begin --%>
@@ -663,6 +1026,7 @@
 
 <!-- Product Reviews Section End -->
 <!-- Related Product Section Begin -->
+<%--/////////////////////////////////////////////////--%>
 <section class="related-product" style="
     background: #f1f1f1;
     margin-top: 20px;
@@ -694,7 +1058,7 @@
                             </ul>
                         </div>
                         <div class="product__item__text">
-                            <h6><a href="shop-detail?id=${rl.id}">${rl.name}</a></h6>
+                            <h4><a href="shop-detail?id=${rl.id}">${rl.name}</a></h4>
                             <h5><%= Util.formatCurrency((double) pageContext.getAttribute("pricesale")) %>
                                 <span> <%= Util.formatCurrency((double) pageContext.getAttribute("pricesale")) %> </span>
                             </h5>
@@ -705,19 +1069,25 @@
         </div>
     </div>
 </section>
+<%--/////////////////////////////////////////////////--%>
 <!-- Related Product Section End -->
 <jsp:include page="footer.jsp"></jsp:include>
 <!-- Js Plugins -->
 <script src="user_page/js/jquery-3.3.1.min.js"></script>
 <script src="user_page/js/bootstrap.min.js"></script>
-<%--<script src="user_page/js/jquery.nice-select.min.js"></script>--%>
+
 <script src="user_page/js/jquery-ui.min.js"></script>
 <script src="user_page/js/jquery.slicknav.js"></script>
-<script src="user_page/js/mixitup.min.js"></script>
-<script src="user_page/js/owl.carousel.min.js"></script>
+
+<%--<script src="user_page/js/jquery.nice-select.min.js"></script>--%>
 <script src="user_page/js/slick.min.js"></script>
 <script src="user_page/js/lightgallery-all.min.js"></script>
+<script src="user_page/js/mixitup.min.js"></script>
+<script src="user_page/js/owl.carousel.min.js"></script>
+
+
 <script src="user_page/js/jquery.barrating.min.js"></script>
+<script src="user_page/js/jquery.nice-select.min.js"></script>
 <script src="user_page/js/main.js"></script>
 <script src="user_page/js/main_home.js"></script>
 <script>

@@ -47,8 +47,11 @@
                         <br>
                         <input type="email" name="email" id="email" placeholder="Nhập email" required>
                         <br>
-                        <input type="password" name="pass" id="pass" placeholder="Mật khẩu" required>
-<%--                        <label id="pw-notice" class="invisible notice">Mật khẩu phải dài từ 8 - 25 kí tự và phải chứa cả số và chữ in hoa</label>--%>
+                        <div class="passwd-wrapper">
+                            <input type="password" name="pass" class="passwd" id="pass" placeholder="Mật khẩu" required>
+                            <div style="top:33px;right: 30px" class="show-passwd"><i class="fa fa-eye d-block"></i> <i class="fa fa-eye-slash d-none"></i></div>
+                        </div>
+                        <%--                        <label id="pw-notice" class="invisible notice">Mật khẩu phải dài từ 8 - 25 kí tự và phải chứa cả số và chữ in hoa</label>--%>
                         <br>
                         <input type="submit" name="submit" id="submit" value="Đăng nhập"><br>
                     </form>
@@ -140,7 +143,7 @@
 <%--</c:if>--%>
 
 <c:if test="${status==2}">
-    <div class="modal fade" id="wrong_info_login" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div style="z-index: 10000" class="modal fade" id="wrong_info_login" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog forget-dialog" role="document">
             <div class="modal-content forget-content">
                 <div class="modal-header forget-header">
