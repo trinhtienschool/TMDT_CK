@@ -2,6 +2,7 @@ package vn.thegioidochoi.controller.user_page;
 
 import vn.thegioidochoi.model.Product.Product;
 import vn.thegioidochoi.model.Product.ProductEntity;
+import vn.thegioidochoi.model.mail.Mail;
 import vn.thegioidochoi.model.order.Load_Order;
 import vn.thegioidochoi.model.order.Order;
 import vn.thegioidochoi.model.order_product.OrderProduct;
@@ -36,6 +37,15 @@ public class Order_detail_direct extends HttpServlet {
         if(request.getParameter("delete")!=null){
             int delete = Integer.parseInt(request.getParameter("delete"));
             if(delete==1){
+                String subject="Thông báo hủy đặt hàng";
+
+                String link="http://localhost:8080/user";
+
+                String content= "Chào "+session.getAttribute("user_name")+"."
+                        + "\n"+ "Đây là thông báo về hủy đơn hàng của bạn."+link;
+                String receiveEmail= (String) session.getAttribute("user_mail");
+                System.out.println("mail nhan thong bao la"+receiveEmail);
+                Mail.sendMail(content,subject,receiveEmail);
                 Load_Order.updateOrderStatusActiveByOrderId(-1,1,order_id);
             }
         }

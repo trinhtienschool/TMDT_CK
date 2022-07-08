@@ -164,6 +164,7 @@ public class Supplier {
     public void setSlug(String slug) {
         this.slug = slug;
     }
+
     @Override
     public String toString() {
         return "Supplier{" +
@@ -190,4 +191,5 @@ public class Supplier {
                 "&quot;checked&quot;:"+checked+""+
                 "}";
     }
+
 }

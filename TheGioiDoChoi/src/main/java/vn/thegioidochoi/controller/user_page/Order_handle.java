@@ -3,6 +3,7 @@ package vn.thegioidochoi.controller.user_page;
 import vn.thegioidochoi.model.Product.Product;
 import vn.thegioidochoi.model.Product.ProductEntity;
 import vn.thegioidochoi.model.coupon_code.Coupon_Con_DB;
+import vn.thegioidochoi.model.mail.Mail;
 import vn.thegioidochoi.model.order.Load_Order;
 import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
 import vn.thegioidochoi.model.supplier.Load_Supplier;
@@ -12,6 +13,7 @@ import vn.thegioidochoi.model.user.Cart_item;
 import vn.thegioidochoi.model.user.LoadUser;
 import vn.thegioidochoi.model.util.Util;
 
+import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -170,6 +172,15 @@ public class Order_handle extends HttpServlet {
             session.removeAttribute("price");
 
         }
+        String subject="Thông báo đặt hàng thành công";
+
+        String link="http://localhost:8080/user";
+
+        String content= "Chào "+session.getAttribute("user_name")+"."
+                + "\n"+ "Đây là thông báo về hoàn thành đơn hàng của bạn."+link;
+        String receiveEmail= (String) session.getAttribute("user_mail");
+        System.out.println("mail nhan thong bao la"+receiveEmail);
+        Mail.sendMail(content,subject,receiveEmail);
         System.out.println("Xuong toi day");
 
         request.getRequestDispatcher("checkout").forward(request, response);
