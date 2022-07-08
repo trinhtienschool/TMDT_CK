@@ -801,9 +801,24 @@ public static boolean insertProduct(String name, double price,
         }
     }
 
+    public static boolean updateCategoryId(int defaultId, int cate_id){
+        String sql="UPDATE product SET category_id=? WHERE category_id=?";
+        int update=0;
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
 
-
-
+            preparedStatement.setInt(1, defaultId);
+            preparedStatement.setInt(2, cate_id);
+            synchronized (preparedStatement) {
+                update = preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            return update == 1;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return false;
+    }
 
 
 }

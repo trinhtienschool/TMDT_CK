@@ -26,6 +26,7 @@ public class Order {
     private int number_product;
     private int total_order;
     private int supplier_id;
+    private String avatar_user;
     public Order() {
     }
     public String getName_product() {
@@ -205,6 +206,14 @@ public class Order {
 
     public void setSupplier_id(int supplier_id) {
         this.supplier_id = supplier_id;
+    }
+
+    public String getAvatar_user() {
+        return avatar_user;
+    }
+
+    public void setAvatar_user(String avatar_user) {
+        this.avatar_user = avatar_user;
     }
 
     @Override

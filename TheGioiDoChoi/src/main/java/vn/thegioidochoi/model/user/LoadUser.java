@@ -174,9 +174,9 @@ public class LoadUser {
         String sql = "Update user set name ='" + name +"', email='" + email + "', phone='" + phone + "', address='" + detail + ", " + ward + ", " + district + ", " + city + "', about='" + description + "', avatar='" + avatar + "' where id=" + user_id;
         return excuteSql(sql);
     }
-    public  static boolean updateUserInAdimin(int id,String email,long password,String name,String sex,String birthday,String address,String datecreated){
+    public  static boolean updateUserInAdimin(int id,String email,long password,String name,String sex,String birthday,String address,String datecreated, int active){
         sex = sex.equalsIgnoreCase("Nam")?"1":"0";
-        String sql = "UPDATE user SET email = ?, password= ?,name=?,sex=?,birthday=?,address=?,date_created=? WHERE id = ?";
+        String sql = "UPDATE user SET email = ?, password= ?,name=?,sex=?,birthday=?,address=?,date_created=?,active=? WHERE id = ?";
         int update = 0;
         try{
             PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
@@ -188,6 +188,7 @@ public class LoadUser {
             preparedStatement.setString(6,address);
             preparedStatement.setString(7,datecreated);
             preparedStatement.setInt(8,id);
+            preparedStatement.setInt(9, active);
             synchronized (preparedStatement) {
                 update = preparedStatement.executeUpdate();
             }

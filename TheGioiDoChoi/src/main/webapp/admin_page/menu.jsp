@@ -79,7 +79,6 @@
                                <c:if test="${current_page=='rating-type'}">class="active"</c:if>>Loại đánh giá</a></li>
                         <li><a href="email"
                                <c:if test="${current_page=='email'}">class="active"</c:if>>Email</a></li>
-
                     </ul>
                 </li>
 
@@ -107,7 +106,7 @@
                     <ul style="display: none;">
                         <li><a href="users"
                                <c:if test="${current_page=='user'}">class="active"</c:if>>Khách hàng</a></li>
-                        <c:if test="${sessionScope.role_id==3}">
+                        <c:if test="${sessionScope.role_id==4}">
                         <li><a href="list-admin"
                                <c:if test="${current_page=='admin-list'}">class="active"</c:if>>Danh sách admin</a></li>
                         </c:if>
