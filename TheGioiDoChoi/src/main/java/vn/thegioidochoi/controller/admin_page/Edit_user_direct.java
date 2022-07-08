@@ -47,6 +47,7 @@ public class Edit_user_direct extends HttpServlet {
         long password=Long.parseLong(request.getParameter("password"));
         String birthday=request.getParameter("birthday");
         String createddate=request.getParameter("createddate");
+        int active = request.getParameter("activeuser")==null?0:1;
 
         if(type.equalsIgnoreCase("edit")){
             int id = Integer.parseInt(request.getParameter("usercode"));
@@ -54,7 +55,7 @@ public class Edit_user_direct extends HttpServlet {
             request.setAttribute("title","Sửa thông tin người dùng");
             request.setAttribute("id",id);
 //            boolean isUpdate=Rating_Type_Con_DB.updateRating_Type(id,name,active);
-            boolean isUpdate=LoadUser.updateUserInAdimin(id,email,password,name,sex,createddate,address,createddate);
+            boolean isUpdate=LoadUser.updateUserInAdimin(id,email,password,name,sex,createddate,address,createddate,active);
 //            Rating_Type rating_type= Rating_Type_Con_DB.loadRating_TypeById(id);
 //            request.setAttribute("ratingstype", rating_type);
 //            request.getRequestDispatcher("add-ratingstype.jsp").forward(request, response);

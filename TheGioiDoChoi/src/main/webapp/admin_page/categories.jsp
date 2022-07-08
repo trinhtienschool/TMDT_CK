@@ -76,20 +76,24 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Danh mục</th>
-                                        <th>Số Lượng</th>
                                         <th class="text-right">Hành Động</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach var="c_view" items="${c_view}">
+                                    <c:forEach var="c" items="${categories}">
                                         <tr>
-                                            <td>${c_view.id}</td>
-                                            <td>${c_view.name}</td>
-                                            <td>${c_view.numOfProduct}</td>
+                                            <td>${c.id}</td>
+                                            <td>${c.name}</td>
                                             <td class="text-right">
-                                                <a href="add-category?type=enterEdit&id=${c_view.id}"
+                                                <a href="add-category?type=enterEdit&id=${c.id}"
                                                    class="btn btn-sm bg-success-light mr-2">
                                                     <i class="far fa-edit mr-1"></i> Sửa</a>
+                                                <c:if test="${c.id!=c.master_id}">
+                                                    <a href="delete-category?type=sub&id=${c.id}" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</a>
+                                                </c:if>
+                                                <c:if test="${c.id==c.master_id}">
+                                                <a href="delete-category?type=parent&id=${c.id}" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</a>
+                                                </c:if>
                                             </td>
                                         </tr>
                                     </c:forEach>

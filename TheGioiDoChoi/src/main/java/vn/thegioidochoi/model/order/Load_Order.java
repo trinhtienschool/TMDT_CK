@@ -443,7 +443,7 @@ public class Load_Order {
                     order.setUser_id(resultSet.getInt(2));
                     order.setPhone(resultSet.getLong(6));
                     order.setTotal_pay(resultSet.getDouble(10));
-                    order.setUser_name(resultSet.getString(14));
+                    order.setUser_name(resultSet.getString(16));
                     order.setTotal_order(1);
                     orders.add(order);
                 }
@@ -455,7 +455,7 @@ public class Load_Order {
         }
         return orders;
     }
-    public static List<Order> loadOrderByStatus(int status, int supplier_id){
+ public static List<Order> loadOrderByStatus(int status, int supplier_id){
         List<Order> orderList = new ArrayList<>();
         try{
             PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT `order`.id FROM `order` WHERE `status`=? and supplier_id=?");
@@ -476,6 +476,34 @@ public class Load_Order {
             throwables.printStackTrace();
         }
         return orderList;
+    }
+ public static List<Order> loadOrderBySupplierId2(int supplierId){
+        List<Order> orders = new ArrayList<>();
+        String sql = "SELECT o.id, o.user_id, u.`name`, u.phone, u.avatar, count(o.id), sum(o.total_price)  FROM `order` o JOIN `user` u ON o.id = u.id WHERE supplier_id=?\n" +
+                "GROUP BY o.user_id";
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1,supplierId);
+            synchronized (preparedStatement){
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    Order order = new Order();
+                    order.setId(resultSet.getInt(1));
+                    order.setUser_id(resultSet.getInt(2));
+                    order.setPhone(resultSet.getLong(4));
+                    order.setTotal_order(resultSet.getInt(6));
+                    order.setUser_name(resultSet.getString(3));
+                    order.setTotal_pay(resultSet.getDouble(7));
+                    order.setAvatar_user(resultSet.getString(5));
+                    orders.add(order);
+                }
+                resultSet.close();
+            }
+            preparedStatement.close();
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return orders;
     }
     public static void main(String[] args) {
 //        System.out.println(loadOrderFormSql("SELECT * FROM `order` "));
