@@ -217,7 +217,7 @@ public class Order {
 
     public void setCommission_rate(int commission_rate) {
         this.commission_rate = commission_rate;
-
+    }
     public String getAvatar_user() {
         return avatar_user;
     }
