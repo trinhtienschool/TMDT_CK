@@ -147,7 +147,7 @@
 											</a>
 										</td>
 										<td class="text-right">
-											<a href="service-details.html" class="btn btn-sm bg-info-light">
+
 												<a style="color: #ffc800" href="service-details.html" class="btn btn-sm bg-purple-light">
 													<i class="far fa-eye mr-1"></i> Doanh thu
 												</a>
@@ -157,7 +157,7 @@
 												<a style="color: #ff5100" href="service-details.html" class="btn btn-sm bg-danger-light">
 													<i class="far fa-eye mr-1"></i>Đơn hàng
 												</a>
-											</a>
+
 										</td>
 									</tr>
 									</c:forEach>
