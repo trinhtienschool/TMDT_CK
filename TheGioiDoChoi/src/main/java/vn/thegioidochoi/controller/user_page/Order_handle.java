@@ -171,6 +171,7 @@ public class Order_handle extends HttpServlet {
 
         }
         System.out.println("Xuong toi day");
+
         request.getRequestDispatcher("checkout").forward(request, response);
 
 

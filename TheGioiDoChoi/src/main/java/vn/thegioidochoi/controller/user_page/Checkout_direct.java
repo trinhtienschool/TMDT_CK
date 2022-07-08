@@ -105,6 +105,13 @@ public class Checkout_direct extends HttpServlet {
         //result[1]: huyen
         //result[2]: phuong
         //result[3]: chi tiet
+        if(arr.length !=3){
+            result[0] = address;
+            result[1] = "";
+            result[2] = "";
+            result[3] = "";
+            return result;
+        }
         result[0] = arr[arr.length - 1];
         result[1] = arr[arr.length - 2];
         result[2] = arr[arr.length - 3];
