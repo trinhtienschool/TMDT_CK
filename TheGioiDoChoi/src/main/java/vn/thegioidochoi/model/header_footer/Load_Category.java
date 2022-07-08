@@ -5,6 +5,7 @@ import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +75,7 @@ public class Load_Category {
     public static Category loadCategoryById(int cate_id){
         Category category = new Category();
         try{
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT c.id, c.name, c.slug, count(p.id) FROM categories c JOIN product p ON c.id = p.category_id WHERE c.id = ?");
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT c.id, c.name, c.slug, c.master_id, count(p.id) FROM categories c JOIN product p ON c.id = p.category_id WHERE c.id = ?");
             preparedStatement.setInt(1,cate_id);
             synchronized (preparedStatement){
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -94,14 +95,15 @@ public class Load_Category {
         return category;
     }
     // Them danh muc o trang admin
-    public static boolean insertCategory(String name, int active, String slug){
-        String sql = "INSERT INTO categories(name,active,slug) value (?,?,?)";
+    public static boolean insertCategory(String name, int active, String slug, int master_id){
+        String sql = "INSERT INTO categories(name,active,slug,master_id) value (?,?,?,?)";
         int update = 0;
         try{
             PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
             preparedStatement.setString(1, name);
             preparedStatement.setInt(2, active);
             preparedStatement.setString(3, slug);
+            preparedStatement.setInt(4,master_id);
             synchronized (preparedStatement){
                 update = preparedStatement.executeUpdate();
             }
@@ -113,8 +115,8 @@ public class Load_Category {
         return false;
     }
     // Sua danh muc o trang admin
-    public  static boolean updateCategory(int id, String name, int active, String slug){
-        String sql = "UPDATE categories SET name = ?, active = ?, slug = ? WHERE id = ?";
+    public  static boolean updateCategory(int id, String name, int active, String slug, int master_id){
+        String sql = "UPDATE categories SET name = ?, active = ?, slug = ?, master_id=? WHERE id = ?";
         int update = 0;
         try{
             PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
@@ -122,6 +124,7 @@ public class Load_Category {
             preparedStatement.setInt(2, active);
             preparedStatement.setString(3, slug);
             preparedStatement.setInt(4,id);
+            preparedStatement.setInt(5, master_id);
             synchronized (preparedStatement) {
                 update = preparedStatement.executeUpdate();
             }
@@ -132,7 +135,130 @@ public class Load_Category {
         }
         return false;
     }
+    public static List<Category> loadParentCategories(){
+        List<Category> categories = new ArrayList<Category>();
+        String sql = "SELECT * FROM categories WHERE id=master_id";
+        try {
+            Statement statement = DBCPDataSource.getStatement();
+            synchronized (statement) {
+                ResultSet rs = statement.executeQuery(sql);
+                while (rs.next()) {
+                    Category category = new Category();
+                    category.setId(rs.getInt(1));
+                    System.out.println(rs.getInt(1));
+                    category.setName(rs.getString(2));
+                    category.setSlug(rs.getString(4));
+                    category.setMaster_id(rs.getInt(5));
+                    categories.add(category);
+                }
+                rs.close();
+            }
+            statement.close();
+            return categories;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return categories;
+    }
+    public static List<Category> loadAllCategories(){
+        List<Category> categories = new ArrayList<Category>();
+        String sql = "SELECT * FROM categories";
+        try {
+            Statement statement = DBCPDataSource.getStatement();
+            synchronized (statement) {
+                ResultSet rs = statement.executeQuery(sql);
+                while (rs.next()) {
+                    Category category = new Category();
+                    category.setId(rs.getInt(1));
+                    category.setName(rs.getString(2));
+                    category.setSlug(rs.getString(4));
+                    category.setMaster_id(rs.getInt(5));
+                    categories.add(category);
+                }
+                rs.close();
+            }
+            statement.close();
+            return categories;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return categories;
+    }
     public static void main(String[] args) {
 //        System.out.println(insertCategory("Cây ăn quả",0,"cay-an-qua"));
+//        System.out.println(loadAllCategories());
+//        System.out.println(loadParentCategories());
+        System.out.println(loadNewIdOfCategory());
     }
+
+    public static int loadNewIdOfCategory() {
+        String sql = "SELECT id FROM categories ORDER BY id DESC LIMIT 1";
+        int id=0;
+        try {
+            Statement statement = DBCPDataSource.getStatement();
+            synchronized (statement) {
+                ResultSet rs = statement.executeQuery(sql);
+                while (rs.next()) {
+                    id = rs.getInt(1);
+                }
+                rs.close();
+            }
+            statement.close();
+            return id;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return id;
+    }
+
+    public static boolean updateMasterIdCategory(int new_id) {
+        String sql = "UPDATE categories SET master_id=? WHERE id = ?";
+        int update = 0;
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+
+            preparedStatement.setInt(1, new_id);
+            preparedStatement.setInt(2, new_id);
+            synchronized (preparedStatement) {
+                update = preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            return update == 1;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean deleteCategory(int id){
+        String sql = "DELETE FROM categories WHERE id=?";
+        try {
+            PreparedStatement pt = DBCPDataSource.preparedStatement(sql);
+            pt.setInt(1, id);
+            synchronized (pt) {
+                pt.executeUpdate();
+            }
+            pt.close();
+            return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    return false;
+    }
+    public static boolean updateMasterId(int id){
+        String sql="UPDATE categories SET master_id=17 WHERE master_id=?";
+        int update=0;
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1, id);
+            synchronized (preparedStatement) {
+                update = preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            return update == 1;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
 }

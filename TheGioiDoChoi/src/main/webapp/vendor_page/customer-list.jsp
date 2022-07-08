@@ -46,31 +46,31 @@
             <!-- /Page Header -->
 
             <!-- Search Filter -->
-<%--            <div class="card filter-card" id="filter_inputs">--%>
-<%--                <div class="card-body pb-0">--%>
-<%--                    <form>--%>
-<%--                        <div class="row filter-row">--%>
-<%--                            <div class="col-sm-6 col-md-3">--%>
-<%--                                <div class="form-group">--%>
-<%--                                    <label>Email</label>--%>
-<%--                                    <input class="form-control" type="text">--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="col-sm-6 col-md-3">--%>
-<%--                                <div class="form-group">--%>
-<%--                                    <label>Tên</label>--%>
-<%--                                    <input class="form-control" type="text">--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="col-sm-6 col-md-3">--%>
-<%--                                <div class="form-group">--%>
-<%--                                    <button class="btn btn-primary btn-block" type="submit">Chọn</button>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </form>--%>
-<%--                </div>--%>
-<%--            </div>--%>
+            <div class="card filter-card" id="filter_inputs">
+                <div class="card-body pb-0">
+                    <form>
+                        <div class="row filter-row">
+                            <div class="col-sm-6 col-md-3">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="form-group">
+                                    <label>Tên</label>
+                                    <input class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-block" type="submit">Chọn</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <!-- /Search Filter -->
 
             <div class="row">
@@ -82,6 +82,7 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th>Ảnh</th>
                                         <th>Tên</th>
                                         <th>Số điện thoại</th>
                                         <th>Tổng tiền</th>
@@ -92,10 +93,11 @@
                                     <c:forEach var="order" items="${orders}">
                                     <tr>
                                         <td>${order.id}</td>
+                                        <td><img class="rounded service-img mr-1" src="${order.avatar_user}" alt="${order.user_name}"></td>
                                         <td>${order.user_name}</td>
                                         <td>0${order.phone}</td>
                                         <td>${order.total_pay}</td>
-                                        <td>5</td>
+                                        <td>${order.total_order}</td>
                                     </tr>
                                     </c:forEach>
                                     </tbody>

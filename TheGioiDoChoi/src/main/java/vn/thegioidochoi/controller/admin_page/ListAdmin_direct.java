@@ -31,7 +31,7 @@ public class ListAdmin_direct extends HttpServlet {
             return;
         }
         request.setAttribute("current_page","admin-list");
-        List<User> admins = LoadUser.loadUserFromSQL("select * from user where role_id>1");
+        List<User> admins = LoadUser.loadUserFromSQL("select * from user where role_id>2");
         request.setAttribute("admins",admins);
         request.getRequestDispatcher("list-admin.jsp").forward(request,response);
     }

@@ -69,11 +69,23 @@
                                             <input type="text" class="form-control" name="slug">
                                         </div>
                                     </div>
-                                    <div class="status-toggle">
-                                        <label>Hiển thị</label>
-                                        <input id="rating" class="check" type="checkbox" name="active"
-                                               checked>
-                                        <label for="rating" class="checktoggle">checkbox</label>
+                                    <div class="status-toggle form-group row">
+                                        <label class="col-form-label col-md-2">Là danh mục cha</label>
+                                        <div class="col-md-10">
+                                                <input id="parent" class="check" type="checkbox" name="active" value="true"
+                                                       checked>
+                                            <label for="parent" class="checktoggle">checkbox</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-2">Danh mục cha</label>
+                                        <div class="col-md-10">
+                                            <select id="parent_cate" class="form-control select" name="list_cate" disabled>
+                                                <c:forEach items="${parentlist}" var="pc">
+                                                    <option value="${pc.id}">${pc.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="mt-4">
                                         <button class="btn btn-primary" type="submit">Lưu</button>
@@ -102,19 +114,29 @@
                                             <input type="text" class="form-control" name="slug" value="${category.slug}">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-2">Số lượng</label>
+                                    <div class="status-toggle form-group row">
+                                        <label class="col-form-label col-md-2">Là danh mục cha</label>
                                         <div class="col-md-10">
-                                            <input type="number" class="form-control" name="quantity" disabled value="${category.numOfProduct}">
+                                            <c:if test="${category.id==category.master_id}">
+                                            <input id="parent2" class="check" type="checkbox" name="active" value="true"
+                                                   checked>
+                                            </c:if>
+                                            <c:if test="${category.id!=category.master_id}">
+                                                <input id="parent2" class="check" type="checkbox" name="active" value="false">
+                                            </c:if>
+                                            <label for="parent2" class="checktoggle">checkbox</label>
                                         </div>
                                     </div>
-                                    <div class="status-toggle">
-                                        <label>Hiển thị</label>
-                                        <input id="rating_4" class="check" type="checkbox" name="active" value="true"
-                                               <c:if test="${category.active}">checked</c:if>
-                                        >
-                                        <label for="rating_4" class="checktoggle">checkbox</label>
-                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-2">Danh mục cha</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control select" name="list_cate" <c:if test="${category.id == category.master_id}">disabled</c:if>>
+                                                <c:forEach items="${parentlist}" var="pc">
+                                                    <option value="${pc.id}" <c:if test="${pc.id==category.id}">selected</c:if>>${pc.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        </div>
                                     <div class="mt-4">
                                         <button class="btn btn-primary" type="submit">Lưu</button>
                                         <a href="category" class="btn btn-link">Hủy</a>
@@ -142,6 +164,21 @@
 <!-- Custom JS -->
 <script src="assets/js/admin.js"></script>
 
+<script>
+    var create_cate = function () {
+        if ($("#parent").is(":checked")) {
+            $("#parent_cate").prop('disabled', true);
+            console.log("Da danh dau")
+        }
+        else {
+            $("#parent_cate").prop('disabled', false);
+            console.log("Chua danh dau")
+        }
+    };
+
+    $(create_cate);
+    $("#parent").change(create_cate);
+</script>
 </body>
 
 </html>

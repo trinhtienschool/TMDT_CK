@@ -738,7 +738,7 @@ public static boolean insertProduct(String name, double price,
         List<Product> productList = new ArrayList<Product>();
 
         try {
-            PreparedStatement pe = DBCPDataSource.preparedStatement("SELECT * from product WHERE category_id=? and id <>? LIMIT 4 and active=1");
+            PreparedStatement pe = DBCPDataSource.preparedStatement("SELECT * from product WHERE active=1 and category_id=? and id <>? LIMIT 4 ");
 
             pe.setInt(1, cateid);
             pe.setInt(2, proid);
@@ -802,9 +802,24 @@ public static boolean insertProduct(String name, double price,
         }
     }
 
+    public static boolean updateCategoryId(int defaultId, int cate_id){
+        String sql="UPDATE product SET category_id=? WHERE category_id=?";
+        int update=0;
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
 
-
-
+            preparedStatement.setInt(1, defaultId);
+            preparedStatement.setInt(2, cate_id);
+            synchronized (preparedStatement) {
+                update = preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            return update == 1;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return false;
+    }
 
 
 }

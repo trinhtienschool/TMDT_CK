@@ -27,6 +27,8 @@ public class Order {
     private int total_order;
     private int supplier_id;
     private int commission_rate;
+    private String avatar_user;
+
     public Order() {
     }
     public String getName_product() {
@@ -208,12 +210,21 @@ public class Order {
         this.supplier_id = supplier_id;
     }
 
+
     public int getCommission_rate() {
         return commission_rate;
     }
 
     public void setCommission_rate(int commission_rate) {
         this.commission_rate = commission_rate;
+    }
+    public String getAvatar_user() {
+        return avatar_user;
+    }
+
+    public void setAvatar_user(String avatar_user) {
+        this.avatar_user = avatar_user;
+
     }
 
     @Override

@@ -82,6 +82,7 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th>Ảnh</th>
                                         <th>Tên</th>
                                         <th>Số điện thoại</th>
                                         <th>Tổng tiền</th>
@@ -92,10 +93,11 @@
                                     <c:forEach var="order" items="${orders}">
                                     <tr>
                                         <td>${order.id}</td>
+                                        <td><img class="rounded service-img mr-1" src="${order.avatar_user}" alt="${order.user_name}"></td>
                                         <td>${order.user_name}</td>
                                         <td>0${order.phone}</td>
                                         <td>${order.total_pay}</td>
-                                        <td>5</td>
+                                        <td>${order.total_order}</td>
                                     </tr>
                                     </c:forEach>
                                     </tbody>

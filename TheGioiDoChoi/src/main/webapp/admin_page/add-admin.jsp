@@ -128,8 +128,9 @@
                                             <select class="form-control select" name="role_id" required>
                                                 <option disabled>Chọn quyền</option>
                                                 <option value="1">Người dùng</option>
-                                                <option value="2">Admin</option>
-                                                <option value="3">Tối cao</option>
+                                                <option value="2">Người bán</option>
+                                                <option value="3">Quản lý</option>
+                                                <option value="4">Admin</option>
                                             </select>
                                         </div>
                                     </div>
@@ -217,13 +218,16 @@
                                             <select class="form-control select" name="role_id" required>
                                                 <option disabled>Chọn quyền</option>
                                                 <option value="1" <c:if test="${user.role_id==1}">selected</c:if>>Người
-                                                    dùng
+                                                    dùng thường
                                                 </option>
                                                 <option value="2" <c:if test="${user.role_id==2}">selected</c:if>>
-                                                    Admin
+                                                    Người bán
                                                 </option>
-                                                <option value="3" <c:if test="${user.role_id==3}">selected</c:if>>Tối
-                                                    cao
+                                                <option value="3" <c:if test="${user.role_id==3}">selected</c:if>>
+                                                    Quản lý
+                                                </option>
+                                                <option value="4" <c:if test="${user.role_id==4}">selected</c:if>>
+                                                    Admin
                                                 </option>
                                             </select>
                                         </div>
@@ -231,10 +235,10 @@
                                     <div class="status-toggle">
                                         <label class="col-form-label col-md-2">Kích hoạt</label>
                                         <div class="col-md-10">
-                                            <input id="rating_2" class="check" name="active" value="true"
+                                            <input id="rating" class="check" name="active" value="true"
                                                    type="checkbox"
                                                    <c:if test="${user.active}">checked</c:if>>
-                                            <label for="rating_2" class="checktoggle">checkbox</label>
+                                            <label for="rating" class="checktoggle">checkbox</label>
                                         </div>
                                     </div>
                                     <div class="mt-4">

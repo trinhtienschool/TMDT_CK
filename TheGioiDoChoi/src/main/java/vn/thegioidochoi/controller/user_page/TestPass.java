@@ -51,12 +51,14 @@ import java.util.regex.Pattern;
 
 public class TestPass {
 
+
     public static void main(String[] args) throws IOException, SQLException, ParseException, URISyntaxException {
 //        int id = 1;
 //        String email = "trinhtien6236@gmail.com";
 //        String pass = "Tien12345@";
 //        long passEn =  id*email.hashCode()*pass.hashCode();
 //        System.out.println(passEn);
+
 
 
 
@@ -325,8 +327,20 @@ public class TestPass {
 //        }
 //        System.out.println(Util.dateFormat(new Date()));
 //        System.out.println(Withdraw.loadLastWithdraw(3));
-        System.out.println(Load_Order.loadOrder_view(5));
+//        System.out.println(Load_Order.loadOrder_view(5));
+        String sql = "select * from product where category_id in (";
+        String cate_ids ="";
+        for(int i=0;i<10;i++){
+            cate_ids += i+",";
+        }
+        cate_ids = cate_ids.substring(0,cate_ids.length()-1);
+        sql += cate_ids+")";
+        System.out.println(sql);
+
+
+
     }
+
 
 
 

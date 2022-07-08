@@ -19,18 +19,10 @@ public class Category_direct extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("current_page", "category");
+        System.out.println("Co vao category list");
         request.setAttribute("title", "Danh mục");
-        String type = request.getParameter("type");
-        if(type ==null){
-            type ="1";
-        }
-        if(Integer.parseInt(type) == 1){
-            List<Category>categories_view = Load_Category.loadCategory_view();
-            request.setAttribute("c_view",categories_view);
-            request.getRequestDispatcher("categories.jsp").forward(request,response);
-        }else if(Integer.parseInt(type) == 2) {
-            int id = Integer.parseInt(request.getParameter("id"));
-
-        }
+        List<Category> categories = Load_Category.loadAllCategories();
+        request.setAttribute("categories", categories);
+        request.getRequestDispatcher("categories.jsp").forward(request, response);
     }
 }
