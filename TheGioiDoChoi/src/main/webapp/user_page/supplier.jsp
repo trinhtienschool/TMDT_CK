@@ -152,6 +152,24 @@
                                                         <h4 class=" text-truncate" data-toggle="tooltip"><a href="#">${sgd.name}</a></h4>
                                                         <h5>${Util.formatCurrency(sgd.price)}</h5>
                                                         <p>Đã bán ${sgd.sold}</p>
+<%--                                                        <div class="progress progress-style mb-5">--%>
+
+<%--                                                            <div--%>
+<%--                                                                    class="progress-bar bg-warning"--%>
+<%--                                                                    role="progressbar"--%>
+<%--                                                                    style="width: ${dp.percent_sale_past()}%"--%>
+<%--                                                                    aria-valuenow="60"--%>
+<%--                                                                    aria-valuemin="0"--%>
+<%--                                                                    aria-valuemax="100">--%>
+<%--                                                            </div>--%>
+<%--                                                            <div class="progress-text">--%>
+<%--                                                                <img src="user_page/img/icon/fire.png"--%>
+<%--                                                                     style="width:2rem !important; display: inline-block; margin-bottom: 8px;"--%>
+<%--                                                                     alt="">--%>
+<%--                                                                <p style="display: inline-block; color:#f34f00"> Còn ${sgd.dayRest()} ngày</p>--%>
+<%--                                                            </div>--%>
+
+<%--                                                        </div>--%>
                                                     </div>
 
                                                 </div>
@@ -214,7 +232,7 @@
     </div>
 </div>
 
-<%--<jsp:include page="footer.jsp"></jsp:include>--%>
+<jsp:include page="footer.jsp"></jsp:include>
 <%--<script src="user_page/supplier/jquery.min.js.download"></script>--%>
 <%--<script src="user_page/supplier/nouislider.min.js.download"></script>--%>
 <%--<script src="user_page/supplier/popper.min.js.download"></script>--%>
