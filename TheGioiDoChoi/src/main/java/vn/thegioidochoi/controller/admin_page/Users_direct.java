@@ -31,6 +31,7 @@ public class Users_direct extends HttpServlet {
                 Load_Order.updateOrderActiveById(active,user_id);
                 Load_Shopping_Cart.updateOrderActiveById(active,user_id);
         }
+
         request.setAttribute("current_page","user");
         List<User> users=LoadUser.loadUserFormSql("select * from user WHERE (active = 1)\n" +
                 "OR (active = 0)");
