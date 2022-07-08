@@ -182,6 +182,7 @@ public class Order_handle extends HttpServlet {
         System.out.println("mail nhan thong bao la"+receiveEmail);
         Mail.sendMail(content,subject,receiveEmail);
         System.out.println("Xuong toi day");
+
         request.getRequestDispatcher("checkout").forward(request, response);
 
 
