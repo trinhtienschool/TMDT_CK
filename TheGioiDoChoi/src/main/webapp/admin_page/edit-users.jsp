@@ -122,7 +122,13 @@
                                                 <input class="form-control" type="date" name="createddate"
                                                  value="<%=Util.dateFormatNoTime((Date) pageContext.getAttribute("createddate"))%>">
                                             </div>
-
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Hoạt động</label>
+                                            <div class="status-toggle">
+                                                <input id="ative_user" name="activeuser" class="check" type="checkbox" checked value="true">
+                                                <label for="ative_user" class="checktoggle">checkbox</label>
+                                            </div>
                                         </div>
                                         <div class="mt-4">
                                             <button class="btn btn-primary" type="submit">Cập Nhật</button>

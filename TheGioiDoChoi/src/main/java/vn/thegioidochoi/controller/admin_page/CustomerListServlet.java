@@ -24,7 +24,7 @@ public class CustomerListServlet extends HttpServlet {
         request.setAttribute("title","Khách hàng");
         request.setAttribute("current_page","customers");
         HttpSession session = request.getSession();
-        int id = (int) session.getAttribute("supplier_id");
+ int id = (int) session.getAttribute("supplier_id");
         List<Order> orders = Load_Order.loadOrderBySupplierId(id);
         request.setAttribute("orders", orders);
         request.getRequestDispatcher("customer-list.jsp").forward(request, response);
