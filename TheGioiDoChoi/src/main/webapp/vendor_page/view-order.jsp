@@ -216,7 +216,7 @@
                                                     <form method="post" action="product">
                                                         <input type="hidden" name="product-id" value="${lipro.pro_id}">
                                                         <button class="btn btn-sm bg-info-light" type="submit"><i class="far fa-eye mr-1"></i> Xem</button>
-<%--
+
                                                     </form>
                                                 </td>
                                         </tr>
