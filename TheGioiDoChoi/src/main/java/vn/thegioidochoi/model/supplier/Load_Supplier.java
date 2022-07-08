@@ -82,7 +82,7 @@ public class Load_Supplier {
         try{
             Statement statement = DBCPDataSource.getStatement();
             synchronized (statement){
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM supplier");
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM supplier WHERE active =1 OR active=0");
                 while (resultSet.next()){
                     Supplier supplier = new Supplier();
                     supplier.setId(resultSet.getInt(1));
@@ -91,7 +91,9 @@ public class Load_Supplier {
                     supplier.setPhone(resultSet.getString(4));
                     supplier.setEmail(resultSet.getString(5));
                     supplier.setCompany_name(resultSet.getString(9));
+                    supplier.setDate(resultSet.getDate(11));
                     supplier.setName(resultSet.getString(13));
+                    supplier.setChecked(resultSet.getBoolean(14));
 
                     supplierList.add(supplier);
                 }

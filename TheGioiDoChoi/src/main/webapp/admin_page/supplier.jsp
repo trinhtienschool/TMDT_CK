@@ -112,23 +112,29 @@
 									<thead>
 									<tr>
 										<th>ID</th>
-<%--										<th>Hình</th>--%>
-										<th>Tên nhà cung cấp</th>
-										<th>Địa chỉ</th>
-										<th>Điện thoại</th>
-										<th>Email</th>
-										<th>Hành động</th>
+										<th>Hình ảnh</th>
+										<th>Tên cửa hàng</th>
+										<th>Tên công ty</th>
+										<th>Ngày đăng ký</th>
+										<th>trạng thái</th>
+										<th>Quản lý cửa hàng</th>
+										<th>Quản lý doanh thu</th>
 									</tr>
 									</thead>
 									<tbody>
 									<c:forEach items="${sup_view}" var="su">
 									<tr>
 										<td>${su.id}</td>
-<%--										<td><img class="rounded service-img mr-1" src="${su.logo}" alt="Hình ảnh danh mục"></td>--%>
+										<td><img class="rounded service-img mr-1" src="${su.logo}" alt="Hình ảnh danh mục"></td>
+										<td>${su.name}</td>
 										<td>${su.company_name}</td>
-										<td>${su.address}</td>
-										<td>${su.phone}</td>
-										<td>${su.email}</td>
+										<td>${su.date}</td>
+										<td>
+											<div class="status-toggle">
+												<input id="rating_1" class="check" type="checkbox" <c:if test="${su.checked}">checked</c:if>>
+												<label for="rating_1" class="checktoggle">checkbox</label>
+											</div>
+										</td>
 										<td class="text-right">
 											<a href="add-supplier?type=enterEdit&id=${su.id}" class="btn btn-sm bg-success-light mr-2">	<i class="far fa-edit mr-1"></i> Sửa</a>
 <%--&lt;%&ndash;											<button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</button>&ndash;%&gt;--%>
@@ -136,6 +142,22 @@
 <%--											   class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i>--%>
 <%--												Xóa</a>--%>
 											<a href="?active=-1&supplier_id=${su.id}" style="margin-top: 5px;color: red " class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</a>
+											<a href="service-details.html" class="btn btn-sm bg-info-light">
+												<i class="far fa-eye mr-1"></i> Xem
+											</a>
+										</td>
+										<td class="text-right">
+											<a href="service-details.html" class="btn btn-sm bg-info-light">
+												<a style="color: #ffc800" href="service-details.html" class="btn btn-sm bg-purple-light">
+													<i class="far fa-eye mr-1"></i> Doanh thu
+												</a>
+												<a style="color: #11ff00" href=" service-details.html" class="btn btn-sm bg-success-light">
+													<i class="far fa-eye mr-1"></i> Sản phẩm
+												</a>
+												<a style="color: #ff5100" href="service-details.html" class="btn btn-sm bg-danger-light">
+													<i class="far fa-eye mr-1"></i>Đơn hàng
+												</a>
+											</a>
 										</td>
 									</tr>
 									</c:forEach>

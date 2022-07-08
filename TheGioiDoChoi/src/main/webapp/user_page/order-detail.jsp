@@ -141,7 +141,9 @@
                         </tfoot>
                     </table>
                     <a class="view-list-order" href="/user">Quay lại đơn hàng của tôi</a>
-                    <a class="view-tracking-detail" href="order_progress?id=${order.id}">Theo dõi đơn hàng</a>
+                    <c:if test="${order.status!=1}">
+                        <a class="view-tracking-detail" href="order_progress?id=${order.id}">Theo dõi đơn hàng</a>
+                    </c:if>
                     <c:if test="${order.status==3}">
                         <a class="view-tracking-detail" style="background: #dc3545; border-color: #dc3545;" href="order_detail?id=${order.id}&delete=1">Hủy đơn hàng</a>
                     </c:if>
