@@ -3,6 +3,8 @@ package vn.thegioidochoi.controller.user_page;
 import vn.thegioidochoi.model.Product.Product;
 import vn.thegioidochoi.model.Product.ProductEntity;
 import vn.thegioidochoi.model.mail.Mail;
+import vn.thegioidochoi.model.notifications.Notification_Con_DB;
+import vn.thegioidochoi.model.notifications.Notifications;
 import vn.thegioidochoi.model.supplier.Load_Supplier;
 import vn.thegioidochoi.model.user.*;
 import vn.thegioidochoi.model.util.Util;
@@ -204,12 +206,17 @@ public class Login_handle extends HttpServlet {
         }
 
         else {
-            //Nhuận viết ở đây
-//            Load notification và set vào session
+
+            List<Notifications> listNotification= Notification_Con_DB.loadNotificationsFormSql("SELECT * FROM notifications where MONTH(date_created) = month(CURRENT_DATE) order by date_created DESC");
+            session.setAttribute("Notifications",listNotification);
+
             int role_id = (int) session.getAttribute("role_id");
             if (role_id == 3 || role_id == 4) {
                 response.sendRedirect("admin_page/dashboard");
             }else if(role_id == 2){
+                listNotification= Notification_Con_DB.loadNotificationsFormSql("SELECT * FROM notifications where MONTH(date_created) = month(CURRENT_DATE) AND supplier_id= "+session.getAttribute("supplier_id")+ " order by date_created DESC");
+                System.out.println("Gia tri supplier_id la:"+session.getAttribute("supplier_id"));
+                session.setAttribute("Notifications",listNotification);
                 response.sendRedirect("vendor_page/dashboard");
             }
         }

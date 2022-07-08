@@ -392,6 +392,24 @@ public class Load_Order {
         }
         return false;
     }
+    public static boolean updateOrderStatusActiveByOrderId(int active, int status, int Order_id){
+        String sql = "UPDATE `order` SET active = ?,`status`=? WHERE id = ?";
+        int update = 0;
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1,active);
+            preparedStatement.setInt(2,status);
+            preparedStatement.setInt(3,Order_id);
+            synchronized (preparedStatement) {
+                update = preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            return update == 1;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return false;
+    }
     public static int getNextOrderId(){
         int result=0;
         try {
@@ -468,8 +486,9 @@ public class Load_Order {
 //        for (Order o: loadOrderByStatus(3,41)){
 //            System.out.println(o.getId());
 //        }
-        List<Order> listOders=loadOrderByStatus(5,41);
-        System.out.println(listOders.size());
+//        List<Order> listOders=loadOrderByStatus(5,41);
+//        System.out.println(listOders.size());
+        updateOrderStatusActiveByOrderId(1,3,3012);
     }
 }
 
