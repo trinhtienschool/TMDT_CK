@@ -31,7 +31,6 @@ public class    Supplier_direct extends HttpServlet {
         if(request.getParameter("active")!=null&&request.getParameter("supplier_id")!=null){
             int active=Integer.parseInt(request.getParameter("active"));
             int supplier_id=Integer.parseInt(request.getParameter("supplier_id"));
-
             ProductEntity.updateProductActiveBySupplierId(active,supplier_id);
             Load_Supplier.updateSupplierActiveById(active,supplier_id);
 //            Load_Order.updateOrderStatusBySupplierId(6,supplier_id);
@@ -40,12 +39,17 @@ public class    Supplier_direct extends HttpServlet {
                Load_Order.updateOrderActiveBySupplierId(active,supplier_id);
 
                String subject="Thông báo hủy đơn hàng";
+               String subjectForSupplier="Thông báo hủy đơn hàng";
                String link="http://localhost:8080/order_detail?id=";
-               Supplier supplier=Load_Supplier.loadSupplierById(supplier_id);
+               Supplier supplier=Load_Supplier.loadSupplier(supplier_id);
 
-               List<User> listUsers= LoadUser.loadUserWithStatusOrder(5,supplier_id);
-               List<Order> listOrders=Load_Order.loadOrderByStatus(5,supplier_id);
+               String contentForSupplier= "Chào "+supplier.getName()+"."
+                       + "\n"+ "Đây là thông báo về việc tạm dừng hoạt động shop của bạn.";
 
+               System.out.println("Email shop nhan thong bao huy shop"+supplier.getEmail());
+               List<User> listUsers= LoadUser.loadUserWithStatusOrder(3,supplier_id);
+               List<Order> listOrders=Load_Order.loadOrderByStatus(3,supplier_id);
+               Mail.sendMail(contentForSupplier,subjectForSupplier,supplier.getEmail());
                for(int i=0;i<listUsers.size();i++){
                    System.out.println("danh sach khach hang nhan email"+listUsers.get(i).getEmail()+"\n"+
                            "order id ="+listOrders.get(i).getId());

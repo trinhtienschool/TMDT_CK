@@ -42,10 +42,11 @@ public class Notification_Con_DB {
             notifications.setId(resultSet.getInt(1));
             notifications.setTitle(resultSet.getString(2));
             notifications.setContent(resultSet.getString(3));
-            notifications.setDate(resultSet.getDate(4));
-            notifications.setNote_type(resultSet.getInt(5));
-            notifications.setUser_id(resultSet.getInt(6));
-            notifications.setAdmin_id(resultSet.getInt(7));
+            notifications.setDate_created(resultSet.getDate(4));
+            notifications.setUser_id(resultSet.getInt(5));
+            notifications.setAdmin_id(resultSet.getInt(6));
+            notifications.setSupplier_id(resultSet.getInt(7));
+            notifications.setType(resultSet.getInt(8));
             return notifications;
 
         } catch (SQLException throwables) {
@@ -73,9 +74,9 @@ public class Notification_Con_DB {
 
     public static void main(String[] args) {
 //        System.out.println(loadNotificationsFormSql("select * from notifications"));
-//        for(Notifications a:loadNotificationsFormSql("select * from notifications")){
-//            System.out.println(a.getId());
-//        }
-        System.out.println(insertEmail("sylvietran12@gmail.com",1));
+        for(Notifications a:loadNotificationsFormSql("select * from notifications where supplier_id=1")){
+            System.out.println(a.getContent());
+        }
+//        System.out.println(insertEmail("sylvietran12@gmail.com",1));
     }
 }

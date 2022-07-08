@@ -2580,7 +2580,20 @@ html.menu-opened body {
 	line-height: unset;
 	padding: 0;
 }
-
+#item-new{
+	background-color: #f43f3f;
+	display: block;
+	font-size: 10px;
+	font-weight: bold;
+	height: 10px;
+	width: 10px;
+	position: absolute;
+	right: 1px;
+	top: 1px;
+	border: 2px solid #fff;
+	line-height: unset;
+	padding: 0;
+}
 .user-menu.nav>li>a>i {
 	font-size: 1.5rem;
 }

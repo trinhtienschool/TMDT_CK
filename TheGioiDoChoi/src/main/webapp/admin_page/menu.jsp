@@ -24,7 +24,44 @@
     </a>
 
     <ul class="nav user-menu">
-
+        <!-- Notifications -->
+        <li class="nav-item dropdown noti-dropdown">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                <i class="far fa-bell"></i>  <span class="badge badge-pill"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right notifications">
+                <div class="topnav-dropdown-header">
+                    <span class="notification-title">Thông Báo</span>
+                    <a href="javascript:void(0)" class="clear-noti"> xóa tất cả </a>
+                </div>
+                <div class="noti-content">
+                    <ul class="notification-list">
+                        <c:forEach items="${sessionScope.Notifications}" var="su">
+                        <li class="notification-message">
+                            <a <c:if test="${su.type!=0}">href="admin-notification.html"</c:if> >
+                                <div class="media">
+												<span class="avatar avatar-sm">
+													<img class="avatar-img rounded-circle" alt="" src="../${applicationScope.header.logo}">
+                                                    <c:if test="${su.isDateToday()}"><span id="item-new" class="badge badge-pill"></span></c:if> 
+                                                </span>
+                                    <span class="badge badge-pill"></span>
+                                    <div class="media-body">
+                                        <p class="noti-details">
+                                            <span class="noti-title">${su.content}</span>
+                                        </p>
+                                        <p class="noti-time">
+                                            <span class="notification-time">${su.date_created}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+        </li>
+        <!-- /Notifications -->
         <!-- User Menu -->
         <li class="nav-item dropdown">
             <a href="javascript:void(0)" class="dropdown-toggle user-link  nav-link" data-toggle="dropdown">

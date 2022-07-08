@@ -29,10 +29,16 @@ public class Order_detail_direct extends HttpServlet {
         HttpSession session = request.getSession();
         System.out.println("Gia trị session tại order_detail+"+session.getAttribute("user_id"));
         if(session.getAttribute("user_id")==null){
-            request.getRequestDispatcher("user_page/error_404.jsp").forward(request,response);
+            request.getRequestDispatcher("admin_page/error404.jsp").forward(request,response);
         }
         request.setAttribute("title", "Chi tiết đơn hàng");
         int order_id = Integer.parseInt(request.getParameter("id"));
+        if(request.getParameter("delete")!=null){
+            int delete = Integer.parseInt(request.getParameter("delete"));
+            if(delete==1){
+                Load_Order.updateOrderStatusActiveByOrderId(-1,1,order_id);
+            }
+        }
         Order order = Load_Order.loadOrder_view(order_id);
         User user = LoadUser.loadUserById(order.getSupplier_id());
         System.out.println(user.getName());

@@ -135,6 +135,7 @@
 <%--											<a href="add-supplier?type=delete&id=${r.id}" style="margin-top: 5px;color: red "--%>
 <%--											   class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i>--%>
 <%--												Xóa</a>--%>
+											<a href="?active=-1&supplier_id=${su.id}" style="margin-top: 5px;color: red " class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</a>
 										</td>
 									</tr>
 									</c:forEach>
