@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-@WebServlet(urlPatterns = "/admin_page/setting")
+@WebServlet(urlPatterns = {"/admin_page/setting", "/vendor_page/setting"})
 public class Setting_direct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);

@@ -1,6 +1,7 @@
 package vn.thegioidochoi.model.supplier;
 
 import java.util.Date;
+import java.util.Map;
 
 public class Supplier {
     private int id;
@@ -19,6 +20,7 @@ public class Supplier {
     private double revenue;
     private int total_product;
     private boolean checked;
+
 
     public Supplier(String name, String logo, String address, String phone, String email, String description, int commission_rate, int user_id, String company_name, String website, String slug) {
         this.name = name;

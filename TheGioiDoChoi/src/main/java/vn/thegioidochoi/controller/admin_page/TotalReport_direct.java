@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/admin_page/total_report")
+@WebServlet(urlPatterns = {"/admin_page/total_report", "/vendor_page/total_report"})
 public class TotalReport_direct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
@@ -59,8 +59,8 @@ public class TotalReport_direct extends HttpServlet {
         int role_id=(int)session.getAttribute("role_id");
         System.out.println("user co role_id"+role_id);
         if(role_id==2){
-            int user_id = (int)session.getAttribute("user_id");
-            orderList = Load_Order.loadOrderByStatusWithUserId(status,from_date,to_date,user_id);
+            int supplier_id = (int)session.getAttribute("supplier_id");
+            orderList = Load_Order.loadOrderByStatusWithSupplierId(status,from_date,to_date,supplier_id);
         }else {
             orderList = Load_Order.loadOrderByStatus(status,from_date,to_date);
         }

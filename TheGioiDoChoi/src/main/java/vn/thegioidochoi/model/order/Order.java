@@ -12,7 +12,7 @@ public class Order {
     private int user_id;
     private String user_name;
 //    private int sale_id;
-    private int ship_id;
+//    private int ship_id;
     private boolean payment;
     private String note;
     private long phone;
@@ -26,6 +26,7 @@ public class Order {
     private int number_product;
     private int total_order;
     private int supplier_id;
+    private int commission_rate;
     public Order() {
     }
     public String getName_product() {
@@ -67,13 +68,13 @@ public class Order {
 //        this.sale_id = sale_id;
 //    }
 
-    public int getShip_id() {
-        return ship_id;
-    }
-
-    public void setShip_id(int ship_id) {
-        this.ship_id = ship_id;
-    }
+//    public int getShip_id() {
+//        return ship_id;
+//    }
+//
+//    public void setShip_id(int ship_id) {
+//        this.ship_id = ship_id;
+//    }
 
     public boolean isPayment() {
         return payment;
@@ -207,6 +208,14 @@ public class Order {
         this.supplier_id = supplier_id;
     }
 
+    public int getCommission_rate() {
+        return commission_rate;
+    }
+
+    public void setCommission_rate(int commission_rate) {
+        this.commission_rate = commission_rate;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -214,7 +223,7 @@ public class Order {
                 ", user_id=" + user_id +
                 ", user_name='" + user_name + '\'' +
 //                ", sale_id=" + sale_id +
-                ", ship_id=" + ship_id +
+//                ", ship_id=" + ship_id +
                 ", payment=" + payment +
                 ", note='" + note + '\'' +
                 ", phone=" + phone +

@@ -74,33 +74,21 @@
                 <div class="card-body pb-0">
                     <form action="product" method="post" accept-charset="UTF-8">
                         <div class="row filter-row">
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label>Mã sản phẩm</label>
                                     <input class="form-control" type="text" name="product-id">
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label>Tên sản phẩm</label>
                                     <input class="form-control" type="text" name="product-name">
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-3">
-                                <div class="form-group">
-                                    <label>Cửa hàng</label>
-                                    <select class="form-control select2" style="width: 100%" name="supplier">
-                                        <option value="%">Tất cả</option>
-                                        <c:forEach var="supplier" items="${suppliers}">
-                                            <option value="${supplier.id}"
-                                                <%--                                                    <c:if test="${supplier.id==product.supplier_id}">selected</c:if>--%>
-                                            >${supplier.name}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                            </div>
                             <!-- Thay đổi theo danh sách đề mục -->
-                            <div class="col-sm-6 col-md-3">
+
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label>Danh mục</label>
                                     <select class="form-control select2" style="width: 100%" name="category">
@@ -122,7 +110,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label>Từ Ngày</label>
                                     <div class="cal-icon">
@@ -130,7 +118,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label>Đến Ngày</label>
                                     <div class="cal-icon">
@@ -138,7 +126,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-block" type="submit">Chọn</button>
                                 </div>
@@ -163,7 +151,7 @@
                                         <th>Danh mục</th>
                                         <th>Giá bán</th>
                                         <th>Số lượng</th>
-                                        <th>ID nhà cung cấp</th>
+
                                         <th>Ngày tạo</th>
                                         <th class="text-right">Hành Động</th>
                                     </tr>
@@ -179,17 +167,17 @@
                                             <td>${p.id}</td>
                                             <td><img class="rounded service-img mr-1"
 
-                                                    <c:if test="${fn:startsWith(p.img, 'imgs')}"> src="../${p.img}"</c:if>
-                                                    <c:if test="${fn:startsWith(p.img, 'http')}">src="${p.img}"</c:if>
+                                            <c:if test="${fn:startsWith(p.img, 'imgs')}"> src="../${p.img}"</c:if>
+                                                     <c:if test="${fn:startsWith(p.img, 'http')}">src="${p.img}"</c:if>
 
                                                      alt="Hình ảnh danh mục"></td>
                                             <td>${p.name}</td>
                                             <td>
                                                 <c:forEach var="cate" items="${applicationScope.category}">
                                                     <c:if test="${cate.master_id == cate.id && cate.parent==1 }">
-                                                            <c:forEach var="subcate" items="${cate.subcategories}">
-                                                                <c:if test="${subcate.id == p.category_id}">${subcate.name}</c:if>
-                                                            </c:forEach>
+                                                        <c:forEach var="subcate" items="${cate.subcategories}">
+                                                            <c:if test="${subcate.id == p.category_id}">${subcate.name}</c:if>
+                                                        </c:forEach>
                                                     </c:if>
 
                                                 </c:forEach>
@@ -199,19 +187,24 @@
                                             </td>
                                             <td>${p.quantity}</td>
 
-                                            <td>${p.supplier_id}</td>
+
                                             <td><%= Util.dateFormatNoTime((Date) pageContext.getAttribute("date_created"))%>
                                             <td class="text-right">
-                                            <a href="../shop-detail?product=${p.slug}" class="btn btn-sm bg-info-light">
-                                                <i class="far fa-eye mr-1"></i> Xem
-                                            </a>
+                                                <a href="../shop-detail?product=${p.slug}"
+                                                   class="btn btn-sm bg-info-light">
+                                                    <i class="far fa-eye mr-1"></i> Xem
+                                                </a>
                                                 <a href="add-product?type=enterEdit&id=${p.id}"
                                                    class="btn btn-sm bg-success-light "> <i
                                                         class="far fa-edit mr-1"></i> Sửa</a>
-<%--                                                <a href="edit-product.html" style="margin-top: 5px;color: red "--%>
-<%--                                                   class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i>--%>
-<%--                                                    Xóa</a>--%>
-                                            <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</button>
+                                                    <%--                                                <a href="edit-product.html" style="margin-top: 5px;color: red "--%>
+                                                    <%--                                                   class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i>--%>
+                                                    <%--                                                    Xóa</a>--%>
+                                                <button id="delete-product-button" data-product="${p.id}" type="button" class="btn btn-outline-danger btn-sm"><i
+                                                        class="fa fa-trash-o"
+                                                        ></i> Xóa
+                                                </button>
+
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -225,6 +218,33 @@
             </div>
         </div>
     </div>
+</div>
+<div class="modal fade" id="wrong_info_login" tabindex="-1" role="dialog" aria-hidden="true">
+    <form method="post" action="add-product">
+        <div class="modal-dialog forget-dialog" role="document">
+            <div class="modal-content forget-content">
+                <div class="modal-header forget-header">
+                    <h5 class="modal-title forget-title">Thông báo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="x">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body forget-body">
+                    <!-- <h5 class="forget-h5">Vui lòng nhập Email bạn đã đăng kí để lấy lại mật khẩu</h5> -->
+                    <div>
+                        <p>Bạn có chắc chắn muốn xóa?</p>
+                    </div>
+                </div>
+                <input type="hidden" name="type" value="delete">
+                <input type="hidden" name="pro-id" id="pro-id">
+                <div class="modal-footer">
+                    <button id="delete-product-announcement" type="submit" class="btn btn-primary "
+                           >Xóa
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 <!-- jQuery -->
 <script src="assets/js/jquery-3.5.0.min.js"></script>

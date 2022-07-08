@@ -75,7 +75,7 @@ public class OrderProduct_Con_DB {
     public static List<OrderProduct> loadOrderProductByOrderId(int order_id){
         List<OrderProduct> productList = new ArrayList<>();
         try{
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT p.id, p.`name`, op.quantity, p.price, o.id, o.date_created, u.id, o.`status`, (sum(p.price * op.quantity) + o.shipment) AS total, o.payment, o.address, o.phone, o.note, u.`name`, o.shipment , p.percent_sale, p.img " +
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT p.id, p.`name`, op.quantity, p.price, p.slug ,o.id, o.date_created, u.id, o.`status`, (sum(p.price * op.quantity) + o.shipment) AS total, o.payment, o.address, o.phone, o.note, u.`name`, o.shipment , p.percent_sale, p.img " +
                     "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN `user` u ON u.id = o.user_id " +
                     "WHERE o.id = ? " +
                     "GROUP BY o.id, o.date_created, u.name, o.`status`, o.payment, o.address, o.phone, o.note, u.`name`, o.shipment, p.id, p.`name`, op.quantity, p.price, p.percent_sale, p.img");
@@ -88,10 +88,11 @@ public class OrderProduct_Con_DB {
                     orderProduct.setPro_name(resultSet.getString(2));
                     orderProduct.setQuantity(resultSet.getInt(3));
                     orderProduct.setPrice(resultSet.getDouble(4));
-                    orderProduct.setPercent(resultSet.getInt(16));
-                    orderProduct.setImg(resultSet.getString(17));
-                    orderProduct.setSale(resultSet.getDouble(4),resultSet.getInt(16),resultSet.getInt(3));
-                    orderProduct.setTotal(resultSet.getDouble(4),resultSet.getInt(16),resultSet.getInt(3));
+                    orderProduct.setPro_slug(resultSet.getString(5));
+                    orderProduct.setPercent(resultSet.getInt(17));
+                    orderProduct.setImg(resultSet.getString(18));
+                    orderProduct.setSale(resultSet.getDouble(4),resultSet.getInt(17),resultSet.getInt(3));
+                    orderProduct.setTotal(resultSet.getDouble(4),resultSet.getInt(17),resultSet.getInt(3));
                     productList.add(orderProduct);
                 }
                 resultSet.close();

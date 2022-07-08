@@ -204,6 +204,8 @@ public class Login_handle extends HttpServlet {
         }
 
         else {
+            //Nhuận viết ở đây
+//            Load notification và set vào session
             int role_id = (int) session.getAttribute("role_id");
             if (role_id == 3 || role_id == 4) {
                 response.sendRedirect("admin_page/dashboard");

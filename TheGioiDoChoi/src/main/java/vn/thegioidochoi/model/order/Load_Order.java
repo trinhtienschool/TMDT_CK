@@ -75,7 +75,7 @@ public class Load_Order {
             order.setId(resultSet.getInt(1));
             order.setUser_id(resultSet.getInt(2));
 //            order.setSale_id(resultSet.getInt(3));
-            order.setShip_id(resultSet.getInt(3));
+            order.setShip_price(resultSet.getInt(3));
             order.setPayment(resultSet.getInt(4) == 1 ? true : false);
             order.setNote(resultSet.getString(5));
             order.setPhone(resultSet.getInt(6));
@@ -119,12 +119,13 @@ public class Load_Order {
         }
         return list;
     }
+    //Todo nhuan
     // load lên trang chi tiết đơn hàng
     public static Order loadOrder_view(int order_id){
         Order order = new Order();
         try{
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.id, o.`status`, (sum(p.price * op.quantity) + o.shipment) AS total, o.payment, o.address, o.phone, o.note, u.`name`, o.shipment, o.supplier_id " +
-                    "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN `user` u ON u.id = o.user_id " +
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.id, o.`status`, sum(o.total_price + o.shipment) AS total, o.payment, o.address, o.phone, o.note, u.`name`, o.shipment, o.supplier_id " +
+                    "FROM `order` o JOIN `user` u ON u.id = o.user_id " +
                     "WHERE o.id = ?");
             preparedStatement.setInt(1,order_id);
             synchronized (preparedStatement){
@@ -156,8 +157,8 @@ public class Load_Order {
     public static List<Order> loadOrderByStatus(String status, String from_date, String to_date){
         List<Order> orderList = new ArrayList<>();
         try{
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, (sum(p.price * op.quantity) + o.shipment) AS total, count(o.id) AS countOr " +
-                    "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN shipment s ON s.id=o.ship_id JOIN `user` u ON u.id = o.user_id " +
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, sum(o.total_price + o.shipment) AS total, count(o.id) AS countOr " +
+                    "FROM `order` o JOIN `user` u ON u.id = o.user_id " +
                     "WHERE o.`status` like ? and o.active = 1 and o.date_created between ? and ? " +
                     "GROUP BY o.id, o.date_created, u.name, o.`status`");
             preparedStatement.setString(1, status);
@@ -185,11 +186,11 @@ public class Load_Order {
         return orderList;
     }
     // load trang danh sach don hang theo tinh trang (status=1..6) trong trang danh sach don hang and user_id
-    public static List<Order> loadOrderByStatusWithUserId(String status, String from_date, String to_date,int user_id){
+    public static List<Order> loadOrderByStatusWithSupplierId(String status, String from_date, String to_date, int user_id){
         List<Order> orderList = new ArrayList<>();
         try{
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, (sum(p.price * op.quantity) + s.price) AS total, count(o.id) AS countOr " +
-                    "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN shipment s ON s.id=o.ship_id JOIN `user` u ON u.id = o.user_id " +
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, sum(o.total_price + o.shipment) AS total, count(o.id) AS countOr " +
+                    "FROM `order` o JOIN `user` u ON u.id = o.user_id " +
                     "WHERE o.`status` like ? and o.`supplier_id`=? and o.active = 1 and o.date_created between ? and ? " +
                     "GROUP BY o.id, o.date_created, u.name, o.`status`");
             preparedStatement.setString(1, status);
@@ -291,8 +292,8 @@ public class Load_Order {
     public static List<Order> loadOrderByUserId(int user_id){
         List<Order> orderList = new ArrayList<>();
         try{
-            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, (sum(p.price * op.quantity) + s.price) AS total " +
-                    "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN shipment s ON s.id=o.ship_id JOIN `user` u ON u.id = o.user_id  " +
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, (sum(p.price * op.quantity) + o.shipment) AS total " +
+                    "FROM `order` o JOIN order_product op ON o.id = op.order_id JOIN product p ON op.pro_id=p.id JOIN `user` u ON u.id = o.user_id  " +
                     "WHERE u.id = ? " +
                     "GROUP BY o.id, o.date_created, u.name, o.`status`");
             preparedStatement.setInt(1, user_id);
@@ -333,15 +334,15 @@ public class Load_Order {
         return false;
     }
 
-    public static int addOrder(int user_id, int coupon_code_id, String note, String phone, String address, int status, String date_created, double total_price,int vendor_id) {
+    public static int addOrder(int user_id, int coupon_code_id, String note, String phone, String address, int status, String date_created, double total_price,int vendor_id, int commission_rate) {
 //        int shipment_id= Load_Shipment.addShipment(type_weight);
         //TODO
         int updated=0;
         int id = getNextOrderId();
-        String sql = "insert into `order`(user_id,payment,note,phone,address,status,date_created,total_price,id,shipment,supplier_id ";
+        String sql = "insert into `order`(user_id,payment,note,phone,address,status,date_created,total_price,id,shipment,supplier_id, commission_rate ";
         if(coupon_code_id!=0)
-            sql+=" , sale_id) values(?,?,?,?,?,?,?,?,?,?,?,?)";
-        else sql+=") values(?,?,?,?,?,?,?,?,?,?,?)";
+            sql+=" , sale_id) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        else sql+=") values(?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
@@ -357,8 +358,9 @@ public class Load_Order {
             pe.setInt(9,id);
             pe.setInt(10,20000);
             pe.setInt(11,vendor_id);
+            pe.setInt(12,commission_rate);
             if(coupon_code_id!=0)
-                pe.setInt(12,coupon_code_id);
+                pe.setInt(13,coupon_code_id);
             System.out.println(pe.toString());
             synchronized (pe){
                 updated=pe.executeUpdate();

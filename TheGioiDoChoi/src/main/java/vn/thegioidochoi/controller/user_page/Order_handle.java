@@ -5,6 +5,8 @@ import vn.thegioidochoi.model.Product.ProductEntity;
 import vn.thegioidochoi.model.coupon_code.Coupon_Con_DB;
 import vn.thegioidochoi.model.order.Load_Order;
 import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
+import vn.thegioidochoi.model.supplier.Load_Supplier;
+import vn.thegioidochoi.model.supplier.Supplier;
 import vn.thegioidochoi.model.user.Cart;
 import vn.thegioidochoi.model.user.Cart_item;
 import vn.thegioidochoi.model.user.LoadUser;
@@ -109,8 +111,8 @@ public class Order_handle extends HttpServlet {
                     total_price += cart_item.getTotalPrice();
                 }
                 int coupon_code_id = cart.getCoupon_code_id();
-
-                int idSaved = Load_Order.addOrder(user_id, coupon_code_id, note, phone, address, 3, Util.dateFormat(new Date()), total_price + 20000, vendor_id);
+                Supplier supplier_ = Load_Supplier.loadSupplierById(vendor_id);
+                int idSaved = Load_Order.addOrder(user_id, coupon_code_id, note, phone, address, 3, Util.dateFormat(new Date()), total_price + 20000, vendor_id,supplier_.getCommission_rate());
                 System.out.println("idSaved: " + idSaved);
 
 
@@ -148,7 +150,9 @@ public class Order_handle extends HttpServlet {
             int pro_id = (int) session.getAttribute("pro_id");
             Product product = ProductEntity.loadProductById(pro_id);
             double pro_price = (double) session.getAttribute("price");
-            int idSaved = Load_Order.addOrder(user_id, 0, note, phone, address, 3, Util.dateFormat(new Date()), total_price + 20000, product.getSupplier_id());
+            int supplier = product.getSupplier_id();
+            Supplier supplier_ = Load_Supplier.loadSupplierById(supplier);
+            int idSaved = Load_Order.addOrder(user_id, 0, note, phone, address, 3, Util.dateFormat(new Date()), total_price + 20000, product.getSupplier_id(),supplier_.getCommission_rate());
             System.out.println("idSaved: " + idSaved);
             int count = 0;
             if (idSaved != 0) {

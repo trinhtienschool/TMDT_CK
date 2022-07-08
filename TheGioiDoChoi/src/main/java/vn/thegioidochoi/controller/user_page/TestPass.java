@@ -10,6 +10,7 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.json.JSONObject;
 import vn.thegioidochoi.model.Product.Product;
 import vn.thegioidochoi.model.Product.ProductEntity;
+import vn.thegioidochoi.model.Product.Withdraw;
 import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
 import vn.thegioidochoi.model.header_footer.Category;
 import vn.thegioidochoi.model.header_footer.LoadHeaderFooter;
@@ -44,6 +45,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.temporal.IsoFields;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -292,9 +294,38 @@ public class TestPass {
 //        for(Order order:orders){
 //            System.out.println(order);
 //        }
-        System.out.println(Util.formatCurrency((int)34));
-        Mail.sendMail("My mail content","My mail subject","duongbanhuan2020@gmail.com");
+//        System.out.println(Util.formatCurrency((int)34));
+//        Mail.sendMail("My mail content","My mail subject","duongbanhuan2020@gmail.com");
+//        System.out.println("Current Quarter : " +
+//                LocalDate.now().get(IsoFields.QUARTER_OF_YEAR) );
+//        System.out.println(Load_Supplier.getWeekChart(6));
+//        System.out.println(Load_Supplier.getMonthChart(6));
+//        double a = 46543521.9365897;
+//        long a1 = (long)a;
+//        String a2 = String.valueOf(Math.round(a));
+//        System.out.println(a2);
 
+//        String[]map = Load_Supplier.getWeekChart(45);
+//        String key = map.keySet().toString();
+//        String s = "[";
+//        for(String key: map.keySet()){
+//            s+="'"+key+"',";
+//        }
+//        s = s.substring(0,s.length()-1);
+//        s+="]";
+//        System.out.println(Util.dateFormat(new Date()));
+//        LocalDate currentdate = LocalDate.now();
+//        int currentMonth = currentdate.getMonthValue();
+//        System.out.println(currentMonth);
+//        String[] map = Load_Supplier.getCircleCategoryChart(23,5+"");
+//        System.out.println(map[1]);
+//        List<Category> categories =LoadHeaderFooter.loadCategories();
+//        for(Category category:categories){
+//            System.out.println(category);
+//        }
+//        System.out.println(Util.dateFormat(new Date()));
+//        System.out.println(Withdraw.loadLastWithdraw(3));
+        System.out.println(Load_Order.loadOrder_view(5));
     }
 
 

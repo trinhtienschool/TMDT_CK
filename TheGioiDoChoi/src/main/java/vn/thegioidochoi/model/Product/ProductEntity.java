@@ -54,7 +54,7 @@ public class ProductEntity {
 
         String sql = "select p.*\n" +
                 "from order_product op join `order` o on op.order_id=o.id join product p on p.id = op.pro_id\n" +
-                "where MONTH(o.date_created)= "+currentMonth.getValue()+" and year(o.date_created)= "+currentYear+" \n" +
+                "where p.active=1 and MONTH(o.date_created)= "+currentMonth.getValue()+" and year(o.date_created)= "+currentYear+" \n" +
                 "group by op.pro_id\n" +
                 "order by sum(op.quantity) desc\n" +
                 "limit 12";
@@ -62,20 +62,20 @@ public class ProductEntity {
     }
     public static List<Product> loadViewProducts(int userId){
         String sql = "select p.* from product p join recent_view_products rp on p.id = rp.pro_id\n" +
-                "where rp.user_id = "+userId+" ORDER BY rp.date desc limit 8";
+                "where p.active=1 and rp.user_id = "+userId+" ORDER BY rp.date desc limit 8";
         return loadProductFormSql(sql);
     }
     public static List<Product> loadDiscountProducts(int num) {
         String sql = "select *" +
                 "from product p " +
-                "WHERE is_sale=1 and discription is not null " +
+                "WHERE active=1 and is_sale=1 and discription is not null " +
                 "and content is not null " +
                 "ORDER BY percent_sale DESC LIMIT " + num;
         return loadProductFormSql(sql);
     }
 
     public static List<Product> loadNewProducts(int num) {
-        String sql = "SELECT * from product " +
+        String sql = "SELECT * from product where active=1 " +
                 "order by date_created desc LIMIT " + num;
         return loadProductFormSql(sql);
     }
@@ -133,43 +133,43 @@ public class ProductEntity {
     }
 
     public static List<Product> loadListProductBySupplierId(int supplier_id){
-        String sql = "SELECT * from product where supplier_id  = " + supplier_id;
+        String sql = "SELECT * from product where active=1 and supplier_id  = " + supplier_id;
         return loadProductFormSql(sql);
     }
 
     public static List<Product> loadFirstPros(int num) {
-        String sql = "SELECT * from product p LIMIT " + num;
+        String sql = "SELECT * from product p where p.active=1 LIMIT " + num;
         return loadProductFormSql(sql);
     }
 
     public static List<Product> loadHighLightProducts() {
         String sql = "SELECT * from product\n" +
-                "where highlight=1\n" +
+                "where active=1 and highlight=1\n" +
                 "order by date_created desc\n" +
                 "limit 10";
         return loadProductFormSql(sql);
     }
     public static List<Product> loadSmartToys() {
         String sql = "select *\n" +
-                "from product where category_id in (1,2,3,4) and percent_sale=0\n" +
+                "from product where active=1 and category_id in (1,2,3,4) and percent_sale=0\n" +
                 "limit 6";
         return loadProductFormSql(sql);
     }
     public static List<Product> loadCharacterToys() {
         String sql = "select *\n" +
-                "from product where category_id in (11,12) and percent_sale=0\n" +
+                "from product where active=1 and category_id in (11,12) and percent_sale=0\n" +
                 "limit 6";
         return loadProductFormSql(sql);
     }
     public static List<Product> loadTransportationToys() {
         String sql = "select *\n" +
-                "from product where category_id in (8,9,10) and percent_sale=0\n" +
+                "from product where active=1 and category_id in (8,9,10) and percent_sale=0\n" +
                 "limit 6";
         return loadProductFormSql(sql);
     }
 
     public static List<Product> loadAllProducts() {
-        return loadProductFormSql("select * from product");
+        return loadProductFormSql("select * from product where active=1");
     }
 
     // Load product in shopping page
@@ -203,7 +203,7 @@ public class ProductEntity {
 
     // Filter product by type_weight
     public static List<Product> filterProductBySize(int id, int start, int num) {
-        return loadProductFormSql("SELECT * FROM product WHERE type_weight = " + id + " LIMIT " + start + "," + num);
+        return loadProductFormSql("SELECT * FROM product WHERE active=1 and type_weight = " + id + " LIMIT " + start + "," + num);
     }
 
 
@@ -275,7 +275,7 @@ public class ProductEntity {
 
     public static List<Product> searchProduct(String key) {
         Map<Integer, Product> map = new LinkedHashMap<Integer, Product>();
-        List<Product> ab_pros = loadProductFormSql("select * from product where name like '%" + key + "%'");
+        List<Product> ab_pros = loadProductFormSql("select * from product where active=1 and name like '%" + key + "%'");
         convertListToMap(map, ab_pros);
         String[] words = key.split(" ");
         for (String word : words) {
@@ -285,7 +285,7 @@ public class ProductEntity {
                     || word.equalsIgnoreCase("choi"))
                 continue;
             ;
-            List<Product> pros = loadProductFormSql("select * from product where name like '% " + word + " %' or discription like '% " + key + " %'or content like '% " + key + " %'");
+            List<Product> pros = loadProductFormSql("select * from product where active=1 and name like '% " + word + " %' or discription like '% " + key + " %'or content like '% " + key + " %'");
             convertListToMap(map, pros);
         }
         return convertMapToList(map);
@@ -328,21 +328,22 @@ public class ProductEntity {
     // Load san pham yeu thich
     public static List<Product> loadFavoriteProduct(int user_id) {
         String sql = "SELECT * FROM product\n" +
-                "WHERE id IN (SELECT pro_id FROM favorist_list WHERE user_id = " + user_id + ")";
+                "WHERE active=1 and id IN (SELECT pro_id FROM favorist_list WHERE user_id = " + user_id + ")";
         return loadProductFormSql(sql);
     }
 
-    public static List<Product> loadProductBy(String product_id, String product_name, String category, String from_date, String to_date) {
+    public static List<Product> loadProductBy(String supplier_id,String product_id, String product_name, String category, String from_date, String to_date) {
         List<Product> productList = new ArrayList<Product>();
 
         try {
-            PreparedStatement pe = DBCPDataSource.preparedStatement("select * from product where id like ? and name like ? and category_id like ? and date_created between ? and ?");
+            PreparedStatement pe = DBCPDataSource.preparedStatement("select * from product where active<>-1 and id like ? and name like ? and category_id like ? and supplier_id like ? and date_created between ? and ?");
 
             pe.setString(1, product_id);
             pe.setString(2, product_name);
             pe.setString(3, category);
-            pe.setString(4, from_date);
-            pe.setString(5, to_date);
+            pe.setString(4, supplier_id);
+            pe.setString(5, from_date);
+            pe.setString(6, to_date);
 //            System.out.println((JDBC4PreparedStatement)pe.asSql());
             synchronized (pe) {
                 ResultSet resultSet = pe.executeQuery();
@@ -646,7 +647,7 @@ public static boolean insertProduct(String name, double price,
         List<Product> productList = new ArrayList<>();
         try{
             PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT p.id,p.`name`,p.date_created FROM product p join favorist_list f on p.id=f.pro_id join `user` u on u.id=f.user_id\n" +
-                    "WHERE u.id=?");
+                    "WHERE u.id=? and p.active=1");
             preparedStatement.setString(1, String.valueOf(idUser));
             synchronized (preparedStatement){
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -737,7 +738,7 @@ public static boolean insertProduct(String name, double price,
         List<Product> productList = new ArrayList<Product>();
 
         try {
-            PreparedStatement pe = DBCPDataSource.preparedStatement("SELECT * from product WHERE category_id=? and id <>? LIMIT 4");
+            PreparedStatement pe = DBCPDataSource.preparedStatement("SELECT * from product WHERE category_id=? and id <>? LIMIT 4 and active=1");
 
             pe.setInt(1, cateid);
             pe.setInt(2, proid);
@@ -788,8 +789,8 @@ public static boolean insertProduct(String name, double price,
     }
     public static void deleteProductById(int id){
         try {
-            OrderProduct_Con_DB.deleteOrderWithProductId(id);
-            PreparedStatement pe = DBCPDataSource.preparedStatement("delete from product where id=?");
+//            OrderProduct_Con_DB.deleteOrderWithProductId(id);
+            PreparedStatement pe = DBCPDataSource.preparedStatement("UPDATE product SET active=-1 where id=?");
             synchronized (pe){
                 pe.setInt(1,id);
                 pe.executeUpdate();

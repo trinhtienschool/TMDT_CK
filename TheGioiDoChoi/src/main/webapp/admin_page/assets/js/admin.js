@@ -2,7 +2,14 @@
   "use strict";
 
 	// Variables declarations
-	
+
+	$("#delete-product-announcement").on('click', function(e) {
+		console.log("Da delete san pham");
+	});
+	$("#delete-product-button").on('click', function(e) {
+		$('#wrong_info_login').modal('show');
+		console.log("Da delete san pham");
+	});
 	var $wrapper = $('.main-wrapper');
 	var $pageWrapper = $('.page-wrapper');
 	//var $slimScrolls = $('.slimscroll');

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/admin_page/customers")
+@WebServlet(urlPatterns = "/vendor_page/customers")
 public class CustomerListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
@@ -24,7 +24,7 @@ public class CustomerListServlet extends HttpServlet {
         request.setAttribute("title","Khách hàng");
         request.setAttribute("current_page","customers");
         HttpSession session = request.getSession();
-        int id = (int) session.getAttribute("user_id");
+        int id = (int) session.getAttribute("supplier_id");
         List<Order> orders = Load_Order.loadOrderBySupplierId(id);
         request.setAttribute("orders", orders);
         request.getRequestDispatcher("customer-list.jsp").forward(request, response);

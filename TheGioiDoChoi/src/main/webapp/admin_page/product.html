@@ -390,7 +390,7 @@
 												<td>1</td>
 												<td class="text-right">
 													<a href="edit-product.html" class="btn btn-sm bg-success-light mr-2">	<i class="far fa-edit mr-1"></i> Sửa</a>
-													<button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</button>
+													<button id="delete-product-button" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</button>
 													
 												</td>
 											</tr>
@@ -954,7 +954,27 @@
 			</div>
 		</div>
 	</div>
-	
+	<div class="modal fade" id="wrong_info_login" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog forget-dialog" role="document">
+			<div class="modal-content forget-content">
+				<div class="modal-header forget-header">
+					<h5 class="modal-title forget-title">Thông báo</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="x">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body forget-body">
+					<!-- <h5 class="forget-h5">Vui lòng nhập Email bạn đã đăng kí để lấy lại mật khẩu</h5> -->
+					<div>
+						<p>Bạn có chắc chắn muốn xóa?</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button id="delete-product-announcement" type="button" class="btn btn-primary " data-dismiss="modal">Xóa</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- jQuery -->
 	<script src="assets/js/jquery-3.5.0.min.js"></script>
 

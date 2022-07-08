@@ -8,7 +8,9 @@ function bar_chart(canvas){
     console.log("Day la data")
     // console.log(data);
     let data = canvas.data('revenue');
+
     let labels = canvas.data('labels');
+    console.log(labels);
     labels = labels.replace(/'/g, '"') //replacing all ' with "
     labels = JSON.parse(labels);
 

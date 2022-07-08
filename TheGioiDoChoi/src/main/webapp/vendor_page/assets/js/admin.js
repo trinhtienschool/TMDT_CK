@@ -2,7 +2,16 @@
   "use strict";
 
 	// Variables declarations
-	
+
+	// $("#delete-product-announcement").on('click', function(e) {
+	// 	$("#pro-id").val($(this).data('id'));
+	// 	console.log("Da delete san pham");
+	// });
+	$("#delete-product-button").on('click', function(e) {
+		$('#wrong_info_login').modal('show');
+		$("#pro-id").val($(this).data('product'));
+		console.log("Da delete san pham");
+	});
 	var $wrapper = $('.main-wrapper');
 	var $pageWrapper = $('.page-wrapper');
 	//var $slimScrolls = $('.slimscroll');
@@ -70,7 +79,7 @@
 	
 	if($('.datetimepicker').length > 0 ){
 		$('.datetimepicker').datetimepicker({
-			format: 'DD-MM-YYYY',
+			format: 'YYYY-MM-DD',
 			icons: {
 				up: "fas fa-angle-up",
 				down: "fas fa-angle-down",
@@ -300,6 +309,48 @@ $(document).ready(function () {
 			formatCurrency($(this), "blur");
 		}
 	});
+	$("#withdraw-amount").on({
+		keyup: function() {
+
+			let input_val = $(this).val();
+			// don't validate empty input
+			if (input_val === "") { return; }
+			input_val = input_val.replace(/\D/g, "");
+
+			let current_balance = $("#current-balance").val();
+			// don't validate empty input
+			if (current_balance === "") { return; }
+			current_balance = current_balance.replace(/\D/g, "");
+
+			if(parseInt(input_val) > parseInt(current_balance)) {
+				alert("Số tiền không được lớn hơn số dư hiện tại");
+				$(this).val('');
+				return;
+			}
+			formatCurrency($(this));
+
+		},
+		blur: function() {
+			formatCurrency($(this), "blur");
+		}
+	});
+	// $("#withdraw-amount").change(function(){
+	//
+	// 	let input_val = $(this).val();
+	// 	// don't validate empty input
+	// 	if (input_val === "") { return; }
+	// 	input_val = input_val.replace(/\D/g, "");
+	//
+	// 	let current_balance = $("#current-balance").val();
+	// 	// don't validate empty input
+	// 	if (current_balance === "") { return; }
+	// 	current_balance = current_balance.replace(/\D/g, "");
+	//
+	// 	if(parseInt(input_val) > parseInt(current_balance)) {
+	// 		alert("Số tiền không được lớn hơn số dư hiện tại");
+	// 		$(this).val('');
+	// 	}
+	// })
 	if($("input[data-type='currency']").length) formatCurrency($("input[data-type='currency']"))
 	const formatYmd = date => date.toISOString().slice(0, 10);
 	$('.date-start-sale').attr('min',formatYmd(new Date()))

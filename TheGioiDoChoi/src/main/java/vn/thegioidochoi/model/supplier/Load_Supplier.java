@@ -7,10 +7,76 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Load_Supplier {
+    public static String[] getYear_Quarter_Chart(int supplier_id){
+        String sql = "select concat('Quý ' ,QUARTER(o.date_created)), SUM((o.total_price-o.shipment)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id=? and Year(o.date_created)= Year(CURDATE())\n" +
+                "GROUP BY QUARTER(o.date_created)";
+        return convertStringArray(getMap(sql, supplier_id));
+    }
+    public static String[] getYear_Month_Chart(int supplier_id){
+        String sql = "select concat('Tháng ', MONTH(o.date_created)), SUM((o.total_price-o.shipment)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id=? and YEar(o.date_created) = year(CurDate())\n" +
+                "GROUP BY MONTH(o.date_created)";
+        return convertStringArray(getMap(sql, supplier_id));
+    }
+    public static String[] getMonthChart(int supplier_id){
+        String sql = "select concat('Tuần ', WEEK(o.date_created)), SUM((o.total_price-o.shipment)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id=? and Month(o.date_created) = Month(CurDate())\n" +
+                "GROUP BY WEEK(o.date_created)";
+        return convertStringArray(getMap(sql, supplier_id));
+    }
+    public static String[] getQuarterChart(int supplier_id){
+        String sql = "select concat('Tháng ', MONTH(o.date_created)), SUM((o.total_price-o.shipment)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id=? and QUARTER(o.date_created) = QUARTER(CurDate())\n" +
+                "GROUP BY MONTH(o.date_created)";
+        return convertStringArray(getMap(sql, supplier_id));
+    }
+    public static String[] getWeekChart(int supplier_id){
+        String sql = "select DATE(o.date_created), SUM((o.total_price-o.shipment)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id=? and week(o.date_created) = week(CurDate())\n" +
+                "GROUP BY date(o.date_created)";
+        return convertStringArray(getMap(sql, supplier_id));
+    }
+    public static String[] getMonthFromTo(int supplier_id,String from,String to){
+        String sql = "select concat('Tháng ', MONTH(o.date_created)), SUM((o.total_price-o.shipment)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id=? and date_created BETWEEN '"+from+"' and '"+to+"'\n" +
+                "GROUP BY MONTH(o.date_created)";
+        return convertStringArray(getMap(sql, supplier_id));
+    }
+    public static String[] getCircleCategoryChart(int supplier_id, String month){
+        String sql = "select c.name,sum(op.total_price) from `order` o join order_product op on o.id = op.order_id join product p on op.pro_id=p.id join categories c on c.id = p.category_id\n" +
+                "where o.supplier_id = ? and MONTH(o.date_created) = "+month+" and year(o.date_created) = year(curdate())\n" +
+                "group by c.name,c.id";
+        return convertStringArray(getMap(sql, supplier_id));
+    }
+    public static String[] convertStringArray(Map<String, Long>map){
+        String[] result = new String[2];
+        String s = "[";
+        for(String key: map.keySet()){
+            s+=" '"+key+"',";
+        }
+        s = s.substring(0,s.length()-1);
+        s+=" ]";
+        result[0] = s;
+        result[1] = map.values().toString();
+        return result;
+    }
+    public static Map<String, Long> getMap(String sql, int supplier_id) {
+        Map<String, Long> map = new TreeMap<>();
+        try {
+            PreparedStatement statement = DBCPDataSource.getConnection().prepareStatement(sql);
+            synchronized (statement) {
+                statement.setInt(1, supplier_id);
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    map.put(resultSet.getString(1), Math.round(resultSet.getDouble(2)));
+                }
+                resultSet.close();
+            }
+            statement.close();
+            return map;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public static List<Supplier> loadSupplier_view(){
         List<Supplier> supplierList = new ArrayList<>();
         try{
@@ -226,7 +292,7 @@ public class Load_Supplier {
     }
     public static List<Supplier> loadTopSupplierWithOderTable(int nos){
         List<Supplier>suppliers = new ArrayList<Supplier>();
-        String sql = "select r.supplier_id, s.name, s.logo, s.company_name,s.slug, sum(r.total_price*(100-s.commission_rate)/100) as total \n" +
+        String sql = "select r.supplier_id, s.name, s.logo, s.company_name,s.slug, sum(r.total_price*(100-r.commission_rate)/100) as total \n" +
                 "from `order` r JOIN supplier s on r.supplier_id = s.id where month(r.date_created) = month(curdate() - interval 1 month) and year(r.date_created)= year(curdate()) GROUP BY r.supplier_id, s.logo, s.company_name\n" +
                 "ORDER BY total DESC\n" +
                 "LIMIT "+nos;
@@ -396,6 +462,5 @@ public class Load_Supplier {
 //        System.out.println(loadSupplier(302).getAddress());
 //        System.out.println(loadTopSupplierWithOderTable(3));
     }
-
 
 }
