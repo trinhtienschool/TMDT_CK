@@ -325,8 +325,20 @@ public class TestPass {
 //        }
 //        System.out.println(Util.dateFormat(new Date()));
 //        System.out.println(Withdraw.loadLastWithdraw(3));
-        System.out.println(Load_Order.loadOrder_view(5));
+//        System.out.println(Load_Order.loadOrder_view(5));
+        String sql = "select * from product where category_id in (";
+        String cate_ids ="";
+        for(int i=0;i<10;i++){
+            cate_ids += i+",";
+        }
+        cate_ids = cate_ids.substring(0,cate_ids.length()-1);
+        sql += cate_ids+")";
+        System.out.println(sql);
+
+
+
     }
+
 
 
 

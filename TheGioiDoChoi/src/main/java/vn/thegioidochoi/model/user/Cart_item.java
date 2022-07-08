@@ -153,6 +153,7 @@ public class Cart_item {
                 ", isSale=" + sale +
                 ", product_slug=" + product_slug +
                 ", vendor_name=" + vendor_name +
+                ", vendor_id=" + vendor_id +
                 ", totalPrice=" + totalPrice +
 
                 '}';

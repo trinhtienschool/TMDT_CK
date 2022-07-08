@@ -120,7 +120,7 @@ public class Load_Order {
         return list;
     }
     //Todo nhuan
-    // load lên trang chi tiết đơn hàng
+    // load lên trang chi tiết đơn hàng (sum(p.price * op.quantity) + o.shipment)
     public static Order loadOrder_view(int order_id){
         Order order = new Order();
         try{
@@ -339,10 +339,10 @@ public class Load_Order {
         //TODO
         int updated=0;
         int id = getNextOrderId();
-        String sql = "insert into `order`(user_id,payment,note,phone,address,status,date_created,total_price,id,shipment,supplier_id, commission_rate ";
+        String sql = "insert into `order`(user_id,payment,note,phone,address,status,date_created,total_price,id,shipment,supplier_id, commission_rate,active ";
         if(coupon_code_id!=0)
-            sql+=" , sale_id) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        else sql+=") values(?,?,?,?,?,?,?,?,?,?,?,?)";
+            sql+=" , sale_id) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        else sql+=") values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
@@ -359,8 +359,9 @@ public class Load_Order {
             pe.setInt(10,20000);
             pe.setInt(11,vendor_id);
             pe.setInt(12,commission_rate);
+            pe.setInt(13,1);
             if(coupon_code_id!=0)
-                pe.setInt(13,coupon_code_id);
+                pe.setInt(14,coupon_code_id);
             System.out.println(pe.toString());
             synchronized (pe){
                 updated=pe.executeUpdate();

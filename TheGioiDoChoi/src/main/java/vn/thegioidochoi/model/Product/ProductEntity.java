@@ -738,7 +738,7 @@ public static boolean insertProduct(String name, double price,
         List<Product> productList = new ArrayList<Product>();
 
         try {
-            PreparedStatement pe = DBCPDataSource.preparedStatement("SELECT * from product WHERE category_id=? and id <>? LIMIT 4 and active=1");
+            PreparedStatement pe = DBCPDataSource.preparedStatement("SELECT * from product WHERE active=1 and category_id=? and id <>? LIMIT 4 ");
 
             pe.setInt(1, cateid);
             pe.setInt(2, proid);
