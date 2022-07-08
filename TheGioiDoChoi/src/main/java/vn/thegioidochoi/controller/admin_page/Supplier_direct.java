@@ -31,12 +31,13 @@ public class    Supplier_direct extends HttpServlet {
         if(request.getParameter("active")!=null&&request.getParameter("supplier_id")!=null){
             int active=Integer.parseInt(request.getParameter("active"));
             int supplier_id=Integer.parseInt(request.getParameter("supplier_id"));
+            int user_id=Integer.parseInt(request.getParameter("user_id"));
             ProductEntity.updateProductActiveBySupplierId(active,supplier_id);
             Load_Supplier.updateSupplierActiveById(active,supplier_id);
+            LoadUser.updateUserActiveById(active,user_id);
+            Load_Order.updateOrderActiveBySupplierId(active,supplier_id);
 //            Load_Order.updateOrderStatusBySupplierId(6,supplier_id);
            if(active==-1){
-
-               Load_Order.updateOrderActiveBySupplierId(active,supplier_id);
 
                String subject="Thông báo hủy đơn hàng";
                String subjectForSupplier="Thông báo hủy đơn hàng";

@@ -90,6 +90,7 @@ public class Load_Supplier {
                     supplier.setAddress(resultSet.getString(3));
                     supplier.setPhone(resultSet.getString(4));
                     supplier.setEmail(resultSet.getString(5));
+                    supplier.setUser_id(resultSet.getInt(8));
                     supplier.setCompany_name(resultSet.getString(9));
                     supplier.setDate(resultSet.getDate(11));
                     supplier.setName(resultSet.getString(13));

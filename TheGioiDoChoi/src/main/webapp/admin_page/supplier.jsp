@@ -141,7 +141,7 @@
 <%--											<a href="add-supplier?type=delete&id=${r.id}" style="margin-top: 5px;color: red "--%>
 <%--											   class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i>--%>
 <%--												Xóa</a>--%>
-											<a href="?active=-1&supplier_id=${su.id}" style="margin-top: 5px;color: red " class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</a>
+											<a href="?active=-1&supplier_id=${su.id}&user_id=${su.user_id}" style="margin-top: 5px;color: red " class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</a>
 											<a href="service-details.html" class="btn btn-sm bg-info-light">
 												<i class="far fa-eye mr-1"></i> Xem
 											</a>
