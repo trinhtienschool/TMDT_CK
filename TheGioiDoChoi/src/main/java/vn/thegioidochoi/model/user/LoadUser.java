@@ -1,6 +1,7 @@
 
 package vn.thegioidochoi.model.user;
 
+import vn.thegioidochoi.model.Product.Product;
 import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
 import vn.thegioidochoi.model.supplier.Supplier;
 import vn.thegioidochoi.model.util.Util;
@@ -524,6 +525,30 @@ public class LoadUser {
             throwables.printStackTrace();
         }
         return null;
+    }
+    public static List<User> loadUsertBy( String user_id, String user_name, String from_date, String to_date) {
+        List<User> productList = new ArrayList<User>();
+
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement("select * from `user` where active<>-1 and id like ? and name like ? and date_created between ? and ?");
+
+            pe.setString(1, user_id);
+            pe.setString(2, user_name);
+            pe.setString(3, from_date);
+            pe.setString(4, to_date);
+//            System.out.println((JDBC4PreparedStatement)pe.asSql());
+            synchronized (pe) {
+                ResultSet resultSet = pe.executeQuery();
+                System.out.println(resultSet.getStatement().toString());
+                while (resultSet.next()) productList.add(getUser(resultSet));
+                resultSet.close();
+            }
+            pe.close();
+            return productList;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return productList;
     }
 
     public static void main(String[] args) {

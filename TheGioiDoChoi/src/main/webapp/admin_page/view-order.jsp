@@ -64,11 +64,8 @@
                             <h4 class="card-title">Thông tin chung</h4>
                         </div>
                         <div class="collapse card-body" id="gener-info">
-                            <form action="view_order" method="post">
 
-                                <div class="form-group row" style="display: none">
-                                    <input class="form-control" type="text" value="${view_order.id}" name="id">
-                                </div>
+
                                 <div class="form-group row">
                                     <label class="col-md-3">Mã đơn hàng</label>
                                     <div class="col-md-9">
@@ -81,16 +78,20 @@
                                         ${view_order.date_created}
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3">Mã người mua</label>
-                                    <div class="col-md-9">
-                                        ${view_order.user_id}
-                                    </div>
-                                </div>
+<%--                                <div class="form-group row">--%>
+<%--                                    <label class="col-md-3">Mã người mua</label>--%>
+<%--                                    <div class="col-md-9">--%>
+<%--                                        ${view_order.user_id}--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
                                 <div class="form-group row">
                                     <label class="col-md-3">Người mua</label>
                                     <div class="col-md-9">
                                         ${view_order.user_name}
+                                            <form action="users" method="post" accept-charset="UTF-8">
+                                                <input type="hidden" name="user-id" value="${view_order.user_id}">
+                                                <button class="btn btn-sm bg-info-light" type="submit"><i class="far fa-eye mr-1"></i> Xem</button>
+                                            </form>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -119,6 +120,10 @@
                                         <c:if test="${view_order.payment==true}">Tiền mặt</c:if>
                                         <c:if test="${view_order.payment==false}">Thanh toán qua Momo</c:if>
                                     </div>
+                                </div>
+                            <form action="view_order" method="post">
+                                <div class="form-group row" style="display: none">
+                                    <input class="form-control" type="text" value="${view_order.id}" name="id">
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3">Trạng thái đơn hàng</label>
@@ -258,4 +263,3 @@
 </body>
 
 </html>
-	
