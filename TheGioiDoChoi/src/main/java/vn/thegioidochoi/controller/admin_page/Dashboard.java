@@ -117,6 +117,8 @@ public class Dashboard extends HttpServlet {
                         "ORDER BY total DESC) as sup_rank on s.id = sup_rank.sup_id where s.id = " + supplier_id);
                 request.setAttribute("currenttop", currentTop);
                 Supplier supplier = Load_Supplier.loadSupplier(supplier_id);
+                System.out.println("Supplier id 120: " + supplier_id);
+                System.out.println("supplier commission rate: " + supplier.getCommission_rate());
                 request.setAttribute("commission", supplier.getCommission_rate());
                 int countsupplier = Load_Supplier.sumOf("select count(*) from supplier");
                 request.setAttribute("countsupplier",countsupplier);

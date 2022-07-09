@@ -51,51 +51,56 @@
                                                     <div class="form-group">
                                                         <label>Tên cửa hàng</label>
                                                         <input type="text" class="form-control" name="name"
-                                                               value="${sessionScope.user_name}">
+                                                               value="${supplier.name}">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Email</label>
-                                                        <input type="email" class="form-control" name="mail"
-                                                                value="${sessionScope.user_email}">
+                                                        <label>Công ty</label>
+                                                        <input type="text" class="form-control" name="company"
+                                                               value="${supplier.company_name}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Website</label>
+                                                        <input type="text" class="form-control" name="website"
+                                                                value="${supplier.website}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Điện thoại</label>
                                                         <input type="number" class="form-control" name="phone"
-                                                                value="0${sessionScope.user_phone}">
+                                                                value="0${supplier.phone}">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label>Địa chỉ</label>
-                                                        <div class="row">
-                                                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                                                <input type="text" class="form-control" placeholder="Tỉnh/Thành phố" name="city"
-                                                                            value="${sessionScope.city}">
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                                                <input type="text" class="form-control" placeholder="Quận/Huyện" name="district"
-                                                                            value="${sessionScope.district}">
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                                                <input type="text" class="form-control" placeholder="Phường/Xã" name="ward"
-                                                                            value="${sessionScope.ward}">
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                                                <input type="text" class="form-control" placeholder="Chi tiết" name="detail"
-                                                                            value="${sessionScope.detail}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
+<%--                                                    <div class="form-group">--%>
+<%--                                                        <label>Địa chỉ</label>--%>
+<%--                                                        <div class="row">--%>
+<%--                                                            <div class="col-lg-3 col-md-6 col-sm-12">--%>
+<%--                                                                <input type="text" class="form-control" placeholder="Tỉnh/Thành phố" name="city"--%>
+<%--                                                                            value="${sessionScope.city}">--%>
+<%--                                                            </div>--%>
+<%--                                                            <div class="col-lg-3 col-md-6 col-sm-12">--%>
+<%--                                                                <input type="text" class="form-control" placeholder="Quận/Huyện" name="district"--%>
+<%--                                                                            value="${sessionScope.district}">--%>
+<%--                                                            </div>--%>
+<%--                                                            <div class="col-lg-3 col-md-6 col-sm-12">--%>
+<%--                                                                <input type="text" class="form-control" placeholder="Phường/Xã" name="ward"--%>
+<%--                                                                            value="${sessionScope.ward}">--%>
+<%--                                                            </div>--%>
+<%--                                                            <div class="col-lg-3 col-md-6 col-sm-12">--%>
+<%--                                                                <input type="text" class="form-control" placeholder="Chi tiết" name="detail"--%>
+<%--                                                                            value="${sessionScope.detail}">--%>
+<%--                                                            </div>--%>
+<%--                                                        </div>--%>
+<%--                                                    </div>--%>
                                                     <div class="form-group">
                                                         <label>Ảnh đại diện</label>
                                                         <div class="uploader">
                                                             <input type="file" class="form-control" name="logo"/>
                                                         </div>
 
-                                                        <img src="../${sessionScope.user_avatar}" class="site-logo" alt=""/>
+                                                        <img src="../${supplier.logo}" class="site-logo" alt=""/>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Mô tả cửa hàng</label>
                                                         <textarea name="content" id="content" style="width: 100%; height: 150px" required>
-                                                            ${sessionScope.user_about}
+                                                            ${supplier.description}
                                                         </textarea>
                                                     </div>
                                                 </div>

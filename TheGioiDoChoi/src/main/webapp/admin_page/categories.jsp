@@ -76,6 +76,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Danh mục</th>
+                                        <th>Danh mục cha</th>
                                         <th class="text-right">Hành Động</th>
                                     </tr>
                                     </thead>

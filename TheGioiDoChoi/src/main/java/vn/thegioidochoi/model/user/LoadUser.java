@@ -171,8 +171,8 @@ public class LoadUser {
         String sql= "Update user set address = '"+detailaddress+","+ward+","+distric+","+city+"', name ='"+name+"', phone= "+phone+",email='"+email+"',birthday='"+birthday+"' where id="+user_id;
         return excuteSql(sql);
     }
-    public static boolean updateUserVendor(String name, String email, int phone, String city, String district, String ward, String detail, String description, String avatar, int user_id){
-        String sql = "Update user set name ='" + name +"', email='" + email + "', phone='" + phone + "', address='" + detail + ", " + ward + ", " + district + ", " + city + "', about='" + description + "', avatar='" + avatar + "' where id=" + user_id;
+    public static boolean updateUserVendor(String name, String phone, String city, String district, String ward, String detail, String avatar, int user_id){
+        String sql = "Update user set name ='" + name +"', phone='" + phone + "', address='" + detail + ", " + ward + ", " + district + ", " + city + "', avatar='" + avatar + "' where id=" + user_id;
         return excuteSql(sql);
     }
     public  static boolean updateUserInAdimin(int id,String email,long password,String name,String sex,String birthday,String address,String datecreated, int active){

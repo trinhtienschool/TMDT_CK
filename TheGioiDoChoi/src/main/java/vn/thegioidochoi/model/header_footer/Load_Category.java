@@ -184,6 +184,26 @@ public class Load_Category {
         }
         return categories;
     }
+    public static String loadNameCategoryById(int id){
+        String sql="SELECT `name` FROM categories WHERE id=?";
+        String name = "";
+        try{
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement(sql);
+            preparedStatement.setInt(1, id);
+            synchronized (preparedStatement) {
+                ResultSet rs = preparedStatement.executeQuery();
+                while (rs.next()) {
+                    name = rs.getString(1);
+                }
+                rs.close();
+            }
+            preparedStatement.close();
+            return name;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return name;
+    }
     public static void main(String[] args) {
 //        System.out.println(insertCategory("Cây ăn quả",0,"cay-an-qua"));
 //        System.out.println(loadAllCategories());

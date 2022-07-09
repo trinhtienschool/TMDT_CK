@@ -450,6 +450,50 @@ public class Load_Supplier {
         }
         return null;
     }
+    public static Supplier loadSupplierSettings(int id){
+        Supplier supplier = new Supplier();
+        try {
+            PreparedStatement pe = DBCPDataSource.preparedStatement("SELECT u.`name`, s.company_name, s.website, u.phone, s.address, s.logo, s.description, s.slug FROM supplier s JOIN `user` u ON s.id=u.id WHERE s.id=?");
+            pe.setInt(1,id);
+            synchronized (pe){
+                ResultSet rs = pe.executeQuery();
+                if(rs.next()) {
+                   supplier.setName(rs.getString(1));
+                   supplier.setCompany_name(rs.getString(2));
+                   supplier.setWebsite(rs.getString(3));
+                   supplier.setPhone(rs.getString(4));
+                   supplier.setAddress(rs.getString(5));
+                   supplier.setLogo(rs.getString(6));
+                   supplier.setDescription(rs.getString(7));
+                   supplier.setSlug(rs.getString(8));
+                }
+                rs.close();
+                pe.close();
+                return supplier;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+    public static boolean updateSupplierSetting(String company, String website, String phone, String city, String district, String ward, String detail, String description, String logo, int id){
+        String sql = "Update supplier set company_name='" + company + "', website='" + website + "', phone='" + phone + "', address='" + detail + ", " + ward + ", " + district + ", " + city + "', description='" + description + "', logo='" + logo + "' where id=" + id;
+        return excuteSql(sql);
+    }
+    public static boolean excuteSql(String sql){
+        try {
+            Statement statement = DBCPDataSource.getStatement();
+            synchronized (statement) {
+                System.out.println(sql);
+                statement.executeUpdate(sql);
+            }
+            statement.close();
+            return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
     public static void main(String[] args) {
         List<Supplier> suppliers = loadTopSupplierWithOderTable(3);
 //        for()
