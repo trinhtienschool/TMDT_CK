@@ -69,7 +69,6 @@ public class Add_product_direct extends HttpServlet {
             //todo
         }
         Iterator<FileItem> i = Util.uploadFile(request, response);
-
         FileItem fiImg = null;
         Map<String, String> pair = new HashMap<String, String>();
         Map<String, FileItem> pairImg = new HashMap<String, FileItem>();
