@@ -27,19 +27,7 @@ public class Edit_user_direct extends HttpServlet {
         request.setAttribute("current_page", "user");
         request.setAttribute("title", "Sửa thông tin người dùng");
         String type = request.getParameter("type");
-        if (type.equalsIgnoreCase("enteredit")) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            User user = LoadUser.loadUserById(id);
-            List<Order> order= Load_Order.loadOrderByIdUser(id);
-            List<Product> fproduct= ProductEntity.loadFavorateByIdUser(id);
-            List<Order> ordproduct= Load_Order.loadOrderStatusByIdUser(id);
-            request.setAttribute("user", user);
-            request.setAttribute("productadd",order);
-            request.setAttribute("favproduct",fproduct);
-            request.setAttribute("ordproduct",ordproduct);
-            request.getRequestDispatcher("edit-users.jsp").forward(request, response);
-            return;
-        }
+        if (editUser(request, response, type)) return;
         String email = request.getParameter("email");
         String name = request.getParameter("name");
         String address = request.getParameter("address");
@@ -71,5 +59,22 @@ public class Edit_user_direct extends HttpServlet {
             request.getRequestDispatcher("edit-users.jsp").forward(request, response);
 
         }
+    }
+
+    private boolean editUser(HttpServletRequest request, HttpServletResponse response, String type) throws ServletException, IOException {
+        if (type.equalsIgnoreCase("enteredit")) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            User user = LoadUser.loadUserById(id);
+            List<Order> order= Load_Order.loadOrderByIdUser(id);
+            List<Product> fproduct= ProductEntity.loadFavorateByIdUser(id);
+            List<Order> ordproduct= Load_Order.loadOrderStatusByIdUser(id);
+            request.setAttribute("user", user);
+            request.setAttribute("productadd",order);
+            request.setAttribute("favproduct",fproduct);
+            request.setAttribute("ordproduct",ordproduct);
+            request.getRequestDispatcher("edit-users.jsp").forward(request, response);
+            return true;
+        }
+        return false;
     }
 }

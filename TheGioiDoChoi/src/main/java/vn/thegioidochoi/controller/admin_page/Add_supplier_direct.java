@@ -92,34 +92,7 @@ public class Add_supplier_direct extends HttpServlet {
 ////        String originalImg = pair.get("img")==null?"imgs/products/default_img.png":pair.get("img");
 ////        System.out.println("pair.getImg: "+pair.get("img"));
 ////        System.out.println("original img: "+originalImg);
-        if(type.equalsIgnoreCase("add")){
-            request.setAttribute("type","add");
-            request.setAttribute("title","Thêm nhà cung cấp");
-//            String logo= request.getParameter("logo");
-            String name=request.getParameter("name");
-            String address=request.getParameter("address");
-            int phone=Integer.parseInt(request.getParameter("phone"));
-            String email=request.getParameter("email");
-            boolean isInsert = Load_Supplier.insertSupplier(name,address,phone,email);
-//            if(isInsert)
-                request.getRequestDispatcher("add-supplier.jsp").forward(request,response);
-        }else if(type.equalsIgnoreCase("edit")){
-            request.setAttribute("type","edit");
-            request.setAttribute("title","Chỉnh sửa nhà cung cấp");
-            System.out.println("co vao edit");
-//            String logo= request.getParameter("logo");
-            String name=request.getParameter("name");
-            String address=request.getParameter("address");
-            int phone=Integer.parseInt(request.getParameter("phone"));
-            String email=request.getParameter("email");
-             int id=Integer.parseInt(request.getParameter("id"));
-            System.out.println(id);
-            boolean isUpdate = Load_Supplier.updateSupplier(id,name,address,phone,email);
-            Supplier su = Load_Supplier.loadSupplier(id);
-            request.setAttribute("supplier",su);
-            request.getRequestDispatcher("add-supplier.jsp").forward(request,response);
-
-        }
+        handleParameter(request, response, type);
 
 //        if(type.equalsIgnoreCase("add")){
 //            img = img==null?"imgs/supplier/default_img.png":img;
@@ -146,4 +119,36 @@ public class Add_supplier_direct extends HttpServlet {
 //        }
 
 
-    }}
+    }
+
+    private void handleParameter(HttpServletRequest request, HttpServletResponse response, String type) throws ServletException, IOException {
+        if(type.equalsIgnoreCase("add")){
+            request.setAttribute("type","add");
+            request.setAttribute("title","Thêm nhà cung cấp");
+//            String logo= request.getParameter("logo");
+            String name= request.getParameter("name");
+            String address= request.getParameter("address");
+            int phone=Integer.parseInt(request.getParameter("phone"));
+            String email= request.getParameter("email");
+            boolean isInsert = Load_Supplier.insertSupplier(name,address,phone,email);
+//            if(isInsert)
+                request.getRequestDispatcher("add-supplier.jsp").forward(request, response);
+        }else if(type.equalsIgnoreCase("edit")){
+            request.setAttribute("type","edit");
+            request.setAttribute("title","Chỉnh sửa nhà cung cấp");
+            System.out.println("co vao edit");
+//            String logo= request.getParameter("logo");
+            String name= request.getParameter("name");
+            String address= request.getParameter("address");
+            int phone=Integer.parseInt(request.getParameter("phone"));
+            String email= request.getParameter("email");
+             int id=Integer.parseInt(request.getParameter("id"));
+            System.out.println(id);
+            boolean isUpdate = Load_Supplier.updateSupplier(id,name,address,phone,email);
+            Supplier su = Load_Supplier.loadSupplier(id);
+            request.setAttribute("supplier",su);
+            request.getRequestDispatcher("add-supplier.jsp").forward(request, response);
+
+        }
+    }
+}
