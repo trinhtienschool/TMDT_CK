@@ -89,19 +89,12 @@ public class HandlePaginationButton extends HttpServlet {
         //tinh toan tong so trang dua vao tong so product
         int sumOfPage = sumOfItems/last;
         System.out.println("sumOfPages: "+sumOfPage);
-        if(sumOfItems % last !=0)
-            sumOfPage++;
-        if(sumOfPage==0)
-            sumOfPage=1;
+        sumOfPage = getSumOfPage(sumOfItems, last, sumOfPage);
 
         //neu chi so trang <=0  thi set pages=1,
         // neu chi so trang >tong so trang & tong so trang >0 thi chi so trang = gia tri tong so trang, tuc trang cuoi cung
-        int first = 0;
-        if(pages<=0){
-            pages=1;
-        }else if(pages>sumOfPage && sumOfPage>0){
-            pages=sumOfPage;
-        }
+        pages = getPages(pages, sumOfPage);
+        int first;
         request.setAttribute("pages",pages);
 
         //first: san pham thu n can phai lay den last
@@ -172,17 +165,26 @@ public class HandlePaginationButton extends HttpServlet {
         }
         request.setAttribute("start",start);
         request.setAttribute("end",end);
-        System.out.println("first: "+first);
-        System.out.println("sql: "+sql);
-        System.out.println("count_sql: "+countSql);
-        System.out.println("back:"+request.getAttribute("back"));
-        System.out.println("next:"+request.getAttribute("next"));
-        System.out.println("pages:"+request.getAttribute("pages"));
-        System.out.println("isStill:"+request.getAttribute("isStill"));
-        System.out.println("start:"+request.getAttribute("start"));
-        System.out.println("end:"+request.getAttribute("end"));
         request.getRequestDispatcher((String)request.getAttribute("direct_to")).forward(request,response);
 
+    }
+
+    private int getPages(int pages, int sumOfPage) {
+        int first = 0;
+        if(pages <=0){
+            pages =1;
+        }else if(pages > sumOfPage && sumOfPage >0){
+            pages = sumOfPage;
+        }
+        return pages;
+    }
+
+    private int getSumOfPage(int sumOfItems, int last, int sumOfPage) {
+        if(sumOfItems % last !=0)
+            sumOfPage++;
+        if(sumOfPage ==0)
+            sumOfPage =1;
+        return sumOfPage;
     }
 
     /**

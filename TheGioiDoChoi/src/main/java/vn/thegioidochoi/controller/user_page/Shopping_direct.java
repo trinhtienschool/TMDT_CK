@@ -110,9 +110,7 @@ public class Shopping_direct extends HttpServlet {
         String sqlCondition = "";
 
         //neu trong request co parameter pages thi se set lai gia tri cho bien parameter
-        if (request.getParameter("pages") != null) {
-            pages = Integer.parseInt(request.getParameter("pages"));
-        }
+        pages = getParameterPages(request, pages);
 
         //neu trong request co parameter cate thi se set lai gia tri cho bien cate_slug
         //va them dieu kien cho trang sqlCondition
@@ -218,14 +216,6 @@ public class Shopping_direct extends HttpServlet {
         suppliers_json = suppliers_json.substring(0, suppliers_json.length() - 1);
         request.setAttribute("supplier_json",suppliers_json);
         request.setAttribute("suppliers", supplierList);
-        System.out.println("Supplierrrrrrrrrrrrrrrrrrrrrrr");
-        System.out.println(request.getAttribute("suppliers"));
-        System.out.println(request.getAttribute("supplier_json"));
-//        if (request.getParameter("age") != null) {
-//            type_size = Byte.parseByte(request.getParameter("type_size"));
-//            url += "&type_size=" + type_size;
-//            sqlCondition +=sqlCondition.isEmpty()?" type_weight="+type_size:" and type_weight="+type_size;
-//        }
 
         //neu trong request co parameter sort_id thi thuc hien:
         if (request.getParameter("sort_id") != null) {
@@ -298,5 +288,12 @@ public class Shopping_direct extends HttpServlet {
         //setAttribute gia tien lon nhat va nho nhat cua san pham trong database
         request.setAttribute("max_price", max_price);
         request.setAttribute("min_price", min_price);
+    }
+
+    private int getParameterPages(HttpServletRequest request, int pages) {
+        if (request.getParameter("pages") != null) {
+            pages = Integer.parseInt(request.getParameter("pages"));
+        }
+        return pages;
     }
 }

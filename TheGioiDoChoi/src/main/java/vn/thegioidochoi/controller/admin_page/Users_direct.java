@@ -35,15 +35,24 @@ public class Users_direct extends HttpServlet {
                 Load_Shopping_Cart.updateOrderActiveById(active,user_id);
         }
 
+        List<User> users = filterUsers(request);
+
+
+        request.setAttribute("current_page","user");
+        request.setAttribute("users", users);
+        request.getRequestDispatcher("users.jsp").forward(request,response);
+    }
+
+    private List<User> filterUsers(HttpServletRequest request) {
         String user_id = "%";
         String user_name ="%";
         String from_date = "20190101";
         String to_date = Util.dateFormat(new Date());
 
         if(request.getParameter("user-id") !=null)
-            user_id = request.getParameter("user-id").isEmpty()?user_id:request.getParameter("user-id");
+            user_id = request.getParameter("user-id").isEmpty()?user_id: request.getParameter("user-id");
         if(request.getParameter("user-name")!=null)
-            user_name = request.getParameter("user-name").isEmpty()?user_name:request.getParameter("user-name");
+            user_name = request.getParameter("user-name").isEmpty()?user_name: request.getParameter("user-name");
         if(request.getParameter("from-date")!=null)
             from_date= request.getParameter("from-date").isEmpty()?from_date:Util.revertDate(request.getParameter("from-date"));
         if(request.getParameter("to-date")!=null)
@@ -51,12 +60,6 @@ public class Users_direct extends HttpServlet {
 
         List<User> users = new ArrayList<>();
         users = LoadUser.loadUsertBy(user_id, user_name,from_date, to_date);
-
-
-        request.setAttribute("current_page","user");
-//        List<User> users=LoadUser.loadUserFormSql("select * from user WHERE (active = 1)\n" +
-//                "OR (active = 0)");
-        request.setAttribute("users", users);
-        request.getRequestDispatcher("users.jsp").forward(request,response);
+        return users;
     }
 }
