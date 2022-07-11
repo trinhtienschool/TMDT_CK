@@ -1,6 +1,6 @@
 package vn.thegioidochoi.controller.user_page;
 
-import vn.thegioidochoi.model.warranty.LoadWarranty;
+import vn.thegioidochoi.Dao.LoadWarranty;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

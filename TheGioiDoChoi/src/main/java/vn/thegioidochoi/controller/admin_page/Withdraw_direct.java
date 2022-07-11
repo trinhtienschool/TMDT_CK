@@ -1,7 +1,7 @@
 package vn.thegioidochoi.controller.admin_page;
 
 import vn.thegioidochoi.model.Product.Withdraw;
-import vn.thegioidochoi.model.supplier.Load_Supplier;
+import vn.thegioidochoi.Dao.Load_Supplier;
 import vn.thegioidochoi.model.util.Util;
 
 import javax.servlet.*;

@@ -1,8 +1,8 @@
 package vn.thegioidochoi.controller.user_page;
 
-import vn.thegioidochoi.model.order.Load_Order;
+import vn.thegioidochoi.Dao.Load_Order;
 import vn.thegioidochoi.model.order.Order;
-import vn.thegioidochoi.model.order_progress.LoadOrderProgress;
+import vn.thegioidochoi.Dao.LoadOrderProgress;
 import vn.thegioidochoi.model.order_progress.OrderProgress;
 
 import javax.servlet.ServletException;

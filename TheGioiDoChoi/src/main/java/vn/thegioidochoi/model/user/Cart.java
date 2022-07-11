@@ -1,8 +1,6 @@
 package vn.thegioidochoi.model.user;
 
-import vn.thegioidochoi.model.Product.Product;
-import vn.thegioidochoi.model.Product.ProductEntity;
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

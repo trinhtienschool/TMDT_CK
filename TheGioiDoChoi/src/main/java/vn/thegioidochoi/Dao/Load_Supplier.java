@@ -1,7 +1,7 @@
-package vn.thegioidochoi.model.supplier;
+package vn.thegioidochoi.Dao;
 
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
-import vn.thegioidochoi.model.order.Load_Order;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.supplier.Supplier;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,39 +10,63 @@ import java.sql.Statement;
 import java.util.*;
 
 public class Load_Supplier {
-    public static String[] getYear_Quarter_Chart(int supplier_id){
-        String sql = "select concat('Quý ' ,QUARTER(o.date_created)), SUM((o.total_price-o.shipment)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id=? and Year(o.date_created)= Year(CURDATE())\n" +
+    public static String[] getYear_Quarter_Chart(String supplier_id,boolean isCalCommission){
+        String sql = "";
+        if(!isCalCommission)
+            sql = "select concat('Quý ' ,QUARTER(o.date_created)), SUM((o.total_price)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id like ? and Year(o.date_created)= Year(CURDATE())\n" +
+                "GROUP BY QUARTER(o.date_created)";
+        else  sql = "select concat('Quý ' ,QUARTER(o.date_created)), SUM(o.total_price*o.commission_rate/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id like ? and Year(o.date_created)= Year(CURDATE())\n" +
                 "GROUP BY QUARTER(o.date_created)";
         return convertStringArray(getMap(sql, supplier_id));
     }
-    public static String[] getYear_Month_Chart(int supplier_id){
-        String sql = "select concat('Tháng ', MONTH(o.date_created)), SUM((o.total_price-o.shipment)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id=? and YEar(o.date_created) = year(CurDate())\n" +
+    public static String[] getYear_Month_Chart(String supplier_id,boolean isCalCommission){
+        String sql = "";
+        if(!isCalCommission)
+            sql = "select concat('Tháng ', MONTH(o.date_created)), SUM((o.total_price)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id like ? and YEar(o.date_created) = year(CurDate())\n" +
+                "GROUP BY MONTH(o.date_created)";
+        else sql = "select concat('Tháng ', MONTH(o.date_created)), SUM(o.total_price*o.commission_rate/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id like ? and YEar(o.date_created) = year(CurDate())\n" +
                 "GROUP BY MONTH(o.date_created)";
         return convertStringArray(getMap(sql, supplier_id));
     }
-    public static String[] getMonthChart(int supplier_id){
-        String sql = "select concat('Tuần ', WEEK(o.date_created)), SUM((o.total_price-o.shipment)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id=? and Month(o.date_created) = Month(CurDate())\n" +
+    public static String[] getMonthChart(String supplier_id ,boolean isCalCommission){
+        String sql = "";
+        if(!isCalCommission)
+            sql = "select concat('Tuần ', WEEK(o.date_created)), SUM((o.total_price)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id like ? and Month(o.date_created) = Month(CurDate())\n" +
+                "GROUP BY WEEK(o.date_created)";
+        else sql = "select concat('Tuần ', WEEK(o.date_created)), SUM(o.total_price*o.commission_rate/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id like ? and Month(o.date_created) = Month(CurDate())\n" +
                 "GROUP BY WEEK(o.date_created)";
         return convertStringArray(getMap(sql, supplier_id));
     }
-    public static String[] getQuarterChart(int supplier_id){
-        String sql = "select concat('Tháng ', MONTH(o.date_created)), SUM((o.total_price-o.shipment)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id=? and QUARTER(o.date_created) = QUARTER(CurDate())\n" +
+    public static String[] getQuarterChart(String supplier_id, boolean isCalCommission){
+        String sql = "";
+        if(!isCalCommission)
+         sql = "select concat('Tháng ', MONTH(o.date_created)), SUM((o.total_price)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id like ? and QUARTER(o.date_created) = QUARTER(CurDate())\n" +
+                "GROUP BY MONTH(o.date_created)";
+        else sql = "select concat('Tháng ', MONTH(o.date_created)), SUM(o.total_price*o.commission_rate/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id like ? and QUARTER(o.date_created) = QUARTER(CurDate())\n" +
                 "GROUP BY MONTH(o.date_created)";
         return convertStringArray(getMap(sql, supplier_id));
     }
-    public static String[] getWeekChart(int supplier_id){
-        String sql = "select DATE(o.date_created), SUM((o.total_price-o.shipment)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id=? and week(o.date_created) = week(CurDate())\n" +
+    public static String[] getWeekChart(String supplier_id, boolean isCalCommission){
+        String sql = "";
+        if(!isCalCommission)
+            sql = "select DATE(o.date_created), SUM((o.total_price)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id like ? and week(o.date_created) = week(CurDate())\n" +
+                "GROUP BY date(o.date_created)";
+        else sql = "select DATE(o.date_created), SUM(o.total_price*o.commission_rate/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id like ? and week(o.date_created) = week(CurDate())\n" +
                 "GROUP BY date(o.date_created)";
         return convertStringArray(getMap(sql, supplier_id));
     }
-    public static String[] getMonthFromTo(int supplier_id,String from,String to){
-        String sql = "select concat('Tháng ', MONTH(o.date_created)), SUM((o.total_price-o.shipment)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id=? and date_created BETWEEN '"+from+"' and '"+to+"'\n" +
+    public static String[] getMonthFromTo(String supplier_id,String from,String to, boolean isCalCommission){
+        String sql = "";
+        if (!isCalCommission)
+         sql = "select concat('Tháng ', MONTH(o.date_created)), SUM((o.total_price)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id like ? and date_created BETWEEN '"+from+"' and '"+to+"'\n" +
+                "GROUP BY MONTH(o.date_created)";
+        else sql = "select concat('Tháng ', MONTH(o.date_created)), SUM(o.total_price*o.commission_rate/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id like ? and date_created BETWEEN '"+from+"' and '"+to+"'\n" +
                 "GROUP BY MONTH(o.date_created)";
         return convertStringArray(getMap(sql, supplier_id));
     }
-    public static String[] getCircleCategoryChart(int supplier_id, String month){
+    public static String[] getCircleCategoryChart(String supplier_id, String month){
         String sql = "select c.name,sum(op.total_price) from `order` o join order_product op on o.id = op.order_id join product p on op.pro_id=p.id join categories c on c.id = p.category_id\n" +
-                "where o.supplier_id = ? and MONTH(o.date_created) = "+month+" and year(o.date_created) = year(curdate())\n" +
+                "where o.supplier_id like ? and MONTH(o.date_created) = "+month+" and year(o.date_created) = year(curdate())\n" +
                 "group by c.name,c.id";
         return convertStringArray(getMap(sql, supplier_id));
     }
@@ -58,12 +82,12 @@ public class Load_Supplier {
         result[1] = map.values().toString();
         return result;
     }
-    public static Map<String, Long> getMap(String sql, int supplier_id) {
+    public static Map<String, Long> getMap(String sql, String supplier_id) {
         Map<String, Long> map = new TreeMap<>();
         try {
             PreparedStatement statement = DBCPDataSource.getConnection().prepareStatement(sql);
             synchronized (statement) {
-                statement.setInt(1, supplier_id);
+                statement.setString(1, supplier_id);
                 ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()) {
                     map.put(resultSet.getString(1), Math.round(resultSet.getDouble(2)));

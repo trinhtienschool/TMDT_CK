@@ -94,68 +94,108 @@
 						</div>
 					</div>
 				</div>
-				<div class="row" style="margin: 0 !important;">
-					<div class="col-md-8">
-						<!-- Recent Bookings -->
-						<div class="card card-table flex-fill">
-							<div class="card-header">
-								<h4 class="card-title">Doanh thu</h4>
-							</div>
-							<div class="m-2">
-								<form action="#" method="post">
+				<form action="dashboard" method="post" id="chart-form">
+					<div class="row" style="margin: 0 !important;">
+
+						<div class="col-md-8">
+							<!-- Recent Bookings -->
+							<div class="card card-table flex-fill">
+								<div class="card-header">
+									<h4 class="card-title">Doanh thu</h4>
+								</div>
+								<div class="m-2">
+
+									<input type="hidden" name="action" value="dashboard">
 									<div class="row">
 
 										<!-- Thay đổi theo danh sách đề mục -->
 										<div class="col-sm-6 col-md-3">
-											<select class="form-control select">
-												<option>Tuần này</option>
-												<option>Tháng này</option>
-												<option>Quý này</option>
-												<option>Năm này (xem theo quý)</option>
-												<option>Năm này (xem theo tháng)</option>
+											<select onchange="this.form.submit()" name="type-revenue" class="form-control select">
+												<option value="week"
+														<c:if test="${type_revenue.equals('week')}">selected</c:if>>Tuần này
+												</option>
+												<option value="month"
+														<c:if test="${type_revenue.equals('month')}">selected</c:if>>Tháng này
+												</option>
+												<option value="quarter"
+														<c:if test="${type_revenue.equals('quarter')}">selected</c:if>>Quý này
+												</option>
+												<option value="year-quarter"
+														<c:if test="${type_revenue.equals('year-quarter')}">selected</c:if>>Năm
+													này (xem theo quý)
+												</option>
+												<option value="year-month"
+														<c:if test="${type_revenue.equals('year-month')}">selected</c:if>>Năm
+													này (xem theo tháng)
+												</option>
 											</select>
 										</div>
+
 										<div class="col-sm-6 col-md-3">
 											<div class="cal-icon">
-												<input class="form-control datetimepicker" type="text" placeholder="Từ">
+												<input style="display: none" name="type-range" type="checkbox" id="chart-form-checkbox">
+												<input
+												<c:if test="${param.from !=null}"> value="${param.from}" </c:if>
+												<c:if test="${param.from ==null}"> value="" </c:if>
+																				   name="from"
+																				   class="form-control datetimepicker"
+																				   type="text" placeholder="Từ">
 											</div>
 										</div>
 										<div class="col-sm-6 col-md-3">
 											<div class="cal-icon">
-												<input class="form-control datetimepicker" type="text" placeholder="Đến">
+												<input
+												<c:if test="${param.to !=null}"> value="${param.to}" </c:if>
+												<c:if test="${param.to ==null}"> value="" </c:if>
+																				 name="to"
+																				 class="form-control datetimepicker"
+																				 type="text" placeholder="Đến">
 											</div>
 										</div>
 										<div class="col-sm-6 col-md-3">
-											<button class="btn btn-primary btn-block" type="submit">Chọn</button>
+											<button class="btn btn-primary btn-block" id="chart-form-button">
+												Lọc
+											</button>
 										</div>
+
 									</div>
-								</form>
+
+								</div>
+								<div class="card-body">
+									<!--								style="width:100%;max-width:700px"-->
+									<c:if test="${data_commission!=null}">
+										<canvas data-revenue_commission='${data_commission}' data-revenue_vendor='${data_vendor}' data-labels="${labels_revenue}" id="revenue-stack-chart"></canvas>
+									</c:if>
+								</div>
 							</div>
-							<div class="card-body">
-								<!--								style="width:100%;max-width:700px"-->
-<%--								<%--%>
-<%--									int[] total = {6,8,4,3,22,4,6};--%>
-<%--									pageContext.setAttribute("total_price", Arrays.toString(total));--%>
-<%--									--%>
-<%--								%>--%>
-								<canvas  data-revenue="[54,65,23,87,34,12,68]" data-labels="['Thu 2','Thu 3','Thu 4','Thu 5', 'Thu 6','Thu 7','Chu nhat']" id="revenue" ></canvas>
-							</div>
+							<!-- /Recent Bookings -->
 						</div>
-						<!-- /Recent Bookings -->
-					</div>
-					<div class="col-md-4">
-						<!-- Recent Bookings -->
-						<div class="card card-table flex-fill">
-							<div class="card-header">
-								<h4 class="card-title">Trạng thái đơn hàng</h4>
+						<div class="col-md-4">
+							<!-- Recent Bookings -->
+							<div class="card card-table flex-fill">
+								<div class="card-header">
+									<h4 class="card-title">Trạng thái đơn hàng</h4>
+								</div>
+								<div class="m-2">
+									<select onchange="this.form.submit()" name="type-revenue-circle" class="form-control select">
+										<c:out value="${type_revenue_circle}"/>
+										<c:forEach items="${date_range}" var="date">
+											<c:out value="${date}"/>
+											<option value="${date}" <c:if test="${type_revenue_circle==date}">selected</c:if>>Tháng ${date}</option>
+										</c:forEach>
+									</select>
+								</div>
+								<div class="card-body">
+									<c:if test="${data_circle !=null}">
+										<canvas data-revenue='${data_circle}' data-labels="${labels_circle}" id="order-status"></canvas>
+									</c:if>
+								</div>
 							</div>
-							<div class="card-body">
-								<canvas  data-revenue="[3,2,4,25,9,34,64]" data-labels="['Thu 2','Thu 3','Thu 4','Thu 5', 'Thu 6','Thu 7','Chu nhat']" id="order-status"></canvas>
-							</div>
+							<!-- /Recent Bookings -->
 						</div>
-						<!-- /Recent Bookings -->
+
 					</div>
-				</div>
+				</form>
 				<div class="row" style="margin: 0 !important;">
 					<div class="col-md-12 d-flex">
 					
@@ -220,6 +260,12 @@
 	<!-- Custom JS -->
 	<script src="assets/js/admin.js"></script>
 	<script src="assets/js/chartconfig.js"></script>
+	<script type="text/JavaScript">
+		$("#chart-form-button").click(function () {
+			$("#chart-form-checkbox").prop('checked', true);
+			$("#chart-form").submit();
+		});
+	</script>
 <%--	<script>--%>
 
 <%--		const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];--%>

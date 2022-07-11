@@ -1,14 +1,14 @@
 package vn.thegioidochoi.controller.user_page;
 
 import vn.thegioidochoi.model.Product.Product;
-import vn.thegioidochoi.model.Product.ProductEntity;
+import vn.thegioidochoi.Dao.ProductEntity;
 import vn.thegioidochoi.model.header_footer.Category;
-import vn.thegioidochoi.model.header_footer.Load_Category;
+import vn.thegioidochoi.Dao.Load_Category;
 import vn.thegioidochoi.model.image.Image;
-import vn.thegioidochoi.model.image.LoadImage;
-import vn.thegioidochoi.model.supplier.Load_Supplier;
+import vn.thegioidochoi.Dao.LoadImage;
+import vn.thegioidochoi.Dao.Load_Supplier;
 import vn.thegioidochoi.model.supplier.Supplier;
-import vn.thegioidochoi.model.user.LoadUser;
+import vn.thegioidochoi.Dao.LoadUser;
 import vn.thegioidochoi.model.user.User;
 
 import javax.servlet.ServletException;

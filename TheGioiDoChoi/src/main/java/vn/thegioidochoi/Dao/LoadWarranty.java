@@ -1,8 +1,9 @@
 
-package vn.thegioidochoi.model.warranty;
+package vn.thegioidochoi.Dao;
 
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
 import vn.thegioidochoi.model.util.Util;
+import vn.thegioidochoi.model.warranty.Warranty;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

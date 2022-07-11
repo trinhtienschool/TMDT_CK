@@ -1,7 +1,7 @@
 package vn.thegioidochoi.model.order;
 
 import vn.thegioidochoi.model.order_product.OrderProduct;
-import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
+import vn.thegioidochoi.Dao.OrderProduct_Con_DB;
 import vn.thegioidochoi.model.rating.Rating;
 
 import java.sql.Date;

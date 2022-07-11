@@ -1,6 +1,7 @@
-package vn.thegioidochoi.model.image;
+package vn.thegioidochoi.Dao;
 
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.image.Image;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

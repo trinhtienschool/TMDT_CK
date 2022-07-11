@@ -1,7 +1,7 @@
 <%@ page import="vn.thegioidochoi.model.util.Util" %>
 <%@ page import="vn.thegioidochoi.model.Product.Product" %>
 <%@ page import="java.util.List" %>
-<%@ page import="vn.thegioidochoi.model.Product.ProductEntity" %><%--
+<%@ page import="vn.thegioidochoi.Dao.ProductEntity" %><%--
   Created by IntelliJ IDEA.
   User: TRAN NHAT THY
   Date: 01/01/2021

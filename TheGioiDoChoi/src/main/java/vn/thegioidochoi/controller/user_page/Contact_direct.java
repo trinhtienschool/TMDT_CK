@@ -1,7 +1,7 @@
 package vn.thegioidochoi.controller.user_page;
 
 import vn.thegioidochoi.model.feeback.Feedback;
-import vn.thegioidochoi.model.feeback.Load_Feedback;
+import vn.thegioidochoi.Dao.Load_Feedback;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

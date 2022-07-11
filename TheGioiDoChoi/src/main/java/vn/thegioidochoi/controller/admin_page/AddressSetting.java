@@ -1,7 +1,7 @@
 package vn.thegioidochoi.controller.admin_page;
 
 import vn.thegioidochoi.model.header_footer.Address;
-import vn.thegioidochoi.model.header_footer.LoadHeaderFooter;
+import vn.thegioidochoi.Dao.LoadHeaderFooter;
 import vn.thegioidochoi.model.util.Util;
 
 import javax.servlet.ServletContext;

@@ -1,4 +1,4 @@
-package vn.thegioidochoi.model.database.connection_pool;
+package vn.thegioidochoi.Dao.connection_pool;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.sql.Connection;

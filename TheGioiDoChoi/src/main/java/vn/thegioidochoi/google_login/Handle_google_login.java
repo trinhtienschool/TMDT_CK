@@ -2,7 +2,7 @@ package vn.thegioidochoi.google_login;
 
 
 import vn.thegioidochoi.controller.user_page.Login_handle;
-import vn.thegioidochoi.model.user.LoadUser;
+import vn.thegioidochoi.Dao.LoadUser;
 import vn.thegioidochoi.model.user.User;
 
 import java.io.IOException;

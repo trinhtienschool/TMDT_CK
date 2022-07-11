@@ -1,9 +1,9 @@
 package vn.thegioidochoi.model.user;
 
 import vn.thegioidochoi.model.Product.Product;
-import vn.thegioidochoi.model.Product.ProductEntity;
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
-import vn.thegioidochoi.model.favorist_list.Favorist_list_Con_DB;
+import vn.thegioidochoi.Dao.ProductEntity;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.Favorist_list_Con_DB;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

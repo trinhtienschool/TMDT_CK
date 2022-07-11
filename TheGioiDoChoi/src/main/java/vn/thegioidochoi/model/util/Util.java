@@ -7,6 +7,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.JSONObject;
+import vn.thegioidochoi.model.Product.Product;
 import vn.thegioidochoi.model.header_footer.Category;
 
 import javax.servlet.http.HttpServletRequest;
@@ -188,6 +189,13 @@ public class Util {
         return round;
     }
     public static String formatNumber(double number){
+        DecimalFormat  formatter = (DecimalFormat) NumberFormat.getNumberInstance(Locale.US);
+        String pattern = "###,###.##";
+        formatter.applyPattern(pattern);
+        return formatter.format(number);
+    }
+    //format number to string
+    public static String formatNumber(String number){
         DecimalFormat  formatter = (DecimalFormat) NumberFormat.getNumberInstance(Locale.US);
         String pattern = "###,###.##";
         formatter.applyPattern(pattern);

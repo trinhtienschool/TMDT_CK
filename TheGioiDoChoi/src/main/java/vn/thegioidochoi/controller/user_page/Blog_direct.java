@@ -1,6 +1,6 @@
 package vn.thegioidochoi.controller.user_page;
 
-import vn.thegioidochoi.model.blog.Blog_Con_DB;
+import vn.thegioidochoi.Dao.Blog_Con_DB;
 import vn.thegioidochoi.model.home_page.Home_page;
 
 import javax.servlet.ServletException;

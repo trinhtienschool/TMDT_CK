@@ -1,9 +1,9 @@
 package vn.thegioidochoi.controller.user_page;
 
 import vn.thegioidochoi.model.Product.Product;
-import vn.thegioidochoi.model.Product.ProductEntity;
+import vn.thegioidochoi.Dao.ProductEntity;
 import vn.thegioidochoi.model.blog.Blog;
-import vn.thegioidochoi.model.blog.Blog_Con_DB;
+import vn.thegioidochoi.Dao.Blog_Con_DB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

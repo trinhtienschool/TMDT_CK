@@ -2,11 +2,11 @@ package vn.thegioidochoi.controller.admin_page;
 
 import org.apache.commons.fileupload.FileItem;
 import vn.thegioidochoi.model.header_footer.Header;
-import vn.thegioidochoi.model.header_footer.LoadHeaderFooter;
+import vn.thegioidochoi.Dao.LoadHeaderFooter;
 import vn.thegioidochoi.model.header_footer.Social_media;
-import vn.thegioidochoi.model.supplier.Load_Supplier;
+import vn.thegioidochoi.Dao.Load_Supplier;
 import vn.thegioidochoi.model.supplier.Supplier;
-import vn.thegioidochoi.model.user.LoadUser;
+import vn.thegioidochoi.Dao.LoadUser;
 import vn.thegioidochoi.model.user.User;
 import vn.thegioidochoi.model.util.Util;
 

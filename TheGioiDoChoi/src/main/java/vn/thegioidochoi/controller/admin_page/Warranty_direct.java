@@ -1,7 +1,7 @@
 package vn.thegioidochoi.controller.admin_page;
 
 import vn.thegioidochoi.model.util.Util;
-import vn.thegioidochoi.model.warranty.LoadWarranty;
+import vn.thegioidochoi.Dao.LoadWarranty;
 import vn.thegioidochoi.model.warranty.Warranty;
 
 import javax.servlet.ServletException;

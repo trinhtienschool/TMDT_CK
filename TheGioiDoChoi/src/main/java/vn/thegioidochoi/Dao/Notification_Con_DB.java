@@ -1,6 +1,7 @@
-package vn.thegioidochoi.model.notifications;
+package vn.thegioidochoi.Dao;
 
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.notifications.Notifications;
 
 import java.sql.*;
 import java.util.ArrayList;

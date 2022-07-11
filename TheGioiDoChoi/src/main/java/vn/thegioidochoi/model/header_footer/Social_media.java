@@ -1,6 +1,6 @@
 package vn.thegioidochoi.model.header_footer;
 
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

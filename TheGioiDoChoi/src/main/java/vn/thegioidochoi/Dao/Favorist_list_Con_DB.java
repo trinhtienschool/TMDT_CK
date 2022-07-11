@@ -1,7 +1,8 @@
 
-package vn.thegioidochoi.model.favorist_list;
+package vn.thegioidochoi.Dao;
 
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.favorist_list.FavoristList;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

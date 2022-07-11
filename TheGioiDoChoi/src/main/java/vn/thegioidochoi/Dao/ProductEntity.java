@@ -1,12 +1,11 @@
 
-package vn.thegioidochoi.model.Product;
+package vn.thegioidochoi.Dao;
 
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
-import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.Product.Product;
 import vn.thegioidochoi.model.util.Util;
 
 
-import java.io.File;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.Month;
@@ -15,7 +14,7 @@ import java.util.Date;
 
 public class ProductEntity {
 
-    public static List<Product> loadProducts(String search,String category,int price_min, int price_max, String genders,String ages, String order, int page) {
+    public static List<Product> loadProducts(String search, String category, int price_min, int price_max, String genders, String ages, String order, int page) {
         List<Product> productList = new ArrayList<Product>();
         try {
             PreparedStatement pe = DBCPDataSource.preparedStatement("\n" +

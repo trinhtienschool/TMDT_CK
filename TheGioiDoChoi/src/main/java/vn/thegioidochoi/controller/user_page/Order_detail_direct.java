@@ -1,13 +1,13 @@
 package vn.thegioidochoi.controller.user_page;
 
 import vn.thegioidochoi.model.Product.Product;
-import vn.thegioidochoi.model.Product.ProductEntity;
+import vn.thegioidochoi.Dao.ProductEntity;
 import vn.thegioidochoi.model.mail.Mail;
-import vn.thegioidochoi.model.order.Load_Order;
+import vn.thegioidochoi.Dao.Load_Order;
 import vn.thegioidochoi.model.order.Order;
 import vn.thegioidochoi.model.order_product.OrderProduct;
-import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
-import vn.thegioidochoi.model.user.LoadUser;
+import vn.thegioidochoi.Dao.OrderProduct_Con_DB;
+import vn.thegioidochoi.Dao.LoadUser;
 import vn.thegioidochoi.model.user.User;
 
 import javax.servlet.ServletException;
@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(urlPatterns = "/order_detail")

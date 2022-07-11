@@ -1,6 +1,6 @@
 package vn.thegioidochoi.controller.user_page;
 
-import vn.thegioidochoi.model.notifications.Notification_Con_DB;
+import vn.thegioidochoi.Dao.Notification_Con_DB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -1,53 +1,11 @@
 package vn.thegioidochoi.controller.user_page;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import vn.thegioidochoi.Dao.Load_Supplier;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.json.JSONObject;
-import vn.thegioidochoi.model.Product.Product;
-import vn.thegioidochoi.model.Product.ProductEntity;
-import vn.thegioidochoi.model.Product.Withdraw;
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
-import vn.thegioidochoi.model.header_footer.Category;
-import vn.thegioidochoi.model.header_footer.LoadHeaderFooter;
-import vn.thegioidochoi.model.header_footer.Load_Category;
-import vn.thegioidochoi.model.mail.Mail;
-import vn.thegioidochoi.model.order.Load_Order;
-import vn.thegioidochoi.model.order.Order;
-import vn.thegioidochoi.model.order_product.OrderProduct;
-import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
-import vn.thegioidochoi.model.supplier.Load_Supplier;
-import vn.thegioidochoi.model.supplier.Supplier;
-import vn.thegioidochoi.model.user.EmailConfirm;
-import vn.thegioidochoi.model.user.LoadUser;
-
-import vn.thegioidochoi.model.user.User;
-
-import vn.thegioidochoi.model.util.Util;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-import java.sql.Array;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.SQLOutput;
-import java.text.Normalizer;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.temporal.IsoFields;
-import java.util.*;
-import java.util.regex.Pattern;
 
 public class TestPass {
 
@@ -328,16 +286,21 @@ public class TestPass {
 //        System.out.println(Util.dateFormat(new Date()));
 //        System.out.println(Withdraw.loadLastWithdraw(3));
 //        System.out.println(Load_Order.loadOrder_view(5));
-        String sql = "select * from product where category_id in (";
-        String cate_ids ="";
-        for(int i=0;i<10;i++){
-            cate_ids += i+",";
-        }
-        cate_ids = cate_ids.substring(0,cate_ids.length()-1);
-        sql += cate_ids+")";
-        System.out.println(sql);
+//        String sql = "select * from product where category_id in (";
+//        String cate_ids ="";
+//        for(int i=0;i<10;i++){
+//            cate_ids += i+",";
+//        }
+//        cate_ids = cate_ids.substring(0,cate_ids.length()-1);
+//        sql += cate_ids+")";
+//        System.out.println(sql);
 
-
+        String[] a = Load_Supplier.getWeekChart("%",false);
+        System.out.println(a[0]);
+        System.out.println(a[1]);
+        String[] a1 = Load_Supplier.getWeekChart("%",true);
+        System.out.println(a1[0]);
+        System.out.println(a1[1]);
 
     }
 

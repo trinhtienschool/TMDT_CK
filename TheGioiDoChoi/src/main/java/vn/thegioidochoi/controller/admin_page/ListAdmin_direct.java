@@ -1,6 +1,6 @@
 package vn.thegioidochoi.controller.admin_page;
 
-import vn.thegioidochoi.model.user.LoadUser;
+import vn.thegioidochoi.Dao.LoadUser;
 import vn.thegioidochoi.model.user.User;
 
 import javax.servlet.ServletException;

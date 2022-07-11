@@ -1,8 +1,8 @@
 
-package vn.thegioidochoi.model.order_product;
+package vn.thegioidochoi.Dao;
 
-import vn.thegioidochoi.model.Product.ProductEntity;
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.order_product.OrderProduct;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

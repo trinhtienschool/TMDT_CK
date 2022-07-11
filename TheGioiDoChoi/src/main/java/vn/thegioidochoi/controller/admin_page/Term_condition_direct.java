@@ -1,7 +1,7 @@
 package vn.thegioidochoi.controller.admin_page;
 
 import vn.thegioidochoi.model.term_and_condition.TermAndCondition;
-import vn.thegioidochoi.model.term_and_condition.TermAndCondition_Con_DB;
+import vn.thegioidochoi.Dao.TermAndCondition_Con_DB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

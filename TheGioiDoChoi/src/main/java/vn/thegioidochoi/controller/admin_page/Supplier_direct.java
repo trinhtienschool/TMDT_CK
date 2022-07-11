@@ -1,15 +1,12 @@
 package vn.thegioidochoi.controller.admin_page;
 
-import vn.thegioidochoi.model.Product.ProductEntity;
-import vn.thegioidochoi.model.favorist_list.Favorist_list_Con_DB;
+import vn.thegioidochoi.Dao.ProductEntity;
 import vn.thegioidochoi.model.mail.Mail;
-import vn.thegioidochoi.model.order.Load_Order;
+import vn.thegioidochoi.Dao.Load_Order;
 import vn.thegioidochoi.model.order.Order;
-import vn.thegioidochoi.model.rating.Rating_Con_DB;
-import vn.thegioidochoi.model.shopping_cart.Load_Shopping_Cart;
-import vn.thegioidochoi.model.supplier.Load_Supplier;
+import vn.thegioidochoi.Dao.Load_Supplier;
 import vn.thegioidochoi.model.supplier.Supplier;
-import vn.thegioidochoi.model.user.LoadUser;
+import vn.thegioidochoi.Dao.LoadUser;
 import vn.thegioidochoi.model.user.User;
 
 import javax.servlet.ServletException;
@@ -18,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(urlPatterns = "/admin_page/supplier")

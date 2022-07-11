@@ -1,10 +1,8 @@
 package vn.thegioidochoi.controller.user_page;
 
-import vn.thegioidochoi.model.Product.ProductEntity;
-import vn.thegioidochoi.model.blog.Blog_Con_DB;
-import vn.thegioidochoi.model.supplier.Load_Supplier;
+import vn.thegioidochoi.Dao.ProductEntity;
+import vn.thegioidochoi.Dao.Load_Supplier;
 import vn.thegioidochoi.model.supplier.Supplier;
-import vn.thegioidochoi.model.term_and_condition.TermAndCondition_Con_DB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

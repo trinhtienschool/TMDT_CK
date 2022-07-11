@@ -1,6 +1,6 @@
 package vn.thegioidochoi.controller.user_page;
 
-import vn.thegioidochoi.model.Product.ProductEntity;
+import vn.thegioidochoi.Dao.ProductEntity;
 import vn.thegioidochoi.model.home_page.Home_page;
 
 import javax.servlet.ServletException;

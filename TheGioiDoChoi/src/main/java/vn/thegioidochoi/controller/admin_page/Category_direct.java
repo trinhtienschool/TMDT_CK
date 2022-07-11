@@ -1,7 +1,7 @@
 package vn.thegioidochoi.controller.admin_page;
 
 import vn.thegioidochoi.model.header_footer.Category;
-import vn.thegioidochoi.model.header_footer.Load_Category;
+import vn.thegioidochoi.Dao.Load_Category;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

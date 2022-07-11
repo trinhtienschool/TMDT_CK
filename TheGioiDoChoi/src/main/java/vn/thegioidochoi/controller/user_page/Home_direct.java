@@ -1,13 +1,11 @@
 package vn.thegioidochoi.controller.user_page;
 import vn.thegioidochoi.model.Product.Product;
-import vn.thegioidochoi.model.Product.ProductEntity;
+import vn.thegioidochoi.Dao.ProductEntity;
 
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
-import vn.thegioidochoi.model.header_footer.LoadHeaderFooter;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.LoadHeaderFooter;
 import vn.thegioidochoi.model.header_footer.Social_media;
-import vn.thegioidochoi.model.home_page.Home_page;
-import vn.thegioidochoi.model.schedule.AutoTop3BestSupplier;
-import vn.thegioidochoi.model.supplier.Load_Supplier;
+import vn.thegioidochoi.Dao.Load_Supplier;
 import vn.thegioidochoi.model.user.Cart;
 
 import javax.servlet.ServletContext;

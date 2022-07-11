@@ -1,6 +1,7 @@
-package vn.thegioidochoi.model.order_progress;
+package vn.thegioidochoi.Dao;
 
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.order_progress.OrderProgress;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

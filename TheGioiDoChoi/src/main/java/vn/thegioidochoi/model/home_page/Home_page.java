@@ -1,6 +1,6 @@
 package vn.thegioidochoi.model.home_page;
 
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
 
 
 import java.sql.ResultSet;

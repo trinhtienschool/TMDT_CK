@@ -1,7 +1,7 @@
 package vn.thegioidochoi.controller.admin_page;
 
 import vn.thegioidochoi.model.rating.Rating;
-import vn.thegioidochoi.model.rating.Rating_Con_DB;
+import vn.thegioidochoi.Dao.Rating_Con_DB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

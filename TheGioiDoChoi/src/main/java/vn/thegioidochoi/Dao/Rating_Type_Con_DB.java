@@ -1,7 +1,8 @@
-package vn.thegioidochoi.model.rating_type;
+package vn.thegioidochoi.Dao;
 
 
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.rating_type.Rating_Type;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -1,5 +1,7 @@
 package vn.thegioidochoi.model.rating;
 
+import vn.thegioidochoi.Dao.Rating_Con_DB;
+
 import java.util.Date;
 
 public class Rating {
@@ -61,7 +63,7 @@ public class Rating {
         this.date_created = date_created;
     }
     public static String getNameById(int id){
-        String result=Rating_Con_DB.getNameUserById(id);
+        String result= Rating_Con_DB.getNameUserById(id);
         return result;
     }
     public static String getNameRatingById(int id){

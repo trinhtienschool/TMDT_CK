@@ -1,9 +1,9 @@
 
-package vn.thegioidochoi.model.user;
+package vn.thegioidochoi.Dao;
 
-import vn.thegioidochoi.model.Product.Product;
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
-import vn.thegioidochoi.model.supplier.Supplier;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.user.EmailConfirm;
+import vn.thegioidochoi.model.user.User;
 import vn.thegioidochoi.model.util.Util;
 
 import java.sql.PreparedStatement;

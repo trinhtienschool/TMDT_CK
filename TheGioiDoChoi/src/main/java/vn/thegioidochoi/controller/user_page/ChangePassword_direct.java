@@ -1,6 +1,6 @@
 package vn.thegioidochoi.controller.user_page;
 
-import vn.thegioidochoi.model.user.Load_ForgetPass;
+import vn.thegioidochoi.Dao.Load_ForgetPass;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -1,6 +1,6 @@
 package vn.thegioidochoi.controller.admin_page;
 
-import vn.thegioidochoi.model.shipment.Load_Shipment;
+import vn.thegioidochoi.Dao.Load_Shipment;
 import vn.thegioidochoi.model.shipment.Shipment;
 
 import javax.servlet.ServletException;

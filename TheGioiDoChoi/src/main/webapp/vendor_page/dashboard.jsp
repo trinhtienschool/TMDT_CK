@@ -48,7 +48,7 @@
             <!-- /Page Header -->
 
             <div class="row">
-                <div class="col-xl-3 col-sm-6 col-12">
+                <div class="col-xl-4 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="dash-widget-header">
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 col-12">
+                <div class="col-xl-4 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="dash-widget-header">
@@ -78,7 +78,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 col-12">
+                <div class="col-xl-4 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="dash-widget-header">
@@ -93,7 +93,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 col-12">
+                <div class="col-xl-4 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="dash-widget-header">
+									<span class="dash-widget-icon bg-primary">
+										<i class="fas fa-dollar-sign"></i>
+									</span>
+                                <div class="dash-widget-info">
+                                    <h3>${commissionRevenue}</h3>
+                                    <h6 class="text-muted">Phí hoa hồng tháng này</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="dash-widget-header">
@@ -102,13 +117,13 @@
 									</span>
                                 <div class="dash-widget-info">
                                     <h3>${commission}%</h3>
-                                    <h6 class="text-muted">Phí hoa hồng tháng này</h6>
+                                    <h6 class="text-muted">Phần trăm hoa hồng tháng này</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 col-12">
+                <div class="col-xl-4 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="dash-widget-header">
@@ -414,7 +429,7 @@
 <script type="text/JavaScript">
     $("#chart-form-button").click(function () {
         $("#chart-form-checkbox").prop('checked', true);
-        // $("#chart-form").submit();
+        $("#chart-form").submit();
     });
 </script>
 </body>

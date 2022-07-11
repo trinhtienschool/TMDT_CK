@@ -1,7 +1,7 @@
 package vn.thegioidochoi.controller.user_page;
 
 import org.apache.commons.fileupload.FileItem;
-import vn.thegioidochoi.model.user.LoadUser;
+import vn.thegioidochoi.Dao.LoadUser;
 import vn.thegioidochoi.model.util.Util;
 
 import javax.servlet.ServletException;

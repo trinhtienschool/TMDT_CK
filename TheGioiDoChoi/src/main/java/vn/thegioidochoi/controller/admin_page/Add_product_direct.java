@@ -3,8 +3,8 @@ package vn.thegioidochoi.controller.admin_page;
 import org.apache.commons.fileupload.FileItem;
 
 import vn.thegioidochoi.model.Product.Product;
-import vn.thegioidochoi.model.Product.ProductEntity;
-import vn.thegioidochoi.model.supplier.Load_Supplier;
+import vn.thegioidochoi.Dao.ProductEntity;
+import vn.thegioidochoi.Dao.Load_Supplier;
 import vn.thegioidochoi.model.supplier.Supplier;
 import vn.thegioidochoi.model.util.Util;
 

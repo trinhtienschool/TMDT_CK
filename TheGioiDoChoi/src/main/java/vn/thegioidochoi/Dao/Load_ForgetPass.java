@@ -1,6 +1,7 @@
-package vn.thegioidochoi.model.user;
+package vn.thegioidochoi.Dao;
 
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.user.ForgetPass;
 import vn.thegioidochoi.model.util.Util;
 
 import java.sql.PreparedStatement;

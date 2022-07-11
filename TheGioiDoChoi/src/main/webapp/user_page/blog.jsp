@@ -4,7 +4,7 @@
 <%@ page import="vn.thegioidochoi.model.util.Util" %>
 <%@ page import="vn.thegioidochoi.model.header_footer.Category" %>
 <%@ page import="java.util.List" %>
-<%@ page import="vn.thegioidochoi.model.blog.Blog_Con_DB" %>
+<%@ page import="vn.thegioidochoi.Dao.Blog_Con_DB" %>
 <%--
   Created by IntelliJ IDEA.
   User: Trinh Quang Tien

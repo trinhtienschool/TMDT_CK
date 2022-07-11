@@ -1,7 +1,7 @@
 package vn.thegioidochoi.controller.admin_page;
 
 import vn.thegioidochoi.model.blog.Blog;
-import vn.thegioidochoi.model.blog.Blog_Con_DB;
+import vn.thegioidochoi.Dao.Blog_Con_DB;
 import vn.thegioidochoi.model.util.Util;
 
 import javax.servlet.ServletException;

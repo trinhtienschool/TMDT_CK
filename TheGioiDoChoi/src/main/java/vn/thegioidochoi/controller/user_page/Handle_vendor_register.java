@@ -1,14 +1,8 @@
 package vn.thegioidochoi.controller.user_page;
 
 import org.apache.commons.fileupload.FileItem;
-import vn.thegioidochoi.model.Product.Product;
-import vn.thegioidochoi.model.Product.ProductEntity;
-import vn.thegioidochoi.model.mail.Mail;
-import vn.thegioidochoi.model.supplier.Load_Supplier;
+import vn.thegioidochoi.Dao.Load_Supplier;
 import vn.thegioidochoi.model.supplier.Supplier;
-import vn.thegioidochoi.model.user.EmailConfirm;
-import vn.thegioidochoi.model.user.LoadUser;
-import vn.thegioidochoi.model.user.User;
 import vn.thegioidochoi.model.util.Util;
 
 import javax.servlet.ServletException;

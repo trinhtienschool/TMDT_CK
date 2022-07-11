@@ -77,7 +77,7 @@
 	
 	if($('.datetimepicker').length > 0 ){
 		$('.datetimepicker').datetimepicker({
-			format: 'DD-MM-YYYY',
+			format: 'YYYY-MM-DD',
 			icons: {
 				up: "fas fa-angle-up",
 				down: "fas fa-angle-down",

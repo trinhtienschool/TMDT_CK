@@ -1,8 +1,8 @@
 package vn.thegioidochoi.controller.user_page;
 
 import vn.thegioidochoi.model.Product.Product;
-import vn.thegioidochoi.model.Product.ProductEntity;
-import vn.thegioidochoi.model.coupon_code.Coupon_Con_DB;
+import vn.thegioidochoi.Dao.ProductEntity;
+import vn.thegioidochoi.Dao.Coupon_Con_DB;
 import vn.thegioidochoi.model.user.Cart;
 
 import javax.servlet.ServletException;

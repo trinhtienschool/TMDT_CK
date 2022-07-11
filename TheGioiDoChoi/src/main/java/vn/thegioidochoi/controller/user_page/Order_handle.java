@@ -1,19 +1,18 @@
 package vn.thegioidochoi.controller.user_page;
 
 import vn.thegioidochoi.model.Product.Product;
-import vn.thegioidochoi.model.Product.ProductEntity;
-import vn.thegioidochoi.model.coupon_code.Coupon_Con_DB;
+import vn.thegioidochoi.Dao.ProductEntity;
+import vn.thegioidochoi.Dao.Coupon_Con_DB;
 import vn.thegioidochoi.model.mail.Mail;
-import vn.thegioidochoi.model.order.Load_Order;
-import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
-import vn.thegioidochoi.model.supplier.Load_Supplier;
+import vn.thegioidochoi.Dao.Load_Order;
+import vn.thegioidochoi.Dao.OrderProduct_Con_DB;
+import vn.thegioidochoi.Dao.Load_Supplier;
 import vn.thegioidochoi.model.supplier.Supplier;
 import vn.thegioidochoi.model.user.Cart;
 import vn.thegioidochoi.model.user.Cart_item;
-import vn.thegioidochoi.model.user.LoadUser;
+import vn.thegioidochoi.Dao.LoadUser;
 import vn.thegioidochoi.model.util.Util;
 
-import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

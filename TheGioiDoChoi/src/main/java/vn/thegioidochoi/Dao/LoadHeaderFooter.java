@@ -1,6 +1,9 @@
-package vn.thegioidochoi.model.header_footer;
+package vn.thegioidochoi.Dao;
 
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.header_footer.Address;
+import vn.thegioidochoi.model.header_footer.Category;
+import vn.thegioidochoi.model.header_footer.Header;
 
 import java.sql.*;
 import java.util.ArrayList;

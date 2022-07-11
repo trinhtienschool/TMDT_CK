@@ -1,7 +1,7 @@
 package vn.thegioidochoi.controller.admin_page;
 
 import vn.thegioidochoi.model.coupon_code.CouponCode;
-import vn.thegioidochoi.model.coupon_code.Coupon_Con_DB;
+import vn.thegioidochoi.Dao.Coupon_Con_DB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

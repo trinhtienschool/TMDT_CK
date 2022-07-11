@@ -1,6 +1,6 @@
-package vn.thegioidochoi.model.shopping_cart;
+package vn.thegioidochoi.Dao;
 
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

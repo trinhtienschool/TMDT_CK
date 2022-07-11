@@ -2,7 +2,7 @@ package vn.thegioidochoi.controller.admin_page;
 
 import org.apache.commons.fileupload.FileItem;
 import vn.thegioidochoi.model.coupon_code_type.CouponCodeType;
-import vn.thegioidochoi.model.coupon_code_type.CouponCodeType_Con_DB;
+import vn.thegioidochoi.Dao.CouponCodeType_Con_DB;
 import vn.thegioidochoi.model.util.Util;
 
 import javax.servlet.ServletException;

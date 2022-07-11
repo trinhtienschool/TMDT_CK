@@ -1,6 +1,6 @@
 package vn.thegioidochoi.model.coupon_code;
 
-import vn.thegioidochoi.model.coupon_code_type.CouponCodeType_Con_DB;
+import vn.thegioidochoi.Dao.CouponCodeType_Con_DB;
 
 import java.util.Date;
 

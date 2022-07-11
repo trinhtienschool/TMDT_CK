@@ -1,6 +1,7 @@
-package vn.thegioidochoi.model.term_and_condition;
+package vn.thegioidochoi.Dao;
 
-import vn.thegioidochoi.model.database.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
+import vn.thegioidochoi.model.term_and_condition.TermAndCondition;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

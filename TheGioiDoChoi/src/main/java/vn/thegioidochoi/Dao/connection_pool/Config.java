@@ -1,4 +1,4 @@
-package vn.thegioidochoi.model.database.connection_pool;
+package vn.thegioidochoi.Dao.connection_pool;
 
 public class Config {
     public static final String HOST_NAME = "localhost";

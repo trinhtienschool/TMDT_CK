@@ -1,7 +1,7 @@
 package vn.thegioidochoi.controller.user_page;
 
 import vn.thegioidochoi.model.Product.Product;
-import vn.thegioidochoi.model.Product.ProductEntity;
+import vn.thegioidochoi.Dao.ProductEntity;
 import vn.thegioidochoi.model.user.Cart;
 import vn.thegioidochoi.model.user.Cart_item;
 

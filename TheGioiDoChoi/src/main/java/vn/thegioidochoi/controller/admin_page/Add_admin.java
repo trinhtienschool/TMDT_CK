@@ -1,7 +1,6 @@
 package vn.thegioidochoi.controller.admin_page;
 
-import org.apache.commons.fileupload.FileItem;
-import vn.thegioidochoi.model.user.LoadUser;
+import vn.thegioidochoi.Dao.LoadUser;
 import vn.thegioidochoi.model.user.User;
 import vn.thegioidochoi.model.util.Util;
 
@@ -13,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 @WebServlet(urlPatterns = "/admin_page/add-admin")
 public class Add_admin extends HttpServlet {

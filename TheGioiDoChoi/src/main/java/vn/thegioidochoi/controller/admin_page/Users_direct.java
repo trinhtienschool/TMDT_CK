@@ -1,12 +1,10 @@
 package vn.thegioidochoi.controller.admin_page;
 
-import vn.thegioidochoi.model.Product.Product;
-import vn.thegioidochoi.model.Product.ProductEntity;
-import vn.thegioidochoi.model.favorist_list.Favorist_list_Con_DB;
-import vn.thegioidochoi.model.order.Load_Order;
-import vn.thegioidochoi.model.rating.Rating_Con_DB;
-import vn.thegioidochoi.model.shopping_cart.Load_Shopping_Cart;
-import vn.thegioidochoi.model.user.LoadUser;
+import vn.thegioidochoi.Dao.Favorist_list_Con_DB;
+import vn.thegioidochoi.Dao.Load_Order;
+import vn.thegioidochoi.Dao.Rating_Con_DB;
+import vn.thegioidochoi.Dao.Load_Shopping_Cart;
+import vn.thegioidochoi.Dao.LoadUser;
 import vn.thegioidochoi.model.user.User;
 import vn.thegioidochoi.model.util.Util;
 

@@ -1,9 +1,9 @@
 package vn.thegioidochoi.controller.admin_page;
 
-import vn.thegioidochoi.model.order.Load_Order;
+import vn.thegioidochoi.Dao.Load_Order;
 import vn.thegioidochoi.model.order.Order;
 import vn.thegioidochoi.model.order_product.OrderProduct;
-import vn.thegioidochoi.model.order_product.OrderProduct_Con_DB;
+import vn.thegioidochoi.Dao.OrderProduct_Con_DB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

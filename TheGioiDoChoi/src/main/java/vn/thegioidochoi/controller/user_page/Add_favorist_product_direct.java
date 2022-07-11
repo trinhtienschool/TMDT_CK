@@ -1,6 +1,6 @@
 package vn.thegioidochoi.controller.user_page;
 
-import vn.thegioidochoi.model.favorist_list.Favorist_list_Con_DB;
+import vn.thegioidochoi.Dao.Favorist_list_Con_DB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
