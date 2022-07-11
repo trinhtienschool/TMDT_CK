@@ -31,12 +31,12 @@ public class    Supplier_direct extends HttpServlet {
             ProductEntity.updateProductActiveBySupplierId(active,supplier_id);
             Load_Supplier.updateSupplierActiveById(active,supplier_id);
             LoadUser.updateUserActiveById(active,user_id);
-            Load_Order.updateOrderActiveBySupplierId(active,supplier_id);
+            Load_Order.updateOrderActiveBySupplierId(-1,supplier_id);
 //            Load_Order.updateOrderStatusBySupplierId(6,supplier_id);
            if(active==-1){
 
                String subject="Thông báo hủy đơn hàng";
-               String subjectForSupplier="Thông báo hủy đơn hàng";
+               String subjectForSupplier="Thông báo xóa cửa hàng";
                String link="http://localhost:8080/order_detail?id=";
                Supplier supplier=Load_Supplier.loadSupplier(supplier_id);
 
@@ -62,6 +62,35 @@ public class    Supplier_direct extends HttpServlet {
 //                }
 
            }
+            if(active==0){
+
+                String subject="Thông báo hủy đơn hàng";
+                String subjectForSupplier="Thông báo khóa cửa hàng";
+                String link="http://localhost:8080/order_detail?id=";
+                Supplier supplier=Load_Supplier.loadSupplier(supplier_id);
+
+                String contentForSupplier= "Chào "+supplier.getName()+"."
+                        + "\n"+ "Đây là thông báo về việc tạm dừng hoạt động shop của bạn.";
+
+                System.out.println("Email shop nhan thong bao huy shop"+supplier.getEmail());
+                List<User> listUsers= LoadUser.loadUserWithStatusOrder(3,supplier_id);
+                List<Order> listOrders=Load_Order.loadOrderByStatus(3,supplier_id);
+                Mail.sendMail(contentForSupplier,subjectForSupplier,supplier.getEmail());
+                for(int i=0;i<listUsers.size();i++){
+                    System.out.println("danh sach khach hang nhan email"+listUsers.get(i).getEmail()+"\n"+
+                            "order id ="+listOrders.get(i).getId());
+                    String content= "Chào "+listUsers.get(i).getName()+"."
+                            + "\n"+ "Đây là thông báo về việc hủy đơn hàng của bạn. Bấm vào Link bên dưới để xem thông tin đơn hàng."+"\n"
+                            +link+listOrders.get(i).getId();
+
+                    Mail.sendMail(content,subject,listUsers.get(i).getEmail());
+                }
+//                for(User u: LoadUser.loadUserWithStatusOrder(3)){
+////                    Mail.sendMail(content,subject,u.getEmail());
+//                    System.out.println("danh sach khach hang nhan email"+u.getEmail());
+//                }
+
+            }
 
         }
         request.setAttribute("current_page", "supplier");

@@ -37,6 +37,7 @@ public class Handle_sign_up extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
     }
 
     private void signUp(HttpServletRequest request, HttpServletResponse response, int user_role) throws ServletException, IOException {

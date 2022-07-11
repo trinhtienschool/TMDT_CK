@@ -22,6 +22,10 @@ public class Withdraw_direct extends HttpServlet {
         request.setAttribute("current_page", "withdraw");
         request.setAttribute("title", "Withdraw");
         //enter withdraw page
+        withdrawVendor(request, response);
+    }
+
+    private void withdrawVendor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         int supplier_id = (int) session.getAttribute("supplier_id");
         if(request.getParameter("withdraw-amount") !=null){
@@ -29,7 +33,6 @@ public class Withdraw_direct extends HttpServlet {
             System.out.println(current_balance);
             current_balance = current_balance.replaceAll("\\D", "");
             double current_amount= Double.parseDouble(current_balance);
-
 
             String withdraw = request.getParameter("withdraw-amount");
             System.out.println(withdraw);
@@ -42,7 +45,7 @@ public class Withdraw_direct extends HttpServlet {
         }
         Withdraw lastWithdraw = Withdraw.loadLastWithdraw(supplier_id);
         String date_created = lastWithdraw.getDate_created()==null?"2018-01-01": Util.dateFormat(lastWithdraw.getDate_created());
-        int current_balance = Load_Supplier.sumOf("select SUM((o.total_price)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id= "+supplier_id+" and o.date_created >'"+date_created+"'");
+        long current_balance = Load_Supplier.sumOf("select SUM((o.total_price)*(100-o.commission_rate)/100) from `order` o join supplier s on o.supplier_id = s.id where supplier_id= "+supplier_id+" and o.date_created >'"+date_created+"'");
         System.out.println("current_balance: "+current_balance);
         current_balance += lastWithdraw.getRemain_balance();
         System.out.println("remain_balance: "+lastWithdraw.getRemain_balance());

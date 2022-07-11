@@ -185,15 +185,15 @@ public class Load_Order {
         return orderList;
     }
     // load trang danh sach don hang theo tinh trang (status=1..6) trong trang danh sach don hang and user_id
-    public static List<Order> loadOrderByStatusWithSupplierId(String status, String from_date, String to_date, int user_id){
+    public static List<Order> loadOrderByStatusWithSupplierId(String status, String from_date, String to_date, String user_id){
         List<Order> orderList = new ArrayList<>();
         try{
             PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("SELECT o.id, o.date_created, u.name, o.`status`, sum(o.total_price + o.shipment) AS total, count(o.id) AS countOr " +
                     "FROM `order` o JOIN `user` u ON u.id = o.user_id " +
-                    "WHERE o.`status` like ? and o.`supplier_id`=? and o.active = 1 and o.date_created between ? and ? " +
+                    "WHERE o.`status` like ? and o.`supplier_id` like ? and o.active = 1 and o.date_created between ? and ? " +
                     "GROUP BY o.id, o.date_created, u.name, o.`status`");
             preparedStatement.setString(1, status);
-            preparedStatement.setInt(2,user_id);
+            preparedStatement.setString(2,user_id);
             preparedStatement.setString(3, from_date);
             preparedStatement.setString(4, to_date);
             synchronized (preparedStatement){

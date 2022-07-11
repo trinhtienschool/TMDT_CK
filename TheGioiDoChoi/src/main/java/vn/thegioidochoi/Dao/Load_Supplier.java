@@ -117,6 +117,8 @@ public class Load_Supplier {
                     supplier.setUser_id(resultSet.getInt(8));
                     supplier.setCompany_name(resultSet.getString(9));
                     supplier.setDate(resultSet.getDate(11));
+                    supplier.setSlug(resultSet.getString(12));
+
                     supplier.setName(resultSet.getString(13));
                     supplier.setChecked(resultSet.getBoolean(14));
 
@@ -132,14 +134,14 @@ public class Load_Supplier {
         return supplierList;
     }
 
-    public static int sumOf(String sql){
-        int sum = 0;
+    public static long sumOf(String sql){
+        long sum = 0;
         try {
             Statement statement = DBCPDataSource.getStatement();
             synchronized (statement){
                 ResultSet rs = statement.executeQuery(sql);
                 if(rs.next()){
-                    sum = rs.getInt(1);
+                    sum = rs.getLong(1);
                 }
                 rs.close();
             }

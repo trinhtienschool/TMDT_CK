@@ -105,6 +105,7 @@ public class User_direct extends HttpServlet {
         for (int i = 0; i < arr.length - 3; i++) {
             detail += arr[i] + " ";
         }
+
         session.setAttribute("city", city);
         session.setAttribute("district", district);
         session.setAttribute("ward", ward);

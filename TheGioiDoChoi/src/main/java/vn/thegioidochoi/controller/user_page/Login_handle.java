@@ -21,116 +21,37 @@ import java.util.concurrent.TimeUnit;
 @WebServlet(urlPatterns = "/handle-login")
 public class Login_handle extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setAttribute("page_menu", "login");
         request.setAttribute("title", "Đăng nhập");
         //Nhan form thay doi mat khau
         if (request.getParameter("email-change-pass") != null) {
-            String email = request.getParameter("email-change-pass");
-            String key = request.getParameter("key");
-            System.out.println("Day la key: " + key);
-            String pass = request.getParameter("new-pass");
-            ForgetPass fp = Load_ForgetPass.loadForgetPassByEmailKey(email, key);
-            if (fp != null) {
-                LoadUser.changePassword(fp.getUser_id(), fp.getEmail(), pass);
-                Load_ForgetPass.deleteForgetPassByKey(key);
-                request.getRequestDispatcher("user_page/Login.jsp").forward(request, response);
-                return;
-            } else {
-                notifyError(2, "Sai thông tin lấy lại mật khẩu!", request, response);
-                return;
-            }
+            forgetPass(request, response);
+            return;
         }
 
 
         //Xu li nhan link doi mat khau
         if (request.getParameter("conform-fp") != null) {
-            String key = request.getParameter("key");
-            ForgetPass fp = Load_ForgetPass.loadForgetPassByKey(key);
-            if (fp != null) {
-                long diffInMillies = Math.abs(new Date().getTime() - fp.getDate_end().getTime());
-                long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-                if (diff <= 3) {
-                    request.setAttribute("title", "Đổi mật khẩu");
-                    request.setAttribute("key", key);
-                    System.out.println("co vao day ne*********");
-                    request.getRequestDispatcher("user_page/change-forgot-password.jsp").forward(request, response);
-                    return;
-                }
-            } else {
-                notifyError(2, "Sai thông tin", request, response);
-                return;
-            }
+            enterForgetPass(request, response);
+            return;
 
         }
         //Xu li nhan form quen mat khau
         if (request.getParameter("email_forget_pass") != null) {
-            if (Load_ForgetPass.loadForgetPassByEmail(request.getParameter("email_forget_pass")) != null) {
-                notifyError(2, "Email đã đăng kí nhận mail thay đổi mật khẩu", request, response);
-                return;
-            }
-            User user = LoadUser.loadAUserByEmail(request.getParameter("email_forget_pass"));
-
-            if (user != null) {
-                ForgetPass fp = new ForgetPass(user.getId(), user.getEmail(), user.getPassword());
-                boolean succSave = Load_ForgetPass.saveForgetPass(fp);
-                if (succSave) {
-                    String link = "http://localhost:8082/handle-login?conform-fp=true&key=" + fp.getKey_forget();
-                    String subject = "Lấy lại mật khẩu";
-                    String content = "Chào " + user.getName() + "!,"
-                            + "\n Đây là link lấy lại mật khẩu! Link có thời hạn 3 ngày kể từ ngày nhận. Bấm vào để xác nhận\n"
-                            + link;
-
-                    Mail.sendMail(content, subject, user.getEmail());
-
-                }
-            }
-            notifyError(2, "Email đã được gửi, nếu email đã đăng kí, vui lòng kiểm tra email", request, response);
+            handleForgetPass(request, response);
             return;
         }
 
         //xu li chuyen trang khi nguoi dung bam vao nut dang nhap
         if (request.getParameter("login") != null) {
             //neu login=user thi chuyen den trang login cua user
-            if (request.getParameter("login").equalsIgnoreCase("user")) {
-                //set status cho trang jsp de hieu la dang o trang thai nao
-                //status = 1: đang nhap
-                //status = 2: Sai tai khoan, co loi khac xay ra
-
-                request.setAttribute("status", 1);
-                request.getRequestDispatcher("user_page/Login.jsp").forward(request, response);
-            }
-            //neu login=admin thi chuyen den trang login cho dang nhap lai
-            else if (request.getParameter("login").equalsIgnoreCase("admin") ||
-                    request.getParameter("login").equalsIgnoreCase("vendor")) {
-                HttpSession session = request.getSession();
-                if (session.getAttribute("user_id") != null) {
-                    int user_id = (int) session.getAttribute("user_id");
-                    System.out.println("Dang vao dayyyyyyyyyy admin vao admin");
-//                    User user = LoadUser.loadUserById(user_id);
-                    int role_id = (int)session.getAttribute("role_id");
-                    System.out.println("Dang vao dayyyyyyyyyy admin vao admin: "+role_id);
-                    if ( role_id ==2 ||role_id == 3 || role_id == 4) {
-                        request.getRequestDispatcher("handle-login?login=user").forward(request, response);
-                    }
-                }
-
-            }
+            enterLogin(request, response);
             return;
         }
         //Xu li dang xuat
         if (request.getParameter("logout") != null) {
-            if (request.getParameter("logout").equalsIgnoreCase("true")) {
-
-                deleteAvailableSession(request);
-                HttpSession session = request.getSession();
-                session.setAttribute("cart", new Cart());
-                request.getRequestDispatcher("home").forward(request, response);
-            }
+            handleLogout(request, response);
             return;
         }
 
@@ -139,6 +60,14 @@ public class Login_handle extends HttpServlet {
 //        deleteAvailableSession(request);
 
         //xu li xac thuc thong tin tai khoan
+        handleLogin(request, response);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
+    }
+
+    private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = "";
         String pass = "";
         if (request.getParameter("email") != null) {
@@ -170,6 +99,105 @@ public class Login_handle extends HttpServlet {
         } else {
             System.out.println("Vao success");
             successLogin(request, response, user);
+        }
+    }
+
+    private void handleLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getParameter("logout").equalsIgnoreCase("true")) {
+
+            deleteAvailableSession(request);
+            HttpSession session = request.getSession();
+            session.setAttribute("cart", new Cart());
+            request.getRequestDispatcher("home").forward(request, response);
+        }
+    }
+
+    private void enterLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getParameter("login").equalsIgnoreCase("user")) {
+            //set status cho trang jsp de hieu la dang o trang thai nao
+            //status = 1: đang nhap
+            //status = 2: Sai tai khoan, co loi khac xay ra
+
+            request.setAttribute("status", 1);
+            request.getRequestDispatcher("user_page/Login.jsp").forward(request, response);
+        }
+        //neu login=admin thi chuyen den trang login cho dang nhap lai
+        else if (request.getParameter("login").equalsIgnoreCase("admin") ||
+                request.getParameter("login").equalsIgnoreCase("vendor")) {
+            HttpSession session = request.getSession();
+            if (session.getAttribute("user_id") != null) {
+                int user_id = (int) session.getAttribute("user_id");
+                System.out.println("Dang vao dayyyyyyyyyy admin vao admin");
+//                    User user = LoadUser.loadUserById(user_id);
+                int role_id = (int)session.getAttribute("role_id");
+                System.out.println("Dang vao dayyyyyyyyyy admin vao admin: "+role_id);
+                if ( role_id ==2 ||role_id == 3 || role_id == 4) {
+                    request.getRequestDispatcher("handle-login?login=user").forward(request, response);
+                }
+            }
+
+        }
+    }
+
+    private void handleForgetPass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (Load_ForgetPass.loadForgetPassByEmail(request.getParameter("email_forget_pass")) != null) {
+            notifyError(2, "Email đã đăng kí nhận mail thay đổi mật khẩu", request, response);
+            return;
+        }
+        User user = LoadUser.loadAUserByEmail(request.getParameter("email_forget_pass"));
+
+        if (user != null) {
+            ForgetPass fp = new ForgetPass(user.getId(), user.getEmail(), user.getPassword());
+            boolean succSave = Load_ForgetPass.saveForgetPass(fp);
+            if (succSave) {
+                String link = "http://localhost:8082/handle-login?conform-fp=true&key=" + fp.getKey_forget();
+                String subject = "Lấy lại mật khẩu";
+                String content = "Chào " + user.getName() + "!,"
+                        + "\n Đây là link lấy lại mật khẩu! Link có thời hạn 3 ngày kể từ ngày nhận. Bấm vào để xác nhận\n"
+                        + link;
+
+                Mail.sendMail(content, subject, user.getEmail());
+
+            }
+        }
+        notifyError(2, "Email đã được gửi, nếu email đã đăng kí, vui lòng kiểm tra email", request, response);
+        return;
+    }
+
+    private boolean enterForgetPass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String key = request.getParameter("key");
+        ForgetPass fp = Load_ForgetPass.loadForgetPassByKey(key);
+        if (fp != null) {
+            long diffInMillies = Math.abs(new Date().getTime() - fp.getDate_end().getTime());
+            long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+            if (diff <= 3) {
+                request.setAttribute("title", "Đổi mật khẩu");
+                request.setAttribute("key", key);
+                System.out.println("co vao day ne*********");
+                request.getRequestDispatcher("user_page/change-forgot-password.jsp").forward(request, response);
+                return true;
+            }
+        } else {
+            notifyError(2, "Sai thông tin", request, response);
+            return true;
+        }
+        return false;
+    }
+
+    private void forgetPass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = request.getParameter("email-change-pass");
+        String key = request.getParameter("key");
+        System.out.println("Day la key: " + key);
+        String pass = request.getParameter("new-pass");
+        ForgetPass fp = Load_ForgetPass.loadForgetPassByEmailKey(email, key);
+        if (fp != null) {
+            LoadUser.changePassword(fp.getUser_id(), fp.getEmail(), pass);
+            Load_ForgetPass.deleteForgetPassByKey(key);
+            request.getRequestDispatcher("user_page/Login.jsp").forward(request, response);
+            return;
+        } else {
+            notifyError(2, "Sai thông tin lấy lại mật khẩu!", request, response);
+            return;
         }
     }
 

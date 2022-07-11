@@ -1,7 +1,9 @@
 package vn.thegioidochoi.controller.admin_page;
 
 import vn.thegioidochoi.Dao.Load_Order;
+import vn.thegioidochoi.Dao.Load_Supplier;
 import vn.thegioidochoi.model.order.Order;
+import vn.thegioidochoi.model.supplier.Supplier;
 import vn.thegioidochoi.model.util.Util;
 
 import javax.servlet.ServletException;
@@ -27,6 +29,7 @@ public class TotalReport_direct extends HttpServlet {
         // Khoi tao gia tri mac dinh cho bien view = 1..6
         int type_view = 0;
         String status = "%";
+        String supplier = "%";
         String from_date = "20190101";
         String to_date = Util.dateFormat(new Date());
 
@@ -37,6 +40,8 @@ public class TotalReport_direct extends HttpServlet {
         if(request.getParameter("type_view") != null){
             type_view = Integer.parseInt(request.getParameter("type_view"));
         }
+        if(request.getParameter("supplier")!=null)
+            supplier=request.getParameter("supplier");
         if(type_view == 1){
             status = "1";
         } else if(type_view == 2){
@@ -60,9 +65,11 @@ public class TotalReport_direct extends HttpServlet {
         System.out.println("user co role_id"+role_id);
         if(role_id==2){
             int supplier_id = (int)session.getAttribute("supplier_id");
-            orderList = Load_Order.loadOrderByStatusWithSupplierId(status,from_date,to_date,supplier_id);
+            orderList = Load_Order.loadOrderByStatusWithSupplierId(status,from_date,to_date,supplier_id+"");
         }else {
-            orderList = Load_Order.loadOrderByStatus(status,from_date,to_date);
+            List<Supplier> suppliers = Load_Supplier.loadSupplier_view();
+            request.setAttribute("suppliers", suppliers);
+            orderList = Load_Order.loadOrderByStatusWithSupplierId(status,from_date,to_date,supplier);
         }
 
         request.setAttribute("total_report", orderList);

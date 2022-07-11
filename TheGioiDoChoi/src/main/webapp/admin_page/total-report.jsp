@@ -69,6 +69,19 @@
                     <form action="total_report" method="post">
                         <div class="row filter-row">
                             <!-- Thay đổi theo danh sách đề mục -->
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <label>Cửa hàng</label>
+                                    <select class="form-control select2" style="width: 100%" name="supplier">
+                                        <option value="%">Tất cả</option>
+                                        <c:forEach var="supplier" items="${suppliers}">
+                                            <option value="${supplier.id}"
+                                                <%--                                                    <c:if test="${supplier.id==product.supplier_id}">selected</c:if>--%>
+                                            >${supplier.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label>Từ Ngày</label>
