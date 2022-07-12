@@ -164,7 +164,7 @@ public class Load_Supplier {
         }
     }
     public static boolean insertSupplier(Supplier supplier){
-        String sql = "insert into supplier(logo, address, email, phone, description, commission_rate, user_id, company_name, website, slug, name) \n" +
+        String sql = "insert into supplier(logo, address, email, phone, description, commission_rate, user_id, company_name, website, slug, name,active) \n" +
                 "value(?,?,?,?,?,?,?,?,?,?,?)";
         int update = 0;
         try {
@@ -180,6 +180,7 @@ public class Load_Supplier {
             pe.setString(9, supplier.getWebsite());
             pe.setString(10, supplier.getSlug());
             pe.setString(11, supplier.getName());
+            pe.setInt(12, 1);
 
             System.out.println(pe.toString());
             synchronized (pe) {
