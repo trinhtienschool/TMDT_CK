@@ -62,7 +62,7 @@ public class TotalReport_direct extends HttpServlet {
             int supplier_id = (int)session.getAttribute("supplier_id");
             orderList = Load_Order.loadOrderByStatusWithSupplierId(status,from_date,to_date,supplier_id);
         }else {
-            orderList = Load_Order.loadOrderByStatus(status,from_date,to_date);
+                orderList = Load_Order.loadOrderByStatus(status,from_date,to_date);
         }
 
         request.setAttribute("total_report", orderList);
