@@ -136,8 +136,8 @@
 											</div>
 										</td>
 										<td class="text-right">
-											<a href="add-supplier?type=enterEdit&id=${su.id}" class="btn btn-sm bg-success-light mr-2">	<i class="far fa-edit mr-1"></i> Sửa người dùng</a>
-											<a href="add-supplier?type=enterEdit&id=${su.id}" class="btn btn-sm bg-success-light mr-2">	<i class="far fa-edit mr-1"></i> Sửa cửa hàng</a>
+											<a style="color: #ffc800" href="add-supplier?type=enterEdit&id=${su.id}" class="btn btn-sm bg-purple-light mr-2">	<i class="far fa-edit mr-1"></i> Sửa người dùng</a>
+											<a href="setting?user_id=${su.user_id}" class="btn btn-sm bg-success-light mr-2">	<i class="far fa-edit mr-1"></i> Sửa cửa hàng</a>
 <%--&lt;%&ndash;											<button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</button>&ndash;%&gt;--%>
 <%--											<a href="add-supplier?type=delete&id=${r.id}" style="margin-top: 5px;color: red "--%>
 <%--											   class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i>--%>

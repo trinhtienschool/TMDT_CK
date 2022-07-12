@@ -6,6 +6,7 @@ import vn.thegioidochoi.Dao.connection_pool.DBCPDataSource;
 import vn.thegioidochoi.Dao.LoadHeaderFooter;
 import vn.thegioidochoi.model.header_footer.Social_media;
 import vn.thegioidochoi.Dao.Load_Supplier;
+import vn.thegioidochoi.model.schedule.AutoTop3BestSupplier;
 import vn.thegioidochoi.model.user.Cart;
 
 import javax.servlet.ServletContext;
@@ -56,6 +57,7 @@ public class Home_direct extends HttpServlet {
         request.getRequestDispatcher("user_page/home.jsp").forward(request,response);
     }
     protected void initAttr(){
+        AutoTop3BestSupplier.runSchedule();
         ServletContext context = getServletContext();
 
         if(context.getAttribute("header") == null) {

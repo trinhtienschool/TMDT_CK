@@ -580,8 +580,8 @@
                         </div>
                         <div class="more-shop-info col-8 row">
                             <div class="supplier-product center col-md-4"><p style="font-size: 16px;">Sản phẩm: <span>${supplier.total_product}</span></p></div>
-                            <div class="supplier-product center  col-md-4"><p style="font-size: 16px;">Sản phẩm: <span>${supplier.total_product}</span></p></div>
-                            <div class="supplier-product center col-md-4"><p style="font-size: 16px;">Sản phẩm: <span>${supplier.total_product}</span></p></div>
+<%--                            <div class="supplier-product center  col-md-4"><p style="font-size: 16px;">Sản phẩm: <span>${supplier.total_product}</span></p></div>--%>
+<%--                            <div class="supplier-product center col-md-4"><p style="font-size: 16px;">Sản phẩm: <span>${supplier.total_product}</span></p></div>--%>
 
                         </div>
                     </div>
@@ -628,7 +628,7 @@
                                     <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 ">
                                         <div class="ps-block--average-rating">
                                             <div class="ps-block__header">
-                                                <h3>4.00</h3>
+                                                <h3>${totalratestar}</h3>
                                                 <div class="ps-product__rating">
                                                     <%--                                                <div class="product-rating">--%>
                                                     <c:if test="${proavgstar.avgstar==5}">

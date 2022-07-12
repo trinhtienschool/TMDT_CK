@@ -98,6 +98,13 @@ public class User_direct extends HttpServlet {
     // Tach dia chi
     protected void getDetailAddress(String address, HttpSession session) {
         String[] arr = address.split(",");
+        if(arr.length <3){
+            session.setAttribute("city", "");
+            session.setAttribute("district", "");
+            session.setAttribute("ward", "");
+            session.setAttribute("detail", address);
+            return;
+        }
         String city = arr[arr.length - 1];
         String district = arr[arr.length - 2];
         String ward = arr[arr.length - 3];

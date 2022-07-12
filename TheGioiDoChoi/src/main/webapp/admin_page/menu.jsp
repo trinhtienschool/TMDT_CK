@@ -149,8 +149,8 @@
                         </c:if>
                             <li><a href="supplier"
                                <c:if test="${current_page=='supplier'}">class="active"</c:if>>Nhà cung cấp</a></li>
-                        <li><a href="supplier"
-                               <c:if test="${current_page=='supplier'}">class="active"</c:if>>Rút tiền</a></li>
+                        <li><a href="withdraw"
+                               <c:if test="${current_page=='withdraw'}">class="active"</c:if>>Rút tiền</a></li>
 
 
                     </ul>

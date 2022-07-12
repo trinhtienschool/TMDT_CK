@@ -321,6 +321,33 @@ public class Load_Supplier {
     }
     public static List<Supplier> loadTopSupplierWithOderTable(int nos){
         List<Supplier>suppliers = new ArrayList<Supplier>();
+        String sql = "select r.supplier_id, s.name, s.logo, s.company_name,s.slug, sum(r.total_price*(100-r.commission_rate)/100) as total from `order` r JOIN supplier s on r.supplier_id = s.id join top_supplier_history tsh on tsh.supplier_id=r.supplier_id where month(r.date_created) = month(curdate() - interval 1 month) and year(r.date_created)= year(curdate()) GROUP BY r.supplier_id, s.logo, s.company_name and month(tsh.date_created) = month(curdate()) ORDER BY total DESC LIMIT "+nos;
+        try{
+            Statement statement = DBCPDataSource.getStatement();
+            synchronized (statement){
+                ResultSet resultSet = statement.executeQuery(sql);
+                while (resultSet.next()){
+                    Supplier supplier = new Supplier();
+                    supplier.setId(resultSet.getInt(1));
+                    supplier.setName(resultSet.getString(2));
+                    supplier.setLogo(resultSet.getString(3));
+                    supplier.setCompany_name(resultSet.getString(4));
+                    supplier.setSlug(resultSet.getString(5));
+                    supplier.setRevenue(resultSet.getDouble(6));
+
+                    suppliers.add(supplier);
+                }
+                resultSet.close();
+            }
+            statement.close();
+            return suppliers;
+        } catch(SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+    public static List<Supplier> loadTopSupplierPriviousMonth(int nos){
+        List<Supplier>suppliers = new ArrayList<Supplier>();
         String sql = "select r.supplier_id, s.name, s.logo, s.company_name,s.slug, sum(r.total_price*(100-r.commission_rate)/100) as total \n" +
                 "from `order` r JOIN supplier s on r.supplier_id = s.id where month(r.date_created) = month(curdate() - interval 1 month) and year(r.date_created)= year(curdate()) GROUP BY r.supplier_id, s.logo, s.company_name\n" +
                 "ORDER BY total DESC\n" +
@@ -348,6 +375,10 @@ public class Load_Supplier {
             throwables.printStackTrace();
         }
         return null;
+    }
+    public static boolean updateCommission( int id){
+        String sql = "Update supplier set commission_rate=1 where id=" + id;
+        return excuteSql(sql);
     }
     public static int loadSupplierIdWithUserId(int user_id){
         String sql = "select id from supplier where user_id = ?";
@@ -482,7 +513,7 @@ public class Load_Supplier {
     public static Supplier loadSupplierSettings(int id){
         Supplier supplier = new Supplier();
         try {
-            PreparedStatement pe = DBCPDataSource.preparedStatement("SELECT u.`name`, s.company_name, s.website, u.phone, s.address, s.logo, s.description, s.slug FROM supplier s JOIN `user` u ON s.id=u.id WHERE s.id=?");
+            PreparedStatement pe = DBCPDataSource.preparedStatement("SELECT u.`name`, s.company_name, s.website, u.phone, s.address, s.logo, s.description, s.slug FROM supplier s JOIN `user` u ON s.user_id=u.id WHERE u.id=?");
             pe.setInt(1,id);
             synchronized (pe){
                 ResultSet rs = pe.executeQuery();
@@ -524,7 +555,7 @@ public class Load_Supplier {
         return false;
     }
     public static void main(String[] args) {
-        List<Supplier> suppliers = loadTopSupplierWithOderTable(3);
+        List<Supplier> suppliers = loadTopSupplierPriviousMonth(3);
 //        for()
         for(Supplier s: suppliers){
             System.out.println(s);

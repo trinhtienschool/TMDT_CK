@@ -29,7 +29,7 @@
                             <h3 class="page-title">Thiết lập người bán</h3>
                         </div>
                         <div class="col-3">
-                            <a href="#">XEM CỬA HÀNG <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                            <a href="../supplier?supplier=${supplier.slug}">XEM CỬA HÀNG <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
 
                         </div>
                     </div>
@@ -61,41 +61,44 @@
                                                     <div class="form-group">
                                                         <label>Website</label>
                                                         <input type="text" class="form-control" name="website"
-                                                                value="${supplier.website}">
+                                                               value="${supplier.website}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Điện thoại</label>
                                                         <input type="number" class="form-control" name="phone"
-                                                                value="0${supplier.phone}">
+                                                               value="0${supplier.phone}">
                                                     </div>
-<%--                                                    <div class="form-group">--%>
-<%--                                                        <label>Địa chỉ</label>--%>
-<%--                                                        <div class="row">--%>
-<%--                                                            <div class="col-lg-3 col-md-6 col-sm-12">--%>
-<%--                                                                <input type="text" class="form-control" placeholder="Tỉnh/Thành phố" name="city"--%>
-<%--                                                                            value="${sessionScope.city}">--%>
-<%--                                                            </div>--%>
-<%--                                                            <div class="col-lg-3 col-md-6 col-sm-12">--%>
-<%--                                                                <input type="text" class="form-control" placeholder="Quận/Huyện" name="district"--%>
-<%--                                                                            value="${sessionScope.district}">--%>
-<%--                                                            </div>--%>
-<%--                                                            <div class="col-lg-3 col-md-6 col-sm-12">--%>
-<%--                                                                <input type="text" class="form-control" placeholder="Phường/Xã" name="ward"--%>
-<%--                                                                            value="${sessionScope.ward}">--%>
-<%--                                                            </div>--%>
-<%--                                                            <div class="col-lg-3 col-md-6 col-sm-12">--%>
-<%--                                                                <input type="text" class="form-control" placeholder="Chi tiết" name="detail"--%>
-<%--                                                                            value="${sessionScope.detail}">--%>
-<%--                                                            </div>--%>
-<%--                                                        </div>--%>
-<%--                                                    </div>--%>
+                                                    <div class="form-group">
+                                                        <label>Địa chỉ</label>
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                                                <input type="text" class="form-control" placeholder="Tỉnh/Thành phố" name="city"
+                                                                       value="${city}">
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                                                <input type="text" class="form-control" placeholder="Quận/Huyện" name="district"
+                                                                       value="${district}">
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                                                <input type="text" class="form-control" placeholder="Phường/Xã" name="ward"
+                                                                       value="${ward}">
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                                                <input type="text" class="form-control" placeholder="Chi tiết" name="detail"
+                                                                       value="${detail}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="form-group">
                                                         <label>Ảnh đại diện</label>
                                                         <div class="uploader">
-                                                            <input type="file" class="form-control" name="logo"/>
+                                                            <input class="form-control thumbnail-img img-field" type="file" name="thumbnail-img"
+                                                                   accept=".png, .jpg, .jpeg">                                                        </div>
+                                                        <div class="gallery-thumbnail-img">
+                                                            <img  <c:if test="${fn:startsWith(supplier.logo, 'imgs')}"> src="../${supplier.logo}"</c:if>
+                                                                                                                      <c:if test="${fn:startsWith(supplier.logo, 'http')}">src="${supplier.logo}"</c:if>
+                                                                                                                      style="margin-right: 10px; width: 100px; height: 100px;">
                                                         </div>
-
-                                                        <img src="../${supplier.logo}" class="site-logo" alt=""/>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Mô tả cửa hàng</label>

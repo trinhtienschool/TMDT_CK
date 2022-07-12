@@ -76,28 +76,32 @@
         </div>
         <!--                <div class="ps-section__right"><a href="#"><img src="../imgs/home/slider/promotion-1.jpg" alt=""></a><a href="#"><img src="../imgs/home/slider/promotion-2.jpg" alt=""></a><a class="wide" href="#"><img src="../imgs/home/slider/promotion-3.jpg" alt=""></a><a href="#"><img src="../imgs/home/slider/promotion-4.jpg" alt=""></a><a href="#"><img src="../imgs/home/slider/promotion-5.jpg" alt=""></a></div>-->
     </div>
-    <div class="container">
-        <div class="ps-block__header">
+    <div class="container-fluid" style="margin: 0 !important;padding: 0 !important;">
+        <div class="ps-block__header" >
             <div class="ps-section__content">
                 <div class="ps-block--categories-tabs ps-tab-root">
-                    <div class="ps-block__header">
+                    <div class="ps-block__header row">
+
                         <div class="ps-carousel--nav ps-tab-list owl-slider" data-owl-auto="false"
                              data-owl-speed="1000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true"
                              data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="2" data-owl-item-md="2"
                              data-owl-item-lg="4" data-owl-item-xl="4" data-owl-duration="500"
                              data-owl-mousedrag="on">
-                            <a href="#bestseller"><i
+                            <a href="shopping" class="deny-carousel"><i
                                     class="fa fa-flash"></i><span>Siêu sale</span></a>
-                            <a href="#new"><i
+                            <a href="shopping" class="deny-carousel"><i
                                     class="fa fa-shopping-cart"></i><span>Mua sắm</span></a>
-                            <a href="#highlight"><i
+                            <a href="" ><i
                                     class="fa fa-book"></i><span>Blog</span></a>
-                            <a href="#suggest"><i
-                                class="fa fa-percent"></i><span>Mã giảm giá</span></a></div>
-                        </div>
+                            <a href="" ><i
+                                    class="fa fa-percent"></i><span>Mã giảm giá</span></a></div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="container" >
+
         <section id="age-section" style="margin-top: 50px;">
             <!-- <h2 class="sr-only">Promotion Section</h2> -->
             <div class="container">

@@ -27,6 +27,10 @@
 // });
 
 (function ($) {
+    $(".deny-carousel").click(function (e) {
+        e.preventDefault();
+        window.location.href = $(this).attr('href');
+    })
     console.log("add-cart-inputttttttttt")
     console.log($(".add-cart-input").length>0)
     if($(".add-cart-input").length > 0) {

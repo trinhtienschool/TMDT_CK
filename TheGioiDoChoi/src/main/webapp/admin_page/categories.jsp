@@ -73,31 +73,85 @@
                             <div class="table-responsive">
                                 <table class="table table-hover table-center mb-0 datatable">
                                     <thead>
-                                    <tr>
+                                    <tr role="row">
                                         <th>ID</th>
                                         <th>Danh mục</th>
                                         <th>Danh mục cha</th>
-                                        <th class="text-right">Hành Động</th>
+                                        <th >Hành Động</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach var="c" items="${categories}">
-                                        <tr>
-                                            <td>${c.id}</td>
-                                            <td>${c.name}</td>
-                                            <td class="text-right">
-                                                <a href="add-category?type=enterEdit&id=${c.id}"
-                                                   class="btn btn-sm bg-success-light mr-2">
-                                                    <i class="far fa-edit mr-1"></i> Sửa</a>
-                                                <c:if test="${c.id!=c.master_id}">
-                                                    <a href="delete-category?type=sub&id=${c.id}" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</a>
-                                                </c:if>
-                                                <c:if test="${c.id==c.master_id}">
-                                                <a href="delete-category?type=parent&id=${c.id}" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</a>
-                                                </c:if>
-                                            </td>
-                                        </tr>
+
+
+                                    <c:forEach var="cate" items="${applicationScope.category}">
+
+                                        <c:if test="${cate.master_id == cate.id && cate.parent==0 }">
+                                    <tr>
+                                        <td>
+                                            ${cate.id}
+                                        <td>
+                                        <td>
+                                            ${cate.name}
+                                        <td>
+                                        <td>
+                                                ""
+                                        <td>
+                                        <td >
+                                            <a href="add-category?type=enterEdit&id=${c.id}"
+                                               class="btn btn-sm bg-success-light mr-2">
+                                                <i class="far fa-edit mr-1"></i> Sửa</a>
+                                                <a href="delete-category?type=sub&id=${c.id}" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</a>
+
+                                        </td>
+                                    <tr>
+                                        </c:if>
+
+                                        <c:if test="${cate.master_id == cate.id && cate.parent==1 }">
+
+                                                <c:forEach var="subcate" items="${cate.subcategories}">
+                                                    <tr>
+                                                    <td>
+                                                            ${subcate.id}
+                                                    <td>
+                                                    <td>
+                                                        ${subcate.name}
+                                                    <td>
+                                                    <td>
+                                                        ${cate.name}
+                                                    <td>
+                                                    <td >
+                                                        <a href="add-category?type=enterEdit&id=${c.id}"
+                                                           class="btn btn-sm bg-success-light mr-2">
+                                                            <i class="far fa-edit mr-1"></i> Sửa</a>
+                                                    <a href="delete-category?type=parent&id=${c.id}" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</a>
+
+                                                    </td>
+                                                    </tr>
+                                                </c:forEach>
+
+                                        </c:if>
+
                                     </c:forEach>
+
+
+
+<%--                                    <c:forEach var="c" items="${categories}">--%>
+<%--                                        <tr>--%>
+<%--                                            <td>${c.id}</td>--%>
+<%--                                            <td>${c.name}</td>--%>
+<%--                                            <td class="text-right">--%>
+<%--                                                <a href="add-category?type=enterEdit&id=${c.id}"--%>
+<%--                                                   class="btn btn-sm bg-success-light mr-2">--%>
+<%--                                                    <i class="far fa-edit mr-1"></i> Sửa</a>--%>
+<%--                                                <c:if test="${c.id!=c.master_id}">--%>
+<%--                                                    <a href="delete-category?type=sub&id=${c.id}" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</a>--%>
+<%--                                                </c:if>--%>
+<%--                                                <c:if test="${c.id==c.master_id}">--%>
+<%--                                                <a href="delete-category?type=parent&id=${c.id}" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</a>--%>
+<%--                                                </c:if>--%>
+<%--                                            </td>--%>
+<%--                                        </tr>--%>
+<%--                                    </c:forEach>--%>
                                     </tbody>
                                 </table>
                             </div>

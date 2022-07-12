@@ -162,8 +162,8 @@ public class Setting_direct extends HttpServlet {
             }
             Supplier supplier = null;
             if (request.getParameter("supplier") != null) {
-                int supplier_id = Integer.parseInt(request.getParameter("supplier"));
-                supplier = Load_Supplier.loadSupplierSettings(supplier_id);
+                user_id = Integer.parseInt(request.getParameter("user_id"));
+                supplier = Load_Supplier.loadSupplierSettings(user_id);
             } else supplier = Load_Supplier.loadSupplierSettings(user_id);
             System.out.println("supplier: "+supplier);
             System.out.println("user_id: "+user_id);
@@ -176,6 +176,13 @@ public class Setting_direct extends HttpServlet {
     // Tach dia chi
     protected void getDetailAddress(String address, HttpServletRequest request) {
         String[] arr = address.split(",");
+        if(arr.length <3){
+            request.setAttribute("city", "");
+            request.setAttribute("district", "");
+            request.setAttribute("ward", "");
+            request.setAttribute("detail", address);
+            return;
+        }
         String city = arr[arr.length - 1];
         String district = arr[arr.length - 2];
         String ward = arr[arr.length - 3];
@@ -183,6 +190,7 @@ public class Setting_direct extends HttpServlet {
         for (int i = 0; i < arr.length - 3; i++) {
             detail += arr[i] + " ";
         }
+
         request.setAttribute("city", city);
         request.setAttribute("district", district);
         request.setAttribute("ward", ward);

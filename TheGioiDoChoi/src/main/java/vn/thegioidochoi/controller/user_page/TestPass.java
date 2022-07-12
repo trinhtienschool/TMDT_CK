@@ -1,6 +1,7 @@
 package vn.thegioidochoi.controller.user_page;
 
 import vn.thegioidochoi.Dao.Load_Supplier;
+import vn.thegioidochoi.model.Product.Withdraw;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -295,12 +296,14 @@ public class TestPass {
 //        sql += cate_ids+")";
 //        System.out.println(sql);
 
-        String[] a = Load_Supplier.getWeekChart("%",false);
-        System.out.println(a[0]);
-        System.out.println(a[1]);
-        String[] a1 = Load_Supplier.getWeekChart("%",true);
-        System.out.println(a1[0]);
-        System.out.println(a1[1]);
+//        String[] a = Load_Supplier.getWeekChart("%",false);
+//        System.out.println(a[0]);
+//        System.out.println(a[1]);
+//        String[] a1 = Load_Supplier.getWeekChart("%",true);
+//        System.out.println(a1[0]);
+//        System.out.println(a1[1]);
+
+        System.out.println(Load_Supplier.loadTopSupplierWithOderTable(3));
 
     }
 

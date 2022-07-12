@@ -20,6 +20,7 @@ public class Withdraw {
     private String paypal_email;
     private Date date_created;
     private int status;
+    private String supplier_name;
 
     public Withdraw(int id, int user_id, int supplier_id, double current_balance, double withdraw_amount, double remain_balance, String paypal_email, Date date_created, int status) {
         this.id = id;
@@ -113,6 +114,14 @@ public class Withdraw {
         return status;
     }
 
+    public String getSupplier_name() {
+        return supplier_name;
+    }
+
+    public void setSupplier_name(String supplier_name) {
+        this.supplier_name = supplier_name;
+    }
+
     public void setStatus(int status) {
         this.status = status;
     }
@@ -138,13 +147,13 @@ public class Withdraw {
         }
         return false;
     }
-    public static boolean updateWithdraw(Withdraw withdraw){
+    public static boolean updateWithdraw(int status, int id){
         String sql = " update withdraw set status = ? where id = ?";
         int update = 0;
         try {
             PreparedStatement pe = DBCPDataSource.preparedStatement(sql);
-            pe.setInt(1, withdraw.getStatus());
-            pe.setInt(2, withdraw.getId());
+            pe.setInt(1, status);
+            pe.setInt(2, id);
             synchronized (pe) {
                 update = pe.executeUpdate();
             }
@@ -156,12 +165,12 @@ public class Withdraw {
         return false;
     }
 
-    public static List<Withdraw> loadWithdraws(int supplier_id) {
+    public static List<Withdraw> loadWithdraws(String supplier_id) {
         List<Withdraw> withdraws = new ArrayList<>();
         try {
             Statement statement = DBCPDataSource.getStatement();
             synchronized (statement) {
-                ResultSet resultSet = statement.executeQuery("select * from `withdraw` where supplier_id = " + supplier_id + " ORDER BY date_created desc");
+                ResultSet resultSet = statement.executeQuery("select w.*, s.`name` from `withdraw` w join supplier s on w.supplier_id = s.id where supplier_id like '"+supplier_id+"' ORDER BY date_created desc");
                 while (resultSet.next()) {
 
                     Withdraw withdraw = new Withdraw();
@@ -174,6 +183,7 @@ public class Withdraw {
                     withdraw.setPaypal_email(resultSet.getString(7));
                     withdraw.setStatus(resultSet.getInt(8));
                     withdraw.setDate_created(resultSet.getDate(9));
+                    withdraw.setSupplier_name(resultSet.getString(10));
 
                     withdraws.add(withdraw);
 
