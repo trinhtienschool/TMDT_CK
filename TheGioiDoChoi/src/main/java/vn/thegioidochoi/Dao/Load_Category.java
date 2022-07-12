@@ -209,7 +209,8 @@ public class Load_Category {
 //        System.out.println(insertCategory("Cây ăn quả",0,"cay-an-qua"));
 //        System.out.println(loadAllCategories());
 //        System.out.println(loadParentCategories());
-        System.out.println(loadNewIdOfCategory());
+//        System.out.println(loadNewIdOfCategory());
+        System.out.println(loadCategoryById(16).getName());
     }
 
     public static int loadNewIdOfCategory() {

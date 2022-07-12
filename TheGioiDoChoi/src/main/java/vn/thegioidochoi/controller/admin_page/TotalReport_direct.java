@@ -66,11 +66,10 @@ public class TotalReport_direct extends HttpServlet {
         if(role_id==2){
             int supplier_id = (int)session.getAttribute("supplier_id");
             orderList = Load_Order.loadOrderByStatusWithSupplierId(status,from_date,to_date,supplier_id+"");
-        }else {
-            List<Supplier> suppliers = Load_Supplier.loadSupplier_view();
+        }else {  List<Supplier> suppliers = Load_Supplier.loadSupplier_view();
             request.setAttribute("suppliers", suppliers);
             orderList = Load_Order.loadOrderByStatusWithSupplierId(status,from_date,to_date,supplier);
-        }
+            }
 
         request.setAttribute("total_report", orderList);
         request.setAttribute("title", "Danh sách đặt hàng");

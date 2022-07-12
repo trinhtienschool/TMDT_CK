@@ -73,6 +73,27 @@ public class Notification_Con_DB {
         return false;
     }
 
+    public static boolean addNotification(String title, String conntent, String date_created, int user_id, int admin_id, int supplier_id, int type){
+        try {
+            PreparedStatement preparedStatement = DBCPDataSource.preparedStatement("INSERT INTO notifications(title,content,date_created, user_id, admin_id, supplier_id,type) VALUES (?,?,?,?,?,?,?)");
+            preparedStatement.setString(1,title);
+            preparedStatement.setString(2,conntent);
+            preparedStatement.setString(3,date_created);
+            preparedStatement.setInt(4,user_id);
+            preparedStatement.setInt(5,admin_id);
+            preparedStatement.setInt(6,supplier_id);
+            preparedStatement.setInt(7,type);
+            synchronized (preparedStatement){
+                preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            return true;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
 //        System.out.println(loadNotificationsFormSql("select * from notifications"));
         for(Notifications a:loadNotificationsFormSql("select * from notifications where supplier_id=1")){
